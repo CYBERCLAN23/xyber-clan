@@ -5,18 +5,18 @@ import { translations } from './translations';
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
     const elementRef = useRef(null);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
-                    observer.disconnect();
                 }
             },
             {
-                threshold: 0.1
+                threshold: 0.1,
+                rootMargin: '50px'
             }
         );
 
@@ -24,7 +24,11 @@ const useScrollAnimation = () => {
             observer.observe(elementRef.current);
         }
 
-        return () => observer.disconnect();
+        return () => {
+            if (observer) {
+                observer.disconnect();
+            }
+        };
     }, []);
 
     return [elementRef, isVisible];
