@@ -238,12 +238,12 @@ const TeamPage = () => {
             description: 'Leads the cybersecurity team with expertise in penetration testing, security education, and backend development. Combines offensive security skills with teaching abilities to protect and educate.',
             expertise: ['Penetration Testing', 'Security Education', 'Backend Development', 'Threat Analysis'],
             socials: [
-                { name: 'LinkedIn', icon: <Linkedin className="w-5 h-5" />, url: '#', color: 'hover:text-blue-600' },
-                { name: 'GitHub', icon: <Github className="w-5 h-5" />, url: '#', color: 'hover:text-gray-900 dark:hover:text-white' },
+                { name: 'LinkedIn', icon: <Linkedin className="w-5 h-5" />, url: 'https://www.linkedin.com/in/lembou-pharel?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', color: 'hover:text-blue-600' },
+                { name: 'GitHub', icon: <Github className="w-5 h-5" />, url: 'https://github.com/lemboupharel', color: 'hover:text-gray-900 dark:hover:text-white' },
                 { name: 'Twitter', icon: <Twitter className="w-5 h-5" />, url: '#', color: 'hover:text-sky-500' },
-                { name: 'Facebook', icon: <Facebook className="w-5 h-5" />, url: '#', color: 'hover:text-blue-700' },
+                { name: 'Facebook', icon: <Facebook className="w-5 h-5" />, url: 'https://www.facebook.com/share/1Gq7AeNACD/', color: 'hover:text-blue-700' },
                 { name: 'TikTok', icon: <Send className="w-5 h-5" />, url: '#', color: 'hover:text-pink-600' },
-                { name: 'WhatsApp', icon: <MessageCircle className="w-5 h-5" />, url: '#', color: 'hover:text-green-500' }
+                { name: 'WhatsApp', icon: <MessageCircle className="w-5 h-5" />, url: 'https://wa.me/237672446810', color: 'hover:text-green-500' }
             ]
         }
     ];
