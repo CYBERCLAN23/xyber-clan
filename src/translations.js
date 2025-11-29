@@ -137,12 +137,12 @@ export const translations = {
             phone: 'Phone:',
             email: 'Email:',
             questions: {
-                projectType: 'What type of project do you need?',
-                projectName: 'What\'s your project or business name?',
-                description: 'Tell us about your project',
-                timeline: 'What\'s your timeline?',
-                budget: 'What\'s your budget range?',
-                contact: 'How can we contact you?'
+                projectType: '🤔 What type of project do you need?',
+                projectName: '🤩 What\'s your project or business name?',
+                description: '😃 Tell us about your project',
+                timeline: '🧐 What\'s your timeline?',
+                budget: '🤑 What\'s your budget range?',
+                contact: '👋 How can we contact you?'
             },
             placeholders: {
                 projectName: 'e.g., My Awesome Startup',
@@ -314,12 +314,12 @@ export const translations = {
             phone: 'Tél :',
             email: 'Email :',
             questions: {
-                projectType: 'De quel type de projet avez-vous besoin ?',
-                projectName: 'Quel est le nom de votre projet ou entreprise ?',
-                description: 'Parlez-nous de votre projet',
-                timeline: 'Quel est votre délai ?',
-                budget: 'Quelle est votre fourchette de budget ?',
-                contact: 'Comment pouvons-nous vous contacter ?'
+                projectType: '🤔 De quel type de projet avez-vous besoin ?',
+                projectName: '🤩 Quel est le nom de votre projet ou entreprise ?',
+                description: '😃 Parlez-nous de votre projet',
+                timeline: '🧐 Quel est votre délai ?',
+                budget: '🤑 Quelle est votre fourchette de budget ?',
+                contact: '👋 Comment pouvons-nous vous contacter ?'
             },
             placeholders: {
                 projectName: 'ex: Ma Super Startup',
