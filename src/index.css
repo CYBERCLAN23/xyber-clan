@@ -2,239 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+
+  :root {
+    /* ULTRA Light Theme (Primary) */
+    --bg-primary: #FAFAFA;
+    --bg-secondary: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --border-color: #E5E7EB;
+    --border-highlight: #06b6d4;
+    --grid-color: rgba(0, 0, 0, 0.05);
+    --card-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .dark {
+    /* ULTRA Dark Theme */
+    --bg-primary: #050505;
+    --bg-secondary: #0A0A0A;
+    --text-primary: #F9FAFB;
+    --text-secondary: #9CA3AF;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-highlight: #06b6d4;
+    --grid-color: rgba(255, 255, 255, 0.03);
+    --card-shadow: none;
+  }
+
+  body {
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300;
+    font-family: 'Inter', sans-serif;
+    background-image:
+      linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components {
+
+  /* The Core "Ultra" Bento Box */
+  .bento-card {
+    @apply bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl relative overflow-hidden transition-all duration-300;
+    box-shadow: var(--card-shadow);
+  }
+
+  .bento-card:hover {
+    @apply border-cyan-500/30;
+    box-shadow: 0 4px 20px -2px rgba(6, 182, 212, 0.1);
+  }
+
+  /* Sharp/Tech Typography */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600;
+    @apply dark:from-cyan-400 dark:to-blue-500;
+  }
+
+  /* Navigation Island */
+  .nav-island {
+    @apply bg-white/80 dark:bg-black/80 backdrop-blur-md border border-[var(--border-color)] rounded-full shadow-sm;
+  }
 }
 
-/* Custom Scrollbar */
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  @apply bg-[var(--bg-primary)];
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 5px;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #334155;
+  @apply bg-gray-300 dark:bg-gray-800 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in {
-  opacity: 1;
-}
-
-.fade-in:not(.visible) {
-  opacity: 0;
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-/* Staggered Animations */
-.stagger-1 {
-  animation-delay: 100ms;
-}
-
-.stagger-2 {
-  animation-delay: 200ms;
-}
-
-.stagger-3 {
-  animation-delay: 300ms;
-}
-
-.stagger-4 {
-  animation-delay: 400ms;
-}
-
-.stagger-5 {
-  animation-delay: 500ms;
-}
-
-.stagger-6 {
-  animation-delay: 600ms;
-}
-
-/* Slide Up Animation */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.slide-up {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.slide-up:not(.visible) {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.slide-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-  animation: slideUp 0.8s ease-out;
-}
-
-/* Zoom In Animation */
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.zoom-in {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.zoom-in:not(.visible) {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-.zoom-in.visible {
-  opacity: 1;
-  transform: scale(1);
-  animation: zoomIn 0.6s ease-out;
-}
-
-/* Slide In Left/Right */
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.slide-in-left {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.slide-in-left:not(.visible) {
-  opacity: 0;
-  transform: translateX(-50px);
-}
-
-.slide-in-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-  animation: slideInLeft 0.8s ease-out;
-}
-
-.slide-in-right {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.slide-in-right:not(.visible) {
-  opacity: 0;
-  transform: translateX(50px);
-}
-
-.slide-in-right.visible {
-  opacity: 1;
-  transform: translateX(0);
-  animation: slideInRight 0.8s ease-out;
-}
-
-/* Grid Pattern Background */
-.bg-grid-pattern {
-  background-image: linear-gradient(to right, currentColor 1px, transparent 1px),
-    linear-gradient(to bottom, currentColor 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-/* View Transition API for Theme Switch */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 9999;
-}
-
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-
-.dark::view-transition-new(root) {
-  z-index: 1;
+  @apply bg-cyan-500;
 }
