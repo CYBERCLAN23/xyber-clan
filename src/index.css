@@ -4,6 +4,10 @@
 
 @layer base {
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   :root {
     /* ULTRA Light Theme (Primary) */
     --bg-primary: #FAFAFA;

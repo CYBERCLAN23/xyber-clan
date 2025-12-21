@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Shield, Code, ChevronRight, Sun, Moon, Menu, X, Linkedin, Github, Twitter, Facebook, Globe, Laptop, Briefcase, Palette, Image as ImageIcon, Sparkles, ChevronLeft } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
@@ -73,6 +74,42 @@ const TeamPage = () => {
             socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
         },
         {
+            image: '/team/communications-manager.jpg',
+            name: 'Analyst Python',
+            role: 'Strategic Planning & Co-Founder',
+            icon: <Code className="w-6 h-6" />,
+            description: 'Specializes in Python analysis and strategic planning. Driving the technical vision and business strategy of XyberClan.',
+            expertise: ['Python Analysis', 'Strategic Planning', 'Data Science'],
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+        },
+        {
+            image: '/team/figma-canva-designer.jpg',
+            name: 'UI/UX Designer',
+            role: 'Figma & Canva Specialist',
+            icon: <Palette className="w-6 h-6" />,
+            description: 'Creates beautiful, functional designs. Specializes in rapid prototyping and transforming ideas into polished visual experiences.',
+            expertise: ['Figma Prototyping', 'Canva Design', 'Design Systems'],
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+        },
+        {
+            image: '/team/adobe-designer.jpeg',
+            name: 'Creative Designer',
+            role: 'Adobe Suite Expert',
+            icon: <ImageIcon className="w-6 h-6" />,
+            description: 'Master of visual storytelling. Delivers high-quality graphics and branding materials that elevate brand presence.',
+            expertise: ['Adobe Photoshop', 'Illustrator', 'Brand Identity'],
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+        },
+        {
+            image: '/team/frontend-designer.jpg',
+            name: 'Frontend Developer',
+            role: 'Web Designer & Frontend Dev',
+            icon: <Code className="w-6 h-6" />,
+            description: 'Bridging the gap between design and engineering. Expert in building responsive, pixel-perfect user interfaces.',
+            expertise: ['React', 'Web Design', 'UI/UX Implementation'],
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+        },
+        {
             image: '/team/cybersecurity-chief.jpg',
             name: 'Chief of Cybersecurity',
             role: 'Security Educator & Pentester',
@@ -83,6 +120,19 @@ const TeamPage = () => {
         }
     ];
 
+    const [radius, setRadius] = useState(750);
+
+    // Handle resizing for responsive carousel radius
+    useEffect(() => {
+        const handleResize = () => {
+            setRadius(window.innerWidth < 768 ? 350 : 750);
+        };
+
+        handleResize(); // Set initial
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const nextMember = () => setActiveIndex((prev) => (prev + 1) % teamMembers.length);
     const prevMember = () => setActiveIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
 
@@ -92,7 +142,7 @@ const TeamPage = () => {
     }, []);
 
     return (
-        <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
+        <div className={`min-h-screen w-full overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
 
             {/* Navigation */}
             <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
@@ -100,16 +150,22 @@ const TeamPage = () => {
                     ? (isDark ? 'bg-black/80 backdrop-blur-xl border border-white/10 shadow-2xl shadow-cyan-900/10' : 'bg-white/80 backdrop-blur-xl border border-gray-200 shadow-xl shadow-gray-200/50')
                     : 'bg-transparent'
                     }`}>
-                    <a href="/" className="flex items-center gap-3 group cursor-pointer">
+                    <Link to="/" className="flex items-center gap-3 group cursor-pointer">
                         <img src="/team/logo.jpg" alt="XyberClan" className="w-14 h-14 object-contain rounded-xl" />
                         <span className={`text-xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>XyberClan</span>
-                    </a>
+                    </Link>
 
                     <div className="hidden lg:flex items-center space-x-1">
                         {['home', 'about', 'services', 'team', 'contact'].map((item) => (
-                            <a key={item} href={item === 'team' ? '/team' : `/#${item}`} className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}>
-                                {t.nav[item]}
-                            </a>
+                            item === 'team' ? (
+                                <Link key={item} to="/team" className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}>
+                                    {t.nav[item]}
+                                </Link>
+                            ) : (
+                                <a key={item} href={`/#${item}`} className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}>
+                                    {t.nav[item]}
+                                </a>
+                            )
                         ))}
                     </div>
 
@@ -120,15 +176,62 @@ const TeamPage = () => {
                         <button onClick={toggleLang} className={`p-2.5 rounded-lg font-bold text-xs transition-colors ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/10' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}>
                             {lang.toUpperCase()}
                         </button>
-                        <a href="/start-project" className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all hover:scale-105 shadow-lg shadow-black/10 bg-black text-white hover:bg-gray-800">
+                        <Link to="/start-project" className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all hover:scale-105 shadow-lg shadow-black/10 bg-black text-white hover:bg-gray-800">
                             {t.nav.getStarted}
-                        </a>
+                        </Link>
                     </div>
 
                     <button className="lg:hidden p-2 rounded-lg text-inherit" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
                         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </nav>
+
+                {/* Mobile Menu Drawer */}
+                <div className={`absolute top-24 left-4 right-4 lg:hidden transition-all duration-500 pointer-events-auto ${mobileMenuOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-4 scale-95 pointer-events-none'}`}>
+                    <div className={`rounded-3xl border p-6 shadow-2xl backdrop-blur-2xl ${isDark ? 'bg-black/90 border-white/10 shadow-cyan-500/10' : 'bg-white/90 border-gray-200 shadow-gray-200/50'}`}>
+                        <div className="flex flex-col gap-2">
+                            {['home', 'about', 'services', 'team', 'contact'].map((item, idx) => (
+                                item === 'team' ? (
+                                    <Link
+                                        key={item}
+                                        to="/team"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className={`px-6 py-4 rounded-2xl text-lg font-bold transition-all ${isDark ? 'text-gray-300 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}
+                                        style={{ animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${idx * 0.05}s both` : 'none' }}
+                                    >
+                                        {t.nav[item]}
+                                    </Link>
+                                ) : (
+                                    <a
+                                        key={item}
+                                        href={`/#${item}`}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className={`px-6 py-4 rounded-2xl text-lg font-bold transition-all ${isDark ? 'text-gray-300 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}
+                                        style={{ animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${idx * 0.05}s both` : 'none' }}
+                                    >
+                                        {t.nav[item]}
+                                    </a>
+                                )
+                            ))}
+                            <div className="h-px bg-current opacity-10 my-4" />
+                            <div className="flex items-center justify-between px-6 py-2">
+                                <span className="font-bold opacity-60">{lang === 'en' ? 'Appearance' : 'Apparence'}</span>
+                                <button onClick={toggleTheme} className={`p-4 rounded-2xl transition-all ${isDark ? 'bg-white/5 text-yellow-400' : 'bg-black/5 text-blue-600'}`}>
+                                    {isDark ? <Sun size={24} /> : <Moon size={24} />}
+                                </button>
+                            </div>
+                            <div className="flex items-center justify-between px-6 py-2">
+                                <span className="font-bold opacity-60">{lang === 'en' ? 'Language' : 'Langue'}</span>
+                                <button onClick={toggleLang} className={`px-6 py-4 rounded-2xl font-black transition-all ${isDark ? 'bg-white/5 text-cyan-400' : 'bg-black/5 text-cyan-600'}`}>
+                                    {lang.toUpperCase()}
+                                </button>
+                            </div>
+                            <Link to="/start-project" onClick={() => setMobileMenuOpen(false)} className="mt-6 w-full py-5 rounded-2xl bg-[#00A3FF] text-white font-black text-center text-xl shadow-xl shadow-[#00A3FF]/20">
+                                {t.nav.getStarted}
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* Team Hero Arc - Lowered and Carousel Animation */}
@@ -141,7 +244,7 @@ const TeamPage = () => {
                         <span className="text-xs font-black uppercase tracking-widest">Global Talent</span>
                     </div>
 
-                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-12 animate-fade-in-up delay-100">
+                    <h1 className="text-5xl md:text-9xl font-black tracking-tighter mb-12 animate-fade-in-up delay-100">
                         Meet our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Team</span>
                     </h1>
                     <p className={`text-xl md:text-2xl max-w-2xl mx-auto mb-32 opacity-60 animate-fade-in-up delay-200 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -159,7 +262,7 @@ const TeamPage = () => {
                     </div>
 
                     {/* The Arc Visual - Larger Radius and Lowered */}
-                    <div className="relative w-full max-w-6xl mx-auto h-[450px]">
+                    <div className="relative w-full max-w-6xl mx-auto h-[600px]">
                         <div className="absolute top-0 left-0 right-0 flex justify-center items-end">
                             {teamMembers.map((member, idx) => {
                                 const total = teamMembers.length;
@@ -168,13 +271,12 @@ const TeamPage = () => {
                                 if (diff > total / 2) diff -= total;
                                 if (diff < -total / 2) diff += total;
 
-                                const angle = diff * 18; // Spread items
-                                const radius = 650; // Larger radius for more curve
+                                const angle = diff * 20; // Slightly larger spread for 9 members
+                                // radius is now from state
                                 const x = Math.sin(angle * (Math.PI / 180)) * radius;
-                                const y = (1 - Math.cos(angle * (Math.PI / 180))) * radius + 50; // Increased base 'y' offset
+                                const y = (1 - Math.cos(angle * (Math.PI / 180))) * radius + 250; // Lowered significantly (100 -> 250)
 
                                 const isCenter = Math.abs(diff) < 0.1;
-                                const isNear = Math.abs(diff) < 2;
 
                                 return (
                                     <div
@@ -182,13 +284,13 @@ const TeamPage = () => {
                                         className={`absolute transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${isCenter ? 'z-50' : 'z-10'} pointer-events-auto cursor-pointer`}
                                         onClick={() => setActiveIndex(idx)}
                                         style={{
-                                            transform: `translate(${x}px, ${y}px) rotate(${angle}deg) scale(${isCenter ? 1.2 : 0.8})`,
-                                            width: '240px',
-                                            opacity: isNear ? 1 : 0.3,
-                                            filter: isCenter ? 'none' : 'grayscale(50%) blur(1px)'
+                                            transform: `translate(${x}px, ${y}px) rotate(${angle}deg) scale(${isCenter ? 1.2 : 0.85})`,
+                                            width: '220px',
+                                            opacity: 1, // All members visible
+                                            filter: isCenter ? 'none' : 'grayscale(20%)' // Subtle grayscale for non-centered
                                         }}
                                     >
-                                        <div className={`relative p-3 rounded-[2.5rem] bg-neutral-900 border-4 ${isCenter ? 'border-cyan-500' : 'border-white/10'} shadow-2xl transition-all duration-500`}>
+                                        <div className={`relative p-3 rounded-[2.5rem] bg-neutral-900 border-4 ${isCenter ? 'border-[#00A3FF]' : 'border-white/10'} shadow-2xl transition-all duration-500`}>
                                             <div className="aspect-[3.5/5] rounded-[2rem] overflow-hidden">
                                                 <img
                                                     src={member.image}
@@ -198,13 +300,13 @@ const TeamPage = () => {
                                             </div>
 
                                             {isCenter && (
-                                                <div className="absolute -bottom-16 left-0 right-0 animate-fade-in text-center">
-                                                    <h3 className="text-xl font-black text-white">{member.name}</h3>
-                                                    <p className="text-cyan-400 font-bold text-sm uppercase tracking-widest">{member.role}</p>
+                                                <div className="absolute -bottom-20 left-0 right-0 animate-fade-in text-center">
+                                                    <h3 className="text-2xl font-black text-white">{member.name}</h3>
+                                                    <p className="text-[#00A3FF] font-bold text-sm uppercase tracking-widest">{member.role}</p>
                                                 </div>
                                             )}
 
-                                            <div className={`absolute inset-0 -z-10 bg-cyan-500/20 blur-3xl transition-opacity duration-700 ${isCenter ? 'opacity-100' : 'opacity-0'}`}></div>
+                                            <div className={`absolute inset-0 -z-10 bg-[#00A3FF]/20 blur-3xl transition-opacity duration-700 ${isCenter ? 'opacity-100' : 'opacity-0'}`}></div>
                                         </div>
                                     </div>
                                 );
@@ -233,7 +335,7 @@ const TeamPage = () => {
                             </div>
 
                             <div className={`${idx % 2 === 1 ? 'lg:order-1' : ''} space-y-10`}>
-                                <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none">{member.name}</h2>
+                                <h2 className="text-4xl md:text-8xl font-black tracking-tighter leading-none">{member.name}</h2>
                                 <p className={`text-2xl leading-relaxed opacity-60 font-medium ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                                     {member.description}
                                 </p>
@@ -278,6 +380,10 @@ const TeamPage = () => {
                 @keyframes fadeIn {
                     from { opacity: 0; }
                     to { opacity: 1; }
+                }
+                @keyframes slideIn {
+                    from { opacity: 0; transform: translateX(-20px); }
+                    to { opacity: 1; transform: translateX(0); }
                 }
             `}</style>
         </div>

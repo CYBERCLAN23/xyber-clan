@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { ChevronRight } from 'lucide-react';
 
@@ -45,16 +46,16 @@ const CTASection = () => {
 
                         <div className="flex flex-wrap gap-5">
                             {/* Primary Button - Brand Blue */}
-                            <button className="group bg-[#00A3FF] hover:bg-[#0082CC] text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-xl shadow-[#00A3FF]/20">
+                            <Link to="/start-project" className="group bg-[#00A3FF] hover:bg-[#0082CC] text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-xl shadow-[#00A3FF]/20">
                                 Get Started
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </button>
+                            </Link>
 
                             {/* Secondary Button */}
-                            <button className={`group px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all duration-300 hover:scale-105 ${isDark ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
+                            <a href="/#contact" className={`group px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all duration-300 hover:scale-105 ${isDark ? 'bg-white text-black font-black' : 'bg-gray-900 text-white'}`}>
                                 Contact Us
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

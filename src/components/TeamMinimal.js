@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import { User, Code, Palette, Zap, ArrowRight, ExternalLink } from 'lucide-react';
@@ -90,17 +91,41 @@ const TeamMinimal = () => {
                 </div>
 
                 <div className={`flex flex-col md:flex-row items-center justify-between p-10 rounded-3xl border ${isDark ? 'bg-neutral-900/30 border-neutral-800' : 'bg-cyan-50/50 border-cyan-100'} ${visible ? 'animate-fade-in-up delay-200' : 'opacity-0'}`}>
-                    <div>
-                        <h4 className="text-2xl font-bold mb-2">Want to see the full list of our specialists?</h4>
-                        <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'}`}>We have a diverse clan ready to tackle any challenge.</p>
+                    <div className="flex flex-col gap-6">
+                        <div>
+                            <h4 className="text-2xl font-bold mb-2">Want to see the full list of our specialists?</h4>
+                            <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'}`}>We have a diverse clan of 9+ specialists ready to tackle any challenge.</p>
+                        </div>
+
+                        {/* Avatar Stack Preview */}
+                        <div className="flex items-center -space-x-4">
+                            {[
+                                '/team/ceo-member.jpg',
+                                '/team/cto-redteamer.jpg',
+                                '/team/dev-member.jpg',
+                                '/team/web-designer.jpg',
+                                '/team/communications-manager.jpg',
+                                '/team/figma-canva-designer.jpg',
+                                '/team/adobe-designer.jpeg',
+                                '/team/frontend-designer.jpg',
+                                '/team/cybersecurity-chief.jpg'
+                            ].map((img, i) => (
+                                <div key={i} className="w-12 h-12 rounded-full border-2 border-white dark:border-black overflow-hidden bg-gray-200">
+                                    <img src={img} alt="Team Member" className="w-full h-full object-cover" />
+                                </div>
+                            ))}
+                            <div className="w-12 h-12 rounded-full border-2 border-white dark:border-black bg-cyan-500 flex items-center justify-center text-white text-xs font-bold">
+                                +9
+                            </div>
+                        </div>
                     </div>
-                    <a
-                        href="/team"
-                        className="mt-6 md:mt-0 flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-2xl font-bold transition-all hover:scale-105 shadow-xl shadow-cyan-500/20"
+                    <Link
+                        to="/team"
+                        className="mt-10 md:mt-0 flex items-center gap-2 bg-black text-white px-8 py-4 rounded-2xl font-bold transition-all hover:scale-105 shadow-xl shadow-black/20"
                     >
-                        View Full Team
-                        <ExternalLink size={18} />
-                    </a>
+                        Explore Elite Team
+                        <ArrowRight size={18} />
+                    </Link>
                 </div>
             </div>
         </section>

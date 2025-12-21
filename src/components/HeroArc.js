@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
@@ -70,9 +71,9 @@ const HeroArc = () => {
                 </p>
 
                 <div className="flex justify-center gap-4 animate-fade-in-up delay-300">
-                    <a href="/start-project" className="px-8 py-4 bg-black text-white font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2 shadow-xl shadow-black/20">
+                    <Link to="/start-project" className="px-8 py-4 bg-black text-white font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2 shadow-xl shadow-black/20">
                         Start Project <ArrowRight size={20} />
-                    </a>
+                    </Link>
                 </div>
             </div>
 

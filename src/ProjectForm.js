@@ -1,94 +1,379 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronRight, ChevronLeft, Send, Mail, MessageCircle, Check, Globe, Smartphone, Palette, Shield, Monitor, GraduationCap, Zap, Calendar, CalendarDays, CalendarRange, Clock, Coins, Banknote, CreditCard, Gem, HelpCircle } from 'lucide-react';
-import { translations } from './translations';
+import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import {
+    ChevronRight, ChevronLeft, Mail, MessageCircle, Check,
+    Globe, Smartphone, Palette, Shield, Monitor, GraduationCap,
+    Zap, Calendar, Clock, Coins, Banknote, Gem, HelpCircle,
+    ShoppingCart, Sparkles, ArrowRight, Home, Sun, Moon,
+    User, Building, Users, Crosshair, Target, FileText,
+    Pencil, Timer, Wallet, Phone, Layers, Image,
+    Wrench, Wifi, Lock, BookOpen, Code, Layout
+} from 'lucide-react';
+import { useTheme } from './context/ThemeContext';
 
 const ProjectForm = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const [direction, setDirection] = useState('forward');
-    const [lang, setLang] = useState('en');
-    const t = translations[lang];
+    const { isDark, toggleTheme } = useTheme();
 
     const [formData, setFormData] = useState({
         projectType: '',
+        // Common fields
         projectName: '',
         description: '',
         timeline: '',
         budget: '',
         contactName: '',
         contactPhone: '',
-        contactEmail: ''
+        contactEmail: '',
+        // Website specific
+        websitePages: '',
+        websiteFeatures: [],
+        hasDomain: '',
+        // App specific
+        appPlatform: '',
+        appFeatures: [],
+        // Shop specific
+        shopProducts: '',
+        shopPayment: '',
+        // Design specific
+        designType: [],
+        hasColors: '',
+        // Security specific
+        securityType: '',
+        // Computer specific
+        computerIssue: '',
+        // Training specific
+        trainingTopic: '',
+        trainingPeople: ''
     });
 
-    const questions = [
-        {
+    // Base questions that appear for all project types
+    const baseQuestions = {
+        projectType: {
             id: 'projectType',
-            question: t.form.questions.projectType,
+            icon: <Crosshair className="w-8 h-8 text-cyan-500" />,
+            question: 'What can we help you with?',
+            subtitle: 'Pick one to get started',
             type: 'choice',
+            autoAdvance: true,
             options: [
-                { value: 'web', label: t.form.options.web, icon: <Globe className="w-8 h-8" /> },
-                { value: 'mobile', label: t.form.options.mobile, icon: <Smartphone className="w-8 h-8" /> },
-                { value: 'design', label: t.form.options.design, icon: <Palette className="w-8 h-8" /> },
-                { value: 'cybersec', label: t.form.options.cybersec, icon: <Shield className="w-8 h-8" /> },
-                { value: 'hardware', label: t.form.options.hardware, icon: <Monitor className="w-8 h-8" /> },
-                { value: 'training', label: t.form.options.training, icon: <GraduationCap className="w-8 h-8" /> }
+                { value: 'website', label: 'Website', desc: 'Business sites, portfolios, landing pages', icon: <Globe className="w-10 h-10" />, color: 'cyan' },
+                { value: 'app', label: 'Mobile App', desc: 'iOS, Android, or both', icon: <Smartphone className="w-10 h-10" />, color: 'purple' },
+                { value: 'shop', label: 'Online Shop', desc: 'Sell products online', icon: <ShoppingCart className="w-10 h-10" />, color: 'green' },
+                { value: 'design', label: 'Logo & Design', desc: 'Branding, graphics, UI/UX', icon: <Palette className="w-10 h-10" />, color: 'pink' },
+                { value: 'security', label: 'Cybersecurity', desc: 'Audits, protection, testing', icon: <Shield className="w-10 h-10" />, color: 'red' },
+                { value: 'computer', label: 'Computer Help', desc: 'Repair, setup, networks', icon: <Monitor className="w-10 h-10" />, color: 'orange' },
+                { value: 'training', label: 'Tech Training', desc: 'Courses & workshops', icon: <GraduationCap className="w-10 h-10" />, color: 'blue' },
+                { value: 'other', label: 'Something Else', desc: 'Custom request', icon: <Sparkles className="w-10 h-10" />, color: 'gray' }
             ]
         },
-        {
+        projectName: {
             id: 'projectName',
-            question: t.form.questions.projectName,
+            icon: <FileText className="w-8 h-8 text-cyan-500" />,
+            question: 'What\'s your project called?',
+            subtitle: 'Your business or project name',
             type: 'text',
-            placeholder: t.form.placeholders.projectName
+            placeholder: 'e.g., My Coffee Shop, Tech Solutions...'
         },
-        {
-            id: 'description',
-            question: t.form.questions.description,
-            type: 'textarea',
-            placeholder: t.form.placeholders.description
-        },
-        {
+        timeline: {
             id: 'timeline',
-            question: t.form.questions.timeline,
+            icon: <Timer className="w-8 h-8 text-cyan-500" />,
+            question: 'When do you need it?',
+            subtitle: 'Pick the closest option',
             type: 'choice',
+            autoAdvance: true,
             options: [
-                { value: 'asap', label: t.form.options.asap, icon: <Zap className="w-8 h-8" /> },
-                { value: '1-2weeks', label: t.form.options.weeks, icon: <Calendar className="w-8 h-8" /> },
-                { value: '1month', label: t.form.options.month, icon: <CalendarDays className="w-8 h-8" /> },
-                { value: '2-3months', label: t.form.options.months, icon: <CalendarRange className="w-8 h-8" /> },
-                { value: 'flexible', label: t.form.options.flexible, icon: <Clock className="w-8 h-8" /> }
+                { value: 'urgent', label: 'ASAP', desc: 'Within a week', icon: <Zap className="w-10 h-10" />, color: 'red' },
+                { value: 'soon', label: '2 Weeks', desc: 'Pretty soon', icon: <Calendar className="w-10 h-10" />, color: 'orange' },
+                { value: 'month', label: '1 Month', desc: 'No rush', icon: <Calendar className="w-10 h-10" />, color: 'blue' },
+                { value: 'flexible', label: 'Flexible', desc: 'Take your time', icon: <Clock className="w-10 h-10" />, color: 'green' }
             ]
         },
-        {
+        budget: {
             id: 'budget',
-            question: t.form.questions.budget,
+            icon: <Wallet className="w-8 h-8 text-cyan-500" />,
+            question: 'What\'s your budget?',
+            subtitle: 'We have options for everyone',
             type: 'choice',
+            autoAdvance: true,
             options: [
-                { value: 'under100k', label: t.form.options.under100k, icon: <Coins className="w-8 h-8" /> },
-                { value: '100k-500k', label: t.form.options.range1, icon: <Banknote className="w-8 h-8" /> },
-                { value: '500k-1m', label: t.form.options.range2, icon: <CreditCard className="w-8 h-8" /> },
-                { value: '1m+', label: t.form.options.over1m, icon: <Gem className="w-8 h-8" /> },
-                { value: 'notsure', label: t.form.options.notSure, icon: <HelpCircle className="w-8 h-8" /> }
+                { value: 'starter', label: 'Under 100K XAF', desc: 'Basic projects', icon: <Coins className="w-10 h-10" />, color: 'green' },
+                { value: 'standard', label: '100K - 300K XAF', desc: 'Standard projects', icon: <Banknote className="w-10 h-10" />, color: 'blue' },
+                { value: 'premium', label: '300K - 500K XAF', desc: 'Premium quality', icon: <Gem className="w-10 h-10" />, color: 'purple' },
+                { value: 'enterprise', label: '500K+ XAF', desc: 'Large projects', icon: <Building className="w-10 h-10" />, color: 'cyan' },
+                { value: 'discuss', label: 'Let\'s Discuss', desc: 'Need consultation', icon: <HelpCircle className="w-10 h-10" />, color: 'gray' }
             ]
         },
-        {
+        contact: {
             id: 'contact',
-            question: t.form.questions.contact,
+            icon: <Phone className="w-8 h-8 text-cyan-500" />,
+            question: 'How do we reach you?',
+            subtitle: 'We\'ll contact you within 24 hours',
             type: 'contact',
             fields: [
-                { id: 'contactName', label: t.form.contactLabels.name, placeholder: t.form.placeholders.contactName, type: 'text' },
-                { id: 'contactPhone', label: t.form.contactLabels.phone, placeholder: t.form.placeholders.contactPhone, type: 'tel' },
-                { id: 'contactEmail', label: t.form.contactLabels.email, placeholder: t.form.placeholders.contactEmail, type: 'email' }
+                { id: 'contactName', label: 'Your Name', placeholder: 'John Doe', type: 'text', icon: <User className="w-5 h-5" /> },
+                { id: 'contactPhone', label: 'WhatsApp Number', placeholder: '+237 6XX XXX XXX', type: 'tel', icon: <MessageCircle className="w-5 h-5" /> },
+                { id: 'contactEmail', label: 'Email (optional)', placeholder: 'john@example.com', type: 'email', icon: <Mail className="w-5 h-5" /> }
             ]
         }
-    ];
+    };
 
-    const [theme, setTheme] = useState('light');
-    const isDark = theme === 'dark';
+    // Type-specific questions
+    const typeSpecificQuestions = {
+        website: [
+            {
+                id: 'websitePages',
+                icon: <Layout className="w-8 h-8 text-cyan-500" />,
+                question: 'How many pages do you need?',
+                subtitle: 'Approximate number is fine',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: '1-3', label: '1-3 Pages', desc: 'Simple landing page', icon: <FileText className="w-10 h-10" />, color: 'green' },
+                    { value: '4-7', label: '4-7 Pages', desc: 'Small business site', icon: <Layers className="w-10 h-10" />, color: 'blue' },
+                    { value: '8-15', label: '8-15 Pages', desc: 'Medium website', icon: <Layers className="w-10 h-10" />, color: 'purple' },
+                    { value: '15+', label: '15+ Pages', desc: 'Large website', icon: <Building className="w-10 h-10" />, color: 'cyan' }
+                ]
+            },
+            {
+                id: 'websiteFeatures',
+                icon: <Code className="w-8 h-8 text-cyan-500" />,
+                question: 'What features do you need?',
+                subtitle: 'Select all that apply',
+                type: 'multiChoice',
+                options: [
+                    { value: 'contact', label: 'Contact Form', icon: <Mail className="w-6 h-6" /> },
+                    { value: 'gallery', label: 'Photo Gallery', icon: <Image className="w-6 h-6" /> },
+                    { value: 'booking', label: 'Booking System', icon: <Calendar className="w-6 h-6" /> },
+                    { value: 'blog', label: 'Blog/News', icon: <FileText className="w-6 h-6" /> },
+                    { value: 'login', label: 'User Login', icon: <Lock className="w-6 h-6" /> },
+                    { value: 'multilang', label: 'Multi-language', icon: <Globe className="w-6 h-6" /> }
+                ]
+            },
+            {
+                id: 'hasDomain',
+                icon: <Globe className="w-8 h-8 text-cyan-500" />,
+                question: 'Do you have a domain name?',
+                subtitle: 'Like www.yoursite.com',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: 'yes', label: 'Yes, I Have One', desc: 'Already registered', icon: <Check className="w-10 h-10" />, color: 'green' },
+                    { value: 'no', label: 'No, Need One', desc: 'Help me get one', icon: <ShoppingCart className="w-10 h-10" />, color: 'blue' },
+                    { value: 'unsure', label: 'Not Sure', desc: 'Need guidance', icon: <HelpCircle className="w-10 h-10" />, color: 'gray' }
+                ]
+            }
+        ],
+        app: [
+            {
+                id: 'appPlatform',
+                icon: <Smartphone className="w-8 h-8 text-cyan-500" />,
+                question: 'Which platform?',
+                subtitle: 'Where should the app work?',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: 'android', label: 'Android', desc: 'Samsung, Tecno, etc.', icon: <Smartphone className="w-10 h-10" />, color: 'green' },
+                    { value: 'ios', label: 'iPhone (iOS)', desc: 'Apple devices', icon: <Smartphone className="w-10 h-10" />, color: 'blue' },
+                    { value: 'both', label: 'Both Platforms', desc: 'Android & iOS', icon: <Layers className="w-10 h-10" />, color: 'purple' }
+                ]
+            },
+            {
+                id: 'appFeatures',
+                icon: <Code className="w-8 h-8 text-cyan-500" />,
+                question: 'What features do you need?',
+                subtitle: 'Select all that apply',
+                type: 'multiChoice',
+                options: [
+                    { value: 'login', label: 'User Accounts', icon: <User className="w-6 h-6" /> },
+                    { value: 'payments', label: 'Payments', icon: <Wallet className="w-6 h-6" /> },
+                    { value: 'notifications', label: 'Notifications', icon: <MessageCircle className="w-6 h-6" /> },
+                    { value: 'maps', label: 'Maps/Location', icon: <Target className="w-6 h-6" /> },
+                    { value: 'camera', label: 'Camera/Photos', icon: <Image className="w-6 h-6" /> },
+                    { value: 'offline', label: 'Works Offline', icon: <Wifi className="w-6 h-6" /> }
+                ]
+            }
+        ],
+        shop: [
+            {
+                id: 'shopProducts',
+                icon: <ShoppingCart className="w-8 h-8 text-cyan-500" />,
+                question: 'How many products?',
+                subtitle: 'Approximate number',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: '1-20', label: '1-20 Products', desc: 'Small catalog', icon: <ShoppingCart className="w-10 h-10" />, color: 'green' },
+                    { value: '21-100', label: '21-100 Products', desc: 'Medium store', icon: <Layers className="w-10 h-10" />, color: 'blue' },
+                    { value: '100+', label: '100+ Products', desc: 'Large store', icon: <Building className="w-10 h-10" />, color: 'purple' }
+                ]
+            },
+            {
+                id: 'shopPayment',
+                icon: <Wallet className="w-8 h-8 text-cyan-500" />,
+                question: 'Payment methods needed?',
+                subtitle: 'How will customers pay?',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: 'mobile', label: 'Mobile Money', desc: 'MTN, Orange Money', icon: <Phone className="w-10 h-10" />, color: 'orange' },
+                    { value: 'card', label: 'Card Payments', desc: 'Visa, MasterCard', icon: <Wallet className="w-10 h-10" />, color: 'blue' },
+                    { value: 'both', label: 'Both', desc: 'Mobile & Card', icon: <Layers className="w-10 h-10" />, color: 'green' },
+                    { value: 'cash', label: 'Cash on Delivery', desc: 'Pay when received', icon: <Coins className="w-10 h-10" />, color: 'gray' }
+                ]
+            }
+        ],
+        design: [
+            {
+                id: 'designType',
+                icon: <Palette className="w-8 h-8 text-cyan-500" />,
+                question: 'What design work?',
+                subtitle: 'Select all you need',
+                type: 'multiChoice',
+                options: [
+                    { value: 'logo', label: 'Logo Design', icon: <Image className="w-6 h-6" /> },
+                    { value: 'brand', label: 'Full Branding', icon: <Palette className="w-6 h-6" /> },
+                    { value: 'flyers', label: 'Flyers/Posters', icon: <FileText className="w-6 h-6" /> },
+                    { value: 'social', label: 'Social Media', icon: <Globe className="w-6 h-6" /> },
+                    { value: 'cards', label: 'Business Cards', icon: <Layout className="w-6 h-6" /> },
+                    { value: 'ui', label: 'App/Web UI', icon: <Smartphone className="w-6 h-6" /> }
+                ]
+            },
+            {
+                id: 'hasColors',
+                icon: <Sparkles className="w-8 h-8 text-cyan-500" />,
+                question: 'Do you have brand colors?',
+                subtitle: 'Colors you want to use',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: 'yes', label: 'Yes, I Have Colors', desc: 'Use my existing colors', icon: <Check className="w-10 h-10" />, color: 'green' },
+                    { value: 'ideas', label: 'Some Ideas', desc: 'I have preferences', icon: <Sparkles className="w-10 h-10" />, color: 'blue' },
+                    { value: 'no', label: 'Help Me Choose', desc: 'Suggest colors', icon: <Palette className="w-10 h-10" />, color: 'purple' }
+                ]
+            }
+        ],
+        security: [
+            {
+                id: 'securityType',
+                icon: <Shield className="w-8 h-8 text-cyan-500" />,
+                question: 'What security service?',
+                subtitle: 'What do you need?',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: 'audit', label: 'Security Audit', desc: 'Check for vulnerabilities', icon: <Target className="w-10 h-10" />, color: 'blue' },
+                    { value: 'pentest', label: 'Penetration Test', desc: 'Test defenses', icon: <Shield className="w-10 h-10" />, color: 'red' },
+                    { value: 'training', label: 'Security Training', desc: 'Train my team', icon: <BookOpen className="w-10 h-10" />, color: 'green' },
+                    { value: 'recovery', label: 'Incident Response', desc: 'Got hacked, need help', icon: <Zap className="w-10 h-10" />, color: 'orange' }
+                ]
+            }
+        ],
+        computer: [
+            {
+                id: 'computerIssue',
+                icon: <Wrench className="w-8 h-8 text-cyan-500" />,
+                question: 'What do you need?',
+                subtitle: 'Select the service',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: 'repair', label: 'Computer Repair', desc: 'Fix issues', icon: <Wrench className="w-10 h-10" />, color: 'orange' },
+                    { value: 'setup', label: 'New Setup', desc: 'Install & configure', icon: <Monitor className="w-10 h-10" />, color: 'blue' },
+                    { value: 'network', label: 'Network Setup', desc: 'WiFi, cables, etc.', icon: <Wifi className="w-10 h-10" />, color: 'green' },
+                    { value: 'upgrade', label: 'Upgrade', desc: 'Make it faster', icon: <Zap className="w-10 h-10" />, color: 'purple' }
+                ]
+            }
+        ],
+        training: [
+            {
+                id: 'trainingTopic',
+                icon: <BookOpen className="w-8 h-8 text-cyan-500" />,
+                question: 'What topic?',
+                subtitle: 'What do you want to learn?',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: 'web', label: 'Web Development', desc: 'HTML, CSS, JavaScript', icon: <Code className="w-10 h-10" />, color: 'cyan' },
+                    { value: 'mobile', label: 'Mobile Apps', desc: 'React Native, Flutter', icon: <Smartphone className="w-10 h-10" />, color: 'purple' },
+                    { value: 'design', label: 'Design Tools', desc: 'Figma, Canva, Adobe', icon: <Palette className="w-10 h-10" />, color: 'pink' },
+                    { value: 'security', label: 'Cybersecurity', desc: 'Hacking, defense', icon: <Shield className="w-10 h-10" />, color: 'red' },
+                    { value: 'basics', label: 'Computer Basics', desc: 'Office, internet', icon: <Monitor className="w-10 h-10" />, color: 'green' }
+                ]
+            },
+            {
+                id: 'trainingPeople',
+                icon: <Users className="w-8 h-8 text-cyan-500" />,
+                question: 'How many people?',
+                subtitle: 'Number of students',
+                type: 'choice',
+                autoAdvance: true,
+                options: [
+                    { value: '1', label: 'Just Me', desc: 'Private lessons', icon: <User className="w-10 h-10" />, color: 'blue' },
+                    { value: '2-5', label: '2-5 People', desc: 'Small group', icon: <Users className="w-10 h-10" />, color: 'green' },
+                    { value: '6-15', label: '6-15 People', desc: 'Class', icon: <Users className="w-10 h-10" />, color: 'purple' },
+                    { value: '15+', label: '15+ People', desc: 'Workshop', icon: <Building className="w-10 h-10" />, color: 'cyan' }
+                ]
+            }
+        ],
+        other: []
+    };
 
-    // Detect theme from parent if available
-    useEffect(() => {
-        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        setTheme(darkModeMediaQuery.matches ? 'dark' : 'light');
-    }, []);
+    // Build dynamic questions based on selected project type
+    const questions = useMemo(() => {
+        const q = [baseQuestions.projectType];
+
+        if (formData.projectType) {
+            // Add type-specific questions
+            const specificQs = typeSpecificQuestions[formData.projectType] || [];
+            q.push(...specificQs);
+
+            // Add common questions
+            q.push(baseQuestions.projectName);
+            q.push({
+                id: 'description',
+                icon: <Pencil className="w-8 h-8 text-cyan-500" />,
+                question: 'Tell us more details',
+                subtitle: getDescriptionSubtitle(formData.projectType),
+                type: 'textarea',
+                placeholder: getDescriptionPlaceholder(formData.projectType)
+            });
+            q.push(baseQuestions.timeline);
+            q.push(baseQuestions.budget);
+            q.push(baseQuestions.contact);
+        }
+
+        return q;
+    }, [formData.projectType]);
+
+    function getDescriptionSubtitle(type) {
+        const subtitles = {
+            website: 'Describe your ideal website',
+            app: 'What should the app do?',
+            shop: 'What products will you sell?',
+            design: 'Describe your vision',
+            security: 'What needs protection?',
+            computer: 'Describe the issue or need',
+            training: 'What do you want to achieve?',
+            other: 'Tell us about your project'
+        };
+        return subtitles[type] || subtitles.other;
+    }
+
+    function getDescriptionPlaceholder(type) {
+        const placeholders = {
+            website: 'Example: I need a professional website for my restaurant with an online menu, table reservation system, and photo gallery of our dishes...',
+            app: 'Example: I want an app where my customers can order food, track delivery, and pay with mobile money...',
+            shop: 'Example: I sell handmade jewelry and want to reach customers across Cameroon with mobile money payments...',
+            design: 'Example: I\'m starting a new tech company and need a modern logo, business cards, and social media graphics...',
+            security: 'Example: I run an e-commerce site and want to make sure customer data is safe from hackers...',
+            computer: 'Example: My laptop is very slow, crashes often, and I need help installing software for my business...',
+            training: 'Example: I want to learn web development to build my own websites and maybe start freelancing...',
+            other: 'Describe what you need help with in detail...'
+        };
+        return placeholders[type] || placeholders.other;
+    }
 
     const handleNext = () => {
         if (isStepValid()) {
@@ -105,99 +390,157 @@ const ProjectForm = () => {
     const handleChoice = (value) => {
         const currentQuestion = questions[currentStep];
         setFormData(prev => ({ ...prev, [currentQuestion.id]: value }));
+
+        if (currentQuestion.autoAdvance) {
+            setTimeout(() => {
+                setDirection('forward');
+                setCurrentStep(prev => Math.min(prev + 1, questions.length));
+            }, 300);
+        }
+    };
+
+    const handleMultiChoice = (value) => {
+        const currentQuestion = questions[currentStep];
+        const currentValues = formData[currentQuestion.id] || [];
+        const newValues = currentValues.includes(value)
+            ? currentValues.filter(v => v !== value)
+            : [...currentValues, value];
+        setFormData(prev => ({ ...prev, [currentQuestion.id]: newValues }));
     };
 
     const handleInputChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
-    const toggleLang = () => {
-        setLang(lang === 'en' ? 'fr' : 'en');
-    };
-
     const isStepValid = () => {
         const currentQuestion = questions[currentStep];
+        if (!currentQuestion) return true;
         if (currentQuestion.type === 'choice') {
-            return formData[currentQuestion.id] !== '';
+            return formData[currentQuestion.id] !== '' && formData[currentQuestion.id] !== undefined;
+        } else if (currentQuestion.type === 'multiChoice') {
+            return (formData[currentQuestion.id] || []).length > 0;
         } else if (currentQuestion.type === 'text' || currentQuestion.type === 'textarea') {
             return formData[currentQuestion.id]?.trim() !== '';
         } else if (currentQuestion.type === 'contact') {
-            return formData.contactName?.trim() !== '' &&
-                formData.contactPhone?.trim() !== '' &&
-                formData.contactEmail?.trim() !== '';
+            return formData.contactName?.trim() !== '' && formData.contactPhone?.trim() !== '';
         }
         return true;
     };
 
-    const progress = ((currentStep) / questions.length) * 100;
+    const progress = questions.length > 0 ? ((currentStep) / questions.length) * 100 : 0;
+
+    const getColorClasses = (color, isSelected) => {
+        const colors = {
+            cyan: isSelected ? 'border-cyan-500 bg-cyan-500/10 shadow-cyan-500/30' : 'hover:border-cyan-500/50 hover:bg-cyan-500/5',
+            blue: isSelected ? 'border-blue-500 bg-blue-500/10 shadow-blue-500/30' : 'hover:border-blue-500/50 hover:bg-blue-500/5',
+            purple: isSelected ? 'border-purple-500 bg-purple-500/10 shadow-purple-500/30' : 'hover:border-purple-500/50 hover:bg-purple-500/5',
+            green: isSelected ? 'border-green-500 bg-green-500/10 shadow-green-500/30' : 'hover:border-green-500/50 hover:bg-green-500/5',
+            red: isSelected ? 'border-red-500 bg-red-500/10 shadow-red-500/30' : 'hover:border-red-500/50 hover:bg-red-500/5',
+            orange: isSelected ? 'border-orange-500 bg-orange-500/10 shadow-orange-500/30' : 'hover:border-orange-500/50 hover:bg-orange-500/5',
+            pink: isSelected ? 'border-pink-500 bg-pink-500/10 shadow-pink-500/30' : 'hover:border-pink-500/50 hover:bg-pink-500/5',
+            gray: isSelected ? 'border-gray-500 bg-gray-500/10 shadow-gray-500/30' : 'hover:border-gray-500/50 hover:bg-gray-500/5'
+        };
+        return colors[color] || colors.cyan;
+    };
+
+    const getIconColor = (color) => {
+        const colors = {
+            cyan: 'text-cyan-500', blue: 'text-blue-500', purple: 'text-purple-500',
+            green: 'text-green-500', red: 'text-red-500', orange: 'text-orange-500',
+            pink: 'text-pink-500', gray: 'text-gray-500'
+        };
+        return colors[color] || 'text-cyan-500';
+    };
+
+    const getProjectLabel = (value) => {
+        const labels = {
+            website: 'Website', app: 'Mobile App', shop: 'Online Shop',
+            design: 'Logo & Design', security: 'Cybersecurity', computer: 'Computer Help',
+            training: 'Tech Training', other: 'Custom Project'
+        };
+        return labels[value] || value;
+    };
+
+    const getDetailedSummary = () => {
+        let details = [];
+
+        // Type-specific details
+        if (formData.projectType === 'website') {
+            if (formData.websitePages) details.push(`Pages: ${formData.websitePages}`);
+            if (formData.websiteFeatures?.length) details.push(`Features: ${formData.websiteFeatures.join(', ')}`);
+            if (formData.hasDomain) details.push(`Has Domain: ${formData.hasDomain}`);
+        } else if (formData.projectType === 'app') {
+            if (formData.appPlatform) details.push(`Platform: ${formData.appPlatform}`);
+            if (formData.appFeatures?.length) details.push(`Features: ${formData.appFeatures.join(', ')}`);
+        } else if (formData.projectType === 'shop') {
+            if (formData.shopProducts) details.push(`Products: ${formData.shopProducts}`);
+            if (formData.shopPayment) details.push(`Payment: ${formData.shopPayment}`);
+        } else if (formData.projectType === 'design') {
+            if (formData.designType?.length) details.push(`Design Work: ${formData.designType.join(', ')}`);
+            if (formData.hasColors) details.push(`Has Colors: ${formData.hasColors}`);
+        } else if (formData.projectType === 'security') {
+            if (formData.securityType) details.push(`Service: ${formData.securityType}`);
+        } else if (formData.projectType === 'computer') {
+            if (formData.computerIssue) details.push(`Service: ${formData.computerIssue}`);
+        } else if (formData.projectType === 'training') {
+            if (formData.trainingTopic) details.push(`Topic: ${formData.trainingTopic}`);
+            if (formData.trainingPeople) details.push(`People: ${formData.trainingPeople}`);
+        }
+
+        return details;
+    };
 
     const generateWhatsAppMessage = () => {
-        const projectTypeLabels = {
-            web: t.form.options.web,
-            mobile: t.form.options.mobile,
-            design: t.form.options.design,
-            cybersec: t.form.options.cybersec,
-            hardware: t.form.options.hardware,
-            training: t.form.options.training
-        };
+        const projectLabel = getProjectLabel(formData.projectType);
+        const details = getDetailedSummary();
 
-        const timelineLabels = {
-            asap: t.form.options.asap,
-            '1-2weeks': t.form.options.weeks,
-            '1month': t.form.options.month,
-            '2-3months': t.form.options.months,
-            flexible: t.form.options.flexible
-        };
+        let message = `*NEW PROJECT REQUEST* 🚀
 
-        const budgetLabels = {
-            'under100k': t.form.options.under100k,
-            '100k-500k': t.form.options.range1,
-            '500k-1m': t.form.options.range2,
-            '1m+': t.form.options.over1m,
-            notsure: t.form.options.notSure
-        };
+━━━━━━━━━━━━━━━━━━━━━
 
-        const message = `Hello XyberClan! 👋
+*SERVICE:* ${projectLabel}
+*PROJECT NAME:* ${formData.projectName}
 
-I'm interested in working with you on a project:
+*SPECIFIC DETAILS:*
+${details.length > 0 ? details.map(d => `• ${d}`).join('\n') : '• No additional details'}
 
-📋 *Project Details:*
-• Type: ${projectTypeLabels[formData.projectType] || formData.projectType}
-• Name: ${formData.projectName}
-• Description: ${formData.description}
+*PROJECT DESCRIPTION:*
+${formData.description}
 
-⏰ *Timeline:* ${timelineLabels[formData.timeline] || formData.timeline}
-💰 *Budget:* ${budgetLabels[formData.budget] || formData.budget}
+*TIMELINE:* ${formData.timeline}
+*BUDGET:* ${formData.budget}
 
-👤 *Contact Information:*
-• Name: ${formData.contactName}
-• Phone: ${formData.contactPhone}
-• Email: ${formData.contactEmail}
+━━━━━━━━━━━━━━━━━━━━━
 
-Looking forward to hearing from you!`;
+*CONTACT INFORMATION:*
+👤 Name: ${formData.contactName}
+📱 Phone: ${formData.contactPhone}
+${formData.contactEmail ? `📧 Email: ${formData.contactEmail}` : ''}
+
+━━━━━━━━━━━━━━━━━━━━━
+
+Looking forward to working together! 🙌
+
+_Sent from XyberClan Website_`;
 
         return encodeURIComponent(message);
     };
 
     const generateEmailContent = () => {
-        const projectTypeLabels = {
-            web: t.form.options.web,
-            mobile: t.form.options.mobile,
-            design: t.form.options.design,
-            cybersec: t.form.options.cybersec,
-            hardware: t.form.options.hardware,
-            training: t.form.options.training
-        };
+        const projectLabel = getProjectLabel(formData.projectType);
+        const details = getDetailedSummary();
 
-        const subject = `New Project Inquiry: ${formData.projectName}`;
-        const body = `Hello XyberClan Team,
+        const subject = `New ${projectLabel} Project: ${formData.projectName}`;
+        const body = `NEW PROJECT REQUEST
 
-I'm interested in working with you on a project. Here are the details:
+SERVICE: ${projectLabel}
+PROJECT NAME: ${formData.projectName}
 
-PROJECT DETAILS:
-- Type: ${projectTypeLabels[formData.projectType] || formData.projectType}
-- Name: ${formData.projectName}
-- Description: ${formData.description}
+SPECIFIC DETAILS:
+${details.length > 0 ? details.map(d => `- ${d}`).join('\n') : '- No additional details'}
+
+PROJECT DESCRIPTION:
+${formData.description}
 
 TIMELINE: ${formData.timeline}
 BUDGET: ${formData.budget}
@@ -205,330 +548,244 @@ BUDGET: ${formData.budget}
 CONTACT INFORMATION:
 - Name: ${formData.contactName}
 - Phone: ${formData.contactPhone}
-- Email: ${formData.contactEmail}
+- Email: ${formData.contactEmail || 'Not provided'}
 
-Looking forward to hearing from you!
+---
+Sent from XyberClan Website`;
 
-Best regards,
-${formData.contactName}`;
-
-        return {
-            subject: encodeURIComponent(subject),
-            body: encodeURIComponent(body)
-        };
+        return { subject: encodeURIComponent(subject), body: encodeURIComponent(body) };
     };
 
     const handleWhatsAppSend = () => {
-        const message = generateWhatsAppMessage();
-        const whatsappUrl = `https://wa.me/237654269488?text=${message}`;
-        window.open(whatsappUrl, '_blank');
+        window.open(`https://wa.me/237654269488?text=${generateWhatsAppMessage()}`, '_blank');
     };
 
     const handleEmailSend = () => {
         const { subject, body } = generateEmailContent();
-        const emailUrl = `mailto:contact@xyberclan.com?subject=${subject}&body=${body}`;
-        window.location.href = emailUrl;
+        window.location.href = `mailto:contact@xyberclan.com?subject=${subject}&body=${body}`;
     };
 
     return (
-        <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
+        <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-500`}>
+
             {/* Header */}
-            <div className={`fixed w-full z-50 ${isDark ? 'bg-gray-950/80' : 'bg-white/80'} backdrop-blur-xl border-b ${isDark ? 'border-cyan-500/10' : 'border-gray-200/50'} shadow-lg`}>
-                <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                    <div className="flex justify-between items-center h-20">
-                        <a href="/" className="flex items-center group cursor-pointer">
-                            <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 blur-lg opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                                <span className="relative text-3xl font-black tracking-tight">
-                                    <span className={`${isDark ? 'text-white' : 'text-gray-900'} transition-colors`}>Xyber</span>
-                                    <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Clan</span>
-                                </span>
-                            </div>
-                        </a>
-
-                        <div className="flex items-center gap-4">
-                            {/* Language Toggle Button */}
-                            <button
-                                onClick={toggleLang}
-                                className={`p-2 rounded-xl ${isDark ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800' : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'} transition-all duration-300 hover:scale-110 shadow-lg ${isDark ? 'shadow-cyan-500/10' : 'shadow-gray-300/50'}`}
-                                aria-label="Toggle language"
-                            >
-                                <div className="flex items-center gap-1 font-bold text-sm">
-                                    <Globe className={`w-4 h-4 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
-                                    <span className={isDark ? 'text-gray-300' : 'text-gray-700'}>{lang.toUpperCase()}</span>
-                                </div>
-                            </button>
-
-                            <a
-                                href="/"
-                                className={`text-sm font-semibold ${isDark ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-gray-900'} transition-colors`}
-                            >
-                                ← {t.form.backToHome}
-                            </a>
-                        </div>
+            <div className="fixed top-0 left-0 right-0 z-50 px-4 py-4">
+                <div className="max-w-3xl mx-auto flex justify-between items-center">
+                    <Link to="/" className="flex items-center gap-3 group">
+                        <img src="/team/logo.jpg" alt="XyberClan" className="w-10 h-10 object-contain rounded-xl" />
+                        <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-black'}`}>
+                            Xyber<span className="text-cyan-500">Clan</span>
+                        </span>
+                    </Link>
+                    <div className="flex items-center gap-2">
+                        <button onClick={toggleTheme} className={`p-2 rounded-xl ${isDark ? 'bg-white/10 text-yellow-400' : 'bg-black/5 text-blue-600'}`}>
+                            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                        </button>
+                        <Link to="/" className={`p-2 rounded-xl ${isDark ? 'bg-white/10' : 'bg-black/5'}`}>
+                            <Home size={20} />
+                        </Link>
                     </div>
                 </div>
             </div>
 
-            {/* Progress Bar */}
-            <div className="fixed top-20 left-0 right-0 z-40">
-                <div className={`h-1 ${isDark ? 'bg-gray-900' : 'bg-gray-200'}`}>
-                    <div
-                        className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 transition-all duration-500 ease-out"
-                        style={{ width: `${progress}%` }}
-                    ></div>
+            {/* Progress */}
+            <div className="fixed top-16 left-0 right-0 z-40 px-4 py-2">
+                <div className="max-w-3xl mx-auto">
+                    <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-white/10' : 'bg-black/10'}`}>
+                        <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+                    </div>
                 </div>
             </div>
 
-            {/* Main Content */}
-            <div className="pt-32 pb-20 px-4">
-                <div className="max-w-4xl mx-auto">
-                    {/* Step Counter */}
-                    <div className="text-center mb-8">
-                        <p className={`text-sm font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            {t.form.step} {currentStep + 1} {t.form.of} {questions.length + 1}
-                        </p>
-                    </div>
-
-                    {/* Question Container */}
+            {/* Main */}
+            <div className="pt-28 pb-20 px-4">
+                <div className="max-w-3xl mx-auto">
                     {currentStep < questions.length ? (
-                        <div className="relative overflow-hidden">
-                            <div
-                                key={currentStep}
-                                className={`question-slide ${direction === 'forward' ? 'slide-in-right' : 'slide-in-left'}`}
-                            >
-                                <div className={`${isDark ? 'bg-gradient-to-br from-gray-900 to-gray-800 border-gray-800' : 'bg-white border-gray-200'} border rounded-3xl p-10 md:p-14 shadow-2xl`}>
-                                    <h2 className="text-3xl md:text-4xl font-black mb-10 tracking-tight">
-                                        {questions[currentStep].question}
-                                    </h2>
+                        <div key={`${formData.projectType}-${currentStep}`} className={`${direction === 'forward' ? 'animate-slide-in-right' : 'animate-slide-in-left'}`}>
 
-                                    {/* Choice Type */}
-                                    {questions[currentStep].type === 'choice' && (
-                                        <div className="grid md:grid-cols-2 gap-4">
-                                            {questions[currentStep].options.map((option) => (
-                                                <button
-                                                    key={option.value}
-                                                    onClick={() => handleChoice(option.value)}
-                                                    className={`group p-6 rounded-2xl border-2 transition-all duration-300 text-left ${formData[questions[currentStep].id] === option.value
-                                                        ? 'border-cyan-500 bg-cyan-500/10 shadow-lg shadow-cyan-500/20'
-                                                        : `${isDark ? 'border-gray-700 hover:border-cyan-400/50 bg-gray-800/50' : 'border-gray-200 hover:border-cyan-400/50 bg-gray-50'}`
-                                                        }`}
-                                                >
-                                                    <div className="flex items-center gap-4">
-                                                        <span className="text-3xl">{option.icon}</span>
-                                                        <span className="text-lg font-semibold">{option.label}</span>
-                                                        {formData[questions[currentStep].id] === option.value && (
-                                                            <Check className="w-6 h-6 text-cyan-500 ml-auto" />
-                                                        )}
-                                                    </div>
-                                                </button>
-                                            ))}
-                                        </div>
-                                    )}
-
-                                    {/* Text Input Type */}
-                                    {questions[currentStep].type === 'text' && (
-                                        <input
-                                            type="text"
-                                            value={formData[questions[currentStep].id] || ''}
-                                            onChange={(e) => handleInputChange(questions[currentStep].id, e.target.value)}
-                                            placeholder={questions[currentStep].placeholder}
-                                            className={`w-full px-6 py-4 rounded-2xl border-2 text-lg ${isDark
-                                                ? 'bg-gray-800/50 border-gray-700 focus:border-cyan-500 text-white placeholder-gray-500'
-                                                : 'bg-white border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'
-                                                } focus:outline-none transition-colors`}
-                                        />
-                                    )}
-
-                                    {/* Textarea Type */}
-                                    {questions[currentStep].type === 'textarea' && (
-                                        <textarea
-                                            value={formData[questions[currentStep].id] || ''}
-                                            onChange={(e) => handleInputChange(questions[currentStep].id, e.target.value)}
-                                            placeholder={questions[currentStep].placeholder}
-                                            rows={6}
-                                            className={`w-full px-6 py-4 rounded-2xl border-2 text-lg resize-none ${isDark
-                                                ? 'bg-gray-800/50 border-gray-700 focus:border-cyan-500 text-white placeholder-gray-500'
-                                                : 'bg-white border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'
-                                                } focus:outline-none transition-colors`}
-                                        />
-                                    )}
-
-                                    {/* Contact Type */}
-                                    {questions[currentStep].type === 'contact' && (
-                                        <div className="space-y-5">
-                                            {questions[currentStep].fields.map((field) => (
-                                                <div key={field.id}>
-                                                    <label className={`block text-sm font-semibold mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                                        {field.label}
-                                                    </label>
-                                                    <input
-                                                        type={field.type}
-                                                        value={formData[field.id] || ''}
-                                                        onChange={(e) => handleInputChange(field.id, e.target.value)}
-                                                        placeholder={field.placeholder}
-                                                        className={`w-full px-6 py-4 rounded-2xl border-2 text-lg ${isDark
-                                                            ? 'bg-gray-800/50 border-gray-700 focus:border-cyan-500 text-white placeholder-gray-500'
-                                                            : 'bg-white border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'
-                                                            } focus:outline-none transition-colors`}
-                                                    />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    ) : (
-                        // Summary Page
-                        <div className={`question-slide slide-in-right ${isDark ? 'bg-gradient-to-br from-gray-900 to-gray-800 border-gray-800' : 'bg-white border-gray-200'} border rounded-3xl p-10 md:p-14 shadow-2xl`}>
                             <div className="text-center mb-10">
-                                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 mb-6">
-                                    <Check className="w-10 h-10 text-white" />
-                                </div>
-                                <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tight">
-                                    {t.form.summaryTitle}
-                                </h2>
-                                <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                    {t.form.summaryDesc}
+                                {questions[currentStep].icon && (
+                                    <div className="flex justify-center mb-4">{questions[currentStep].icon}</div>
+                                )}
+                                <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">
+                                    {questions[currentStep].question}
+                                </h1>
+                                <p className={`text-xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                    {questions[currentStep].subtitle}
                                 </p>
                             </div>
 
-                            <div className={`${isDark ? 'bg-gray-800/50' : 'bg-gray-50'} rounded-2xl p-8 mb-10 space-y-6`}>
-                                <div>
-                                    <p className={`text-sm font-semibold mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{t.form.projectType}</p>
-                                    <p className="text-lg font-bold">{formData.projectType}</p>
+                            {/* Choice */}
+                            {questions[currentStep].type === 'choice' && (
+                                <div className={`grid gap-4 ${questions[currentStep].options.length > 4 ? 'grid-cols-2' : 'grid-cols-2'}`}>
+                                    {questions[currentStep].options.map((option) => {
+                                        const isSelected = formData[questions[currentStep].id] === option.value;
+                                        return (
+                                            <button key={option.value} onClick={() => handleChoice(option.value)}
+                                                className={`group p-6 rounded-3xl border-2 transition-all duration-300 text-center hover:scale-[1.02] active:scale-[0.98] ${isSelected ? 'shadow-xl' : ''} ${isDark ? `border-white/10 ${getColorClasses(option.color, isSelected)}` : `border-gray-200 ${getColorClasses(option.color, isSelected)}`}`}>
+                                                <div className={`${getIconColor(option.color)} mb-4 flex justify-center transition-transform group-hover:scale-110`}>{option.icon}</div>
+                                                <h3 className="text-xl font-bold mb-1">{option.label}</h3>
+                                                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{option.desc}</p>
+                                                {isSelected && <div className="mt-3 flex justify-center"><Check className="w-6 h-6 text-cyan-500" /></div>}
+                                            </button>
+                                        );
+                                    })}
                                 </div>
-                                <div>
-                                    <p className={`text-sm font-semibold mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{t.form.projectName}</p>
-                                    <p className="text-lg font-bold">{formData.projectName}</p>
-                                </div>
-                                <div>
-                                    <p className={`text-sm font-semibold mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{t.form.description}</p>
-                                    <p className="text-lg">{formData.description}</p>
-                                </div>
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    <div>
-                                        <p className={`text-sm font-semibold mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{t.form.timeline}</p>
-                                        <p className="text-lg font-bold">{formData.timeline}</p>
+                            )}
+
+                            {/* MultiChoice */}
+                            {questions[currentStep].type === 'multiChoice' && (
+                                <>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                        {questions[currentStep].options.map((option) => {
+                                            const isSelected = (formData[questions[currentStep].id] || []).includes(option.value);
+                                            return (
+                                                <button key={option.value} onClick={() => handleMultiChoice(option.value)}
+                                                    className={`group p-4 rounded-2xl border-2 transition-all text-center ${isSelected ? 'border-cyan-500 bg-cyan-500/10 shadow-lg' : isDark ? 'border-white/10 hover:border-cyan-500/50' : 'border-gray-200 hover:border-cyan-500/50'}`}>
+                                                    <div className={`mb-2 flex justify-center ${isSelected ? 'text-cyan-500' : isDark ? 'text-gray-400' : 'text-gray-500'}`}>{option.icon}</div>
+                                                    <span className="font-semibold text-sm">{option.label}</span>
+                                                    {isSelected && <Check className="w-4 h-4 text-cyan-500 mx-auto mt-2" />}
+                                                </button>
+                                            );
+                                        })}
                                     </div>
-                                    <div>
-                                        <p className={`text-sm font-semibold mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{t.form.budget}</p>
-                                        <p className="text-lg font-bold">{formData.budget}</p>
+                                    <div className="flex justify-center mt-8">
+                                        <button onClick={handleNext} disabled={!isStepValid()}
+                                            className={`flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg transition-all ${isStepValid() ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl hover:scale-105' : `${isDark ? 'bg-white/5 text-gray-600' : 'bg-gray-200 text-gray-400'} cursor-not-allowed`}`}>
+                                            Continue <ChevronRight className="w-5 h-5" />
+                                        </button>
                                     </div>
+                                </>
+                            )}
+
+                            {/* Text */}
+                            {questions[currentStep].type === 'text' && (
+                                <div className={`rounded-3xl p-8 border ${isDark ? 'bg-neutral-900/50 border-white/10' : 'bg-white border-gray-200 shadow-xl'}`}>
+                                    <input type="text" value={formData[questions[currentStep].id] || ''} onChange={(e) => handleInputChange(questions[currentStep].id, e.target.value)}
+                                        placeholder={questions[currentStep].placeholder} autoFocus
+                                        className={`w-full px-0 py-4 text-2xl font-medium bg-transparent border-0 border-b-2 ${isDark ? 'border-white/20 focus:border-cyan-500 text-white placeholder-gray-500' : 'border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'} focus:outline-none transition-colors`} />
                                 </div>
-                                <div>
-                                    <p className={`text-sm font-semibold mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{t.form.contactInfo}</p>
-                                    <div className="space-y-1">
-                                        <p className="text-lg"><span className="font-semibold">{t.form.name}</span> {formData.contactName}</p>
-                                        <p className="text-lg"><span className="font-semibold">{t.form.phone}</span> {formData.contactPhone}</p>
-                                        <p className="text-lg"><span className="font-semibold">{t.form.email}</span> {formData.contactEmail}</p>
+                            )}
+
+                            {/* Textarea */}
+                            {questions[currentStep].type === 'textarea' && (
+                                <div className={`rounded-3xl p-8 border ${isDark ? 'bg-neutral-900/50 border-white/10' : 'bg-white border-gray-200 shadow-xl'}`}>
+                                    <textarea value={formData[questions[currentStep].id] || ''} onChange={(e) => handleInputChange(questions[currentStep].id, e.target.value)}
+                                        placeholder={questions[currentStep].placeholder} rows={6} autoFocus
+                                        className={`w-full px-0 py-4 text-lg bg-transparent border-0 resize-none ${isDark ? 'text-white placeholder-gray-500' : 'text-gray-900 placeholder-gray-400'} focus:outline-none`} />
+                                </div>
+                            )}
+
+                            {/* Contact */}
+                            {questions[currentStep].type === 'contact' && (
+                                <div className={`rounded-3xl p-8 border space-y-6 ${isDark ? 'bg-neutral-900/50 border-white/10' : 'bg-white border-gray-200 shadow-xl'}`}>
+                                    {questions[currentStep].fields.map((field) => (
+                                        <div key={field.id}>
+                                            <label className={`block text-sm font-bold mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{field.label}</label>
+                                            <div className="relative">
+                                                <div className={`absolute left-4 top-1/2 -translate-y-1/2 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{field.icon}</div>
+                                                <input type={field.type} value={formData[field.id] || ''} onChange={(e) => handleInputChange(field.id, e.target.value)} placeholder={field.placeholder}
+                                                    className={`w-full pl-12 pr-4 py-4 rounded-2xl border-2 text-lg ${isDark ? 'bg-white/5 border-white/10 focus:border-cyan-500 text-white placeholder-gray-500' : 'bg-gray-50 border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'} focus:outline-none transition-all`} />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Nav */}
+                            {!questions[currentStep].autoAdvance && questions[currentStep].type !== 'multiChoice' && (
+                                <div className="flex justify-between items-center mt-8">
+                                    <button onClick={handlePrevious} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold transition-all ${currentStep === 0 ? 'opacity-0' : ''} ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
+                                        <ChevronLeft className="w-5 h-5" /> Back
+                                    </button>
+                                    <button onClick={handleNext} disabled={!isStepValid()}
+                                        className={`flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg transition-all ${isStepValid() ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl hover:scale-105' : `${isDark ? 'bg-white/5 text-gray-600' : 'bg-gray-200 text-gray-400'} cursor-not-allowed`}`}>
+                                        Continue <ChevronRight className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            )}
+
+                            {questions[currentStep].autoAdvance && currentStep > 0 && (
+                                <div className="flex justify-center mt-8">
+                                    <button onClick={handlePrevious} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
+                                        <ChevronLeft className="w-5 h-5" /> Go Back
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        // Summary
+                        <div className="animate-slide-in-right">
+                            <div className="text-center mb-10">
+                                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 mb-6">
+                                    <Check className="w-10 h-10 text-white" />
+                                </div>
+                                <h1 className="text-4xl md:text-5xl font-black mb-4">All Set!</h1>
+                                <p className={`text-xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>We'll get back to you within 24 hours</p>
+                            </div>
+
+                            <div className={`rounded-3xl p-8 mb-8 ${isDark ? 'bg-white/5' : 'bg-gray-100'}`}>
+                                <div className="grid gap-4">
+                                    <div className="flex justify-between items-center py-2 border-b border-current/10">
+                                        <span className="opacity-60">Service</span>
+                                        <span className="font-bold">{getProjectLabel(formData.projectType)}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center py-2 border-b border-current/10">
+                                        <span className="opacity-60">Project</span>
+                                        <span className="font-bold">{formData.projectName}</span>
+                                    </div>
+                                    {getDetailedSummary().map((detail, i) => (
+                                        <div key={i} className="flex justify-between items-center py-2 border-b border-current/10">
+                                            <span className="opacity-60">{detail.split(':')[0]}</span>
+                                            <span className="font-bold">{detail.split(':')[1]}</span>
+                                        </div>
+                                    ))}
+                                    <div className="flex justify-between items-center py-2 border-b border-current/10">
+                                        <span className="opacity-60">Timeline</span>
+                                        <span className="font-bold">{formData.timeline}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center py-2">
+                                        <span className="opacity-60">Contact</span>
+                                        <span className="font-bold">{formData.contactName}</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="space-y-4">
-                                <p className="text-center text-lg font-semibold mb-6">{t.form.chooseSend}</p>
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <button
-                                        onClick={handleWhatsAppSend}
-                                        className="group flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-5 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl shadow-green-500/30 hover:shadow-2xl hover:shadow-green-500/40 hover:-translate-y-1"
-                                    >
-                                        <MessageCircle className="w-6 h-6" />
-                                        {t.form.sendWhatsApp}
-                                        <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                                    </button>
-                                    <button
-                                        onClick={handleEmailSend}
-                                        className="group flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-5 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl shadow-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-500/40 hover:-translate-y-1"
-                                    >
-                                        <Mail className="w-6 h-6" />
-                                        {t.form.sendEmail}
-                                        <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                                    </button>
-                                </div>
+                                <button onClick={handleWhatsAppSend} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-5 rounded-2xl font-bold text-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/30">
+                                    <MessageCircle className="w-7 h-7" /> Send via WhatsApp <ArrowRight className="w-6 h-6" />
+                                </button>
+                                <button onClick={handleEmailSend} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-5 rounded-2xl font-bold text-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-cyan-500/30">
+                                    <Mail className="w-7 h-7" /> Send via Email <ArrowRight className="w-6 h-6" />
+                                </button>
+                            </div>
+
+                            <div className="flex justify-center mt-8">
+                                <button onClick={handlePrevious} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
+                                    <ChevronLeft className="w-5 h-5" /> Edit Answers
+                                </button>
                             </div>
                         </div>
                     )}
 
-                    {/* Navigation Buttons */}
-                    {currentStep < questions.length && (
-                        <div className="flex justify-between items-center mt-10">
-                            <button
-                                onClick={handlePrevious}
-                                disabled={currentStep === 0}
-                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${currentStep === 0
-                                    ? 'opacity-0 pointer-events-none'
-                                    : `${isDark ? 'bg-gray-800 hover:bg-gray-700 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-900'}`
-                                    }`}
-                            >
-                                <ChevronLeft className="w-5 h-5" />
-                                {t.form.previous}
-                            </button>
-                            <button
-                                onClick={handleNext}
-                                disabled={!isStepValid()}
-                                className={`flex items-center gap-2 px-8 py-3 rounded-xl font-semibold transition-all duration-300 ${isStepValid()
-                                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40'
-                                    : `${isDark ? 'bg-gray-800 text-gray-600' : 'bg-gray-200 text-gray-400'} cursor-not-allowed`
-                                    }`}
-                            >
-                                {t.form.next}
-                                <ChevronRight className="w-5 h-5" />
-                            </button>
-                        </div>
-                    )}
-
-                    {currentStep === questions.length && (
-                        <div className="flex justify-center mt-10">
-                            <button
-                                onClick={handlePrevious}
-                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${isDark ? 'bg-gray-800 hover:bg-gray-700 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-900'}`}
-                            >
-                                <ChevronLeft className="w-5 h-5" />
-                                {t.form.backToEdit}
-                            </button>
+                    {/* Dots */}
+                    {questions.length > 0 && (
+                        <div className="flex justify-center gap-2 mt-10">
+                            {questions.map((_, idx) => (
+                                <div key={idx} className={`h-2 rounded-full transition-all duration-300 ${idx === currentStep ? 'w-8 bg-cyan-500' : idx < currentStep ? 'w-2 bg-cyan-500/50' : `w-2 ${isDark ? 'bg-white/10' : 'bg-black/10'}`}`} />
+                            ))}
+                            <div className={`h-2 w-2 rounded-full ${currentStep === questions.length ? 'bg-green-500' : isDark ? 'bg-white/10' : 'bg-black/10'}`} />
                         </div>
                     )}
                 </div>
             </div>
 
-            {/* CSS Animations */}
             <style>{`
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(100px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-100px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        .slide-in-right {
-          animation: slideInRight 0.5s ease-out;
-        }
-
-        .slide-in-left {
-          animation: slideInLeft 0.5s ease-out;
-        }
-
-        .question-slide {
-          animation-fill-mode: both;
-        }
-      `}</style>
+                @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+                @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+                .animate-slide-in-right { animation: slideInRight 0.3s ease-out; }
+                .animate-slide-in-left { animation: slideInLeft 0.3s ease-out; }
+            `}</style>
         </div>
     );
 };
