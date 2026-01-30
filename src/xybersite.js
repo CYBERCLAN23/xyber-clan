@@ -6,7 +6,7 @@ import { useTheme } from './context/ThemeContext';
 import useTypingAnimation from './hooks/useTypingAnimation';
 import { getLogo } from './utils/festive';
 import WhatsAppButton from './components/WhatsAppButton';
-import HeroArc from './components/HeroArc';
+import LiquidGlassHero from './components/LiquidGlassHero';
 import ServicesMinimal from './components/ServicesMinimal';
 import FeaturesGrid from './components/FeaturesGrid';
 import WhoWeAre from './components/WhoWeAre';
@@ -22,6 +22,7 @@ import Newsletter from './components/Newsletter';
 import Pricing from './components/Pricing';
 import Preloader from './components/Preloader';
 import ExitPopup from './components/ExitPopup';
+import ThemeSuggestionPopup from './components/ThemeSuggestionPopup';
 import ScrollReveal, { ScrollToTop, ScrollIndicator } from './components/ScrollReveal';
 
 
@@ -217,9 +218,9 @@ const XyberClanWebsite = () => {
         }
       `}</style>
 
-      {/* Hero Section - Osmo/Arc Style */}
+      {/* Hero Section - Liquid Glass Design */}
       <div id="home">
-        <HeroArc />
+        <LiquidGlassHero />
       </div>
 
       {/* Scroll Progress Indicator */}
@@ -360,6 +361,8 @@ const XyberClanWebsite = () => {
       <ScrollToTop />
       {/* Exit Intent Popup */}
       <ExitPopup />
+      {/* Theme Suggestion Popup */}
+      <ThemeSuggestionPopup />
     </div>
   );
 };
