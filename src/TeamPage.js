@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Code, ChevronRight, Sun, Moon, Menu, X, Linkedin, Github, Twitter, Facebook, Globe, Laptop, Briefcase, Palette, Image as ImageIcon, Sparkles, ChevronLeft } from 'lucide-react';
+import { Shield, Code, ChevronRight, Sun, Moon, Menu, X, Linkedin, Github, Laptop, Briefcase, Palette, Image as ImageIcon, Sparkles, ChevronLeft } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
-import useScrollAnimation from './hooks/useScrollAnimation';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import CTASection from './components/CTASection';
@@ -140,6 +139,7 @@ const TeamPage = () => {
     useEffect(() => {
         const interval = setInterval(nextMember, 5000);
         return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

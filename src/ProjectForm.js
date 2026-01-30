@@ -346,6 +346,7 @@ const ProjectForm = () => {
         }
 
         return q;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formData.projectType]);
 
     function getDescriptionSubtitle(type) {

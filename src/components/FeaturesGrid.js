@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import { Terminal, Shield, Lock, Cpu, Fingerprint, Share2 } from 'lucide-react';
+import { Terminal, Cpu, Fingerprint, Share2 } from 'lucide-react';
 
 const FeaturesGrid = () => {
     const { isDark } = useTheme();

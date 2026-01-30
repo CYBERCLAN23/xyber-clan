@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Eye, Zap, Cloud, FileCheck, Headphones, Lock, Target, ChevronRight, Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import { Shield, Eye, Lock, Menu, X, Sun, Moon } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
-import useTypingAnimation from './hooks/useTypingAnimation';
 import { getLogo } from './utils/festive';
 import WhatsAppButton from './components/WhatsAppButton';
 import LiquidGlassHero from './components/LiquidGlassHero';
-import ServicesMinimal from './components/ServicesMinimal';
 import FeaturesGrid from './components/FeaturesGrid';
 import WhoWeAre from './components/WhoWeAre';
 import TeamMinimal from './components/TeamMinimal';
@@ -20,7 +18,6 @@ import FAQSection from './components/FAQSection';
 import TrustBadges from './components/TrustBadges';
 import Newsletter from './components/Newsletter';
 import Pricing from './components/Pricing';
-import Preloader from './components/Preloader';
 import ExitPopup from './components/ExitPopup';
 import ThemeSuggestionPopup from './components/ThemeSuggestionPopup';
 import ScrollReveal, { ScrollToTop, ScrollIndicator } from './components/ScrollReveal';
@@ -31,7 +28,6 @@ const XyberClanWebsite = () => {
   const [lang, setLang] = useState('en');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const t = translations[lang];
 
   // Handle scroll effect for navigation
@@ -42,11 +38,6 @@ const XyberClanWebsite = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Typing animation for hero title
-
-  // Typing animation for hero title
-  const typedText = useTypingAnimation(t.hero.typing);
 
   // Scroll animation refs for different sections - REPLACED BY ScrollReveal
   // Kept useScrollAnimation import removed but hooks were here. Cleaned up.

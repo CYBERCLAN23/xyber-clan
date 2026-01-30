@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import { User, Code, Palette, Zap, ArrowRight, ExternalLink } from 'lucide-react';
+import { Code, Palette, Zap, ArrowRight } from 'lucide-react';
 
 const TeamMinimal = () => {
     const { isDark } = useTheme();

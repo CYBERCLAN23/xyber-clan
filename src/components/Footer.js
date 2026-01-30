@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { Facebook, Twitter, Linkedin, Github, Mail, Phone, MapPin, ArrowUpRight, Github as GithubIcon, Shield, Code, Cpu } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, ArrowUpRight, Github as GithubIcon } from 'lucide-react';
 import { getLogo } from '../utils/festive';
 
 const Footer = ({ translations: t }) => {

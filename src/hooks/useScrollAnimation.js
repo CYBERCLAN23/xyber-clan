@@ -39,6 +39,7 @@ const useScrollAnimation = (options = {}) => {
                 observer.unobserve(element);
             }
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [options.threshold, options.rootMargin, options.once]);
 
     return [elementRef, isVisible];

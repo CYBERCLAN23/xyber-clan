@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ExternalLink, ArrowRight, Gift, Sparkles } from 'lucide-react';
+import { X, ArrowRight, Gift, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 
@@ -51,12 +51,12 @@ const ExitPopup = () => {
 
             {/* Popup */}
             <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 animate-scaleIn">
-                <div className={`relative max-w-md w-full rounded-3xl overflow-hidden shadow-2xl ${isDark ? 'bg-neutral-900' : 'bg-white'}`}>
+                <div className={`relative max - w - md w - full rounded - 3xl overflow - hidden shadow - 2xl ${isDark ? 'bg-neutral-900' : 'bg-white'} `}>
 
                     {/* Close Button */}
                     <button
                         onClick={handleClose}
-                        className={`absolute top-4 right-4 p-2 rounded-full z-10 transition-colors ${isDark ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-black/5 hover:bg-black/10 text-gray-600'}`}
+                        className={`absolute top - 4 right - 4 p - 2 rounded - full z - 10 transition - colors ${isDark ? 'bg-white/10 hover:bg-white/20 text-white' : 'bg-black/5 hover:bg-black/10 text-gray-600'} `}
                     >
                         <X size={20} />
                     </button>
@@ -81,11 +81,11 @@ const ExitPopup = () => {
                             <span className="text-sm font-bold text-green-500">Limited Time Offer</span>
                         </div>
 
-                        <h4 className={`text-xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                        <h4 className={`text - xl font - bold mb - 4 ${isDark ? 'text-white' : 'text-gray-900'} `}>
                             Get 10% OFF Your First Project!
                         </h4>
 
-                        <p className={`mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <p className={`mb - 6 ${isDark ? 'text-gray-400' : 'text-gray-600'} `}>
                             Start your project with us today and get an exclusive 10% discount.
                             Just mention this offer when you contact us!
                         </p>
@@ -103,7 +103,7 @@ const ExitPopup = () => {
 
                             <button
                                 onClick={handleClose}
-                                className={`w-full py-3 px-6 rounded-xl font-medium transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-700'}`}
+                                className={`w - full py - 3 px - 6 rounded - xl font - medium transition - colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-700'} `}
                             >
                                 No thanks, maybe later
                             </button>
@@ -113,17 +113,17 @@ const ExitPopup = () => {
             </div>
 
             <style>{`
-                @keyframes fadeIn {
+@keyframes fadeIn {
                     from { opacity: 0; }
                     to { opacity: 1; }
-                }
-                @keyframes scaleIn {
+}
+@keyframes scaleIn {
                     from { opacity: 0; transform: scale(0.9); }
                     to { opacity: 1; transform: scale(1); }
-                }
-                .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
-                .animate-scaleIn { animation: scaleIn 0.3s ease-out; }
-            `}</style>
+}
+                .animate - fadeIn { animation: fadeIn 0.3s ease - out; }
+                .animate - scaleIn { animation: scaleIn 0.3s ease - out; }
+`}</style>
         </>
     );
 };

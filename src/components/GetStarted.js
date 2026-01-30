@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import { Github, Figma, Slack, Globe, Mail, MessageSquare, Zap, Terminal, Code, Youtube, Shield, Cpu, Layout, Chrome, Layers } from 'lucide-react';
+import { Github, Figma, Slack, Globe, Mail, MessageSquare, Zap, Code, Shield, Cpu } from 'lucide-react';
 
 const GetStarted = () => {
     const { isDark } = useTheme();
