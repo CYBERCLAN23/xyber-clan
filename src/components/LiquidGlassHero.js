@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Zap, MapPin, DollarSign, TrendingUp } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
 import { getLogo } from '../utils/festive';
 
 import heroVideo from '../assets/hero-video.mp4';
@@ -11,7 +10,7 @@ const VIDEO_SRC = heroVideo;
 const POSTER_SRC = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
 
 const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
-    const { isDark } = useTheme();
+
     const videoRef = useRef(null);
     const [videoReady, setVideoReady] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);

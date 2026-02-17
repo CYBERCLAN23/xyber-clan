@@ -431,19 +431,7 @@ const ProjectForm = () => {
 
     const progress = questions.length > 0 ? ((currentStep) / questions.length) * 100 : 0;
 
-    const getColorClasses = (color, isSelected) => {
-        const colors = {
-            cyan: isSelected ? 'border-cyan-500 bg-cyan-500/10 shadow-cyan-500/30' : 'hover:border-cyan-500/50 hover:bg-cyan-500/5',
-            blue: isSelected ? 'border-blue-500 bg-blue-500/10 shadow-blue-500/30' : 'hover:border-blue-500/50 hover:bg-blue-500/5',
-            purple: isSelected ? 'border-purple-500 bg-purple-500/10 shadow-purple-500/30' : 'hover:border-purple-500/50 hover:bg-purple-500/5',
-            green: isSelected ? 'border-green-500 bg-green-500/10 shadow-green-500/30' : 'hover:border-green-500/50 hover:bg-green-500/5',
-            red: isSelected ? 'border-red-500 bg-red-500/10 shadow-red-500/30' : 'hover:border-red-500/50 hover:bg-red-500/5',
-            orange: isSelected ? 'border-orange-500 bg-orange-500/10 shadow-orange-500/30' : 'hover:border-orange-500/50 hover:bg-orange-500/5',
-            pink: isSelected ? 'border-pink-500 bg-pink-500/10 shadow-pink-500/30' : 'hover:border-pink-500/50 hover:bg-pink-500/5',
-            gray: isSelected ? 'border-gray-500 bg-gray-500/10 shadow-gray-500/30' : 'hover:border-gray-500/50 hover:bg-gray-500/5'
-        };
-        return colors[color] || colors.cyan;
-    };
+
 
     const getIconColor = (color) => {
         const colors = {

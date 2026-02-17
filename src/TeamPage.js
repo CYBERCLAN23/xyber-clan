@@ -418,9 +418,9 @@ const TeamPage = () => {
                                                     {social.icon}
                                                 </a>
                                             ))}
-                                            <a href="#" className={`flex items-center gap-1.5 px-4 h-11 rounded-xl border text-sm font-medium transition-all hover:scale-[1.03] ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30' : 'bg-white border-gray-200 text-gray-500 hover:text-cyan-600 hover:border-cyan-500/30'}`}>
+                                            <button className={`flex items-center gap-1.5 px-4 h-11 rounded-xl border text-sm font-medium transition-all hover:scale-[1.03] ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30' : 'bg-white border-gray-200 text-gray-500 hover:text-cyan-600 hover:border-cyan-500/30'}`}>
                                                 View Profile <ArrowUpRight size={14} />
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
