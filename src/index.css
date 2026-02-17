@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal overflow from scroll animations */
+html,
+body {
+  overflow-x: hidden;
+}
+
 @layer base {
 
   html {
@@ -67,6 +73,7 @@
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.08);
   }
+
   .dark .nav-island {
     background: rgba(0, 0, 0, 0.7);
   }
@@ -101,6 +108,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

@@ -570,213 +570,243 @@ Sent from XyberClan Website`;
     return (
         <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-500`}>
 
-            {/* Header */}
-            <div className="fixed top-0 left-0 right-0 z-50 px-4 py-4">
+            {/* ─── Header ─── */}
+            <div className={`fixed top-0 left-0 right-0 z-50 px-4 py-4 transition-all duration-300 ${isDark ? 'bg-black/80 backdrop-blur-xl' : 'bg-white/80 backdrop-blur-xl'}`}>
                 <div className="max-w-3xl mx-auto flex justify-between items-center">
-                    <Link to="/" className="flex items-center gap-3 group">
-                        <img src={getLogo()} alt="XyberClan" className="w-10 h-10 object-contain rounded-xl" />
-                        <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-black'}`}>
+                    <Link to="/" className="flex items-center gap-2.5 group">
+                        <img src={getLogo()} alt="XyberClan" className="w-9 h-9 object-contain rounded-xl" />
+                        <span className={`text-base font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
                             Xyber<span className="text-cyan-500">Clan</span>
                         </span>
                     </Link>
                     <div className="flex items-center gap-2">
-                        <button onClick={toggleTheme} className={`p-2 rounded-xl ${isDark ? 'bg-white/10 text-yellow-400' : 'bg-black/5 text-blue-600'}`}>
-                            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                        <span className={`hidden sm:inline text-xs font-medium ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                            Step {currentStep + 1} of {questions.length}
+                        </span>
+                        <button onClick={toggleTheme} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${isDark ? 'bg-white/5 text-yellow-400 hover:bg-white/10' : 'bg-black/5 text-blue-600 hover:bg-black/10'}`}>
+                            {isDark ? <Sun size={16} /> : <Moon size={16} />}
                         </button>
-                        <Link to="/" className={`p-2 rounded-xl ${isDark ? 'bg-white/10' : 'bg-black/5'}`}>
-                            <Home size={20} />
+                        <Link to="/" className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
+                            <Home size={16} />
                         </Link>
                     </div>
                 </div>
             </div>
 
-            {/* Progress */}
-            <div className="fixed top-16 left-0 right-0 z-40 px-4 py-2">
+            {/* ─── Progress Bar ─── */}
+            <div className="fixed top-[60px] left-0 right-0 z-40 px-4 py-2">
                 <div className="max-w-3xl mx-auto">
-                    <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-white/10' : 'bg-black/10'}`}>
-                        <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+                    <div className={`h-1 rounded-full overflow-hidden ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>
+                        <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-700 ease-out" style={{ width: `${progress}%` }} />
                     </div>
                 </div>
             </div>
 
-            {/* Main */}
+            {/* ─── Main Content ─── */}
             <div className="pt-28 pb-20 px-4">
                 <div className="max-w-3xl mx-auto">
                     {currentStep < questions.length ? (
                         <div key={`${formData.projectType}-${currentStep}`} className={`${direction === 'forward' ? 'animate-slide-in-right' : 'animate-slide-in-left'}`}>
 
+                            {/* Question Header */}
                             <div className="text-center mb-10">
                                 {questions[currentStep].icon && (
-                                    <div className="flex justify-center mb-4">{questions[currentStep].icon}</div>
+                                    <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5 ${isDark ? 'bg-cyan-500/10' : 'bg-cyan-50'}`}>
+                                        {questions[currentStep].icon}
+                                    </div>
                                 )}
-                                <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">
+                                <h1 className="text-3xl md:text-5xl font-black mb-3 tracking-tight leading-[1.1]" style={{ fontFamily: "'Inter', sans-serif" }}>
                                     {questions[currentStep].question}
                                 </h1>
-                                <p className={`text-xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <p className={`text-base md:text-lg ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
                                     {questions[currentStep].subtitle}
                                 </p>
                             </div>
 
-                            {/* Choice */}
+                            {/* ── Choice Cards ── */}
                             {questions[currentStep].type === 'choice' && (
-                                <div className={`grid gap-4 ${questions[currentStep].options.length > 4 ? 'grid-cols-2' : 'grid-cols-2'}`}>
+                                <div className={`grid gap-3 ${questions[currentStep].options.length > 4 ? 'grid-cols-2' : 'grid-cols-2'}`}>
                                     {questions[currentStep].options.map((option) => {
                                         const isSelected = formData[questions[currentStep].id] === option.value;
                                         return (
                                             <button key={option.value} onClick={() => handleChoice(option.value)}
-                                                className={`group p-6 rounded-3xl border-2 transition-all duration-300 text-center hover:scale-[1.02] active:scale-[0.98] ${isSelected ? 'shadow-xl' : ''} ${isDark ? `border-white/10 ${getColorClasses(option.color, isSelected)}` : `border-gray-200 ${getColorClasses(option.color, isSelected)}`}`}>
-                                                <div className={`${getIconColor(option.color)} mb-4 flex justify-center transition-transform group-hover:scale-110`}>{option.icon}</div>
-                                                <h3 className="text-xl font-bold mb-1">{option.label}</h3>
-                                                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{option.desc}</p>
-                                                {isSelected && <div className="mt-3 flex justify-center"><Check className="w-6 h-6 text-cyan-500" /></div>}
+                                                className={`group relative p-5 rounded-2xl border transition-all duration-300 text-center hover:scale-[1.02] active:scale-[0.98] overflow-hidden
+                                                    ${isSelected
+                                                        ? `border-cyan-500/60 shadow-lg shadow-cyan-500/10 ${isDark ? 'bg-cyan-500/8' : 'bg-cyan-50'}`
+                                                        : `${isDark ? 'border-white/8 hover:border-white/20 bg-white/[0.02]' : 'border-gray-200 hover:border-gray-300 bg-white'}`
+                                                    }`}>
+                                                {isSelected && (
+                                                    <div className="absolute top-3 right-3">
+                                                        <div className="w-5 h-5 rounded-full bg-cyan-500 flex items-center justify-center">
+                                                            <Check className="w-3 h-3 text-white" />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                <div className={`${getIconColor(option.color)} mb-3 flex justify-center transition-transform duration-300 group-hover:scale-110`}>
+                                                    {React.cloneElement(option.icon, { className: 'w-8 h-8' })}
+                                                </div>
+                                                <h3 className="text-base font-bold mb-0.5 tracking-tight">{option.label}</h3>
+                                                <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{option.desc}</p>
                                             </button>
                                         );
                                     })}
                                 </div>
                             )}
 
-                            {/* MultiChoice */}
+                            {/* ── Multi Choice ── */}
                             {questions[currentStep].type === 'multiChoice' && (
                                 <>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
                                         {questions[currentStep].options.map((option) => {
                                             const isSelected = (formData[questions[currentStep].id] || []).includes(option.value);
                                             return (
                                                 <button key={option.value} onClick={() => handleMultiChoice(option.value)}
-                                                    className={`group p-4 rounded-2xl border-2 transition-all text-center ${isSelected ? 'border-cyan-500 bg-cyan-500/10 shadow-lg' : isDark ? 'border-white/10 hover:border-cyan-500/50' : 'border-gray-200 hover:border-cyan-500/50'}`}>
+                                                    className={`group relative p-4 rounded-2xl border transition-all duration-300 text-center hover:scale-[1.02]
+                                                        ${isSelected
+                                                            ? `border-cyan-500/60 shadow-md shadow-cyan-500/10 ${isDark ? 'bg-cyan-500/8' : 'bg-cyan-50'}`
+                                                            : `${isDark ? 'border-white/8 hover:border-white/20' : 'border-gray-200 hover:border-gray-300 bg-white'}`
+                                                        }`}>
+                                                    {isSelected && (
+                                                        <div className="absolute top-2 right-2">
+                                                            <div className="w-4 h-4 rounded-full bg-cyan-500 flex items-center justify-center">
+                                                                <Check className="w-2.5 h-2.5 text-white" />
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                     <div className={`mb-2 flex justify-center ${isSelected ? 'text-cyan-500' : isDark ? 'text-gray-400' : 'text-gray-500'}`}>{option.icon}</div>
                                                     <span className="font-semibold text-sm">{option.label}</span>
-                                                    {isSelected && <Check className="w-4 h-4 text-cyan-500 mx-auto mt-2" />}
                                                 </button>
                                             );
                                         })}
                                     </div>
                                     <div className="flex justify-center mt-8">
                                         <button onClick={handleNext} disabled={!isStepValid()}
-                                            className={`flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg transition-all ${isStepValid() ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl hover:scale-105' : `${isDark ? 'bg-white/5 text-gray-600' : 'bg-gray-200 text-gray-400'} cursor-not-allowed`}`}>
-                                            Continue <ChevronRight className="w-5 h-5" />
+                                            className={`flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-sm transition-all ${isStepValid()
+                                                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl shadow-cyan-500/20 hover:shadow-cyan-500/30 hover:scale-[1.03]'
+                                                : `${isDark ? 'bg-white/5 text-gray-600' : 'bg-gray-200 text-gray-400'} cursor-not-allowed`}`}>
+                                            Continue <ChevronRight className="w-4 h-4" />
                                         </button>
                                     </div>
                                 </>
                             )}
 
-                            {/* Text */}
+                            {/* ── Text Input ── */}
                             {questions[currentStep].type === 'text' && (
-                                <div className={`rounded-3xl p-8 border ${isDark ? 'bg-neutral-900/50 border-white/10' : 'bg-white border-gray-200 shadow-xl'}`}>
+                                <div className={`rounded-2xl p-6 border ${isDark ? 'bg-white/[0.02] border-white/8' : 'bg-white border-gray-200 shadow-sm'}`}>
                                     <input type="text" value={formData[questions[currentStep].id] || ''} onChange={(e) => handleInputChange(questions[currentStep].id, e.target.value)}
                                         placeholder={questions[currentStep].placeholder} autoFocus
-                                        className={`w-full px-0 py-4 text-2xl font-medium bg-transparent border-0 border-b-2 ${isDark ? 'border-white/20 focus:border-cyan-500 text-white placeholder-gray-500' : 'border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'} focus:outline-none transition-colors`} />
+                                        className={`w-full px-0 py-3 text-xl font-medium bg-transparent border-0 border-b ${isDark ? 'border-white/10 focus:border-cyan-500 text-white placeholder-gray-600' : 'border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'} focus:outline-none transition-colors`}
+                                        style={{ fontFamily: "'Inter', sans-serif" }} />
                                 </div>
                             )}
 
-                            {/* Textarea */}
+                            {/* ── Textarea ── */}
                             {questions[currentStep].type === 'textarea' && (
-                                <div className={`rounded-3xl p-8 border ${isDark ? 'bg-neutral-900/50 border-white/10' : 'bg-white border-gray-200 shadow-xl'}`}>
+                                <div className={`rounded-2xl p-6 border ${isDark ? 'bg-white/[0.02] border-white/8' : 'bg-white border-gray-200 shadow-sm'}`}>
                                     <textarea value={formData[questions[currentStep].id] || ''} onChange={(e) => handleInputChange(questions[currentStep].id, e.target.value)}
-                                        placeholder={questions[currentStep].placeholder} rows={6} autoFocus
-                                        className={`w-full px-0 py-4 text-lg bg-transparent border-0 resize-none ${isDark ? 'text-white placeholder-gray-500' : 'text-gray-900 placeholder-gray-400'} focus:outline-none`} />
+                                        placeholder={questions[currentStep].placeholder} rows={5} autoFocus
+                                        className={`w-full px-0 py-3 text-base bg-transparent border-0 resize-none ${isDark ? 'text-white placeholder-gray-600' : 'text-gray-900 placeholder-gray-400'} focus:outline-none`}
+                                        style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }} />
                                 </div>
                             )}
 
-                            {/* Contact */}
+                            {/* ── Contact Fields ── */}
                             {questions[currentStep].type === 'contact' && (
-                                <div className={`rounded-3xl p-8 border space-y-6 ${isDark ? 'bg-neutral-900/50 border-white/10' : 'bg-white border-gray-200 shadow-xl'}`}>
+                                <div className={`rounded-2xl p-6 border space-y-5 ${isDark ? 'bg-white/[0.02] border-white/8' : 'bg-white border-gray-200 shadow-sm'}`}>
                                     {questions[currentStep].fields.map((field) => (
                                         <div key={field.id}>
-                                            <label className={`block text-sm font-bold mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{field.label}</label>
+                                            <label className={`block text-xs font-bold uppercase tracking-[0.12em] mb-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{field.label}</label>
                                             <div className="relative">
-                                                <div className={`absolute left-4 top-1/2 -translate-y-1/2 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{field.icon}</div>
+                                                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>{field.icon}</div>
                                                 <input type={field.type} value={formData[field.id] || ''} onChange={(e) => handleInputChange(field.id, e.target.value)} placeholder={field.placeholder}
-                                                    className={`w-full pl-12 pr-4 py-4 rounded-2xl border-2 text-lg ${isDark ? 'bg-white/5 border-white/10 focus:border-cyan-500 text-white placeholder-gray-500' : 'bg-gray-50 border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'} focus:outline-none transition-all`} />
+                                                    className={`w-full pl-11 pr-4 py-3.5 rounded-xl border text-base transition-all ${isDark ? 'bg-white/[0.03] border-white/8 focus:border-cyan-500 text-white placeholder-gray-600' : 'bg-gray-50/50 border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'} focus:outline-none`}
+                                                    style={{ fontFamily: "'Inter', sans-serif" }} />
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             )}
 
-                            {/* Nav */}
+                            {/* ── Navigation Buttons ── */}
                             {!questions[currentStep].autoAdvance && questions[currentStep].type !== 'multiChoice' && (
                                 <div className="flex justify-between items-center mt-8">
-                                    <button onClick={handlePrevious} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold transition-all ${currentStep === 0 ? 'opacity-0' : ''} ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
-                                        <ChevronLeft className="w-5 h-5" /> Back
+                                    <button onClick={handlePrevious} className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : ''} ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
+                                        <ChevronLeft className="w-4 h-4" /> Back
                                     </button>
                                     <button onClick={handleNext} disabled={!isStepValid()}
-                                        className={`flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg transition-all ${isStepValid() ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl hover:scale-105' : `${isDark ? 'bg-white/5 text-gray-600' : 'bg-gray-200 text-gray-400'} cursor-not-allowed`}`}>
-                                        Continue <ChevronRight className="w-5 h-5" />
+                                        className={`flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-sm transition-all ${isStepValid()
+                                            ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl shadow-cyan-500/20 hover:shadow-cyan-500/30 hover:scale-[1.03]'
+                                            : `${isDark ? 'bg-white/5 text-gray-600' : 'bg-gray-200 text-gray-400'} cursor-not-allowed`}`}>
+                                        Continue <ChevronRight className="w-4 h-4" />
                                     </button>
                                 </div>
                             )}
 
                             {questions[currentStep].autoAdvance && currentStep > 0 && (
                                 <div className="flex justify-center mt-8">
-                                    <button onClick={handlePrevious} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
-                                        <ChevronLeft className="w-5 h-5" /> Go Back
+                                    <button onClick={handlePrevious} className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
+                                        <ChevronLeft className="w-4 h-4" /> Go Back
                                     </button>
                                 </div>
                             )}
                         </div>
                     ) : (
-                        // Summary
+                        /* ── Summary ── */
                         <div className="animate-slide-in-right">
                             <div className="text-center mb-10">
-                                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 mb-6">
-                                    <Check className="w-10 h-10 text-white" />
+                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 mb-5 shadow-lg shadow-green-500/20">
+                                    <Check className="w-8 h-8 text-white" />
                                 </div>
-                                <h1 className="text-4xl md:text-5xl font-black mb-4">All Set!</h1>
-                                <p className={`text-xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>We'll get back to you within 24 hours</p>
+                                <h1 className="text-3xl md:text-5xl font-black mb-3 tracking-tight" style={{ fontFamily: "'Inter', sans-serif" }}>All Set!</h1>
+                                <p className={`text-base ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontWeight: 300 }}>We'll get back to you within 24 hours</p>
                             </div>
 
-                            <div className={`rounded-3xl p-8 mb-8 ${isDark ? 'bg-white/5' : 'bg-gray-100'}`}>
-                                <div className="grid gap-4">
-                                    <div className="flex justify-between items-center py-2 border-b border-current/10">
-                                        <span className="opacity-60">Service</span>
-                                        <span className="font-bold">{getProjectLabel(formData.projectType)}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center py-2 border-b border-current/10">
-                                        <span className="opacity-60">Project</span>
-                                        <span className="font-bold">{formData.projectName}</span>
-                                    </div>
-                                    {getDetailedSummary().map((detail, i) => (
-                                        <div key={i} className="flex justify-between items-center py-2 border-b border-current/10">
-                                            <span className="opacity-60">{detail.split(':')[0]}</span>
-                                            <span className="font-bold">{detail.split(':')[1]}</span>
+                            {/* Summary Card */}
+                            <div className={`rounded-2xl p-6 mb-8 border ${isDark ? 'bg-white/[0.02] border-white/8' : 'bg-white border-gray-200 shadow-sm'}`}>
+                                <div className="space-y-0">
+                                    {[
+                                        { label: 'Service', value: getProjectLabel(formData.projectType) },
+                                        { label: 'Project', value: formData.projectName },
+                                        ...getDetailedSummary().map(detail => ({
+                                            label: detail.split(':')[0],
+                                            value: detail.split(':')[1]
+                                        })),
+                                        { label: 'Timeline', value: formData.timeline },
+                                        { label: 'Contact', value: formData.contactName }
+                                    ].map((item, i, arr) => (
+                                        <div key={i} className={`flex justify-between items-center py-3.5 ${i < arr.length - 1 ? `border-b ${isDark ? 'border-white/5' : 'border-gray-100'}` : ''}`}>
+                                            <span className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{item.label}</span>
+                                            <span className="font-bold text-sm">{item.value}</span>
                                         </div>
                                     ))}
-                                    <div className="flex justify-between items-center py-2 border-b border-current/10">
-                                        <span className="opacity-60">Timeline</span>
-                                        <span className="font-bold">{formData.timeline}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center py-2">
-                                        <span className="opacity-60">Contact</span>
-                                        <span className="font-bold">{formData.contactName}</span>
-                                    </div>
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
-                                <button onClick={handleWhatsAppSend} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-5 rounded-2xl font-bold text-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/30">
-                                    <MessageCircle className="w-7 h-7" /> Send via WhatsApp <ArrowRight className="w-6 h-6" />
+                            {/* Action Buttons */}
+                            <div className="space-y-3">
+                                <button onClick={handleWhatsAppSend} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/20">
+                                    <MessageCircle className="w-5 h-5" /> Send via WhatsApp <ArrowRight className="w-4 h-4" />
                                 </button>
-                                <button onClick={handleEmailSend} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-5 rounded-2xl font-bold text-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-cyan-500/30">
-                                    <Mail className="w-7 h-7" /> Send via Email <ArrowRight className="w-6 h-6" />
+                                <button onClick={handleEmailSend} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-4 rounded-xl font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-cyan-500/20">
+                                    <Mail className="w-5 h-5" /> Send via Email <ArrowRight className="w-4 h-4" />
                                 </button>
                             </div>
 
-                            <div className="flex justify-center mt-8">
-                                <button onClick={handlePrevious} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
-                                    <ChevronLeft className="w-5 h-5" /> Edit Answers
+                            <div className="flex justify-center mt-6">
+                                <button onClick={handlePrevious} className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
+                                    <ChevronLeft className="w-4 h-4" /> Edit Answers
                                 </button>
                             </div>
                         </div>
                     )}
 
-                    {/* Dots */}
+                    {/* ── Step Dots ── */}
                     {questions.length > 0 && (
-                        <div className="flex justify-center gap-2 mt-10">
+                        <div className="flex justify-center gap-1.5 mt-10">
                             {questions.map((_, idx) => (
-                                <div key={idx} className={`h-2 rounded-full transition-all duration-300 ${idx === currentStep ? 'w-8 bg-cyan-500' : idx < currentStep ? 'w-2 bg-cyan-500/50' : `w-2 ${isDark ? 'bg-white/10' : 'bg-black/10'}`}`} />
+                                <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentStep ? 'w-7 bg-cyan-500' : idx < currentStep ? 'w-1.5 bg-cyan-500/40' : `w-1.5 ${isDark ? 'bg-white/10' : 'bg-black/10'}`}`} />
                             ))}
-                            <div className={`h-2 w-2 rounded-full ${currentStep === questions.length ? 'bg-green-500' : isDark ? 'bg-white/10' : 'bg-black/10'}`} />
+                            <div className={`h-1.5 w-1.5 rounded-full ${currentStep === questions.length ? 'bg-green-500' : isDark ? 'bg-white/10' : 'bg-black/10'}`} />
                         </div>
                     )}
                 </div>
@@ -785,11 +815,12 @@ Sent from XyberClan Website`;
             <style>{`
                 @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
                 @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-                .animate-slide-in-right { animation: slideInRight 0.3s ease-out; }
-                .animate-slide-in-left { animation: slideInLeft 0.3s ease-out; }
+                .animate-slide-in-right { animation: slideInRight 0.4s cubic-bezier(0.16,1,0.3,1); }
+                .animate-slide-in-left { animation: slideInLeft 0.4s cubic-bezier(0.16,1,0.3,1); }
             `}</style>
         </div>
     );
 };
 
 export default ProjectForm;
+

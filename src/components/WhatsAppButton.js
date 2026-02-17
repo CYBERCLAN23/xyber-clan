@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { isHolidaySeason } from '../utils/festive';
 
 const WhatsAppButton = () => {
-    const phoneNumber = "237672446810"; // Updated phone number from footer
+    const phoneNumber = "237672446810";
     const message = "Hi XyberClan, I'm interested in your services!";
     const [isHovered, setIsHovered] = useState(false);
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setVisible(window.scrollY > window.innerHeight * 0.8);
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
         <a
             href={`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-3 transition-all duration-300 hover:-translate-y-1"
+            className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 transition-all duration-500 hover:-translate-y-1 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             aria-label="Chat on WhatsApp"

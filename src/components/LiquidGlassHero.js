@@ -3,148 +3,124 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Zap, MapPin, DollarSign, TrendingUp } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
-// Free stock video — abstract tech/digital particles, fits XyberClan brand
+// Free stock video — abstract tech/digital particles
 const VIDEO_SRC = 'https://cdn.pixabay.com/video/2020/07/30/45894-446787346_large.mp4';
-// Poster fallback while video loads
 const POSTER_SRC = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
 
 const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
-    useTheme(); // maintain context connection
+    useTheme();
     const videoRef = useRef(null);
     const [videoReady, setVideoReady] = useState(false);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        // Stagger entrance animations
         const timer = setTimeout(() => setMounted(true), 100);
         return () => clearTimeout(timer);
     }, []);
 
-    // Smooth crossfade from poster to video when video can play
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
-
         const onReady = () => setVideoReady(true);
         video.addEventListener('canplaythrough', onReady);
-
-        // Fallback: if already ready
         if (video.readyState >= 4) setVideoReady(true);
-
         return () => video.removeEventListener('canplaythrough', onReady);
     }, []);
 
     const trustBadges = [
-        { icon: <Zap size={14} />, label: t?.hero?.fastDelivery || 'Fast Delivery' },
-        { icon: <MapPin size={14} />, label: t?.hero?.localExpertise || 'Local Expertise' },
-        { icon: <DollarSign size={14} />, label: t?.hero?.fairPricing || 'Fair Pricing' },
-        { icon: <TrendingUp size={14} />, label: t?.hero?.provenResults || 'Proven Results' },
+        { icon: <Zap size={12} />, label: t?.hero?.fastDelivery || 'Fast Delivery' },
+        { icon: <MapPin size={12} />, label: t?.hero?.localExpertise || 'Local Expertise' },
+        { icon: <DollarSign size={12} />, label: t?.hero?.fairPricing || 'Fair Pricing' },
+        { icon: <TrendingUp size={12} />, label: t?.hero?.provenResults || 'Proven Results' },
     ];
 
-    // Services we showcase in the glass card
-    const serviceHighlights = [
-        { label: 'Web & App Dev', value: '50+', sublabel: 'Projects' },
-        { label: 'Cybersecurity', value: '99.9%', sublabel: 'Uptime' },
-        { label: 'Satisfied Clients', value: '40+', sublabel: 'Across Cameroon' },
+    const stats = [
+        { value: '50+', label: 'Projects' },
+        { value: '99.9%', label: 'Uptime' },
+        { value: '40+', label: 'Clients' },
     ];
 
     return (
-        <section className="relative w-full min-h-[100dvh] overflow-hidden bg-black">
+        <section className="relative w-full h-[100dvh] overflow-hidden bg-black">
 
-            {/* ─── POSTER IMAGE (visible until video loads) ─── */}
-            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${videoReady ? 'opacity-0' : 'opacity-100'}`}>
-                <img
-                    src={POSTER_SRC}
-                    alt=""
-                    className="w-full h-full object-cover"
-                    fetchpriority="high"
-                />
+            {/* POSTER */}
+            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ${videoReady ? 'opacity-0' : 'opacity-100'}`}>
+                <img src={POSTER_SRC} alt="" className="w-full h-full object-cover" fetchpriority="high" />
             </div>
 
-            {/* ─── VIDEO BACKGROUND ─── */}
-            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${videoReady ? 'opacity-100' : 'opacity-0'}`}>
-                <video
-                    ref={videoRef}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    poster={POSTER_SRC}
-                    className="w-full h-full object-cover"
-                >
+            {/* VIDEO */}
+            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ${videoReady ? 'opacity-100' : 'opacity-0'}`}>
+                <video ref={videoRef} autoPlay muted loop playsInline preload="auto" poster={POSTER_SRC} className="w-full h-full object-cover">
                     <source src={VIDEO_SRC} type="video/mp4" />
                 </video>
             </div>
 
-            {/* ─── OVERLAY ─── */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/70" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+            {/* OVERLAYS */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/80" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
 
-            {/* ─── CONTENT LAYER ─── */}
-            <div className="relative z-10 w-full min-h-[100dvh] flex flex-col justify-between px-5 sm:px-8 md:px-12 lg:px-16 pt-28 md:pt-32 pb-8 md:pb-12">
+            {/* CONTENT — flex column, exact viewport fit */}
+            <div className="relative z-10 h-full flex flex-col px-5 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-24 pb-6 sm:pb-8">
 
-                {/* ─── MAIN TYPOGRAPHY: Momento-style big bold text ─── */}
-                <div className="flex-1 flex flex-col justify-center">
-                    <div className={`transition-all duration-1000 ease-out ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+                {/* TOP: Headline area — grows to fill available space */}
+                <div className="flex-1 flex flex-col justify-center min-h-0">
+                    <div className={`transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
 
-                        {/* Tagline Pill */}
-                        <div className="mb-6 md:mb-8">
-                            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] md:text-xs font-semibold uppercase tracking-widest border border-white/20 bg-white/5 backdrop-blur-md text-white/80">
-                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                {lang === 'en' ? 'Digital Agency • Yaoundé, Cameroon' : 'Agence Digitale • Yaoundé, Cameroun'}
-                            </span>
-                        </div>
+                        {/* Agency pill */}
+                        <span
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.15em] border border-white/15 bg-white/5 backdrop-blur-md text-white/70 mb-4 sm:mb-5"
+                            style={{ animation: mounted ? 'heroFadeUp 0.6s ease-out 0.05s both' : 'none' }}
+                        >
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            {lang === 'en' ? 'Digital Agency • Yaoundé' : 'Agence Digitale • Yaoundé'}
+                        </span>
 
-                        {/* Hero Headline — HUGE, editorial style */}
-                        <h1 className="text-white leading-[0.92] tracking-tight">
+                        {/* Headline — compact sizes */}
+                        <h1 className="text-white leading-[0.9] tracking-tighter">
                             <span
-                                className="block text-[clamp(2.8rem,8vw,7rem)] font-black"
-                                style={{ transitionDelay: '0.15s', animation: mounted ? 'heroFadeUp 0.8s ease-out 0.1s both' : 'none' }}
+                                className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black"
+                                style={{ fontFamily: "'Inter', sans-serif", animation: mounted ? 'heroFadeUp 0.7s ease-out 0.1s both' : 'none' }}
                             >
                                 {t?.hero?.titlePrefix || 'Your Trusted'}
                             </span>
                             <span
-                                className="block text-[clamp(2.8rem,8vw,7rem)] font-black"
-                                style={{ animation: mounted ? 'heroFadeUp 0.8s ease-out 0.25s both' : 'none' }}
+                                className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black mt-1"
+                                style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.2s both' : 'none' }}
                             >
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
                                     {lang === 'en' ? 'Digital' : 'Partenaire'}
                                 </span>
                                 {' '}
-                                <span className="text-white/90 italic font-light">
+                                <span className="text-white/80 italic font-extralight">
                                     {lang === 'en' ? 'Partner' : 'Digital'}
                                 </span>
                             </span>
                         </h1>
 
-                        {/* Subtitle */}
+                        {/* Subtitle — tighter */}
                         <p
-                            className="mt-5 md:mt-7 text-white/60 text-base md:text-lg lg:text-xl max-w-xl leading-relaxed font-light"
-                            style={{ animation: mounted ? 'heroFadeUp 0.8s ease-out 0.4s both' : 'none' }}
+                            className="mt-3 sm:mt-4 text-white/50 text-sm sm:text-base lg:text-lg max-w-lg leading-relaxed"
+                            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, animation: mounted ? 'heroFadeUp 0.7s ease-out 0.3s both' : 'none' }}
                         >
                             {t?.hero?.subtitle || 'Professional digital solutions for ambitious businesses and individuals.'}
                         </p>
 
-                        {/* CTA Buttons */}
+                        {/* CTAs — compact */}
                         <div
-                            className="mt-7 md:mt-10 flex flex-wrap gap-3 md:gap-4"
-                            style={{ animation: mounted ? 'heroFadeUp 0.8s ease-out 0.55s both' : 'none' }}
+                            className="mt-4 sm:mt-6 flex flex-wrap gap-2.5 sm:gap-3"
+                            style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.4s both' : 'none' }}
                         >
                             <Link
                                 to="/start-project"
-                                className="group flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm md:text-base font-semibold shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.03] transition-all duration-300"
+                                className="group flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/35 hover:scale-[1.02] transition-all duration-300"
                             >
                                 {t?.hero?.startProject || 'Start Your Project'}
-                                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                             </Link>
                             <a
                                 href="#services"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
-                                }}
-                                className="flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md text-white text-sm md:text-base font-medium hover:bg-white/10 hover:border-white/30 transition-all duration-300"
+                                onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
+                                className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl border border-white/15 bg-white/5 backdrop-blur-md text-white text-xs sm:text-sm font-medium hover:bg-white/10 transition-all duration-300"
                             >
                                 {t?.hero?.exploreServices || 'Explore Services'}
                             </a>
@@ -152,85 +128,47 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                     </div>
                 </div>
 
-                {/* ─── BOTTOM ROW: Glass card + Trust badges ─── */}
+                {/* BOTTOM — Stats + Trust badges, fixed to bottom */}
                 <div
-                    className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-8"
-                    style={{ animation: mounted ? 'heroFadeUp 0.8s ease-out 0.7s both' : 'none' }}
+                    className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 sm:gap-6 flex-shrink-0"
+                    style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.55s both' : 'none' }}
                 >
-
-                    {/* SINGLE GLASS CARD — Stat highlights */}
-                    <div className="w-full max-w-md rounded-2xl md:rounded-3xl p-5 md:p-7 backdrop-blur-2xl border shadow-2xl bg-white/[0.07] border-white/[0.12]">
-
-                        {/* Card Header */}
-                        <div className="flex items-center justify-between mb-4 md:mb-5">
-                            <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                                <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-white/50">
-                                    {lang === 'en' ? 'Our Impact' : 'Notre Impact'}
-                                </span>
-                            </div>
-                            <span className="text-[10px] font-mono text-white/30">2024—2025</span>
-                        </div>
-
-                        {/* Stat Row */}
-                        <div className="grid grid-cols-3 gap-3 md:gap-4">
-                            {serviceHighlights.map((stat, i) => (
-                                <div key={i} className="text-center">
-                                    <p className="text-xl md:text-2xl lg:text-3xl font-black text-white tracking-tight">
-                                        {stat.value}
-                                    </p>
-                                    <p className="text-[10px] md:text-[11px] font-semibold text-white/40 uppercase tracking-wider mt-0.5">
-                                        {stat.sublabel}
-                                    </p>
+                    {/* Glass Stats Card — compact */}
+                    <div className="flex items-center gap-4 sm:gap-6 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl backdrop-blur-2xl border bg-white/[0.06] border-white/[0.1]">
+                        {stats.map((s, i) => (
+                            <React.Fragment key={i}>
+                                {i > 0 && <div className="w-px h-8 bg-white/10" />}
+                                <div className="text-center">
+                                    <p className="text-lg sm:text-xl md:text-2xl font-black text-white tracking-tight leading-none">{s.value}</p>
+                                    <p className="text-[9px] sm:text-[10px] font-semibold text-white/35 uppercase tracking-wider mt-0.5">{s.label}</p>
                                 </div>
-                            ))}
-                        </div>
-
-                        {/* Divider */}
-                        <div className="h-px bg-white/10 my-4" />
-
-                        {/* Footer text */}
-                        <p className="text-[11px] md:text-xs text-white/40 leading-relaxed">
-                            {lang === 'en'
-                                ? 'Delivering enterprise-grade web, mobile, design, and cybersecurity solutions from Yaoundé.'
-                                : 'Fournissant des solutions web, mobile, design et cybersécurité de niveau entreprise depuis Yaoundé.'
-                            }
-                        </p>
+                            </React.Fragment>
+                        ))}
                     </div>
 
-                    {/* Trust Badges — right side, bottom */}
-                    <div className="flex flex-wrap gap-2 md:gap-3 lg:justify-end">
+                    {/* Trust badges */}
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                         {trustBadges.map((badge, i) => (
-                            <div
-                                key={i}
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] md:text-xs font-medium border border-white/10 bg-white/5 backdrop-blur-md text-white/60"
-                            >
+                            <span key={i} className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium border border-white/8 bg-white/[0.04] text-white/50">
                                 {badge.icon}
                                 {badge.label}
-                            </div>
+                            </span>
                         ))}
                     </div>
                 </div>
 
-                {/* Scroll Down Indicator */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
-                    <ChevronDown size={20} className="text-white/30 animate-bounce" />
+                {/* Scroll chevron — inside the hero, at absolute bottom center */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+                    <ChevronDown size={18} className="text-white/20 animate-bounce" />
                 </div>
             </div>
 
-            {/* ─── ANIMATIONS ─── */}
             <style>{`
-        @keyframes heroFadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+                @keyframes heroFadeUp {
+                    from { opacity: 0; transform: translateY(24px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `}</style>
         </section>
     );
 };

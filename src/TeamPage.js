@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Code, ChevronRight, Sun, Moon, Menu, X, Linkedin, Github, Laptop, Briefcase, Palette, Image as ImageIcon, Sparkles, ChevronLeft } from 'lucide-react';
+import { Shield, Code, ChevronRight, Sun, Moon, Menu, X, Linkedin, Github, Laptop, Briefcase, Palette, Image as ImageIcon, Sparkles, ChevronLeft, ArrowUpRight } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
 import Footer from './components/Footer';
@@ -41,94 +41,92 @@ const TeamPage = () => {
             image: '/team/ceo-member.jpg',
             name: 'Chief Executive Officer',
             role: 'CEO & Co-Founder',
-            icon: <Briefcase className="w-6 h-6" />,
+            icon: <Briefcase className="w-5 h-5" />,
             description: 'Visionary leader driving XyberClan\'s mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.',
             expertise: ['Strategic Leadership', 'Business Development', 'Vision & Planning'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
         {
             image: '/team/cto-redteamer.jpg',
             name: 'Chief Technology Officer',
             role: 'CTO & Security Expert',
-            icon: <Shield className="w-6 h-6" />,
+            icon: <Shield className="w-5 h-5" />,
             description: 'Strategic technology leader and cybersecurity specialist ensuring robust security through penetration testing and threat protection.',
             expertise: ['Penetration Testing', 'Security Audits', 'Infrastructure Architecture'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
         {
             image: '/team/dev-member.jpg',
             name: 'Lead Fullstack Developer',
             role: 'Senior Fullstack Engineer',
-            icon: <Laptop className="w-6 h-6" />,
+            icon: <Laptop className="w-5 h-5" />,
             description: 'Expert in modern web technologies and creating seamless user experiences. Passionate about clean code and innovative solutions.',
             expertise: ['React & Next.js', 'Node.js & APIs', 'Database Design'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
         {
             image: '/team/web-designer.jpg',
             name: 'Lead Web Designer',
             role: 'Web Design Specialist',
-            icon: <Palette className="w-6 h-6" />,
+            icon: <Palette className="w-5 h-5" />,
             description: 'Expert in creating stunning, user-friendly web interfaces. Specializes in modern design principles and responsive layouts.',
             expertise: ['Responsive Design', 'UI/UX Best Practices', 'Modern CSS'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
         {
             image: '/team/communications-manager.jpg',
             name: 'Analyst Python',
             role: 'Strategic Planning & Co-Founder',
-            icon: <Code className="w-6 h-6" />,
+            icon: <Code className="w-5 h-5" />,
             description: 'Specializes in Python analysis and strategic planning. Driving the technical vision and business strategy of XyberClan.',
             expertise: ['Python Analysis', 'Strategic Planning', 'Data Science'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
         {
             image: '/team/figma-canva-designer.jpg',
             name: 'UI/UX Designer',
             role: 'Figma & Canva Specialist',
-            icon: <Palette className="w-6 h-6" />,
+            icon: <Palette className="w-5 h-5" />,
             description: 'Creates beautiful, functional designs. Specializes in rapid prototyping and transforming ideas into polished visual experiences.',
             expertise: ['Figma Prototyping', 'Canva Design', 'Design Systems'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
         {
             image: '/team/adobe-designer.jpeg',
             name: 'Creative Designer',
             role: 'Adobe Suite Expert',
-            icon: <ImageIcon className="w-6 h-6" />,
+            icon: <ImageIcon className="w-5 h-5" />,
             description: 'Master of visual storytelling. Delivers high-quality graphics and branding materials that elevate brand presence.',
             expertise: ['Adobe Photoshop', 'Illustrator', 'Brand Identity'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
         {
             image: '/team/frontend-designer.jpg',
             name: 'Frontend Developer',
             role: 'Web Designer & Frontend Dev',
-            icon: <Code className="w-6 h-6" />,
+            icon: <Code className="w-5 h-5" />,
             description: 'Bridging the gap between design and engineering. Expert in building responsive, pixel-perfect user interfaces.',
             expertise: ['React', 'Web Design', 'UI/UX Implementation'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
         {
             image: '/team/cybersecurity-chief.jpg',
             name: 'Chief of Cybersecurity',
             role: 'Security Educator & Pentester',
-            icon: <Shield className="w-6 h-6" />,
+            icon: <Shield className="w-5 h-5" />,
             description: 'Leads cybersecurity with expertise in penetration testing and security education. Protects and educates with passion.',
             expertise: ['Penetration Testing', 'Security Education', 'Backend Dev'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={20} />, url: '#' }, { name: 'GitHub', icon: <Github size={20} />, url: '#' }]
+            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         }
     ];
 
     const [radius, setRadius] = useState(750);
 
-    // Handle resizing for responsive carousel radius
     useEffect(() => {
         const handleResize = () => {
-            setRadius(window.innerWidth < 768 ? 350 : 750);
+            setRadius(window.innerWidth < 768 ? 320 : 700);
         };
-
-        handleResize(); // Set initial
+        handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -142,24 +140,28 @@ const TeamPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const navLinks = ['home', 'about', 'services', 'team', 'contact'];
+
     return (
         <div className={`min-h-screen w-full overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
 
-            {/* Navigation */}
+            {/* ─── Navigation ─── */}
             <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-                <nav className={`pointer-events-auto max-w-5xl w-full px-4 py-3 md:px-6 md:py-4 flex justify-between items-center transition-all duration-500 rounded-2xl ${isScrolled
+                <nav className={`pointer-events-auto max-w-5xl w-full px-4 py-3 md:px-6 md:py-3 flex justify-between items-center transition-all duration-500 rounded-2xl ${isScrolled
                     ? (isDark ? 'bg-black/80 backdrop-blur-xl border border-white/10 shadow-2xl shadow-cyan-900/10' : 'bg-white/80 backdrop-blur-xl border border-gray-200 shadow-xl shadow-gray-200/50')
                     : 'bg-transparent'
                     }`}>
-                    <Link to="/" className="flex items-center gap-3 group cursor-pointer">
-                        <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain rounded-xl" />
-                        <span className={`text-xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>XyberClan</span>
+                    <Link to="/" className="flex items-center gap-2.5 group cursor-pointer">
+                        <img src={getLogo()} alt="XyberClan" className="w-11 h-11 object-contain rounded-xl" />
+                        <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
+                            Xyber<span className="text-cyan-500">Clan</span>
+                        </span>
                     </Link>
 
                     <div className="hidden lg:flex items-center space-x-1">
-                        {['home', 'about', 'services', 'team', 'contact'].map((item) => (
+                        {navLinks.map((item) => (
                             item === 'team' ? (
-                                <Link key={item} to="/team" className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}>
+                                <Link key={item} to="/team" className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-cyan-500`}>
                                     {t.nav[item]}
                                 </Link>
                             ) : (
@@ -172,112 +174,126 @@ const TeamPage = () => {
 
                     <div className="hidden lg:flex items-center gap-3">
                         <button onClick={toggleTheme} className={`p-2.5 rounded-lg transition-colors ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/10' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}>
-                            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                            {isDark ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
                         <button onClick={toggleLang} className={`p-2.5 rounded-lg font-bold text-xs transition-colors ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/10' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}>
                             {lang.toUpperCase()}
                         </button>
-                        <Link to="/start-project" className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all hover:scale-105 shadow-lg shadow-black/10 bg-black text-white hover:bg-gray-800">
+                        <Link to="/start-project" className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all hover:scale-105 shadow-lg shadow-cyan-500/15 bg-gradient-to-r from-cyan-500 to-blue-600 text-white">
                             {t.nav.getStarted}
                         </Link>
                     </div>
 
                     <button className="lg:hidden p-2 rounded-lg text-inherit" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
                     </button>
                 </nav>
+            </div>
 
-                {/* Mobile Menu Drawer */}
-                <div className={`absolute top-24 left-4 right-4 lg:hidden transition-all duration-500 pointer-events-auto ${mobileMenuOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-4 scale-95 pointer-events-none'}`}>
-                    <div className={`rounded-3xl border p-6 shadow-2xl backdrop-blur-2xl ${isDark ? 'bg-black/90 border-white/10 shadow-cyan-500/10' : 'bg-white/90 border-gray-200 shadow-gray-200/50'}`}>
-                        <div className="flex flex-col gap-2">
-                            {['home', 'about', 'services', 'team', 'contact'].map((item, idx) => (
-                                item === 'team' ? (
-                                    <Link
-                                        key={item}
-                                        to="/team"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className={`px-6 py-4 rounded-2xl text-lg font-bold transition-all ${isDark ? 'text-gray-300 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}
-                                        style={{ animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${idx * 0.05}s both` : 'none' }}
-                                    >
-                                        {t.nav[item]}
-                                    </Link>
-                                ) : (
-                                    <a
-                                        key={item}
-                                        href={`/#${item}`}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className={`px-6 py-4 rounded-2xl text-lg font-bold transition-all ${isDark ? 'text-gray-300 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}
-                                        style={{ animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${idx * 0.05}s both` : 'none' }}
-                                    >
-                                        {t.nav[item]}
-                                    </a>
-                                )
-                            ))}
-                            <div className="h-px bg-current opacity-10 my-4" />
-                            <div className="flex items-center justify-between px-6 py-2">
-                                <span className="font-bold opacity-60">{lang === 'en' ? 'Appearance' : 'Apparence'}</span>
-                                <button onClick={toggleTheme} className={`p-4 rounded-2xl transition-all ${isDark ? 'bg-white/5 text-yellow-400' : 'bg-black/5 text-blue-600'}`}>
-                                    {isDark ? <Sun size={24} /> : <Moon size={24} />}
-                                </button>
-                            </div>
-                            <div className="flex items-center justify-between px-6 py-2">
-                                <span className="font-bold opacity-60">{lang === 'en' ? 'Language' : 'Langue'}</span>
-                                <button onClick={toggleLang} className={`px-6 py-4 rounded-2xl font-black transition-all ${isDark ? 'bg-white/5 text-cyan-400' : 'bg-black/5 text-cyan-600'}`}>
-                                    {lang.toUpperCase()}
-                                </button>
-                            </div>
-                            <Link to="/start-project" onClick={() => setMobileMenuOpen(false)} className="mt-6 w-full py-5 rounded-2xl bg-[#00A3FF] text-white font-black text-center text-xl shadow-xl shadow-[#00A3FF]/20">
-                                {t.nav.getStarted}
-                            </Link>
+            {/* ─── Mobile Fullscreen Overlay ─── */}
+            <div className={`lg:hidden fixed inset-0 z-[60] transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+                <div className={`absolute inset-0 ${isDark ? 'bg-black/95' : 'bg-white/95'} backdrop-blur-3xl`} onClick={() => setMobileMenuOpen(false)} />
+                <div className="absolute top-1/4 right-0 w-80 h-80 bg-gradient-to-br from-cyan-500/20 to-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+                <div className="relative z-10 flex flex-col h-full px-8 pt-28 pb-10">
+                    <button onClick={() => setMobileMenuOpen(false)} className={`absolute top-7 right-7 w-12 h-12 flex items-center justify-center rounded-2xl transition-all ${isDark ? 'bg-white/5 text-white hover:bg-white/10' : 'bg-black/5 text-gray-900 hover:bg-black/10'}`}>
+                        <X size={22} />
+                    </button>
+
+                    <div className="absolute top-7 left-8">
+                        <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
+                            <img src={getLogo()} alt="XyberClan" className="w-10 h-10 object-contain rounded-xl" />
+                            <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
+                                Xyber<span className="text-cyan-500">Clan</span>
+                            </span>
+                        </Link>
+                    </div>
+
+                    <div className="flex-1 flex flex-col justify-center gap-1">
+                        {navLinks.map((item, idx) => (
+                            item === 'team' ? (
+                                <Link key={item} to="/team" onClick={() => setMobileMenuOpen(false)}
+                                    className={`group flex items-baseline gap-4 py-4 transition-all duration-300 border-b ${isDark ? 'border-white/5 text-cyan-400' : 'border-black/5 text-cyan-600'}`}
+                                    style={{ animation: mobileMenuOpen ? `fadeInUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}>
+                                    <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
+                                    <span className="text-[2rem] font-black tracking-tight leading-none">{t.nav[item]}</span>
+                                    <ChevronRight size={18} className="ml-auto opacity-50" />
+                                </Link>
+                            ) : (
+                                <a key={item} href={`/#${item}`} onClick={() => setMobileMenuOpen(false)}
+                                    className={`group flex items-baseline gap-4 py-4 transition-all duration-300 border-b ${isDark ? 'border-white/5 text-white hover:text-cyan-400' : 'border-black/5 text-gray-900 hover:text-cyan-600'}`}
+                                    style={{ animation: mobileMenuOpen ? `fadeInUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}>
+                                    <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
+                                    <span className="text-[2rem] font-black tracking-tight leading-none">{t.nav[item]}</span>
+                                    <ChevronRight size={18} className={`ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
+                                </a>
+                            )
+                        ))}
+                    </div>
+
+                    <div className={`flex items-center justify-between pt-6 border-t ${isDark ? 'border-white/10' : 'border-black/10'}`}
+                        style={{ animation: mobileMenuOpen ? 'fadeInUp 0.6s ease-out 0.4s both' : 'none' }}>
+                        <div className="flex items-center gap-2">
+                            <button onClick={toggleTheme} className={`w-11 h-11 rounded-xl flex items-center justify-center ${isDark ? 'bg-white/5 text-yellow-400' : 'bg-black/5 text-blue-600'}`}>
+                                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+                            </button>
+                            <button onClick={toggleLang} className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-xs ${isDark ? 'bg-white/5 text-cyan-400' : 'bg-black/5 text-cyan-600'}`}>
+                                {lang.toUpperCase()}
+                            </button>
                         </div>
+                        <Link to="/start-project" onClick={() => setMobileMenuOpen(false)}
+                            className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm shadow-lg shadow-cyan-500/25">
+                            {t.nav.getStarted} →
+                        </Link>
                     </div>
                 </div>
             </div>
 
-            {/* Team Hero Arc - Lowered and Carousel Animation */}
-            <section className={`relative pt-56 pb-80 overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[700px] bg-cyan-500/5 blur-[150px] rounded-full pointer-events-none"></div>
+            {/* ─── Hero Section with Carousel ─── */}
+            <section className={`relative pt-40 pb-64 md:pt-48 md:pb-72 overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
+                {/* Gradient glow behind carousel */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 w-[900px] h-[500px] bg-gradient-to-b from-cyan-500/8 to-blue-600/5 blur-[130px] rounded-full pointer-events-none" />
 
                 <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-500 mb-8 animate-fade-in-up">
-                        <Sparkles size={16} />
-                        <span className="text-xs font-black uppercase tracking-widest">Global Talent</span>
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-500 mb-6 animate-fade-in-up">
+                        <Sparkles size={14} />
+                        <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Our People</span>
                     </div>
 
-                    <h1 className="text-5xl md:text-9xl font-black tracking-tighter mb-12 animate-fade-in-up delay-100">
-                        Meet our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Team</span>
+                    {/* Headline */}
+                    <h1 className="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-5 animate-fade-in-up delay-100" style={{ fontFamily: "'Inter', sans-serif" }}>
+                        Meet our{' '}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Team</span>
                     </h1>
-                    <p className={`text-xl md:text-2xl max-w-2xl mx-auto mb-32 opacity-60 animate-fade-in-up delay-200 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                    <p className={`text-base md:text-xl max-w-xl mx-auto mb-20 animate-fade-in-up delay-200 ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
                         Innovative minds working together to engineer Cameroon's digital future.
                     </p>
 
                     {/* Carousel Controls */}
-                    <div className="absolute left-10 right-10 top-1/2 -translate-y-10 flex justify-between z-20 pointer-events-none">
-                        <button onClick={prevMember} className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all pointer-events-auto">
-                            <ChevronLeft size={32} />
+                    <div className="absolute left-4 right-4 md:left-10 md:right-10 top-[55%] flex justify-between z-20 pointer-events-none">
+                        <button onClick={prevMember} className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl backdrop-blur-xl border flex items-center justify-center transition-all pointer-events-auto hover:scale-110 ${isDark ? 'bg-white/5 border-white/10 text-white hover:bg-white/10' : 'bg-black/5 border-black/10 text-gray-900 hover:bg-black/10'}`}>
+                            <ChevronLeft size={24} />
                         </button>
-                        <button onClick={nextMember} className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all pointer-events-auto">
-                            <ChevronRight size={32} />
+                        <button onClick={nextMember} className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl backdrop-blur-xl border flex items-center justify-center transition-all pointer-events-auto hover:scale-110 ${isDark ? 'bg-white/5 border-white/10 text-white hover:bg-white/10' : 'bg-black/5 border-black/10 text-gray-900 hover:bg-black/10'}`}>
+                            <ChevronRight size={24} />
                         </button>
                     </div>
 
-                    {/* The Arc Visual - Larger Radius and Lowered */}
-                    <div className="relative w-full max-w-6xl mx-auto h-[600px]">
+                    {/* Arc Carousel */}
+                    <div className="relative w-full max-w-5xl mx-auto h-[450px] md:h-[550px]">
                         <div className="absolute top-0 left-0 right-0 flex justify-center items-end">
                             {teamMembers.map((member, idx) => {
                                 const total = teamMembers.length;
-                                // Calculate distance from active index for the carousel effect
                                 let diff = idx - activeIndex;
                                 if (diff > total / 2) diff -= total;
                                 if (diff < -total / 2) diff += total;
 
-                                const angle = diff * 20; // Slightly larger spread for 9 members
-                                // radius is now from state
+                                const angle = diff * 22;
                                 const x = Math.sin(angle * (Math.PI / 180)) * radius;
-                                const y = (1 - Math.cos(angle * (Math.PI / 180))) * radius + 250; // Lowered significantly (100 -> 250)
-
+                                const y = (1 - Math.cos(angle * (Math.PI / 180))) * radius + 200;
                                 const isCenter = Math.abs(diff) < 0.1;
+                                const isNear = Math.abs(diff) <= 2;
 
                                 return (
                                     <div
@@ -285,14 +301,17 @@ const TeamPage = () => {
                                         className={`absolute transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${isCenter ? 'z-50' : 'z-10'} pointer-events-auto cursor-pointer`}
                                         onClick={() => setActiveIndex(idx)}
                                         style={{
-                                            transform: `translate(${x}px, ${y}px) rotate(${angle}deg) scale(${isCenter ? 1.2 : 0.85})`,
-                                            width: '220px',
-                                            opacity: 1, // All members visible
-                                            filter: isCenter ? 'none' : 'grayscale(20%)' // Subtle grayscale for non-centered
+                                            transform: `translate(${x}px, ${y}px) rotate(${angle * 0.5}deg) scale(${isCenter ? 1.15 : 0.8})`,
+                                            width: window.innerWidth < 768 ? '160px' : '200px',
+                                            opacity: isNear ? 1 : 0.3,
+                                            filter: isCenter ? 'none' : 'grayscale(30%)'
                                         }}
                                     >
-                                        <div className={`relative p-3 rounded-[2.5rem] border-4 ${isDark ? 'bg-neutral-900 border-[#00A3FF]' : 'bg-white border-[#00A3FF]'} shadow-2xl transition-all duration-500`}>
-                                            <div className="aspect-[3.5/5] rounded-[2rem] overflow-hidden">
+                                        <div className={`relative rounded-3xl overflow-hidden border-2 transition-all duration-500 ${isCenter
+                                            ? 'border-cyan-500 shadow-2xl shadow-cyan-500/20'
+                                            : (isDark ? 'border-white/10' : 'border-gray-200')
+                                            }`}>
+                                            <div className="aspect-[3/4] overflow-hidden">
                                                 <img
                                                     src={member.image}
                                                     alt={member.name}
@@ -300,75 +319,120 @@ const TeamPage = () => {
                                                 />
                                             </div>
 
+                                            {/* Glass overlay for center card */}
                                             {isCenter && (
-                                                <div className="absolute -bottom-20 left-0 right-0 animate-fade-in text-center">
-                                                    <h3 className={`text-2xl font-black ${isDark ? 'text-white' : 'text-gray-900'}`}>{member.name}</h3>
-                                                    <p className="text-[#00A3FF] font-bold text-sm uppercase tracking-widest">{member.role}</p>
+                                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                                                    <h3 className="text-white font-bold text-sm tracking-tight leading-tight">{member.name}</h3>
+                                                    <p className="text-cyan-400 text-xs font-medium">{member.role}</p>
                                                 </div>
                                             )}
-
-                                            <div className={`absolute inset-0 -z-10 bg-[#00A3FF]/20 blur-3xl transition-opacity duration-700 ${isCenter ? 'opacity-100' : 'opacity-0'}`}></div>
                                         </div>
+
+                                        {/* Glow behind active */}
+                                        <div className={`absolute inset-0 -z-10 bg-cyan-500/15 blur-3xl transition-opacity duration-700 rounded-full ${isCenter ? 'opacity-100' : 'opacity-0'}`} />
                                     </div>
                                 );
                             })}
                         </div>
                     </div>
+
+                    {/* Dot indicators */}
+                    <div className="flex justify-center gap-2 mt-8">
+                        {teamMembers.map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => setActiveIndex(idx)}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${idx === activeIndex ? 'w-8 bg-cyan-500' : `w-1.5 ${isDark ? 'bg-white/20' : 'bg-black/15'}`}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             </section>
 
-            {/* Detailed Team Sections */}
-            <div className="py-32 space-y-48">
-                {detailedTeam.map((member, idx) => (
-                    <section key={idx} className="px-4">
-                        <div className={`max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-                            <div className={`${idx % 2 === 1 ? 'lg:order-2' : ''} relative group`}>
-                                <div className="relative rounded-[4rem] overflow-hidden border border-white/10">
-                                    <img
-                                        src={member.image}
-                                        alt={member.name}
-                                        loading="lazy"
-                                        decoding="async"
-                                        className="w-full h-[650px] object-cover transition-transform duration-1000 group-hover:scale-110"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                                    <div className="absolute bottom-12 left-12 p-8 bg-black/40 backdrop-blur-2xl rounded-[2.5rem] border border-white/10">
-                                        <div className="w-14 h-14 bg-cyan-500 rounded-2xl flex items-center justify-center text-black mb-4 shadow-xl shadow-cyan-500/20">
-                                            {member.icon}
+            {/* ─── Team Detail Cards ─── */}
+            <div className={`py-24 ${isDark ? 'bg-black' : 'bg-gray-50'}`}>
+                <div className="max-w-7xl mx-auto px-4">
+                    {/* Section header */}
+                    <div className="mb-16 max-w-2xl">
+                        <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-cyan-400/60' : 'text-cyan-600/60'}`}>The People</p>
+                        <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-[1.1] mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
+                            Experts dedicated to{' '}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">your success</span>
+                        </h2>
+                        <p className={`text-base leading-relaxed ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
+                            Every member brings unique skills and passion to deliver exceptional results.
+                        </p>
+                    </div>
+
+                    {/* Cards grid */}
+                    <div className="space-y-20">
+                        {detailedTeam.map((member, idx) => (
+                            <section key={idx} className="group">
+                                <div className={`grid lg:grid-cols-5 gap-8 lg:gap-12 items-center ${idx % 2 === 1 ? '' : ''}`}>
+                                    {/* Image — 2 cols */}
+                                    <div className={`lg:col-span-2 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
+                                        <div className={`relative rounded-3xl overflow-hidden border ${isDark ? 'border-white/5' : 'border-gray-200'}`}>
+                                            <img
+                                                src={member.image}
+                                                alt={member.name}
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-[380px] md:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                            <div className="absolute bottom-5 left-5">
+                                                <div className="w-10 h-10 bg-cyan-500/90 rounded-xl flex items-center justify-center text-white backdrop-blur-sm">
+                                                    {member.icon}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="text-white font-black text-3xl tracking-tighter uppercase">{member.role}</div>
+                                    </div>
+
+                                    {/* Info — 3 cols */}
+                                    <div className={`lg:col-span-3 ${idx % 2 === 1 ? 'lg:order-1' : ''} space-y-5`}>
+                                        <div>
+                                            <p className={`text-xs font-semibold uppercase tracking-[0.15em] mb-2 ${isDark ? 'text-cyan-400/60' : 'text-cyan-600/60'}`}>{member.role}</p>
+                                            <h3 className="text-3xl md:text-5xl font-black tracking-tight leading-[1.05]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                                                {member.name}
+                                            </h3>
+                                        </div>
+
+                                        <p className={`text-base md:text-lg leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`} style={{ fontWeight: 300 }}>
+                                            {member.description}
+                                        </p>
+
+                                        <div className="space-y-3">
+                                            <p className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>Expertise</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {member.expertise.map((skill, i) => (
+                                                    <span key={i} className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all hover:scale-[1.03] ${isDark ? 'bg-white/3 border-white/8 text-gray-300' : 'bg-white border-gray-200 text-gray-700'}`}>
+                                                        {skill}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="flex gap-2.5 pt-2">
+                                            {member.socials.map((social, i) => (
+                                                <a key={i} href={social.url} className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all hover:scale-110 ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400' : 'bg-white border-gray-200 text-gray-500 hover:border-cyan-500/50 hover:text-cyan-600'}`}>
+                                                    {social.icon}
+                                                </a>
+                                            ))}
+                                            <a href="#" className={`flex items-center gap-1.5 px-4 h-11 rounded-xl border text-sm font-medium transition-all hover:scale-[1.03] ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30' : 'bg-white border-gray-200 text-gray-500 hover:text-cyan-600 hover:border-cyan-500/30'}`}>
+                                                View Profile <ArrowUpRight size={14} />
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className={`${idx % 2 === 1 ? 'lg:order-1' : ''} space-y-10`}>
-                                <h2 className="text-4xl md:text-8xl font-black tracking-tighter leading-none">{member.name}</h2>
-                                <p className={`text-2xl leading-relaxed opacity-60 font-medium ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
-                                    {member.description}
-                                </p>
-
-                                <div className="space-y-6">
-                                    <p className="text-xs font-black uppercase tracking-[0.3em] opacity-40">Core Expertise</p>
-                                    <div className="flex flex-wrap gap-4">
-                                        {member.expertise.map((skill, i) => (
-                                            <span key={i} className={`px-6 py-3 rounded-2xl text-base font-bold border transition-all hover:scale-105 ${isDark ? 'bg-white/5 border-white/10 text-white' : 'bg-black/5 border-black/5 text-black'}`}>
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-4 pt-6">
-                                    {member.socials.map((social, i) => (
-                                        <a key={i} href={social.url} className={`w-16 h-16 rounded-3xl flex items-center justify-center border transition-all hover:scale-110 ${isDark ? 'bg-neutral-900 border-neutral-800 text-white hover:border-cyan-500 hover:text-cyan-400' : 'bg-white border-gray-200 text-black hover:border-cyan-500 hover:text-cyan-600'}`}>
-                                            {social.icon}
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                ))}
+                                {/* Divider */}
+                                {idx < detailedTeam.length - 1 && (
+                                    <div className={`mt-20 h-px ${isDark ? 'bg-white/5' : 'bg-gray-200'}`} />
+                                )}
+                            </section>
+                        ))}
+                    </div>
+                </div>
             </div>
 
             <CTASection />
@@ -381,16 +445,12 @@ const TeamPage = () => {
                 .delay-100 { animation-delay: 0.1s; }
                 .delay-200 { animation-delay: 0.2s; }
                 @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(40px); }
+                    from { opacity: 0; transform: translateY(30px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
                 @keyframes fadeIn {
                     from { opacity: 0; }
                     to { opacity: 1; }
-                }
-                @keyframes slideIn {
-                    from { opacity: 0; transform: translateX(-20px); }
-                    to { opacity: 1; transform: translateX(0); }
                 }
             `}</style>
         </div>
