@@ -2,15 +2,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Zap, MapPin, DollarSign, TrendingUp } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { getLogo } from '../utils/festive';
 
-// Free stock video — abstract tech/digital particles
-const VIDEO_SRC = 'https://cdn.pixabay.com/video/2020/07/30/45894-446787346_large.mp4';
+import heroVideo from '../assets/hero-video.mp4';
+
+// Local video file
+const VIDEO_SRC = heroVideo;
 const POSTER_SRC = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
 
 const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
-    useTheme();
+    const { isDark } = useTheme();
     const videoRef = useRef(null);
     const [videoReady, setVideoReady] = useState(false);
+    const [videoEnded, setVideoEnded] = useState(false);
+    const [showEndSequence, setShowEndSequence] = useState(false);
+    const [showBanner, setShowBanner] = useState(false);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -21,10 +27,40 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
+
+        // Slower playback speed
+        video.playbackRate = 0.6;
+
         const onReady = () => setVideoReady(true);
         video.addEventListener('canplaythrough', onReady);
         if (video.readyState >= 4) setVideoReady(true);
         return () => video.removeEventListener('canplaythrough', onReady);
+    }, []);
+
+    const handleVideoEnd = () => {
+        setVideoEnded(true);
+        // Sequence: Video Ends -> Logo shows (Interstitial) -> Logo hides & Banner shows (Main State)
+        setTimeout(() => setShowEndSequence(true), 500);
+
+        // After 5s of logo, hide logo and show banner
+        setTimeout(() => {
+            setShowEndSequence(false);
+            setShowBanner(true);
+        }, 5500);
+    };
+
+    const [scrolledPast, setScrolledPast] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setScrolledPast(true);
+            } else {
+                setScrolledPast(false);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const trustBadges = [
@@ -43,14 +79,25 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
     return (
         <section className="relative w-full h-[100dvh] overflow-hidden bg-black">
 
-            {/* POSTER */}
-            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ${videoReady ? 'opacity-0' : 'opacity-100'}`}>
+            {/* POSTER / STATIC BANNER */}
+            {/* Shows initially, fades out when video plays, fades back in when sequence completes */}
+            <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${videoReady && !showBanner ? 'opacity-0' : 'opacity-100'}`}>
                 <img src={POSTER_SRC} alt="" className="w-full h-full object-cover" fetchpriority="high" />
             </div>
 
             {/* VIDEO */}
-            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ${videoReady ? 'opacity-100' : 'opacity-0'}`}>
-                <video ref={videoRef} autoPlay muted loop playsInline preload="auto" poster={POSTER_SRC} className="w-full h-full object-cover">
+            {/* Plays once, fades out when ended */}
+            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ${videoReady && !videoEnded ? 'opacity-100' : 'opacity-0'}`}>
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    poster={POSTER_SRC}
+                    className="w-full h-full object-cover"
+                    onEnded={handleVideoEnd}
+                >
                     <source src={VIDEO_SRC} type="video/mp4" />
                 </video>
             </div>
@@ -59,8 +106,24 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/80" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
 
-            {/* CONTENT — flex column, exact viewport fit */}
-            <div className="relative z-10 h-full flex flex-col px-5 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-24 pb-6 sm:pb-8">
+            {/* END SEQUENCE OVERLAY - Logo & Motto */}
+            {/* Appears after video ends, disappears on Scroll */}
+            <div className={`absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none transition-all duration-[1000ms] ${showEndSequence && !scrolledPast ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                <div className="bg-black/40 backdrop-blur-xl p-8 rounded-full mb-6 border border-white/10 shadow-2xl shadow-cyan-500/20">
+                    <img src={getLogo()} alt="XyberClan Logo" className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover animate-pulse" />
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white text-center tracking-tighter mb-2">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Xyber</span>Clan
+                </h2>
+                <p className="text-white/80 text-lg sm:text-xl font-light tracking-widest uppercase items-center flex gap-3">
+                    <span className="w-8 h-px bg-white/30 hidden sm:block"></span>
+                    {t?.footer?.tagline || 'Building Digital Dreams'}
+                    <span className="w-8 h-px bg-white/30 hidden sm:block"></span>
+                </p>
+            </div>
+
+            {/* CONTENT — Fades out slightly when end sequence shows to let logo take focus, but stays accessible */}
+            <div className={`relative z-10 h-full flex flex-col px-5 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-24 pb-6 sm:pb-8 transition-opacity duration-1000 ${showEndSequence && !scrolledPast ? 'opacity-20 blur-sm' : 'opacity-100'}`}>
 
                 {/* TOP: Headline area — grows to fill available space */}
                 <div className="flex-1 flex flex-col justify-center min-h-0">
