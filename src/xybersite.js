@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Eye, Lock, Menu, X, Sun, Moon } from 'lucide-react';
+import { Shield, Eye, Lock, Menu, X, Sun, Moon, ArrowUpRight, Globe } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
@@ -39,117 +39,68 @@ const XyberClanWebsite = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll animation refs for different sections - REPLACED BY ScrollReveal
-  // Kept useScrollAnimation import removed but hooks were here. Cleaned up.
+  // Close mobile menu on scroll
+  React.useEffect(() => {
+    if (mobileMenuOpen) {
+      const close = () => setMobileMenuOpen(false);
+      window.addEventListener('scroll', close, { passive: true });
+      return () => window.removeEventListener('scroll', close);
+    }
+  }, [mobileMenuOpen]);
 
   const toggleLang = () => {
     setLang(lang === 'en' ? 'fr' : 'en');
   };
 
+  const navLinks = ['home', 'about', 'services', 'team', 'contact'];
+
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
-      {/* Scroll Progress Indicator - Handled by ScrollReveal later */}
 
-      {/* Navigation - Ultra Island Design */}
-      <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav className={`pointer-events-auto max-w-5xl w-full px-4 py-3 md:px-6 md:py-4 flex justify-between items-center transition-all duration-500 rounded-2xl ${isScrolled
-          ? `nav-island ${isDark ? 'shadow-cyan-900/10' : 'shadow-gray-200/50'}`
-          : 'bg-transparent'
-          }`}>
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img
-              src={getLogo()}
-              alt="XyberClan"
-              fetchpriority="high"
-              decoding="async"
-              className="w-14 h-14 object-contain rounded-xl"
-            />
-            <span className={`text-xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>XyberClan</span>
-          </Link>
+      {/* ─── NAVBAR ─── */}
+      <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+        <div className="pointer-events-auto mx-auto max-w-[1400px] px-4 pt-4">
+          <nav className={`flex items-center justify-between px-5 py-3 md:px-7 md:py-3.5 rounded-2xl transition-all duration-500 ${isScrolled
+              ? `backdrop-blur-2xl shadow-lg border ${isDark ? 'bg-black/70 border-white/[0.08] shadow-black/30' : 'bg-white/70 border-black/[0.06] shadow-gray-200/60'}`
+              : 'bg-transparent'
+            }`}>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {['home', 'about', 'services', 'team', 'contact'].map((item) => (
-              item === 'team' ? (
-                <Link
-                  key={item}
-                  to="/team"
-                  className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isDark
-                    ? 'text-gray-400 hover:text-white hover:bg-white/5'
-                    : 'text-gray-600 hover:text-black hover:bg-black/5'
-                    }`}
-                >
-                  {t.nav[item]}
-                </Link>
-              ) : (
-                <a
-                  key={item}
-                  href={`#${item}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById(item)?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${isDark
-                    ? 'text-gray-400 hover:text-white hover:bg-white/5'
-                    : 'text-gray-600 hover:text-black hover:bg-black/5'
-                    }`}
-                >
-                  {t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)}
-                </a>
-              )
-            ))}
-          </div>
-
-          {/* Action Buttons */}
-          <div className="hidden lg:flex items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className={`p-2.5 rounded-lg transition-colors ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/10' : 'text-gray-600 hover:text-black hover:bg-black/5'
-                }`}
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-
-            <button
-              onClick={toggleLang}
-              className={`p-2.5 rounded-lg font-bold text-xs transition-colors ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/10' : 'text-gray-600 hover:text-black hover:bg-black/5'
-                }`}
-            >
-              {lang.toUpperCase()}
-            </button>
-
+            {/* Left: Logo */}
             <Link
-              to="/start-project"
-              className="px-5 py-2.5 rounded-lg text-sm font-bold transition-all hover:scale-105 shadow-lg shadow-black/10 bg-black text-white hover:bg-gray-800"
+              to="/"
+              className="flex items-center gap-2.5 group"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              {t.nav.getStarted}
+              <img
+                src={getLogo()}
+                alt="XyberClan"
+                fetchpriority="high"
+                decoding="async"
+                className="w-10 h-10 object-contain rounded-lg"
+              />
+              <span className={`text-lg font-bold tracking-tight hidden sm:block ${isScrolled
+                  ? (isDark ? 'text-white' : 'text-gray-900')
+                  : 'text-white'
+                }`}>
+                XyberClan
+              </span>
             </Link>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center gap-4">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 rounded-lg ${isDark ? 'text-white' : 'text-black'}`}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </nav>
-
-        {/* Mobile Menu Drawer - Smooth Slide-in */}
-        <div className={`absolute top-24 left-4 right-4 lg:hidden transition-all duration-500 pointer-events-auto ${mobileMenuOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-4 scale-95 pointer-events-none'}`}>
-          <div className={`rounded-3xl border p-6 shadow-2xl backdrop-blur-2xl ${isDark ? 'bg-black/90 border-white/10 shadow-cyan-500/10' : 'bg-white/90 border-gray-200 shadow-gray-200/50'}`}>
-            <div className="flex flex-col gap-2">
-              {['home', 'about', 'services', 'team', 'contact'].map((item, idx) => (
+            {/* Center: Nav Links */}
+            <div className="hidden lg:flex items-center gap-1">
+              {navLinks.map((item) => (
                 item === 'team' ? (
                   <Link
                     key={item}
                     to="/team"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`px-6 py-4 rounded-2xl text-lg font-bold transition-all ${isDark ? 'text-gray-300 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}
-                    style={{ animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${idx * 0.05}s both` : 'none' }}
+                    className={`px-4 py-2 text-[13px] font-medium uppercase tracking-wider transition-all duration-200 rounded-lg ${isScrolled
+                        ? (isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900')
+                        : 'text-white/70 hover:text-white'
+                      }`}
                   >
                     {t.nav[item]}
                   </Link>
@@ -159,59 +110,141 @@ const XyberClanWebsite = () => {
                     href={`#${item}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      document.getElementById(item)?.scrollIntoView({ behavior: 'smooth' });
-                      setMobileMenuOpen(false);
+                      scrollToSection(item);
                     }}
-                    className={`px-6 py-4 rounded-2xl text-lg font-bold transition-all ${isDark ? 'text-gray-300 hover:text-white hover:bg-white/5' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}
-                    style={{ animation: mobileMenuOpen ? `slideIn 0.3s ease-out ${idx * 0.05}s both` : 'none' }}
+                    className={`px-4 py-2 text-[13px] font-medium uppercase tracking-wider transition-all duration-200 rounded-lg ${isScrolled
+                        ? (isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900')
+                        : 'text-white/70 hover:text-white'
+                      }`}
                   >
                     {t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)}
                   </a>
                 )
               ))}
+            </div>
 
-              <div className="h-px bg-current opacity-10 my-4" />
+            {/* Right: Actions */}
+            <div className="hidden lg:flex items-center gap-2">
+              <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-lg transition-all duration-200 ${isScrolled
+                    ? (isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-black/5')
+                    : 'text-white/60 hover:text-white hover:bg-white/10'
+                  }`}
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
 
-              {/* Mobile Actions */}
-              <div className="flex items-center justify-between px-6 py-2">
-                <span className="font-bold opacity-60">{lang === 'en' ? 'Appearance' : 'Apparence'}</span>
-                <button onClick={toggleTheme} className={`p-4 rounded-2xl transition-all ${isDark ? 'bg-white/5 text-yellow-400' : 'bg-black/5 text-blue-600'}`}>
-                  {isDark ? <Sun size={24} /> : <Moon size={24} />}
+              <button
+                onClick={toggleLang}
+                className={`flex items-center gap-1 px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 ${isScrolled
+                    ? (isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-black/5')
+                    : 'text-white/60 hover:text-white hover:bg-white/10'
+                  }`}
+              >
+                <Globe size={14} />
+                {lang}
+              </button>
+
+              <Link
+                to="/start-project"
+                className="ml-1 flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 hover:scale-[1.03] bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
+              >
+                {t.nav.getStarted}
+                <ArrowUpRight size={14} />
+              </Link>
+            </div>
+
+            {/* Mobile: Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`lg:hidden p-2 rounded-lg transition-all ${isScrolled
+                  ? (isDark ? 'text-white' : 'text-gray-900')
+                  : 'text-white'
+                }`}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </nav>
+        </div>
+
+        {/* ─── Mobile Fullscreen Overlay ─── */}
+        <div className={`lg:hidden fixed inset-0 z-[60] transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}>
+          {/* Backdrop */}
+          <div
+            className={`absolute inset-0 backdrop-blur-2xl ${isDark ? 'bg-black/90' : 'bg-white/90'}`}
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          {/* Content */}
+          <div className="relative z-10 flex flex-col h-full px-8 pt-24 pb-10">
+            {/* Close */}
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className={`absolute top-6 right-6 p-2 rounded-xl ${isDark ? 'text-white hover:bg-white/10' : 'text-gray-900 hover:bg-black/5'}`}
+            >
+              <X size={24} />
+            </button>
+
+            {/* Links */}
+            <div className="flex-1 flex flex-col justify-center gap-2">
+              {navLinks.map((item, idx) => (
+                item === 'team' ? (
+                  <Link
+                    key={item}
+                    to="/team"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-3xl font-bold py-3 transition-all duration-300 ${isDark ? 'text-white hover:text-cyan-400' : 'text-gray-900 hover:text-cyan-600'}`}
+                    style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s ease-out ${idx * 0.08}s both` : 'none' }}
+                  >
+                    {t.nav[item]}
+                  </Link>
+                ) : (
+                  <a
+                    key={item}
+                    href={`#${item}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(item);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`text-3xl font-bold py-3 transition-all duration-300 ${isDark ? 'text-white hover:text-cyan-400' : 'text-gray-900 hover:text-cyan-600'}`}
+                    style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s ease-out ${idx * 0.08}s both` : 'none' }}
+                  >
+                    {t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)}
+                  </a>
+                )
+              ))}
+            </div>
+
+            {/* Bottom Actions */}
+            <div className="flex items-center justify-between pt-6 border-t border-current/10">
+              <div className="flex items-center gap-3">
+                <button onClick={toggleTheme} className={`p-3 rounded-xl ${isDark ? 'bg-white/5 text-yellow-400' : 'bg-black/5 text-blue-600'}`}>
+                  {isDark ? <Sun size={20} /> : <Moon size={20} />}
                 </button>
-              </div>
-
-              <div className="flex items-center justify-between px-6 py-2">
-                <span className="font-bold opacity-60">{lang === 'en' ? 'Language' : 'Langue'}</span>
-                <button onClick={toggleLang} className={`px-6 py-4 rounded-2xl font-black transition-all ${isDark ? 'bg-white/5 text-cyan-400' : 'bg-black/5 text-cyan-600'}`}>
+                <button onClick={toggleLang} className={`px-4 py-3 rounded-xl font-bold text-sm ${isDark ? 'bg-white/5 text-cyan-400' : 'bg-black/5 text-cyan-600'}`}>
                   {lang.toUpperCase()}
                 </button>
               </div>
-
-              <Link to="/start-project" onClick={() => setMobileMenuOpen(false)} className="mt-6 w-full py-5 rounded-2xl bg-black text-white font-black text-center text-xl shadow-xl shadow-black/20">
+              <Link
+                to="/start-project"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm shadow-lg shadow-cyan-500/20"
+              >
                 {t.nav.getStarted}
               </Link>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Add keyframe animation for mobile menu */}
-      <style>{`
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `}</style>
-
-      {/* Hero Section - Liquid Glass Design */}
+      {/* Hero Section */}
       <div id="home">
-        <LiquidGlassHero />
+        <LiquidGlassHero lang={lang} translations={t} />
       </div>
 
       {/* Scroll Progress Indicator */}

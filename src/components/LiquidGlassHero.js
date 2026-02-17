@@ -1,266 +1,236 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowRight, Pause, Play } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, ChevronDown, Zap, MapPin, DollarSign, TrendingUp } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
-const LiquidGlassHero = () => {
-    const { isDark } = useTheme();
-    const [activeId, setActiveId] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(true);
+// Free stock video — abstract tech/digital particles, fits XyberClan brand
+const VIDEO_SRC = 'https://cdn.pixabay.com/video/2020/07/30/45894-446787346_large.mp4';
+// Poster fallback while video loads
+const POSTER_SRC = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
+
+const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
+    useTheme(); // maintain context connection
+    const videoRef = useRef(null);
+    const [videoReady, setVideoReady] = useState(false);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
+        // Stagger entrance animations
+        const timer = setTimeout(() => setMounted(true), 100);
+        return () => clearTimeout(timer);
     }, []);
 
-    const items = [
-        {
-            id: 0,
-            category: "Cloud Infrastructure",
-            title: "XyberCloud Nebulus",
-            subtitle: "Enterprise Grid System",
-            image: "/portfolio/portfolio_xybershield_app_1766276389826.png", // Portfolio Screenshot
-            bg: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop", // Abstract Tech Network
-            specs: [
-                { label: "Uptime Guarantee", value: "99.999% SLA" },
-                { label: "Encryption", value: "AES-256 GCM" }
-            ]
-        },
-        {
-            id: 1,
-            category: "Mobile Solutions",
-            title: "XyberApp Native",
-            subtitle: "Cross-Platform Core",
-            image: "/portfolio/portfolio_nbdance_1766276075058.png",
-            bg: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop", // Mobile/Human Interaction
-            specs: [
-                { label: "Frame Rate", value: "120fps Native" },
-                { label: "Codebase", value: "Single Source" }
-            ]
-        },
-        {
-            id: 2,
-            category: "Cyber Defense",
-            title: "Sentinel V2.0",
-            subtitle: "AI Threat Detection",
-            image: "/portfolio/portfolio_vanguard_1766276251484.png",
-            bg: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop", // Cybersecurity/Code
-            specs: [
-                { label: "Response Time", value: "< 20ms Latency" },
-                { label: "Threat db", value: "Real-time Sync" }
-            ]
-        },
-        {
-            id: 3,
-            category: "UI/UX Design",
-            title: "Liquid Interface",
-            subtitle: "Modern Design System",
-            image: "/portfolio/portfolio_devilpool_1766276804758.png",
-            bg: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop", // Abstract Fluid/Art
-            specs: [
-                { label: "Components", value: "500+ React Node" },
-                { label: "Accessibility", value: "WCAG 2.1 AA" }
-            ]
-        }
+    // Smooth crossfade from poster to video when video can play
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const onReady = () => setVideoReady(true);
+        video.addEventListener('canplaythrough', onReady);
+
+        // Fallback: if already ready
+        if (video.readyState >= 4) setVideoReady(true);
+
+        return () => video.removeEventListener('canplaythrough', onReady);
+    }, []);
+
+    const trustBadges = [
+        { icon: <Zap size={14} />, label: t?.hero?.fastDelivery || 'Fast Delivery' },
+        { icon: <MapPin size={14} />, label: t?.hero?.localExpertise || 'Local Expertise' },
+        { icon: <DollarSign size={14} />, label: t?.hero?.fairPricing || 'Fair Pricing' },
+        { icon: <TrendingUp size={14} />, label: t?.hero?.provenResults || 'Proven Results' },
     ];
 
-    // Auto-Scroll Logic
-    useEffect(() => {
-        let interval;
-        if (isPlaying) {
-            interval = setInterval(() => {
-                setActiveId((prev) => (prev + 1) % items.length);
-            }, 5000); // 5 seconds per slide
-        }
-        return () => clearInterval(interval);
-    }, [isPlaying, items.length]);
-
-    const activeItem = items.find(i => i.id === activeId);
+    // Services we showcase in the glass card
+    const serviceHighlights = [
+        { label: 'Web & App Dev', value: '50+', sublabel: 'Projects' },
+        { label: 'Cybersecurity', value: '99.9%', sublabel: 'Uptime' },
+        { label: 'Satisfied Clients', value: '40+', sublabel: 'Across Cameroon' },
+    ];
 
     return (
-        <section className="relative w-full min-h-[100dvh] overflow-hidden bg-black flex flex-col justify-between">
+        <section className="relative w-full min-h-[100dvh] overflow-hidden bg-black">
 
-            {/* 1. IMMERSIVE BACKGROUND LAYER */}
-            {items.map((item) => (
-                <div
-                    key={item.id}
-                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${activeId === item.id ? 'opacity-100' : 'opacity-0'}`}
+            {/* ─── POSTER IMAGE (visible until video loads) ─── */}
+            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${videoReady ? 'opacity-0' : 'opacity-100'}`}>
+                <img
+                    src={POSTER_SRC}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    fetchpriority="high"
+                />
+            </div>
+
+            {/* ─── VIDEO BACKGROUND ─── */}
+            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${videoReady ? 'opacity-100' : 'opacity-0'}`}>
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    poster={POSTER_SRC}
+                    className="w-full h-full object-cover"
                 >
-                    {/* Background Image - Professional/Abstract */}
-                    <div
-                        className="absolute inset-0 bg-cover bg-center transform transition-transform duration-[10s] ease-linear scale-105"
-                        style={{ backgroundImage: `url(${item.bg})`, transform: activeId === item.id ? 'scale(1.1)' : 'scale(1.0)' }}
-                    />
+                    <source src={VIDEO_SRC} type="video/mp4" />
+                </video>
+            </div>
 
-                    {/* Blur & Overlay Layer */}
-                    <div className={`absolute inset-0 duration-1000 ${isDark
-                            ? 'backdrop-blur-[2px] bg-black/40'
-                            : 'backdrop-blur-md bg-white/10'
-                        }`}></div>
+            {/* ─── OVERLAY ─── */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
 
-                    {/* Vignette for focus */}
-                    <div className="absolute inset-0 bg-radial-gradient from-transparent to-black/40"></div>
-                </div>
-            ))}
+            {/* ─── CONTENT LAYER ─── */}
+            <div className="relative z-10 w-full min-h-[100dvh] flex flex-col justify-between px-5 sm:px-8 md:px-12 lg:px-16 pt-28 md:pt-32 pb-8 md:pb-12">
 
-            {/* 2. FLOATING UI LAYER */}
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 pt-24 pb-8 md:pt-32 md:pb-12 flex flex-col flex-1 pointer-events-none">
+                {/* ─── MAIN TYPOGRAPHY: Momento-style big bold text ─── */}
+                <div className="flex-1 flex flex-col justify-center">
+                    <div className={`transition-all duration-1000 ease-out ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
 
-                {/* TOP PILL (Center) */}
-                <div className="w-full flex justify-center pointer-events-auto mb-6 md:mb-12">
-                    <div className={`flex items-center gap-1 p-1 rounded-full border backdrop-blur-xl shadow-lg transition-colors duration-500 ${isDark ? 'bg-black/40 border-white/10 text-gray-300' : 'bg-white/40 border-white/20 text-gray-800'
-                        }`}>
-                        <button
-                            onClick={() => setIsPlaying(!isPlaying)}
-                            className={`px-4 py-2 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${isDark ? 'hover:bg-white/10' : 'hover:bg-black/5'
-                                }`}>
-                            {isPlaying ? <Pause size={10} /> : <Play size={10} />}
-                            {isPlaying ? 'Auto' : 'Paused'}
-                        </button>
-                    </div>
-                </div>
+                        {/* Tagline Pill */}
+                        <div className="mb-6 md:mb-8">
+                            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] md:text-xs font-semibold uppercase tracking-widest border border-white/20 bg-white/5 backdrop-blur-md text-white/80">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                {lang === 'en' ? 'Digital Agency • Yaoundé, Cameroon' : 'Agence Digitale • Yaoundé, Cameroun'}
+                            </span>
+                        </div>
 
-                {/* MAIN GRID CONTENT */}
-                <div className="grid md:grid-cols-12 gap-6 md:gap-8 items-start md:items-center flex-1">
+                        {/* Hero Headline — HUGE, editorial style */}
+                        <h1 className="text-white leading-[0.92] tracking-tight">
+                            <span
+                                className="block text-[clamp(2.8rem,8vw,7rem)] font-black"
+                                style={{ transitionDelay: '0.15s', animation: mounted ? 'heroFadeUp 0.8s ease-out 0.1s both' : 'none' }}
+                            >
+                                {t?.hero?.titlePrefix || 'Your Trusted'}
+                            </span>
+                            <span
+                                className="block text-[clamp(2.8rem,8vw,7rem)] font-black"
+                                style={{ animation: mounted ? 'heroFadeUp 0.8s ease-out 0.25s both' : 'none' }}
+                            >
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
+                                    {lang === 'en' ? 'Digital' : 'Partenaire'}
+                                </span>
+                                {' '}
+                                <span className="text-white/90 italic font-light">
+                                    {lang === 'en' ? 'Partner' : 'Digital'}
+                                </span>
+                            </span>
+                        </h1>
 
-                    {/* LEFT SIDEBAR: GLASS MENU */}
-                    <div className={`md:col-span-4 pointer-events-auto transition-all duration-700 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '0.1s' }}>
-                        <div className={`rounded-3xl p-3 md:p-4 backdrop-blur-2xl border shadow-2xl transition-colors duration-500 ${isDark ? 'bg-black/30 border-white/10' : 'bg-white/30 border-white/40'
-                            }`}>
+                        {/* Subtitle */}
+                        <p
+                            className="mt-5 md:mt-7 text-white/60 text-base md:text-lg lg:text-xl max-w-xl leading-relaxed font-light"
+                            style={{ animation: mounted ? 'heroFadeUp 0.8s ease-out 0.4s both' : 'none' }}
+                        >
+                            {t?.hero?.subtitle || 'Professional digital solutions for ambitious businesses and individuals.'}
+                        </p>
 
-                            <div className="space-y-2 md:space-y-3">
-                                <h3 className={`text-[10px] md:text-xs font-bold tracking-widest uppercase mb-2 md:mb-4 ml-4 opacity-70 ${isDark ? 'text-gray-400' : 'text-gray-600'
-                                    }`}>
-                                    Our Expertise
-                                </h3>
-                                {items.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        onClick={() => { setActiveId(item.id); setIsPlaying(false); }}
-                                        className="group cursor-pointer"
-                                    >
-                                        {/* Label Title */}
-                                        <div className={`px-4 py-2 md:py-3 rounded-xl transition-all duration-300 flex items-center justify-between ${activeId === item.id
-                                                ? 'bg-transparent'
-                                                : (isDark ? 'hover:bg-white/5' : 'hover:bg-black/5')
-                                            }`}>
-                                            <span className={`text-xs md:text-sm font-bold tracking-wide transition-colors ${activeId === item.id
-                                                    ? (isDark ? 'text-white' : 'text-black')
-                                                    : (isDark ? 'text-gray-400' : 'text-gray-600')
-                                                }`}>
-                                                {item.category}
-                                            </span>
-                                            {/* Loading Bar for Active Item */}
-                                            {activeId === item.id && isPlaying && (
-                                                <div className="w-8 md:w-12 h-1 rounded-full bg-gray-700 overflow-hidden">
-                                                    <div className={`h-full ${isDark ? 'bg-white' : 'bg-black'} animate-progress`}></div>
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {/* EXPANDED PREVIEW FOR ACTIVE ITEM */}
-                                        <div className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${activeId === item.id ? 'max-h-[180px] md:max-h-[220px] opacity-100 mt-2 mb-2' : 'max-h-0 opacity-0'
-                                            }`}>
-                                            <div className={`relative h-28 md:h-44 rounded-xl md:rounded-2xl overflow-hidden border shadow-inner ${isDark ? 'border-white/20' : 'border-white/50'
-                                                }`}>
-                                                <img
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    className="w-full h-full object-cover transform transition-transform duration-700 hover:scale-105"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3 md:p-4">
-                                                    <p className="text-white text-[10px] md:text-xs font-bold">{item.title}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                ))}
-                            </div>
-
+                        {/* CTA Buttons */}
+                        <div
+                            className="mt-7 md:mt-10 flex flex-wrap gap-3 md:gap-4"
+                            style={{ animation: mounted ? 'heroFadeUp 0.8s ease-out 0.55s both' : 'none' }}
+                        >
+                            <Link
+                                to="/start-project"
+                                className="group flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm md:text-base font-semibold shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.03] transition-all duration-300"
+                            >
+                                {t?.hero?.startProject || 'Start Your Project'}
+                                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                            </Link>
+                            <a
+                                href="#services"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md text-white text-sm md:text-base font-medium hover:bg-white/10 hover:border-white/30 transition-all duration-300"
+                            >
+                                {t?.hero?.exploreServices || 'Explore Services'}
+                            </a>
                         </div>
                     </div>
+                </div>
 
-                    {/* SPACER (Hidden on Mobile) */}
-                    <div className="hidden md:block md:col-span-2"></div>
+                {/* ─── BOTTOM ROW: Glass card + Trust badges ─── */}
+                <div
+                    className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 lg:gap-8"
+                    style={{ animation: mounted ? 'heroFadeUp 0.8s ease-out 0.7s both' : 'none' }}
+                >
 
-                    {/* RIGHT CARD: SPECS & TITLE */}
-                    <div className={`md:col-span-6 flex justify-end pointer-events-auto pb-4 md:pb-0 transition-all duration-700 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '0.3s' }}>
-                        <div className={`w-full max-w-md rounded-[24px] md:rounded-[32px] p-6 md:p-10 backdrop-blur-2xl border shadow-2xl transition-colors duration-500 relative overflow-hidden ${isDark ? 'bg-black/40 border-white/10' : 'bg-white/40 border-white/50'
-                            }`}>
+                    {/* SINGLE GLASS CARD — Stat highlights */}
+                    <div className="w-full max-w-md rounded-2xl md:rounded-3xl p-5 md:p-7 backdrop-blur-2xl border shadow-2xl bg-white/[0.07] border-white/[0.12]">
 
-                            {/* Inner Glow - Reduced on mobile */}
-                            <div className={`absolute -top-20 -right-20 w-40 h-40 md:w-64 md:h-64 rounded-full blur-[60px] md:blur-[80px] opacity-60 pointer-events-none ${isDark ? 'bg-purple-900/50' : 'bg-purple-300/50'
-                                }`}></div>
+                        {/* Card Header */}
+                        <div className="flex items-center justify-between mb-4 md:mb-5">
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                                <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-white/50">
+                                    {lang === 'en' ? 'Our Impact' : 'Notre Impact'}
+                                </span>
+                            </div>
+                            <span className="text-[10px] font-mono text-white/30">2024—2025</span>
+                        </div>
 
-                            {/* Content */}
-                            <div className="relative z-10 text-left">
-                                <h1 className={`text-3xl md:text-6xl font-black tracking-tighter leading-[0.95] mb-2 md:mb-4 transition-all duration-500 ${isDark ? 'text-white' : 'text-gray-900'
-                                    }`}>
-                                    {activeItem.title.split(' ')[0]} <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                                        {activeItem.title.split(' ').slice(1).join(' ')}
-                                    </span>
-                                </h1>
-
-                                <p className={`text-sm md:text-lg font-medium mb-6 md:mb-8 leading-snug ${isDark ? 'text-gray-300' : 'text-gray-700 '}`}>
-                                    {activeItem.subtitle}
-                                </p>
-
-                                {/* Specs Grid - Compact */}
-                                <div className="grid grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
-                                    {activeItem.specs.map((spec, i) => (
-                                        <div key={i} className={`flex flex-col border-l-2 pl-3 ${isDark ? 'border-purple-500/50' : 'border-purple-500/30'}`}>
-                                            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-50 mb-0.5">
-                                                {spec.label}
-                                            </span>
-                                            <span className="text-xs md:text-sm font-bold font-mono">
-                                                {spec.value}
-                                            </span>
-                                        </div>
-                                    ))}
+                        {/* Stat Row */}
+                        <div className="grid grid-cols-3 gap-3 md:gap-4">
+                            {serviceHighlights.map((stat, i) => (
+                                <div key={i} className="text-center">
+                                    <p className="text-xl md:text-2xl lg:text-3xl font-black text-white tracking-tight">
+                                        {stat.value}
+                                    </p>
+                                    <p className="text-[10px] md:text-[11px] font-semibold text-white/40 uppercase tracking-wider mt-0.5">
+                                        {stat.sublabel}
+                                    </p>
                                 </div>
-
-                                {/* Main CTA */}
-                                <button className={`w-full group flex items-center justify-between px-5 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl font-bold transition-all shadow-lg hover:scale-[1.02] ${isDark ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'
-                                    }`}>
-                                    <span className="text-sm md:text-base">Explore Project</span>
-                                    <div className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center transition-colors ${isDark ? 'bg-black text-white' : 'bg-white text-black'
-                                        }`}>
-                                        <ArrowRight size={12} className="md:w-[14px] md:h-[14px]" />
-                                    </div>
-                                </button>
-                            </div>
+                            ))}
                         </div>
+
+                        {/* Divider */}
+                        <div className="h-px bg-white/10 my-4" />
+
+                        {/* Footer text */}
+                        <p className="text-[11px] md:text-xs text-white/40 leading-relaxed">
+                            {lang === 'en'
+                                ? 'Delivering enterprise-grade web, mobile, design, and cybersecurity solutions from Yaoundé.'
+                                : 'Fournissant des solutions web, mobile, design et cybersécurité de niveau entreprise depuis Yaoundé.'
+                            }
+                        </p>
                     </div>
 
-                </div>
-
-                {/* BOTTOM LEFT INDICATOR */}
-                <div className="hidden md:flex items-center gap-4 pointer-events-auto">
-                    <div className="flex gap-1">
-                        {items.map((item) => (
+                    {/* Trust Badges — right side, bottom */}
+                    <div className="flex flex-wrap gap-2 md:gap-3 lg:justify-end">
+                        {trustBadges.map((badge, i) => (
                             <div
-                                key={item.id}
-                                className={`h-1.5 rounded-full transition-all duration-500 ${activeId === item.id
-                                        ? 'w-8 bg-cyan-500'
-                                        : (isDark ? 'w-2 bg-white/20' : 'w-2 bg-black/20')
-                                    }`}
-                            />
+                                key={i}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] md:text-xs font-medium border border-white/10 bg-white/5 backdrop-blur-md text-white/60"
+                            >
+                                {badge.icon}
+                                {badge.label}
+                            </div>
                         ))}
                     </div>
                 </div>
 
+                {/* Scroll Down Indicator */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+                    <ChevronDown size={20} className="text-white/30 animate-bounce" />
+                </div>
             </div>
 
+            {/* ─── ANIMATIONS ─── */}
             <style>{`
-                @keyframes progress {
-                    0% { width: 0%; }
-                    100% { width: 100%; }
-                }
-                .animate-progress {
-                    animation: progress 5s linear infinite;
-                }
-            `}</style>
+        @keyframes heroFadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
         </section>
     );
 };
