@@ -48,13 +48,13 @@ const Preloader = ({ onComplete }) => {
                     alt="XyberClan"
                     fetchpriority="high"
                     decoding="async"
-                    className="w-32 h-32 object-contain relative z-10 animate-pulse"
+                    className="w-32 h-32 object-contain relative z-10 animate-pulse notranslate"
                 />
             </div>
 
             {/* Brand Name */}
             <h1 className="text-4xl font-black text-gray-900 mb-8 tracking-tight">
-                Xyber<span className="text-cyan-500">Clan</span>
+                <span className="notranslate" translate="no">Xyber<span className="text-cyan-500">Clan</span></span>
             </h1>
 
             {/* Progress Bar */}

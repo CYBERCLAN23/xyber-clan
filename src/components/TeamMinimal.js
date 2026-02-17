@@ -61,7 +61,7 @@ const TeamMinimal = () => {
             <div className="max-w-7xl mx-auto">
                 <div className={`text-center mb-16 ${visible ? 'animate-fade-in-up' : 'opacity-0'}`}>
                     <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-gray-800 text-xs font-bold tracking-widest uppercase mb-6 inline-block">
-                        The XyberClan
+                        The <span className="notranslate" translate="no">XyberClan</span>
                     </span>
                     <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">
                         Meet Our <span className="font-serif italic text-cyan-500">Expert</span> Team

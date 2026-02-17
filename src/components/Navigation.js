@@ -41,7 +41,7 @@ const Navigation = ({
                     <a href="/" className="flex items-center group cursor-pointer">
                         <div className="relative">
                             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
-                            <span className="relative text-3xl font-black tracking-tight">
+                            <span className="relative text-3xl font-black tracking-tight notranslate" translate="no">
                                 <span
                                     className={`${isDark ? 'text-white' : 'text-gray-900'
                                         } transition-colors`}
@@ -62,8 +62,8 @@ const Navigation = ({
                                 key={item.name}
                                 href={item.href}
                                 className={`relative px-5 py-2.5 text-[15px] font-semibold ${isDark
-                                        ? 'text-gray-300 hover:text-white'
-                                        : 'text-gray-700 hover:text-gray-900'
+                                    ? 'text-gray-300 hover:text-white'
+                                    : 'text-gray-700 hover:text-gray-900'
                                     } transition-all duration-300 group`}
                             >
                                 <span className="relative z-10">{item.name}</span>
@@ -79,8 +79,8 @@ const Navigation = ({
                         <button
                             onClick={toggleLang}
                             className={`ml-4 p-3 rounded-xl ${isDark
-                                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800'
-                                    : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'
+                                ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800'
+                                : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'
                                 } transition-all duration-300 hover:scale-110 shadow-lg ${isDark ? 'shadow-cyan-500/10' : 'shadow-gray-300/50'
                                 }`}
                             aria-label="Toggle language"
@@ -100,8 +100,8 @@ const Navigation = ({
                         <button
                             onClick={toggleTheme}
                             className={`ml-2 p-3 rounded-xl ${isDark
-                                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800'
-                                    : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'
+                                ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800'
+                                : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'
                                 } transition-all duration-300 hover:scale-110 hover:rotate-12 shadow-lg ${isDark ? 'shadow-cyan-500/10' : 'shadow-gray-300/50'
                                 }`}
                             aria-label="Toggle theme"
@@ -126,8 +126,8 @@ const Navigation = ({
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         className={`md:hidden p-3 rounded-xl ${isDark
-                                ? 'bg-gray-800/50 hover:bg-gray-700/50'
-                                : 'bg-gray-100 hover:bg-gray-200'
+                            ? 'bg-gray-800/50 hover:bg-gray-700/50'
+                            : 'bg-gray-100 hover:bg-gray-200'
                             } transition-all duration-300`}
                         aria-label="Toggle menu"
                         aria-expanded={mobileMenuOpen}
@@ -148,8 +148,8 @@ const Navigation = ({
             >
                 <div
                     className={`${isDark
-                            ? 'bg-gradient-to-b from-gray-900/95 to-gray-950/95'
-                            : 'bg-gradient-to-b from-white/95 to-gray-50/95'
+                        ? 'bg-gradient-to-b from-gray-900/95 to-gray-950/95'
+                        : 'bg-gradient-to-b from-white/95 to-gray-50/95'
                         } backdrop-blur-xl border-t ${isDark ? 'border-cyan-500/10' : 'border-gray-200/50'
                         } px-6 py-6 space-y-1`}
                 >
@@ -159,8 +159,8 @@ const Navigation = ({
                             href={item.href}
                             onClick={() => setMobileMenuOpen(false)}
                             className={`block px-5 py-3.5 text-[16px] font-semibold ${isDark
-                                    ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
-                                    : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
+                                ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
+                                : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
                                 } rounded-xl transition-all duration-300 transform hover:translate-x-2`}
                             style={{
                                 animation: mobileMenuOpen
@@ -176,8 +176,8 @@ const Navigation = ({
                     <button
                         onClick={toggleLang}
                         className={`w-full flex items-center justify-between px-5 py-3.5 text-[16px] font-semibold ${isDark
-                                ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
-                                : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
+                            ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
                             } rounded-xl transition-all duration-300`}
                     >
                         <span>Language: {lang === 'en' ? 'English' : 'Français'}</span>
@@ -191,8 +191,8 @@ const Navigation = ({
                     <button
                         onClick={toggleTheme}
                         className={`w-full flex items-center justify-between px-5 py-3.5 text-[16px] font-semibold ${isDark
-                                ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
-                                : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
+                            ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
                             } rounded-xl transition-all duration-300`}
                     >
                         <span>{t.nav.toggleTheme}</span>

@@ -86,7 +86,7 @@ const XyberClanWebsite = () => {
               <span className={`text-lg font-bold tracking-tight hidden sm:block ${isScrolled
                 ? (isDark ? 'text-white' : 'text-gray-900')
                 : 'text-white'
-                }`}>
+                } notranslate`} translate="no">
                 XyberClan
               </span>
             </Link>
@@ -197,7 +197,7 @@ const XyberClanWebsite = () => {
             <div className="absolute top-7 left-8">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
                 <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
-                <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
+                <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'} notranslate`} translate="no">
                   Xyber<span className="text-cyan-500">Clan</span>
                 </span>
               </Link>

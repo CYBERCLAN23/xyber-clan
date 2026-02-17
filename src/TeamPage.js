@@ -42,7 +42,7 @@ const TeamPage = () => {
             name: 'Chief Executive Officer',
             role: 'CEO & Co-Founder',
             icon: <Briefcase className="w-5 h-5" />,
-            description: 'Visionary leader driving XyberClan\'s mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.',
+            description: <span>Visionary leader driving <span className="notranslate" translate="no">XyberClan's</span> mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.</span>,
             expertise: ['Strategic Leadership', 'Business Development', 'Vision & Planning'],
             socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
@@ -78,7 +78,7 @@ const TeamPage = () => {
             name: 'Analyst Python',
             role: 'Strategic Planning & Co-Founder',
             icon: <Code className="w-5 h-5" />,
-            description: 'Specializes in Python analysis and strategic planning. Driving the technical vision and business strategy of XyberClan.',
+            description: <span>Specializes in Python analysis and strategic planning. Driving the technical vision and business strategy of <span className="notranslate" translate="no">XyberClan</span>.</span>,
             expertise: ['Python Analysis', 'Strategic Planning', 'Data Science'],
             socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
         },
@@ -153,7 +153,7 @@ const TeamPage = () => {
                     }`}>
                     <Link to="/" className="flex items-center gap-2.5 group cursor-pointer">
                         <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
-                        <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
+                        <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'} notranslate`} translate="no">
                             Xyber<span className="text-cyan-500">Clan</span>
                         </span>
                     </Link>
@@ -203,7 +203,7 @@ const TeamPage = () => {
                     <div className="absolute top-7 left-8">
                         <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
                             <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
-                            <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
+                            <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'} notranslate`} translate="no">
                                 Xyber<span className="text-cyan-500">Clan</span>
                             </span>
                         </Link>

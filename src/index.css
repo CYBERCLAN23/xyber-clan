@@ -131,3 +131,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-cyan-500;
 }
+
+/* Prevent Google Translate */
+.notranslate {
+  transform: none;
+}

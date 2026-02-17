@@ -59,10 +59,10 @@ const Footer = ({ translations: t }) => {
                                 alt="XyberClan"
                                 loading="lazy"
                                 decoding="async"
-                                className="w-20 h-20 object-contain"
+                                className="w-20 h-20 object-contain notranslate"
                             />
                             <div className="text-3xl font-black tracking-tighter">
-                                Xyber<span className="text-cyan-500 transition-colors duration-500 group-hover:text-blue-500">Clan</span>
+                                <span className="notranslate" translate="no">Xyber<span className="text-cyan-500 transition-colors duration-500 group-hover:text-blue-500">Clan</span></span>
                             </div>
                         </div>
                         <p className={`text-xl leading-relaxed mb-10 max-w-md ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -131,7 +131,7 @@ const Footer = ({ translations: t }) => {
                 {/* Bottom Bar */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-12 border-t border-neutral-900/10 dark:border-white/5">
                     <div className="text-[10px] font-bold uppercase tracking-widest opacity-40">
-                        © {new Date().getFullYear()} XyberClan — Engineered in Cameroon.
+                        © {new Date().getFullYear()} <span className="notranslate" translate="no">XyberClan</span> — Engineered in Cameroon.
                     </div>
                     <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest opacity-40">
                         <span className="hover:opacity-100 cursor-pointer transition-opacity">Privacy</span>

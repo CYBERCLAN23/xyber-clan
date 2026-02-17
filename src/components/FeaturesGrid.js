@@ -32,7 +32,7 @@ const FeaturesGrid = () => {
                                 <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
                                 <div className="w-3 h-3 rounded-full bg-cyan-500/50"></div>
                             </div>
-                            <pre className="text-cyan-400 group-hover:translate-x-1 transition-transform duration-700">
+                            <pre className="text-cyan-400 group-hover:translate-x-1 transition-transform duration-700 notranslate" translate="no">
                                 <code>{`import React from 'react';\nclass component extends React.Component {\n  render() {\n    return (\n      <div>\n        <h1>XyberClan</h1>\n        <p>Optimized for Speed</p>\n      </div>\n    );\n  }\n}\nexport default XyberClan;`}</code>
                             </pre>
                             <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent"></div>

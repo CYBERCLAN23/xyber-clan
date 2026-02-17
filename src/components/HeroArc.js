@@ -59,7 +59,7 @@ const HeroArc = () => {
                 {isHolidaySeason() && (
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-200 dark:border-red-900/30 bg-red-50/50 dark:bg-red-900/20 backdrop-blur-sm mb-8 animate-twinkle">
                         <Sparkles size={16} className="text-red-500" />
-                        <span className="text-sm font-black tracking-widest uppercase text-red-600 dark:text-red-400">
+                        <span className="text-sm font-black tracking-widest uppercase text-red-600 dark:text-red-400 notranslate" translate="no">
                             {HOLIDAY_MESSAGE}
                         </span>
                     </div>
