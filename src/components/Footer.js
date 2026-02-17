@@ -59,7 +59,7 @@ const Footer = ({ translations: t }) => {
                                 alt="XyberClan"
                                 loading="lazy"
                                 decoding="async"
-                                className="w-16 h-16 object-contain rounded-2xl"
+                                className="w-20 h-20 object-contain"
                             />
                             <div className="text-3xl font-black tracking-tighter">
                                 Xyber<span className="text-cyan-500 transition-colors duration-500 group-hover:text-blue-500">Clan</span>

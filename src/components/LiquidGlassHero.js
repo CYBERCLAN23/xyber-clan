@@ -110,7 +110,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             {/* Appears after video ends, disappears on Scroll */}
             <div className={`absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none transition-all duration-[1000ms] ${showEndSequence && !scrolledPast ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                 <div className="bg-black/40 backdrop-blur-xl p-8 rounded-full mb-6 border border-white/10 shadow-2xl shadow-cyan-500/20">
-                    <img src={getLogo()} alt="XyberClan Logo" className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover animate-pulse" />
+                    <img src={getLogo()} alt="XyberClan Logo" className="w-32 h-32 sm:w-48 sm:h-48 object-contain animate-pulse" />
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white text-center tracking-tighter mb-2">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Xyber</span>Clan

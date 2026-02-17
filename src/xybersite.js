@@ -81,7 +81,7 @@ const XyberClanWebsite = () => {
                 alt="XyberClan"
                 fetchpriority="high"
                 decoding="async"
-                className="w-10 h-10 object-contain rounded-lg"
+                className="w-14 h-14 object-contain"
               />
               <span className={`text-lg font-bold tracking-tight hidden sm:block ${isScrolled
                 ? (isDark ? 'text-white' : 'text-gray-900')
@@ -196,7 +196,7 @@ const XyberClanWebsite = () => {
             {/* Logo top-left */}
             <div className="absolute top-7 left-8">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
-                <img src={getLogo()} alt="XyberClan" className="w-10 h-10 object-contain rounded-xl" />
+                <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
                 <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
                   Xyber<span className="text-cyan-500">Clan</span>
                 </span>

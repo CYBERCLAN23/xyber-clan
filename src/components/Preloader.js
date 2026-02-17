@@ -48,7 +48,7 @@ const Preloader = ({ onComplete }) => {
                     alt="XyberClan"
                     fetchpriority="high"
                     decoding="async"
-                    className="w-24 h-24 rounded-3xl relative z-10 animate-pulse"
+                    className="w-32 h-32 object-contain relative z-10 animate-pulse"
                 />
             </div>
 

@@ -17,7 +17,7 @@ export const isHolidaySeason = () => {
 };
 
 export const getLogo = () => {
-    return isHolidaySeason() ? '/team/logo-christmas.jpg' : '/team/logo.jpg';
+    return isHolidaySeason() ? '/team/logo-christmas.jpg' : '/team/logo-new.png';
 };
 
 export const HOLIDAY_MESSAGE = "XyberClan wishes you a Merry Christmas and Happy New Year! \"Season's Greetings\"";

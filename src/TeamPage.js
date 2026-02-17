@@ -152,7 +152,7 @@ const TeamPage = () => {
                     : 'bg-transparent'
                     }`}>
                     <Link to="/" className="flex items-center gap-2.5 group cursor-pointer">
-                        <img src={getLogo()} alt="XyberClan" className="w-11 h-11 object-contain rounded-xl" />
+                        <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
                         <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
                             Xyber<span className="text-cyan-500">Clan</span>
                         </span>
@@ -202,7 +202,7 @@ const TeamPage = () => {
 
                     <div className="absolute top-7 left-8">
                         <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
-                            <img src={getLogo()} alt="XyberClan" className="w-10 h-10 object-contain rounded-xl" />
+                            <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
                             <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
                                 Xyber<span className="text-cyan-500">Clan</span>
                             </span>
