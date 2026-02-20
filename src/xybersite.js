@@ -17,6 +17,7 @@ import CTASection from './components/CTASection';
 import StatsCounter from './components/StatsCounter';
 import FAQSection from './components/FAQSection';
 import TrustBadges from './components/TrustBadges';
+import PartnershipSection from './components/PartnershipSection';
 import Newsletter from './components/Newsletter';
 import Pricing from './components/Pricing';
 import ExitPopup from './components/ExitPopup';
@@ -296,6 +297,11 @@ const XyberClanWebsite = () => {
       {/* Trust Badges */}
       <ScrollReveal animation="subtleRise" delay={0.12} duration={1.1}>
         <TrustBadges />
+      </ScrollReveal>
+
+      {/* Partnership Section */}
+      <ScrollReveal animation="blurIn" delay={0.1} duration={1.2}>
+        <PartnershipSection translations={t} />
       </ScrollReveal>
 
       {/* Pricing */}

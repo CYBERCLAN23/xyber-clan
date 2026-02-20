@@ -112,6 +112,18 @@ export const translations = {
             ctaDesc: 'Ready to transform your ideas into reality? Get in touch today.',
             ctaButton: 'Contact Us Now'
         },
+        partnership: {
+            badge: 'Announcing Collaboration',
+            title: 'Tech Startup Partnership',
+            subtitle: 'Hult Prize UY1 x XYBERCLAN',
+            desc: 'We are reaching a new technological milestone! The Hult Prize University of Yaoundé 1 is proud to announce its partnership with XYBERCLAN.',
+            features: [
+                'Boost of technological innovation within our teams.',
+                'Technical accompaniment for high-impact projects.',
+                'Synergy between tech expertise and social entrepreneurship.'
+            ],
+            slogan: 'Together, we push the limits of what is possible!'
+        },
         footer: {
             tagline: 'Building Digital Dreams in Yaoundé',
             columns: {
@@ -427,6 +439,18 @@ export const translations = {
             ctaTitle: 'Construisons Quelque Chose d\'Incroyable',
             ctaDesc: 'Prêt à transformer vos idées en réalité ? Contactez-nous aujourd\'hui.',
             ctaButton: 'Contactez-nous Maintenant'
+        },
+        partnership: {
+            badge: 'Annonce de Collaboration',
+            title: 'Partenariat Startup Tech',
+            subtitle: 'Hult Prize UY1 x XYBERCLAN',
+            desc: 'Nous franchissons une nouvelle étape technologique ! Le Hult Prize University of Yaoundé 1 est fier d\'annoncer son partenariat avec XYBERCLAN.',
+            features: [
+                'Boost de l\'innovation technologique au sein de nos équipes.',
+                'Accompagnement technique pour des projets à fort impact.',
+                'Synergie entre expertise tech et entrepreneuriat social.',
+            ],
+            slogan: 'Ensemble, nous repoussons les limites du possible !'
         },
         footer: {
             tagline: 'Construire des Rêves Numériques à Yaoundé',

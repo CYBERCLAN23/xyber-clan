@@ -7,6 +7,7 @@ const TrustBadges = () => {
     // Partner/Client logos - using text placeholders that can be replaced with actual logos
     const partners = [
         { name: 'University of Yaoundé I', abbr: 'UY1' },
+        { name: 'Hult Prize', abbr: 'HULT' },
         { name: 'INF Department', abbr: 'INF' },
         { name: 'Tech Innovators', abbr: 'TI' },
         { name: 'StartUp Hub', abbr: 'SH' },

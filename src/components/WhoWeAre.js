@@ -11,7 +11,7 @@ const WhoWeAre = () => {
     const [ref, visible] = useScrollAnimation();
 
     const partners = [
-        "React", "Next.js", "XyberShield", "Node.js", "Python", "AWS", "Vanguard", "Figma", "Tailwind", "Firebase"
+        "React", "Next.js", "Hult Prize", "XyberShield", "Node.js", "Python", "AWS", "Vanguard", "Figma", "Tailwind", "Firebase"
     ];
 
     return (
