@@ -3,8 +3,8 @@ import { useTheme } from './context/ThemeContext';
 import { translations } from './translations';
 import { Link } from 'react-router-dom';
 import {
-    ChevronLeft, Sparkles, Plus, Rocket,
-    Globe, Shield, Heart, ArrowRight,
+    ChevronLeft, Plus,
+    Heart, ArrowRight,
     Users, Code2, Zap
 } from 'lucide-react';
 import { getLogo } from './utils/festive';
