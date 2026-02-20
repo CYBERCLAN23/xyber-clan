@@ -15,7 +15,8 @@ import {
     Settings2, GraduationCap, BarChart, Code2, Package,
     Target, Compass, Trello, Slack,
     LayoutDashboard, Laptop, Rocket,
-    History
+    History, MonitorCheck, Server, Bug,
+    ShieldAlert, Globe2, BarChart3, MailPlus, PenTool
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
@@ -37,6 +38,7 @@ const ProjectForm = () => {
         contactName: '',
         contactPhone: '',
         contactEmail: ''
+        // Dynamic keys will be added here
     });
 
     const steps = useMemo(() => {
@@ -57,16 +59,31 @@ const ProjectForm = () => {
             const icons = {
                 webGoal: [<ShoppingCart />, <Briefcase />, <UserCircle />, <LayoutDashboard />],
                 webPages: [<FilePlus />, <Files />, <Layout />, <Database />],
-                webFeatures: [<MessageSquare />, <Lock />, <CreditCard />, <BookOpen />],
-                mobilePlatform: [<Smartphone />, <Laptop />, <Cpu />], // Laptop for both/cross
+                webFeatures: [
+                    <MessageSquare />, <Lock />, <CreditCard />, <BookOpen />,
+                    <Search />, <Globe2 />, <MailPlus />, <BarChart3 />
+                ],
+                mobilePlatform: [<Smartphone />, <Laptop />, <Cpu />],
                 mobileType: [<ShoppingCart />, <Users />, <Wrench />, <Settings2 />],
-                designType: [<Palette />, <Layout />, <Slack />, <Target />],
-                designStyle: [<Compass />, <Zap />, <Briefcase />, <Rocket />],
-                secType: [<Search />, <ShieldCheck />, <Terminal />, <Activity />],
-                secTarget: [<Globe />, <Wifi />, <Smartphone />, <HardDrive />],
+                designType: [
+                    <Palette />, <Layout />, <Slack />, <Target />,
+                    <UserCircle />, <FileText />, <Layers />, <Rocket />
+                ],
+                designStyle: [
+                    <Compass />, <Zap />, <Briefcase />, <Rocket />,
+                    <History />, <Cpu />, <Sparkles />
+                ],
+                secType: [
+                    <Search />, <ShieldCheck />, <Terminal />, <Activity />,
+                    <ShieldAlert />, <Bug />, <Users />, <Lock />
+                ],
+                secTarget: [<Globe />, <Wifi />, <Smartphone />, <HardDrive />, <Monitor />, <Cpu />],
                 hwType: [<Wrench />, <Wifi />, <Cpu />, <Settings2 />],
                 hwUrgency: [<Zap />, <Clock />, <Activity />, <LifeBuoy />],
-                trainingSubject: [<Code2 />, <Shield />, <Palette />, <Package />],
+                trainingSubject: [
+                    <Code2 />, <Shield />, <Palette />, <Package />,
+                    <Smartphone />, <Database />, <Layout />, <Target />
+                ],
                 trainingLevel: [<GraduationCap />, <BarChart />, <Trello />]
             };
 
@@ -101,6 +118,7 @@ const ProjectForm = () => {
                 baseSteps.push({
                     id: sq.id,
                     type: 'choice',
+                    multi: sq.multi,
                     question: sq.question,
                     options: sq.options.map((opt, idx) => ({
                         value: opt,
@@ -136,7 +154,7 @@ const ProjectForm = () => {
                     { value: t.options.asap, label: t.options.asap, icon: <Zap className="w-8 h-8" />, color: 'red' },
                     { value: t.options.weeks, label: t.options.weeks, icon: <Clock className="w-8 h-8" />, color: 'orange' },
                     { value: t.options.month, label: t.options.month, icon: <Calendar className="w-8 h-8" />, color: 'yellow' },
-                    { value: t.options.months, label: t.options.months, icon: <History className="w-8 h-8" />, color: 'blue' }, // Need to import History or another
+                    { value: t.options.months, label: t.options.months, icon: <History className="w-8 h-8" />, color: 'blue' },
                     { value: t.options.flexible, label: t.options.flexible, icon: <Compass className="w-8 h-8" />, color: 'cyan' }
                 ]
             },
@@ -167,8 +185,6 @@ const ProjectForm = () => {
         return baseSteps;
     }, [answers.projectType, lang, t]);
 
-    // Added Logic: Need History for the timeline icons
-    // Actually let's just use what we have to avoid import errors
     const currentQuestion = steps[currentStep];
 
     const handleNext = () => {
@@ -183,12 +199,22 @@ const ProjectForm = () => {
         setCurrentStep(prev => Math.max(prev - 1, 0));
     };
 
-    const handleChoice = (id, value) => {
-        setAnswers(prev => ({ ...prev, [id]: value }));
-        setTimeout(() => {
-            setDirection('forward');
-            setCurrentStep(prev => Math.min(prev + 1, steps.length));
-        }, 300);
+    const handleChoice = (id, value, multi) => {
+        if (multi) {
+            setAnswers(prev => {
+                const current = prev[id] || [];
+                const updated = current.includes(value)
+                    ? current.filter(v => v !== value)
+                    : [...current, value];
+                return { ...prev, [id]: updated };
+            });
+        } else {
+            setAnswers(prev => ({ ...prev, [id]: value }));
+            setTimeout(() => {
+                setDirection('forward');
+                setCurrentStep(prev => Math.min(prev + 1, steps.length));
+            }, 300);
+        }
     };
 
     const handleInputChange = (field, value) => {
@@ -197,7 +223,12 @@ const ProjectForm = () => {
 
     const isStepValid = () => {
         if (!currentQuestion) return true;
-        if (currentQuestion.type === 'choice') return !!answers[currentQuestion.id];
+        if (currentQuestion.type === 'choice') {
+            if (currentQuestion.multi) {
+                return (answers[currentQuestion.id] || []).length > 0;
+            }
+            return !!answers[currentQuestion.id];
+        }
         if (currentQuestion.id === 'projectName') return !!answers.projectName;
         if (currentQuestion.id === 'description') return !!answers.description;
         if (currentQuestion.type === 'contact') return !!answers.contactName && !!answers.contactPhone;
@@ -217,7 +248,9 @@ const ProjectForm = () => {
                             step.id === 'budget' ? t.budget :
                                 step.question.replace(/^[^\s]+\s/, '');
 
-            text += `*${label}:* ${answers[step.id] || 'N/A'}\n`;
+            const val = answers[step.id];
+            const displayVal = Array.isArray(val) ? val.join(', ') : (val || 'N/A');
+            text += `*${label}:* ${displayVal}\n`;
         });
         text += `\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n`;
         text += `*CONTACT INFO:*\n`;
@@ -284,29 +317,44 @@ const ProjectForm = () => {
 
                             {currentQuestion.type === 'choice' && (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {currentQuestion.options.map((opt) => (
-                                        <button key={opt.value} onClick={() => handleChoice(currentQuestion.id, opt.value)}
-                                            className={`group relative p-8 rounded-3xl border transition-all duration-500 text-left hover:scale-[1.02] active:scale-[0.98] overflow-hidden ${answers[currentQuestion.id] === opt.value
-                                                ? 'border-cyan-500 bg-cyan-500/5 shadow-2xl shadow-cyan-500/10'
-                                                : isDark ? 'border-white/5 bg-white/[0.02] hover:border-white/20' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm hover:shadow-lg'
-                                                }`}>
-                                            <div className={`mb-6 p-4 rounded-2xl inline-block transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 ${opt.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
-                                                opt.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
-                                                    opt.color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
-                                                        opt.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
-                                                            opt.color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
-                                                                opt.color === 'yellow' ? 'bg-yellow-500/10 text-yellow-500' :
-                                                                    opt.color === 'red' ? 'bg-red-500/10 text-red-500' :
-                                                                        opt.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-500' :
-                                                                            opt.color === 'rose' ? 'bg-rose-500/10 text-rose-500' :
-                                                                                opt.color === 'amber' ? 'bg-amber-500/10 text-amber-500' :
-                                                                                    'bg-gray-500/10 text-gray-500'
-                                                }`}>
-                                                {opt.icon}
-                                            </div>
-                                            <h3 className="text-xl font-black tracking-tight mb-1">{opt.label}</h3>
-                                        </button>
-                                    ))}
+                                    {currentQuestion.options.map((opt) => {
+                                        const isSelected = currentQuestion.multi
+                                            ? (answers[currentQuestion.id] || []).includes(opt.value)
+                                            : answers[currentQuestion.id] === opt.value;
+
+                                        return (
+                                            <button key={opt.value} onClick={() => handleChoice(currentQuestion.id, opt.value, currentQuestion.multi)}
+                                                className={`group relative p-8 rounded-3xl border transition-all duration-500 text-left hover:scale-[1.02] active:scale-[0.98] overflow-hidden ${isSelected
+                                                    ? 'border-cyan-500 bg-cyan-500/5 shadow-2xl shadow-cyan-500/10'
+                                                    : isDark ? 'border-white/5 bg-white/[0.02] hover:border-white/20' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm hover:shadow-lg'
+                                                    }`}>
+
+                                                {isSelected && (
+                                                    <div className="absolute top-4 right-4 animate-scale-in">
+                                                        <div className="bg-cyan-500 text-white p-1 rounded-full">
+                                                            <Check size={14} strokeWidth={4} />
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                <div className={`mb-6 p-4 rounded-2xl inline-block transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 ${opt.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
+                                                        opt.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
+                                                            opt.color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
+                                                                opt.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
+                                                                    opt.color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
+                                                                        opt.color === 'yellow' ? 'bg-yellow-500/10 text-yellow-500' :
+                                                                            opt.color === 'red' ? 'bg-red-500/10 text-red-500' :
+                                                                                opt.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-500' :
+                                                                                    opt.color === 'rose' ? 'bg-rose-500/10 text-rose-500' :
+                                                                                        opt.color === 'amber' ? 'bg-amber-500/10 text-amber-500' :
+                                                                                            'bg-gray-500/10 text-gray-500'
+                                                    }`}>
+                                                    {opt.icon}
+                                                </div>
+                                                <h3 className="text-xl font-black tracking-tight mb-1">{opt.label}</h3>
+                                            </button>
+                                        );
+                                    })}
                                 </div>
                             )}
 
@@ -348,7 +396,7 @@ const ProjectForm = () => {
                                 <button onClick={handlePrevious} className={`group flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-sm transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : 'hover:bg-gray-500/5 active:scale-95'}`}>
                                     <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> {t.previous}
                                 </button>
-                                {currentQuestion.type !== 'choice' && (
+                                {(currentQuestion.type !== 'choice' || currentQuestion.multi) && (
                                     <button onClick={handleNext} disabled={!isStepValid()}
                                         className={`group flex items-center gap-3 px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${isStepValid()
                                             ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-2xl shadow-cyan-500/25 hover:scale-[1.05] hover:shadow-cyan-500/40 active:scale-95'
@@ -383,10 +431,13 @@ const ProjectForm = () => {
                                                         step.id === 'budget' ? t.budget :
                                                             step.question.replace(/^[^\s]+\s/, '');
 
+                                        const val = answers[step.id];
+                                        const displayVal = Array.isArray(val) ? val.join(', ') : (val || 'None');
+
                                         return (
                                             <div key={i} className="flex justify-between items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
                                                 <span className={`text-sm font-bold opacity-40 uppercase tracking-widest`}>{label}</span>
-                                                <span className="text-sm font-black text-right max-w-[200px]">{answers[step.id] || 'None'}</span>
+                                                <span className="text-sm font-black text-right max-w-[200px]">{displayVal}</span>
                                             </div>
                                         );
                                     })}

@@ -229,8 +229,9 @@ export const translations = {
                     },
                     {
                         id: 'webFeatures',
+                        multi: true,
                         question: '⚙️ Which features are essential?',
-                        options: ['Contact Form', 'User Login/Auth', 'Online Payments', 'Blog / CMS']
+                        options: ['Contact Form', 'User Login/Auth', 'Online Payments', 'Blog / CMS', 'SEO Optimization', 'Multi-language Support', 'Newsletter / Email Marketing', 'Analytics Dashboard']
                     }
                 ],
                 mobile: [
@@ -248,25 +249,29 @@ export const translations = {
                 design: [
                     {
                         id: 'designType',
+                        multi: true,
                         question: '🎨 What design services do you need?',
-                        options: ['Logo & Branding', 'UI/UX Design', 'Social Media Graphics', 'Full Visual Identity']
+                        options: ['Logo & Branding', 'UI/UX Design', 'Social Media Graphics', 'Full Visual Identity', 'Business Cards', 'Flyer / Brochure Design', '3D Modeling', 'Video Editing']
                     },
                     {
                         id: 'designStyle',
+                        multi: true,
                         question: '🖌️ What style do you prefer?',
-                        options: ['Minimalist & Clean', 'Bold & Vibrant', 'Corporate & Professional', 'Artistic & Unique']
+                        options: ['Minimalist & Clean', 'Bold & Vibrant', 'Corporate & Professional', 'Artistic & Unique', 'Vintage / Retro', 'Futuristic / Tech', 'Luxury / Elegant']
                     }
                 ],
                 cybersec: [
                     {
                         id: 'secType',
+                        multi: true,
                         question: '🛡️ What type of security service?',
-                        options: ['Security Audit', 'Penetration Testing', 'Malware Removal', 'Continuous Protection']
+                        options: ['Security Audit', 'Penetration Testing', 'Malware Removal', 'Continuous Protection', 'Vulnerability Assessment', 'Incident Response', 'Phishing Simulation', 'Data Encryption']
                     },
                     {
                         id: 'secTarget',
+                        multi: true,
                         question: '🎯 What is the primary target?',
-                        options: ['Website / Web App', 'Corporate Network', 'Mobile Application', 'Database / Cloud']
+                        options: ['Website / Web App', 'Corporate Network', 'Mobile Application', 'Database / Cloud', 'Employee Workstations', 'IoT Devices']
                     }
                 ],
                 hardware: [
@@ -284,8 +289,9 @@ export const translations = {
                 training: [
                     {
                         id: 'trainingSubject',
+                        multi: true,
                         question: '🎓 What do you want to learn?',
-                        options: ['Web Programming', 'Cybersecurity', 'Graphic Design', 'Office Suites / IT Basics']
+                        options: ['Web Programming', 'Cybersecurity', 'Graphic Design', 'Office Suites / IT Basics', 'Mobile App Dev', 'Data Science', 'UI/UX Design', 'Digital Marketing']
                     },
                     {
                         id: 'trainingLevel',
@@ -539,8 +545,9 @@ export const translations = {
                     },
                     {
                         id: 'webFeatures',
+                        multi: true,
                         question: '⚙️ Quelles fonctionnalités sont essentielles ?',
-                        options: ['Formulaire de Contact', 'Authentification Utilisateur', 'Paiements en Ligne', 'Blog / CMS']
+                        options: ['Formulaire de Contact', 'Authentification Utilisateur', 'Paiements en Ligne', 'Blog / CMS', 'Optimisation SEO', 'Support Multilingue', 'Newsletter / Marketing Email', 'Tableau de Bord Analytics']
                     }
                 ],
                 mobile: [
@@ -558,13 +565,15 @@ export const translations = {
                 design: [
                     {
                         id: 'designType',
+                        multi: true,
                         question: '🎨 De quels services de design avez-vous besoin ?',
-                        options: ['Logo & Branding', 'Design UI/UX', 'Graphismes Réseaux Sociaux', 'Identité Visuelle Complète']
+                        options: ['Logo & Branding', 'Design UI/UX', 'Graphismes Réseaux Sociaux', 'Identité Visuelle Complète', 'Cartes de Visite', 'Design de Flyers / Brochures', 'Modélisation 3D', 'Montage Vidéo']
                     },
                     {
                         id: 'designStyle',
+                        multi: true,
                         question: '🖌️ Quel style préférez-vous ?',
-                        options: ['Minimaliste & Épuré', 'Audacieux & Coloré', 'Corporatif & Pro', 'Artistique & Unique']
+                        options: ['Minimaliste & Épuré', 'Audacieux & Coloré', 'Corporatif & Pro', 'Artistique & Unique', 'Vintage / Rétro', 'Futuriste / Tech', 'Luxe / Élégant']
                     }
                 ],
                 cybersec: [
