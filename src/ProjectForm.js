@@ -2,11 +2,11 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
     ChevronRight, ChevronLeft, Mail, MessageCircle, Check,
-    Globe, Smartphone, Palette, Shield, Monitor, GraduationCap,
-    Zap, Calendar, Clock, Coins, Banknote, Gem, HelpCircle,
-    ShoppingCart, Sparkles, ArrowRight, Home, Sun, Moon,
-    User, Building, Users, Crosshair, Target, FileText,
-    Pencil, Timer, Wallet, Phone, Layers, Image,
+    Globe, Smartphone, Palette, Shield,
+    Calendar, Coins,
+    Sparkles, ArrowRight, Sun, Moon,
+    User, Crosshair, FileText,
+    Timer, Wallet, Phone,
     Loader
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
