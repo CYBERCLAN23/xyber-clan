@@ -214,6 +214,55 @@ export const translations = {
                 name: 'Your Name',
                 phone: 'Phone Number',
                 email: 'Email Address'
+            },
+            serviceQuestions: {
+                web: [
+                    {
+                        id: 'webGoal',
+                        question: '🌐 What is the primary goal of your website?',
+                        options: ['E-commerce / Store', 'Business Profile', 'Portfolio / Personal', 'Custom Web App']
+                    },
+                    {
+                        id: 'webType',
+                        question: '🏗️ Is this a new project or an existing one?',
+                        options: ['Brand New Project', 'Redesign / Update', 'Bug Fixes / Maintenance']
+                    }
+                ],
+                mobile: [
+                    {
+                        id: 'mobilePlatform',
+                        question: '📱 Which platform do you need?',
+                        options: ['Android', 'iOS (iPhone)', 'Both / Cross-platform']
+                    }
+                ],
+                design: [
+                    {
+                        id: 'designType',
+                        question: '🎨 What design services do you need?',
+                        options: ['Logo & Branding', 'UI/UX Design', 'Social Media Graphics', 'Full Visual Identity']
+                    }
+                ],
+                cybersec: [
+                    {
+                        id: 'secType',
+                        question: '🛡️ What type of security service?',
+                        options: ['Security Audit', 'Penetration Testing', 'Malware Removal', 'Continuous Protection']
+                    }
+                ],
+                hardware: [
+                    {
+                        id: 'hwType',
+                        question: '💻 What hardware service do you need?',
+                        options: ['Computer Repair', 'Network Installation', 'Hardware Upgrade', 'IT Maintenance']
+                    }
+                ],
+                training: [
+                    {
+                        id: 'trainingSubject',
+                        question: '🎓 What do you want to learn?',
+                        options: ['Web Programming', 'Cybersecurity', 'Graphic Design', 'Office Suites / IT Basics']
+                    }
+                ]
             }
         },
         seo: {
@@ -445,6 +494,55 @@ export const translations = {
                 name: 'Votre Nom',
                 phone: 'Numéro de Téléphone',
                 email: 'Adresse Email'
+            },
+            serviceQuestions: {
+                web: [
+                    {
+                        id: 'webGoal',
+                        question: '🌐 Quel est l\'objectif principal de votre site ?',
+                        options: ['E-commerce / Boutique', 'Profil d\'Entreprise', 'Portfolio / Personnel', 'App Web Sur Mesure']
+                    },
+                    {
+                        id: 'webType',
+                        question: '🏗️ Est-ce un nouveau projet ou un existant ?',
+                        options: ['Nouveau Projet', 'Refonte / Mise à jour', 'Correction de bugs / Maintenance']
+                    }
+                ],
+                mobile: [
+                    {
+                        id: 'mobilePlatform',
+                        question: '📱 De quelle plateforme avez-vous besoin ?',
+                        options: ['Android', 'iOS (iPhone)', 'Les deux / Cross-platform']
+                    }
+                ],
+                design: [
+                    {
+                        id: 'designType',
+                        question: '🎨 De quels services de design avez-vous besoin ?',
+                        options: ['Logo & Branding', 'Design UI/UX', 'Graphismes Réseaux Sociaux', 'Identité Visuelle Complète']
+                    }
+                ],
+                cybersec: [
+                    {
+                        id: 'secType',
+                        question: '🛡️ Quel type de service de sécurité ?',
+                        options: ['Audit de Sécurité', 'Tests d\'Intrusion', 'Suppression de Malware', 'Protection Continue']
+                    }
+                ],
+                hardware: [
+                    {
+                        id: 'hwType',
+                        question: '💻 Quel service matériel vous faut-il ?',
+                        options: ['Réparation Ordinateur', 'Installation Réseau', 'Mise à niveau Matériel', 'Maintenance Informatique']
+                    }
+                ],
+                training: [
+                    {
+                        id: 'trainingSubject',
+                        question: '🎓 Que souhaitez-vous apprendre ?',
+                        options: ['Programmation Web', 'Cybersécurité', 'Design Graphique', 'Bureautique / Bases Info']
+                    }
+                ]
             }
         },
         seo: {

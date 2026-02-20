@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
     ChevronLeft, Mail, MessageCircle, Check,
@@ -6,7 +6,8 @@ import {
     Calendar, Coins,
     Sparkles, ArrowRight, Sun, Moon,
     User, FileText,
-    Timer, Phone, Monitor, Hash
+    Timer, Phone, Monitor, Hash,
+    Layers
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
@@ -30,8 +31,21 @@ const ProjectForm = () => {
         contactEmail: ''
     });
 
-    const steps = [
-        {
+    // Map project types to translation keys
+    const typeToKey = {
+        [translations[lang].form.options.web]: 'web',
+        [translations[lang].form.options.mobile]: 'mobile',
+        [translations[lang].form.options.design]: 'design',
+        [translations[lang].form.options.cybersec]: 'cybersec',
+        [translations[lang].form.options.hardware]: 'hardware',
+        [translations[lang].form.options.training]: 'training'
+    };
+
+    const steps = useMemo(() => {
+        const baseSteps = [];
+
+        // Step 0: Initial Choice
+        baseSteps.push({
             id: 'projectType',
             type: 'choice',
             question: t.questions.projectType,
@@ -43,56 +57,80 @@ const ProjectForm = () => {
                 { value: t.options.hardware, label: t.options.hardware, icon: <Monitor className="w-8 h-8" />, color: 'orange' },
                 { value: t.options.training, label: t.options.training, icon: <Sparkles className="w-8 h-8" />, color: 'green' }
             ]
-        },
-        {
-            id: 'projectName',
-            type: 'text',
-            question: t.questions.projectName,
-            placeholder: t.placeholders.projectName,
-            icon: <Hash className="w-8 h-8 text-cyan-500" />
-        },
-        {
-            id: 'description',
-            type: 'textarea',
-            question: t.questions.description,
-            placeholder: t.placeholders.description,
-            icon: <FileText className="w-8 h-8 text-cyan-500" />
-        },
-        {
-            id: 'timeline',
-            type: 'choice',
-            question: t.questions.timeline,
-            options: [
-                { value: t.options.asap, label: t.options.asap, icon: <Timer className="w-8 h-8" />, color: 'red' },
-                { value: t.options.weeks, label: t.options.weeks, icon: <Calendar className="w-8 h-8" />, color: 'orange' },
-                { value: t.options.month, label: t.options.month, icon: <Calendar className="w-8 h-8" />, color: 'yellow' },
-                { value: t.options.months, label: t.options.months, icon: <Calendar className="w-8 h-8" />, color: 'blue' },
-                { value: t.options.flexible, label: t.options.flexible, icon: <Sparkles className="w-8 h-8" />, color: 'cyan' }
-            ]
-        },
-        {
-            id: 'budget',
-            type: 'choice',
-            question: t.questions.budget,
-            options: [
-                { value: t.options.under100k, label: t.options.under100k, icon: <Coins className="w-8 h-8" />, color: 'gray' },
-                { value: t.options.range1, label: t.options.range1, icon: <Coins className="w-8 h-8" />, color: 'cyan' },
-                { value: t.options.range2, label: t.options.range2, icon: <Coins className="w-8 h-8" />, color: 'blue' },
-                { value: t.options.over1m, label: t.options.over1m, icon: <Coins className="w-8 h-8" />, color: 'purple' },
-                { value: t.options.notSure, label: t.options.notSure, icon: <Sparkles className="w-8 h-8" />, color: 'gray' }
-            ]
-        },
-        {
-            id: 'contact',
-            type: 'contact',
-            question: t.questions.contact,
-            fields: [
-                { id: 'contactName', label: t.contactLabels.name, placeholder: t.placeholders.contactName, type: 'text', icon: <User className="w-5 h-5" /> },
-                { id: 'contactPhone', label: t.contactLabels.phone, placeholder: t.placeholders.contactPhone, type: 'tel', icon: <Phone className="w-5 h-5" /> },
-                { id: 'contactEmail', label: t.contactLabels.email, placeholder: t.placeholders.contactEmail, type: 'email', icon: <Mail className="w-5 h-5" /> }
-            ]
+        });
+
+        // Dynamic Service Steps
+        const selectedType = typeToKey[answers.projectType];
+        if (selectedType && t.serviceQuestions[selectedType]) {
+            t.serviceQuestions[selectedType].forEach(sq => {
+                baseSteps.push({
+                    id: sq.id,
+                    type: 'choice',
+                    question: sq.question,
+                    options: sq.options.map(opt => ({
+                        value: opt,
+                        label: opt,
+                        icon: <Layers className="w-8 h-8" />, // Default icon for dynamic options
+                        color: 'cyan'
+                    }))
+                });
+            });
         }
-    ];
+
+        // Global Steps
+        baseSteps.push(
+            {
+                id: 'projectName',
+                type: 'text',
+                question: t.questions.projectName,
+                placeholder: t.placeholders.projectName,
+                icon: <Hash className="w-8 h-8 text-cyan-500" />
+            },
+            {
+                id: 'description',
+                type: 'textarea',
+                question: t.questions.description,
+                placeholder: t.placeholders.description,
+                icon: <FileText className="w-8 h-8 text-cyan-500" />
+            },
+            {
+                id: 'timeline',
+                type: 'choice',
+                question: t.questions.timeline,
+                options: [
+                    { value: t.options.asap, label: t.options.asap, icon: <Timer className="w-8 h-8" />, color: 'red' },
+                    { value: t.options.weeks, label: t.options.weeks, icon: <Calendar className="w-8 h-8" />, color: 'orange' },
+                    { value: t.options.month, label: t.options.month, icon: <Calendar className="w-8 h-8" />, color: 'yellow' },
+                    { value: t.options.months, label: t.options.months, icon: <Calendar className="w-8 h-8" />, color: 'blue' },
+                    { value: t.options.flexible, label: t.options.flexible, icon: <Sparkles className="w-8 h-8" />, color: 'cyan' }
+                ]
+            },
+            {
+                id: 'budget',
+                type: 'choice',
+                question: t.questions.budget,
+                options: [
+                    { value: t.options.under100k, label: t.options.under100k, icon: <Coins className="w-8 h-8" />, color: 'gray' },
+                    { value: t.options.range1, label: t.options.range1, icon: <Coins className="w-8 h-8" />, color: 'cyan' },
+                    { value: t.options.range2, label: t.options.range2, icon: <Coins className="w-8 h-8" />, color: 'blue' },
+                    { value: t.options.over1m, label: t.options.over1m, icon: <Coins className="w-8 h-8" />, color: 'purple' },
+                    { value: t.options.notSure, label: t.options.notSure, icon: <Sparkles className="w-8 h-8" />, color: 'gray' }
+                ]
+            },
+            {
+                id: 'contact',
+                type: 'contact',
+                question: t.questions.contact,
+                fields: [
+                    { id: 'contactName', label: t.contactLabels.name, placeholder: t.placeholders.contactName, type: 'text', icon: <User className="w-5 h-5" /> },
+                    { id: 'contactPhone', label: t.contactLabels.phone, placeholder: t.placeholders.contactPhone, type: 'tel', icon: <Phone className="w-5 h-5" /> },
+                    { id: 'contactEmail', label: t.contactLabels.email, placeholder: t.placeholders.contactEmail, type: 'email', icon: <Mail className="w-5 h-5" /> }
+                ]
+            }
+        );
+
+        return baseSteps;
+    }, [answers.projectType, lang, t]);
 
     const currentQuestion = steps[currentStep];
 
@@ -108,8 +146,8 @@ const ProjectForm = () => {
         setCurrentStep(prev => Math.max(prev - 1, 0));
     };
 
-    const handleChoice = (value) => {
-        setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
+    const handleChoice = (id, value) => {
+        setAnswers(prev => ({ ...prev, [id]: value }));
         setTimeout(() => {
             setDirection('forward');
             setCurrentStep(prev => Math.min(prev + 1, steps.length));
@@ -126,18 +164,28 @@ const ProjectForm = () => {
         if (currentQuestion.id === 'projectName') return !!answers.projectName;
         if (currentQuestion.id === 'description') return !!answers.description;
         if (currentQuestion.type === 'contact') return !!answers.contactName && !!answers.contactPhone;
-        return true;
+        // Generic check for dynamic fields
+        return !!answers[currentQuestion.id];
     };
 
     const progress = ((currentStep) / steps.length) * 100;
 
     const generateSummaryText = () => {
         let text = `*NEW PROJECT REQUEST* \ud83d\ude80\n\n`;
-        text += `*${t.projectType}:* ${answers.projectType}\n`;
-        text += `*${t.projectName}:* ${answers.projectName}\n`;
-        text += `*${t.description}:* ${answers.description}\n`;
-        text += `*${t.timeline}:* ${answers.timeline}\n`;
-        text += `*${t.budget}:* ${answers.budget}\n`;
+
+        // Add dynamic and global fields
+        steps.forEach(step => {
+            if (step.id === 'contact') return;
+            const label = step.id === 'projectType' ? t.projectType :
+                step.id === 'projectName' ? t.projectName :
+                    step.id === 'description' ? t.description :
+                        step.id === 'timeline' ? t.timeline :
+                            step.id === 'budget' ? t.budget :
+                                step.question.replace(/^[^\s]+\s/, ''); // Extract text after emoji for dynamic quesions
+
+            text += `*${label}:* ${answers[step.id] || 'N/A'}\n`;
+        });
+
         text += `\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n`;
         text += `*CONTACT INFO:*\n`;
         text += `\ud83d\udc64 ${answers.contactName}\n`;
@@ -190,7 +238,7 @@ const ProjectForm = () => {
             <div className="pt-32 pb-24 px-4 min-h-screen flex flex-col items-center">
                 <div className="w-full max-w-2xl mx-auto">
                     {currentStep < steps.length ? (
-                        <div key={currentStep} className={`${direction === 'forward' ? 'animate-slide-up' : 'animate-slide-down'}`}>
+                        <div key={currentQuestion.id} className={`${direction === 'forward' ? 'animate-slide-up' : 'animate-slide-down'}`}>
                             {/* Step Indicator */}
                             <p className="text-center text-[11px] font-bold uppercase tracking-[0.3em] text-cyan-500 mb-6 focus-visible:outline-none">
                                 {t.step} {currentStep + 1} {t.of} {steps.length}
@@ -210,7 +258,7 @@ const ProjectForm = () => {
                             {currentQuestion.type === 'choice' && (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {currentQuestion.options.map((opt) => (
-                                        <button key={opt.value} onClick={() => handleChoice(opt.value)}
+                                        <button key={opt.value} onClick={() => handleChoice(currentQuestion.id, opt.value)}
                                             className={`group relative p-8 rounded-3xl border transition-all duration-500 text-left hover:scale-[1.02] active:scale-[0.98] overflow-hidden ${answers[currentQuestion.id] === opt.value
                                                 ? 'border-cyan-500 bg-cyan-500/5 shadow-2xl shadow-cyan-500/10'
                                                 : isDark ? 'border-white/5 bg-white/[0.02] hover:border-white/20' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm hover:shadow-lg'
@@ -299,18 +347,26 @@ const ProjectForm = () => {
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
                                 <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-cyan-500 mb-8">{t.projectName}</h3>
                                 <div className="space-y-6">
-                                    {[
-                                        { label: t.projectType, value: answers.projectType },
-                                        { label: t.projectName, value: answers.projectName },
-                                        { label: t.timeline, value: answers.timeline },
-                                        { label: t.budget, value: answers.budget },
-                                        { label: t.contactInfo, value: `${answers.contactName} (${answers.contactPhone})` }
-                                    ].map((item, i) => (
-                                        <div key={i} className="flex justify-between items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
-                                            <span className={`text-sm font-bold opacity-40 uppercase tracking-widest`}>{item.label}</span>
-                                            <span className="text-sm font-black text-right max-w-[200px]">{item.value}</span>
-                                        </div>
-                                    ))}
+                                    {steps.map((step, i) => {
+                                        if (step.id === 'contact') return null;
+                                        const label = step.id === 'projectType' ? t.projectType :
+                                            step.id === 'projectName' ? t.projectName :
+                                                step.id === 'description' ? t.description :
+                                                    step.id === 'timeline' ? t.timeline :
+                                                        step.id === 'budget' ? t.budget :
+                                                            step.question.replace(/^[^\s]+\s/, '');
+
+                                        return (
+                                            <div key={i} className="flex justify-between items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                                                <span className={`text-sm font-bold opacity-40 uppercase tracking-widest`}>{label}</span>
+                                                <span className="text-sm font-black text-right max-w-[200px]">{answers[step.id] || 'None'}</span>
+                                            </div>
+                                        );
+                                    })}
+                                    <div className="flex justify-between items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                                        <span className={`text-sm font-bold opacity-40 uppercase tracking-widest`}>{t.contactInfo}</span>
+                                        <span className="text-sm font-black text-right max-w-[200px]">{answers.contactName} ({answers.contactPhone})</span>
+                                    </div>
                                 </div>
                             </div>
 
