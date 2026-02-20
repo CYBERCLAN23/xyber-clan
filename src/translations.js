@@ -177,7 +177,7 @@ export const translations = {
         },
         seo: {
             title: "XyberClan — Digital Agency | Web, Design & Cybersecurity | Africa & Worldwide",
-            description: "XyberClan, African digital agency serving clients worldwide. Web development, design, cybersecurity. Competitive rates. Free quote.",
+            description: "XyberClan — Your Trusted Digital Partner for Web, Design & Cybersecurity. Serving clients worldwide with professional solutions and competitive rates.",
             h1: "Your Trusted Digital Partner",
             h2_why: "Why choose XyberClan?",
             h2_services: "Our Services Available Worldwide",
@@ -186,7 +186,7 @@ export const translations = {
             h3_design: "Graphic Design & UI/UX",
             h3_cyber: "Cybersecurity & Protection",
             h3_mobile: "Mobile Applications",
-            paragraph: "XyberClan is an African digital agency based in Yaounde, Cameroon, serving clients in France, Belgium, Canada, Switzerland, Nigeria, Ghana, Senegal, the UK, USA and worldwide. We provide professional web development, mobile app creation, graphic design, UI/UX and cybersecurity services at competitive rates. Our team of young African professionals combines technical expertise with creativity to deliver world-class digital solutions."
+            paragraph: "XyberClan is your trusted digital partner based in Yaounde, Cameroon, serving clients in France, Belgium, Canada, Switzerland, Nigeria, Ghana, Senegal, the UK, USA and worldwide. We provide professional web development, mobile app creation, graphic design, UI/UX and cybersecurity services at competitive rates. Our team of experts combines technical excellence with creative innovation to deliver world-class digital solutions tailored to your unique needs."
         }
     },
     fr: {
@@ -367,7 +367,7 @@ export const translations = {
         },
         seo: {
             title: "XyberClan — Agence Digitale | Web, Design & Cybersécurité | Afrique & Monde",
-            description: "XyberClan, agence digitale africaine travaillant avec des clients partout dans le monde. Développement web, design, cybersécurité. Tarifs compétitifs. Devis gratuit.",
+            description: "XyberClan — Votre partenaire digital de confiance pour le Web, le Design et la Cybersécurité. Solutions professionnelles partout dans le monde à des tarifs compétitifs.",
             h1: "Votre Partenaire Digital de Confiance",
             h2_why: "Pourquoi choisir XyberClan ?",
             h2_services: "Nos Services Disponibles Partout dans le Monde",
@@ -376,7 +376,7 @@ export const translations = {
             h3_design: "Design Graphique & UI/UX",
             h3_cyber: "Cybersécurité & Protection",
             h3_mobile: "Applications Mobiles",
-            paragraph: "XyberClan est une agence digitale africaine basee a Yaounde, Cameroun, offrant ses services a des clients en France, Belgique, Canada, Suisse, Cote d Ivoire, Senegal, Nigeria, Ghana et partout dans le monde. Nous proposons le developpement de sites web professionnels, la creation d applications mobiles, le design graphique, l UI/UX design et la cybersecurite a des tarifs competitifs. Notre equipe de jeunes professionnels africains combine expertise technique et creativite pour livrer des solutions digitales de qualite mondiale."
+            paragraph: "XyberClan est votre partenaire digital de confiance basé à Yaoundé, Cameroun, accompagnant des clients en France, Belgique, Canada, Suisse, Côte d'Ivoire, Sénégal, Nigéria, Ghana et partout dans le monde. Nous proposons le développement de sites web professionnels, la création d'applications mobiles, le design graphique, l'UI/UX design et la cybersécurité à des tarifs compétitifs. Notre équipe d'experts combine excellence technique et innovation créative pour livrer des solutions digitales de qualité mondiale adaptées à vos besoins."
         }
     }
 };
