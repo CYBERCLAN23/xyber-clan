@@ -31,18 +31,18 @@ const ProjectForm = () => {
         contactEmail: ''
     });
 
-    // Map project types to translation keys
-    const typeToKey = {
-        [translations[lang].form.options.web]: 'web',
-        [translations[lang].form.options.mobile]: 'mobile',
-        [translations[lang].form.options.design]: 'design',
-        [translations[lang].form.options.cybersec]: 'cybersec',
-        [translations[lang].form.options.hardware]: 'hardware',
-        [translations[lang].form.options.training]: 'training'
-    };
-
     const steps = useMemo(() => {
         const baseSteps = [];
+
+        // Map project types to translation keys
+        const typeToKey = {
+            [translations[lang].form.options.web]: 'web',
+            [translations[lang].form.options.mobile]: 'mobile',
+            [translations[lang].form.options.design]: 'design',
+            [translations[lang].form.options.cybersec]: 'cybersec',
+            [translations[lang].form.options.hardware]: 'hardware',
+            [translations[lang].form.options.training]: 'training'
+        };
 
         // Step 0: Initial Choice
         baseSteps.push({
