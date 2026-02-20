@@ -113,7 +113,48 @@ export const translations = {
             ctaButton: 'Contact Us Now'
         },
         footer: {
-            tagline: 'Building Digital Dreams in Yaoundé'
+            tagline: 'Building Digital Dreams in Yaoundé',
+            columns: {
+                nav: {
+                    title: 'NAVIGATION',
+                    items: [
+                        { label: 'About Us', url: '/#about' },
+                        { label: 'Services', url: '/#services' },
+                        { label: 'Our Team', url: '/team' },
+                        { label: 'Portfolio', url: '/#portfolio' }
+                    ]
+                },
+                expertise: {
+                    title: 'EXPERTISE',
+                    items: [
+                        { label: 'Cybersecurity', url: '/#services' },
+                        { label: 'Software Dev', url: '/#services' },
+                        { label: 'Hardware Solutions', url: '/#services' },
+                        { label: 'Digital Strategy', url: '/#services' }
+                    ]
+                },
+                support: {
+                    title: 'SUPPORT',
+                    items: [
+                        { label: 'Privacy Policy', url: '/privacy' },
+                        { label: 'Terms of Service', url: '/terms' },
+                        { label: 'Contact Us', url: '/#contact' }
+                    ]
+                }
+            },
+            cta: {
+                title: 'Ready to start a project?',
+                subtitle: "Let's build something exceptional together.",
+                emailLabel: 'EMAIL US',
+                email: 'contact@xyber-clan.com',
+                phoneLabel: 'CALL US',
+                phone: '+237 672 446 810'
+            },
+            copyright: 'XYBERCLAN — ENGINEERED IN CAMEROON.',
+            bottomLinks: {
+                privacy: 'PRIVACY',
+                terms: 'TERMS'
+            }
         },
         form: {
             step: 'Step',
@@ -303,7 +344,48 @@ export const translations = {
             ctaButton: 'Contactez-nous Maintenant'
         },
         footer: {
-            tagline: 'Construire des Rêves Numériques à Yaoundé'
+            tagline: 'Construire des Rêves Numériques à Yaoundé',
+            columns: {
+                nav: {
+                    title: 'NAVIGATION',
+                    items: [
+                        { label: 'À Propos', url: '/#about' },
+                        { label: 'Services', url: '/#services' },
+                        { label: 'Notre Équipe', url: '/team' },
+                        { label: 'Portfolio', url: '/#portfolio' }
+                    ]
+                },
+                expertise: {
+                    title: 'EXPERTISE',
+                    items: [
+                        { label: 'Cybersécurité', url: '/#services' },
+                        { label: 'Dév Logiciel', url: '/#services' },
+                        { label: 'Solutions Matériel', url: '/#services' },
+                        { label: 'Stratégie Digitale', url: '/#services' }
+                    ]
+                },
+                support: {
+                    title: 'SUPPORT',
+                    items: [
+                        { label: 'Politique de Confidentialité', url: '/privacy' },
+                        { label: 'Conditions d\'Utilisation', url: '/terms' },
+                        { label: 'Contactez-nous', url: '/#contact' }
+                    ]
+                }
+            },
+            cta: {
+                title: 'Prêt à lancer un projet ?',
+                subtitle: "Construisons quelque chose d'exceptionnel ensemble.",
+                emailLabel: 'ÉCRIVEZ-NOUS',
+                email: 'contact@xyber-clan.com',
+                phoneLabel: 'APPELEZ-NOUS',
+                phone: '+237 672 446 810'
+            },
+            copyright: 'XYBERCLAN — CONÇU AU CAMEROUN.',
+            bottomLinks: {
+                privacy: 'CONFIDENTIALITÉ',
+                terms: 'CONDITIONS'
+            }
         },
         form: {
             step: 'Étape',
