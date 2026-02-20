@@ -6,7 +6,7 @@ import {
     Calendar, Coins,
     Sparkles, ArrowRight, Sun, Moon,
     User, FileText,
-    Timer, Phone, Monitor, Hash,
+    Phone, Monitor, Hash,
     Layers, ShoppingCart, Briefcase, UserCircle,
     Layout, Files, FilePlus, Database,
     CreditCard, Lock, BookOpen, MessageSquare,
