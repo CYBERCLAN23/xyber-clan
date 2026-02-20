@@ -137,10 +137,26 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                             {lang === 'en' ? 'Digital Agency • Worldwide' : 'Agence Digitale • Monde'}
                         </span>
 
-                        {/* Headline — global SEO optimized H1 */}
-                        <h1 className="text-white leading-[0.9] tracking-tighter text-[clamp(2rem,6vw,4.5rem)] font-black"
-                            style={{ fontFamily: "'Inter', sans-serif", animation: mounted ? 'heroFadeUp 0.7s ease-out 0.1s both' : 'none' }}>
-                            {t.seo.h1}
+                        {/* Headline — restored premium stylized H1 */}
+                        <h1 className="text-white leading-[0.9] tracking-tighter">
+                            <span
+                                className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black"
+                                style={{ fontFamily: "'Inter', sans-serif", animation: mounted ? 'heroFadeUp 0.7s ease-out 0.1s both' : 'none' }}
+                            >
+                                {lang === 'en' ? 'Your Trusted' : 'Votre Partenaire'}
+                            </span>
+                            <span
+                                className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black mt-1"
+                                style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.2s both' : 'none' }}
+                            >
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
+                                    {lang === 'en' ? 'Digital' : 'De Confiance'}
+                                </span>
+                                {' '}
+                                <span className="text-white/80 italic font-extralight">
+                                    {lang === 'en' ? 'Partner' : 'Digital'}
+                                </span>
+                            </span>
                         </h1>
 
                         {/* Subtitle — tighter */}
