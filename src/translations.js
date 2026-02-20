@@ -223,9 +223,14 @@ export const translations = {
                         options: ['E-commerce / Store', 'Business Profile', 'Portfolio / Personal', 'Custom Web App']
                     },
                     {
-                        id: 'webType',
-                        question: '🏗️ Is this a new project or an existing one?',
-                        options: ['Brand New Project', 'Redesign / Update', 'Bug Fixes / Maintenance']
+                        id: 'webPages',
+                        question: '📄 Approximately how many pages do you need?',
+                        options: ['1 Page (Landing Page)', '3-5 Pages', '6-10 Pages', '10+ Pages / Large Portal']
+                    },
+                    {
+                        id: 'webFeatures',
+                        question: '⚙️ Which features are essential?',
+                        options: ['Contact Form', 'User Login/Auth', 'Online Payments', 'Blog / CMS']
                     }
                 ],
                 mobile: [
@@ -233,6 +238,11 @@ export const translations = {
                         id: 'mobilePlatform',
                         question: '📱 Which platform do you need?',
                         options: ['Android', 'iOS (iPhone)', 'Both / Cross-platform']
+                    },
+                    {
+                        id: 'mobileType',
+                        question: '💡 What type of app is it?',
+                        options: ['E-commerce', 'Social Media', 'Productivity Tool', 'Management System']
                     }
                 ],
                 design: [
@@ -240,6 +250,11 @@ export const translations = {
                         id: 'designType',
                         question: '🎨 What design services do you need?',
                         options: ['Logo & Branding', 'UI/UX Design', 'Social Media Graphics', 'Full Visual Identity']
+                    },
+                    {
+                        id: 'designStyle',
+                        question: '🖌️ What style do you prefer?',
+                        options: ['Minimalist & Clean', 'Bold & Vibrant', 'Corporate & Professional', 'Artistic & Unique']
                     }
                 ],
                 cybersec: [
@@ -247,6 +262,11 @@ export const translations = {
                         id: 'secType',
                         question: '🛡️ What type of security service?',
                         options: ['Security Audit', 'Penetration Testing', 'Malware Removal', 'Continuous Protection']
+                    },
+                    {
+                        id: 'secTarget',
+                        question: '🎯 What is the primary target?',
+                        options: ['Website / Web App', 'Corporate Network', 'Mobile Application', 'Database / Cloud']
                     }
                 ],
                 hardware: [
@@ -254,6 +274,11 @@ export const translations = {
                         id: 'hwType',
                         question: '💻 What hardware service do you need?',
                         options: ['Computer Repair', 'Network Installation', 'Hardware Upgrade', 'IT Maintenance']
+                    },
+                    {
+                        id: 'hwUrgency',
+                        question: '⚡ How urgent is this request?',
+                        options: ['Immediate / Emergency', 'Within 24-48 Hours', 'Routine / Scheduled']
                     }
                 ],
                 training: [
@@ -261,6 +286,11 @@ export const translations = {
                         id: 'trainingSubject',
                         question: '🎓 What do you want to learn?',
                         options: ['Web Programming', 'Cybersecurity', 'Graphic Design', 'Office Suites / IT Basics']
+                    },
+                    {
+                        id: 'trainingLevel',
+                        question: '📊 What is your current level?',
+                        options: ['Total Beginner', 'Intermediate', 'Advanced / Professional']
                     }
                 ]
             }
@@ -503,9 +533,14 @@ export const translations = {
                         options: ['E-commerce / Boutique', 'Profil d\'Entreprise', 'Portfolio / Personnel', 'App Web Sur Mesure']
                     },
                     {
-                        id: 'webType',
-                        question: '🏗️ Est-ce un nouveau projet ou un existant ?',
-                        options: ['Nouveau Projet', 'Refonte / Mise à jour', 'Correction de bugs / Maintenance']
+                        id: 'webPages',
+                        question: '📄 Environ combien de pages avez-vous besoin ?',
+                        options: ['1 Page (Landing Page)', '3-5 Pages', '6-10 Pages', '10+ Pages / Grand Portail']
+                    },
+                    {
+                        id: 'webFeatures',
+                        question: '⚙️ Quelles fonctionnalités sont essentielles ?',
+                        options: ['Formulaire de Contact', 'Authentification Utilisateur', 'Paiements en Ligne', 'Blog / CMS']
                     }
                 ],
                 mobile: [
@@ -513,6 +548,11 @@ export const translations = {
                         id: 'mobilePlatform',
                         question: '📱 De quelle plateforme avez-vous besoin ?',
                         options: ['Android', 'iOS (iPhone)', 'Les deux / Cross-platform']
+                    },
+                    {
+                        id: 'mobileType',
+                        question: '💡 Quel type d\'application est-ce ?',
+                        options: ['E-commerce / Boutique', 'Réseau Social', 'Outil de Productivité', 'Système de Gestion']
                     }
                 ],
                 design: [
@@ -520,6 +560,11 @@ export const translations = {
                         id: 'designType',
                         question: '🎨 De quels services de design avez-vous besoin ?',
                         options: ['Logo & Branding', 'Design UI/UX', 'Graphismes Réseaux Sociaux', 'Identité Visuelle Complète']
+                    },
+                    {
+                        id: 'designStyle',
+                        question: '🖌️ Quel style préférez-vous ?',
+                        options: ['Minimaliste & Épuré', 'Audacieux & Coloré', 'Corporatif & Pro', 'Artistique & Unique']
                     }
                 ],
                 cybersec: [
@@ -527,6 +572,11 @@ export const translations = {
                         id: 'secType',
                         question: '🛡️ Quel type de service de sécurité ?',
                         options: ['Audit de Sécurité', 'Tests d\'Intrusion', 'Suppression de Malware', 'Protection Continue']
+                    },
+                    {
+                        id: 'secTarget',
+                        question: '🎯 Quelle est la cible principale ?',
+                        options: ['Site / App Web', 'Réseau d\'Entreprise', 'Application Mobile', 'Base de données / Cloud']
                     }
                 ],
                 hardware: [
@@ -534,6 +584,11 @@ export const translations = {
                         id: 'hwType',
                         question: '💻 Quel service matériel vous faut-il ?',
                         options: ['Réparation Ordinateur', 'Installation Réseau', 'Mise à niveau Matériel', 'Maintenance Informatique']
+                    },
+                    {
+                        id: 'hwUrgency',
+                        question: '⚡ Quel est le degré d\'urgence ?',
+                        options: ['Immédiat / Urgence', 'Sous 24-48 Heures', 'Routine / Planifié']
                     }
                 ],
                 training: [
@@ -541,6 +596,11 @@ export const translations = {
                         id: 'trainingSubject',
                         question: '🎓 Que souhaitez-vous apprendre ?',
                         options: ['Programmation Web', 'Cybersécurité', 'Design Graphique', 'Bureautique / Bases Info']
+                    },
+                    {
+                        id: 'trainingLevel',
+                        question: '📊 Quel est votre niveau actuel ?',
+                        options: ['Débutant Total', 'Intermédiaire', 'Avancé / Professionnel']
                     }
                 ]
             }

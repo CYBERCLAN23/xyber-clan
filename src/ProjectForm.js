@@ -7,7 +7,15 @@ import {
     Sparkles, ArrowRight, Sun, Moon,
     User, FileText,
     Timer, Phone, Monitor, Hash,
-    Layers
+    Layers, ShoppingCart, Briefcase, UserCircle,
+    Layout, Files, FilePlus, Database,
+    CreditCard, Lock, BookOpen, MessageSquare,
+    Users, Wrench, Zap, Clock, Activity, LifeBuoy,
+    Search, ShieldCheck, Terminal, Cpu, Wifi, HardDrive,
+    Settings2, GraduationCap, BarChart, Code2, Package,
+    Target, Compass, Trello, Slack,
+    LayoutDashboard, Laptop, Rocket,
+    Timer, History
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
@@ -44,6 +52,33 @@ const ProjectForm = () => {
             [translations[lang].form.options.training]: 'training'
         };
 
+        // Icon Mapping Helper
+        const getDynamicIcon = (serviceId, optionIndex, label) => {
+            const icons = {
+                webGoal: [<ShoppingCart />, <Briefcase />, <UserCircle />, <LayoutDashboard />],
+                webPages: [<FilePlus />, <Files />, <Layout />, <Database />],
+                webFeatures: [<MessageSquare />, <Lock />, <CreditCard />, <BookOpen />],
+                mobilePlatform: [<Smartphone />, <Laptop />, <Cpu />], // Laptop for both/cross
+                mobileType: [<ShoppingCart />, <Users />, <Wrench />, <Settings2 />],
+                designType: [<Palette />, <Layout />, <Slack />, <Target />],
+                designStyle: [<Compass />, <Zap />, <Briefcase />, <Rocket />],
+                secType: [<Search />, <ShieldCheck />, <Terminal />, <Activity />],
+                secTarget: [<Globe />, <Wifi />, <Smartphone />, <HardDrive />],
+                hwType: [<Wrench />, <Wifi />, <Cpu />, <Settings2 />],
+                hwUrgency: [<Zap />, <Clock />, <Activity />, <LifeBuoy />],
+                trainingSubject: [<Code2 />, <Shield />, <Palette />, <Package />],
+                trainingLevel: [<GraduationCap />, <BarChart />, <Trello />]
+            };
+
+            const serviceIcons = icons[serviceId];
+            if (serviceIcons && serviceIcons[optionIndex]) {
+                return React.cloneElement(serviceIcons[optionIndex], { className: "w-8 h-8" });
+            }
+            return <Layers className="w-8 h-8" />;
+        };
+
+        const colors = ['cyan', 'purple', 'pink', 'blue', 'orange', 'green', 'indigo', 'rose', 'amber'];
+
         // Step 0: Initial Choice
         baseSteps.push({
             id: 'projectType',
@@ -62,16 +97,16 @@ const ProjectForm = () => {
         // Dynamic Service Steps
         const selectedType = typeToKey[answers.projectType];
         if (selectedType && t.serviceQuestions[selectedType]) {
-            t.serviceQuestions[selectedType].forEach(sq => {
+            t.serviceQuestions[selectedType].forEach((sq) => {
                 baseSteps.push({
                     id: sq.id,
                     type: 'choice',
                     question: sq.question,
-                    options: sq.options.map(opt => ({
+                    options: sq.options.map((opt, idx) => ({
                         value: opt,
                         label: opt,
-                        icon: <Layers className="w-8 h-8" />, // Default icon for dynamic options
-                        color: 'cyan'
+                        icon: getDynamicIcon(sq.id, idx, opt),
+                        color: colors[idx % colors.length]
                     }))
                 });
             });
@@ -98,11 +133,11 @@ const ProjectForm = () => {
                 type: 'choice',
                 question: t.questions.timeline,
                 options: [
-                    { value: t.options.asap, label: t.options.asap, icon: <Timer className="w-8 h-8" />, color: 'red' },
-                    { value: t.options.weeks, label: t.options.weeks, icon: <Calendar className="w-8 h-8" />, color: 'orange' },
+                    { value: t.options.asap, label: t.options.asap, icon: <Zap className="w-8 h-8" />, color: 'red' },
+                    { value: t.options.weeks, label: t.options.weeks, icon: <Clock className="w-8 h-8" />, color: 'orange' },
                     { value: t.options.month, label: t.options.month, icon: <Calendar className="w-8 h-8" />, color: 'yellow' },
-                    { value: t.options.months, label: t.options.months, icon: <Calendar className="w-8 h-8" />, color: 'blue' },
-                    { value: t.options.flexible, label: t.options.flexible, icon: <Sparkles className="w-8 h-8" />, color: 'cyan' }
+                    { value: t.options.months, label: t.options.months, icon: <History className="w-8 h-8" />, color: 'blue' }, // Need to import History or another
+                    { value: t.options.flexible, label: t.options.flexible, icon: <Compass className="w-8 h-8" />, color: 'cyan' }
                 ]
             },
             {
@@ -111,10 +146,10 @@ const ProjectForm = () => {
                 question: t.questions.budget,
                 options: [
                     { value: t.options.under100k, label: t.options.under100k, icon: <Coins className="w-8 h-8" />, color: 'gray' },
-                    { value: t.options.range1, label: t.options.range1, icon: <Coins className="w-8 h-8" />, color: 'cyan' },
-                    { value: t.options.range2, label: t.options.range2, icon: <Coins className="w-8 h-8" />, color: 'blue' },
-                    { value: t.options.over1m, label: t.options.over1m, icon: <Coins className="w-8 h-8" />, color: 'purple' },
-                    { value: t.options.notSure, label: t.options.notSure, icon: <Sparkles className="w-8 h-8" />, color: 'gray' }
+                    { value: t.options.range1, label: t.options.range1, icon: <CreditCard className="w-8 h-8" />, color: 'cyan' },
+                    { value: t.options.range2, label: t.options.range2, icon: <Briefcase className="w-8 h-8" />, color: 'blue' },
+                    { value: t.options.over1m, label: t.options.over1m, icon: <Rocket className="w-8 h-8" />, color: 'purple' },
+                    { value: t.options.notSure, label: t.options.notSure, icon: <Search className="w-8 h-8" />, color: 'gray' }
                 ]
             },
             {
@@ -132,6 +167,8 @@ const ProjectForm = () => {
         return baseSteps;
     }, [answers.projectType, lang, t]);
 
+    // Added Logic: Need History for the timeline icons
+    // Actually let's just use what we have to avoid import errors
     const currentQuestion = steps[currentStep];
 
     const handleNext = () => {
@@ -164,7 +201,6 @@ const ProjectForm = () => {
         if (currentQuestion.id === 'projectName') return !!answers.projectName;
         if (currentQuestion.id === 'description') return !!answers.description;
         if (currentQuestion.type === 'contact') return !!answers.contactName && !!answers.contactPhone;
-        // Generic check for dynamic fields
         return !!answers[currentQuestion.id];
     };
 
@@ -172,8 +208,6 @@ const ProjectForm = () => {
 
     const generateSummaryText = () => {
         let text = `*NEW PROJECT REQUEST* \ud83d\ude80\n\n`;
-
-        // Add dynamic and global fields
         steps.forEach(step => {
             if (step.id === 'contact') return;
             const label = step.id === 'projectType' ? t.projectType :
@@ -181,11 +215,10 @@ const ProjectForm = () => {
                     step.id === 'description' ? t.description :
                         step.id === 'timeline' ? t.timeline :
                             step.id === 'budget' ? t.budget :
-                                step.question.replace(/^[^\s]+\s/, ''); // Extract text after emoji for dynamic quesions
+                                step.question.replace(/^[^\s]+\s/, '');
 
             text += `*${label}:* ${answers[step.id] || 'N/A'}\n`;
         });
-
         text += `\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n`;
         text += `*CONTACT INFO:*\n`;
         text += `\ud83d\udc64 ${answers.contactName}\n`;
@@ -239,22 +272,16 @@ const ProjectForm = () => {
                 <div className="w-full max-w-2xl mx-auto">
                     {currentStep < steps.length ? (
                         <div key={currentQuestion.id} className={`${direction === 'forward' ? 'animate-slide-up' : 'animate-slide-down'}`}>
-                            {/* Step Indicator */}
-                            <p className="text-center text-[11px] font-bold uppercase tracking-[0.3em] text-cyan-500 mb-6 focus-visible:outline-none">
+                            <p className="text-center text-[11px] font-bold uppercase tracking-[0.3em] text-cyan-500 mb-6">
                                 {t.step} {currentStep + 1} {t.of} {steps.length}
                             </p>
 
-                            {/* Question */}
                             <div className="text-center mb-12">
                                 <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight leading-[1] text-gray-950 dark:text-white">
                                     {currentQuestion.question}
                                 </h1>
-                                <p className={`text-lg font-light ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                                    {currentQuestion.subtitle || t.summaryDesc}
-                                </p>
                             </div>
 
-                            {/* Inputs */}
                             {currentQuestion.type === 'choice' && (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {currentQuestion.options.map((opt) => (
@@ -270,12 +297,14 @@ const ProjectForm = () => {
                                                             opt.color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
                                                                 opt.color === 'yellow' ? 'bg-yellow-500/10 text-yellow-500' :
                                                                     opt.color === 'red' ? 'bg-red-500/10 text-red-500' :
-                                                                        'bg-gray-500/10 text-gray-500'
+                                                                        opt.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-500' :
+                                                                            opt.color === 'rose' ? 'bg-rose-500/10 text-rose-500' :
+                                                                                opt.color === 'amber' ? 'bg-amber-500/10 text-amber-500' :
+                                                                                    'bg-gray-500/10 text-gray-500'
                                                 }`}>
                                                 {opt.icon}
                                             </div>
                                             <h3 className="text-xl font-black tracking-tight mb-1">{opt.label}</h3>
-                                            <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{opt.desc}</p>
                                         </button>
                                     ))}
                                 </div>
@@ -315,7 +344,6 @@ const ProjectForm = () => {
                                 </div>
                             )}
 
-                            {/* Nav Buttons */}
                             <div className="mt-12 flex items-center justify-between">
                                 <button onClick={handlePrevious} className={`group flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-sm transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : 'hover:bg-gray-500/5 active:scale-95'}`}>
                                     <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> {t.previous}
@@ -331,7 +359,6 @@ const ProjectForm = () => {
                             </div>
                         </div>
                     ) : (
-                        // SUCCESS VIEW
                         <div className="animate-scale-in flex flex-col items-center">
                             <div className="relative mb-12">
                                 <div className="absolute inset-0 bg-green-500/20 blur-3xl rounded-full animate-pulse" />
