@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
-import { Sun, Moon, Globe, Menu, X, ChevronRight } from 'lucide-react';
+```javascript
+import React, { useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-
-/**
- * Shared Navigation Component
- * @param {Object} props
- * @param {Object} props.translations - Translation object
- * @param {string} props.lang - Current language
- * @param {Function} props.toggleLang - Language toggle function
- * @param {Array} props.navItems - Override nav items if needed
- */
 const Navigation = ({
-    translations: t,
+    t,
     lang,
     toggleLang,
     navItems = null,
@@ -31,45 +24,40 @@ const Navigation = ({
 
     return (
         <nav
-            className={`fixed w-full z-50 ${isDark ? 'bg-gray-950/80' : 'bg-white/80'
-                } backdrop-blur-xl border-b ${isDark ? 'border-cyan-500/10' : 'border-gray-200/50'
-                } shadow-lg ${isDark ? 'shadow-cyan-500/5' : 'shadow-gray-200/50'}`}
+            className={`fixed w - full z - 50 ${
+    isDark ? 'bg-gray-950/80' : 'bg-white/80'
+} backdrop - blur - xl border - b ${
+    isDark ? 'border-cyan-500/10' : 'border-gray-200/50'
+} shadow - lg ${ isDark ? 'shadow-cyan-500/5' : 'shadow-gray-200/50' } `}
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
                     <a href="/" className="flex items-center group cursor-pointer">
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 blur-lg opacity-20 group-hover:opacity-30 transition-opacity" />
-                            <span className="relative text-3xl font-black tracking-tight notranslate" translate="no">
-                                <span
-                                    className={`${isDark ? 'text-white' : 'text-gray-900'
-                                        } transition-colors`}
-                                >
-                                    Xyber
-                                </span>
-                                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                                    Clan
-                                </span>
-                            </span>
-                        </div>
+                        <div className="flex flex-col gap-6 text-center">
+                        <NavLink to="/" onClick={() => setIsOpen(false)} className={({ isActive }) => `text - 2xl font - bold transition - colors ${ isActive ? 'text-cyan-400' : 'text-white' } `}>
+                            {navLabels.home}
+                        </NavLink>
+                        <NavLink to="/team" onClick={() => setIsOpen(false)} className={({ isActive }) => `text - 2xl font - bold transition - colors ${ isActive ? 'text-cyan-400' : 'text-white' } `}>
+                            {navLabels.team}
+                        </NavLink>
+                        <NavLink to="/projects" onClick={() => setIsOpen(false)} className={({ isActive }) => `text - 2xl font - bold transition - colors ${ isActive ? 'text-cyan-400' : 'text-white' } `}>
+                            {navLabels.projects}
+                        </NavLink>
+                        <NavLink to="/contact" onClick={() => setIsOpen(false)} className="px-8 py-3 bg-cyan-500 text-black rounded-full font-bold text-lg mt-4 shadow-lg shadow-cyan-500/20">
+                            {navLabels.contact}
+                        </NavLink>
+                    </div>
                     </a>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-1">
-                        {items.map((item) => (
-                            <a
-                                key={item.name}
-                                href={item.href}
-                                className={`relative px-5 py-2.5 text-[15px] font-semibold ${isDark
-                                    ? 'text-gray-300 hover:text-white'
-                                    : 'text-gray-700 hover:text-gray-900'
-                                    } transition-all duration-300 group`}
                             >
                                 <span className="relative z-10">{item.name}</span>
                                 <span
-                                    className={`absolute inset-0 ${isDark ? 'bg-cyan-500/10' : 'bg-cyan-50'
-                                        } rounded-lg scale-0 group-hover:scale-100 transition-transform duration-300 ease-out`}
+                                    className={`absolute inset - 0 ${
+    isDark ? 'bg-cyan-500/10' : 'bg-cyan-50'
+} rounded - lg scale - 0 group - hover: scale - 100 transition - transform duration - 300 ease - out`}
                                 />
                                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-3/4 transition-all duration-300" />
                             </a>
@@ -78,17 +66,20 @@ const Navigation = ({
                         {/* Language Toggle Button */}
                         <button
                             onClick={toggleLang}
-                            className={`ml-4 p-3 rounded-xl ${isDark
-                                ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800'
-                                : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'
-                                } transition-all duration-300 hover:scale-110 shadow-lg ${isDark ? 'shadow-cyan-500/10' : 'shadow-gray-300/50'
-                                }`}
+                            className={`ml - 4 p - 3 rounded - xl ${
+    isDark
+        ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800'
+        : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'
+} transition - all duration - 300 hover: scale - 110 shadow - lg ${
+    isDark ? 'shadow-cyan-500/10' : 'shadow-gray-300/50'
+} `}
                             aria-label="Toggle language"
                         >
                             <div className="flex items-center gap-1 font-bold text-sm">
                                 <Globe
-                                    className={`w-4 h-4 ${isDark ? 'text-cyan-400' : 'text-cyan-600'
-                                        }`}
+                                    className={`w - 4 h - 4 ${
+    isDark ? 'text-cyan-400' : 'text-cyan-600'
+} `}
                                 />
                                 <span className={isDark ? 'text-gray-300' : 'text-gray-700'}>
                                     {lang.toUpperCase()}
@@ -99,11 +90,13 @@ const Navigation = ({
                         {/* Theme Toggle Button */}
                         <button
                             onClick={toggleTheme}
-                            className={`ml-2 p-3 rounded-xl ${isDark
-                                ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800'
-                                : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'
-                                } transition-all duration-300 hover:scale-110 hover:rotate-12 shadow-lg ${isDark ? 'shadow-cyan-500/10' : 'shadow-gray-300/50'
-                                }`}
+                            className={`ml - 2 p - 3 rounded - xl ${
+    isDark
+        ? 'bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800'
+        : 'bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300'
+} transition - all duration - 300 hover: scale - 110 hover: rotate - 12 shadow - lg ${
+    isDark ? 'shadow-cyan-500/10' : 'shadow-gray-300/50'
+} `}
                             aria-label="Toggle theme"
                         >
                             {isDark ? (
@@ -125,10 +118,11 @@ const Navigation = ({
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className={`md:hidden p-3 rounded-xl ${isDark
-                            ? 'bg-gray-800/50 hover:bg-gray-700/50'
-                            : 'bg-gray-100 hover:bg-gray-200'
-                            } transition-all duration-300`}
+                        className={`md:hidden p - 3 rounded - xl ${
+    isDark
+        ? 'bg-gray-800/50 hover:bg-gray-700/50'
+        : 'bg-gray-100 hover:bg-gray-200'
+} transition - all duration - 300`}
                         aria-label="Toggle menu"
                         aria-expanded={mobileMenuOpen}
                     >
@@ -143,28 +137,32 @@ const Navigation = ({
 
             {/* Mobile Menu - Slide-in Animation */}
             <div
-                className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${mobileMenuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
-                    }`}
+                className={`md:hidden overflow - hidden transition - all duration - 500 ease -in -out ${
+    mobileMenuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+} `}
             >
                 <div
-                    className={`${isDark
-                        ? 'bg-gradient-to-b from-gray-900/95 to-gray-950/95'
-                        : 'bg-gradient-to-b from-white/95 to-gray-50/95'
-                        } backdrop-blur-xl border-t ${isDark ? 'border-cyan-500/10' : 'border-gray-200/50'
-                        } px-6 py-6 space-y-1`}
+                    className={`${
+    isDark
+        ? 'bg-gradient-to-b from-gray-900/95 to-gray-950/95'
+        : 'bg-gradient-to-b from-white/95 to-gray-50/95'
+} backdrop - blur - xl border - t ${
+    isDark ? 'border-cyan-500/10' : 'border-gray-200/50'
+} px - 6 py - 6 space - y - 1`}
                 >
                     {items.map((item, idx) => (
                         <a
                             key={item.name}
                             href={item.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className={`block px-5 py-3.5 text-[16px] font-semibold ${isDark
-                                ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
-                                : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
-                                } rounded-xl transition-all duration-300 transform hover:translate-x-2`}
+                            className={`block px - 5 py - 3.5 text - [16px] font - semibold ${
+    isDark
+        ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
+        : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
+} rounded - xl transition - all duration - 300 transform hover: translate - x - 2`}
                             style={{
                                 animation: mobileMenuOpen
-                                    ? `slideIn 0.3s ease-out ${idx * 0.1}s both`
+                                    ? `slideIn 0.3s ease - out ${ idx * 0.1 }s both`
                                     : 'none',
                             }}
                         >
@@ -175,25 +173,28 @@ const Navigation = ({
                     {/* Mobile Language Toggle */}
                     <button
                         onClick={toggleLang}
-                        className={`w-full flex items-center justify-between px-5 py-3.5 text-[16px] font-semibold ${isDark
-                            ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
-                            : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
-                            } rounded-xl transition-all duration-300`}
+                        className={`w - full flex items - center justify - between px - 5 py - 3.5 text - [16px] font - semibold ${
+    isDark
+        ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
+        : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
+} rounded - xl transition - all duration - 300`}
                     >
                         <span>Language: {lang === 'en' ? 'English' : 'Français'}</span>
                         <Globe
-                            className={`w-5 h-5 ${isDark ? 'text-cyan-400' : 'text-cyan-600'
-                                }`}
+                            className={`w - 5 h - 5 ${
+    isDark ? 'text-cyan-400' : 'text-cyan-600'
+} `}
                         />
                     </button>
 
                     {/* Mobile Theme Toggle */}
                     <button
                         onClick={toggleTheme}
-                        className={`w-full flex items-center justify-between px-5 py-3.5 text-[16px] font-semibold ${isDark
-                            ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
-                            : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
-                            } rounded-xl transition-all duration-300`}
+                        className={`w - full flex items - center justify - between px - 5 py - 3.5 text - [16px] font - semibold ${
+    isDark
+        ? 'text-gray-300 hover:text-white hover:bg-cyan-500/10'
+        : 'text-gray-700 hover:text-gray-900 hover:bg-cyan-50'
+} rounded - xl transition - all duration - 300`}
                     >
                         <span>{t.nav.toggleTheme}</span>
                         {isDark ? (

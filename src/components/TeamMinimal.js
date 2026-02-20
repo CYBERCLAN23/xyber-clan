@@ -8,7 +8,8 @@ const TeamMinimal = () => {
     const { isDark } = useTheme();
     const [ref, visible] = useScrollAnimation();
 
-    const teamFeatures = [
+    // Default static features
+    const defaultFeatures = [
         {
             title: "Engineering Excellence",
             desc: "Our developers aren't just coders; they're engineers. We build for performance, security, and longevity.",
@@ -55,6 +56,8 @@ const TeamMinimal = () => {
             )
         }
     ];
+
+    const teamFeatures = defaultFeatures;
 
     return (
         <section id="team" ref={ref} className={`py-24 px-4 ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
@@ -111,7 +114,7 @@ const TeamMinimal = () => {
                                 '/team/cybersecurity-chief.jpg'
                             ].map((img, i) => (
                                 <div key={i} className="w-12 h-12 rounded-full border-2 border-white dark:border-black overflow-hidden bg-gray-200">
-                                    <img src={img} alt="Team Member" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                                    <img src={img} alt="XyberClan Digital Professional - Software Engineer & Designer" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                                 </div>
                             ))}
                             <div className="w-12 h-12 rounded-full border-2 border-white dark:border-black bg-cyan-500 flex items-center justify-center text-white text-xs font-bold">

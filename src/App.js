@@ -11,6 +11,7 @@ function App() {
       <Snowfall />
       <Router>
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<XyberClanWebsite />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/start-project" element={<ProjectForm />} />

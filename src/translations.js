@@ -174,6 +174,40 @@ export const translations = {
                 phone: 'Phone Number',
                 email: 'Email Address'
             }
+        },
+        seo: {
+            title: "XyberClan — Digital Agency | Web, Design & Cybersecurity | Africa & Worldwide",
+            description: "XyberClan, African digital agency serving clients worldwide. Web development, design, cybersecurity. Competitive rates. Free quote.",
+            h1: "African Digital Agency — Web, Design & Cybersecurity Services Worldwide",
+            h2_why: "Why choose XyberClan?",
+            h2_services: "Our Services Available Worldwide",
+            h2_standards: "African team, global standards",
+            h3_web: "Professional Web Development",
+            h3_design: "Graphic Design & UI/UX",
+            h3_cyber: "Cybersecurity & Protection",
+            h3_mobile: "Mobile Applications",
+            paragraph: "XyberClan is an African digital agency based in Yaounde, Cameroon, serving clients in France, Belgium, Canada, Switzerland, Nigeria, Ghana, Senegal, the UK, USA and worldwide. We provide professional web development, mobile app creation, graphic design, UI/UX and cybersecurity services at competitive rates. Our team of young African professionals combines technical expertise with creativity to deliver world-class digital solutions."
+        },
+        whyUs: {
+            title: "Why XyberClan?",
+            items: [
+                {
+                    title: "Global Quality, African Rates",
+                    desc: "Our services are at the level of European agencies but 3x cheaper."
+                },
+                {
+                    title: "100% Remote — Worldwide",
+                    desc: "We work with clients in France, Belgium, Canada, USA, Nigeria, Ghana and everywhere."
+                },
+                {
+                    title: "Young & Agile Team",
+                    desc: "A team of passionate students who deliver fast and communicate clearly."
+                },
+                {
+                    title: "Available 6d/7",
+                    desc: "Customer support via WhatsApp, email and video calls in your time zone."
+                }
+            ]
         }
     },
     fr: {
@@ -351,6 +385,40 @@ export const translations = {
                 phone: 'Numéro de Téléphone',
                 email: 'Adresse Email'
             }
+        },
+        seo: {
+            title: "XyberClan — Agence Digitale | Web, Design & Cybersécurité | Afrique & Monde",
+            description: "XyberClan, agence digitale africaine travaillant avec des clients partout dans le monde. Développement web, design, cybersécurité. Tarifs compétitifs. Devis gratuit.",
+            h1: "Agence Digitale Africaine — Services Web, Design & Cybersécurité dans le Monde Entier",
+            h2_why: "Pourquoi choisir XyberClan ?",
+            h2_services: "Nos Services Disponibles Partout dans le Monde",
+            h2_standards: "Une équipe africaine, des standards mondiaux",
+            h3_web: "Développement Web Professionnel",
+            h3_design: "Design Graphique & UI/UX",
+            h3_cyber: "Cybersécurité & Protection",
+            h3_mobile: "Applications Mobiles",
+            paragraph: "XyberClan est une agence digitale africaine basee a Yaounde, Cameroun, offrant ses services a des clients en France, Belgique, Canada, Suisse, Cote d Ivoire, Senegal, Nigeria, Ghana et partout dans le monde. Nous proposons le developpement de sites web professionnels, la creation d applications mobiles, le design graphique, l UI/UX design et la cybersecurite a des tarifs competitifs. Notre equipe de jeunes professionnels africains combine expertise technique et creativite pour livrer des solutions digitales de qualite mondiale."
+        },
+        whyUs: {
+            title: "Pourquoi XyberClan ?",
+            items: [
+                {
+                    title: "Qualité Mondiale, Tarifs Africains",
+                    desc: "Nos services sont au niveau des agences européennes mais 3x moins chers."
+                },
+                {
+                    title: "100% Remote — Partout dans le Monde",
+                    desc: "Nous travaillons avec des clients en France, Belgique, Canada, USA, Nigeria, Ghana et partout."
+                },
+                {
+                    title: "Equipe Jeune & Agile",
+                    desc: "Une équipe d etudiants passionnes qui livrent vite et communiquent clairement."
+                },
+                {
+                    title: "Disponibles 6j/7",
+                    desc: "Support client via WhatsApp, email et visio dans votre fuseau horaire."
+                }
+            ]
         }
     }
 };

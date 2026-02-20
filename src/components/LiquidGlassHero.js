@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Zap, MapPin, DollarSign, TrendingUp } from 'lucide-react';
 import { getLogo } from '../utils/festive';
-
 import heroVideo from '../assets/hero-video.mp4';
 
 // Local video file
@@ -10,6 +9,7 @@ const VIDEO_SRC = heroVideo;
 const POSTER_SRC = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
 
 const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
+    const hero = null; // or provide default static values if needed, but the code already has fallbacks
 
     const videoRef = useRef(null);
     const [videoReady, setVideoReady] = useState(false);
@@ -81,7 +81,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             {/* POSTER / STATIC BANNER */}
             {/* Shows initially, fades out when video plays, fades back in when sequence completes */}
             <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${videoReady && !showBanner ? 'opacity-0' : 'opacity-100'}`}>
-                <img src={POSTER_SRC} alt="" className="w-full h-full object-cover" fetchpriority="high" />
+                <img src={POSTER_SRC} alt="XyberClan Digital Agency - Global Web & Security Solutions" className="w-full h-full object-cover" fetchpriority="high" />
             </div>
 
             {/* VIDEO */}
@@ -134,29 +134,13 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                             style={{ animation: mounted ? 'heroFadeUp 0.6s ease-out 0.05s both' : 'none' }}
                         >
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            {lang === 'en' ? 'Digital Agency • Yaoundé' : 'Agence Digitale • Yaoundé'}
+                            {lang === 'en' ? 'Digital Agency • Worldwide' : 'Agence Digitale • Monde'}
                         </span>
 
-                        {/* Headline — compact sizes */}
-                        <h1 className="text-white leading-[0.9] tracking-tighter">
-                            <span
-                                className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black"
-                                style={{ fontFamily: "'Inter', sans-serif", animation: mounted ? 'heroFadeUp 0.7s ease-out 0.1s both' : 'none' }}
-                            >
-                                {t?.hero?.titlePrefix || 'Your Trusted'}
-                            </span>
-                            <span
-                                className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black mt-1"
-                                style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.2s both' : 'none' }}
-                            >
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
-                                    {lang === 'en' ? 'Digital' : 'Partenaire'}
-                                </span>
-                                {' '}
-                                <span className="text-white/80 italic font-extralight">
-                                    {lang === 'en' ? 'Partner' : 'Digital'}
-                                </span>
-                            </span>
+                        {/* Headline — global SEO optimized H1 */}
+                        <h1 className="text-white leading-[0.9] tracking-tighter text-[clamp(2rem,6vw,4.5rem)] font-black"
+                            style={{ fontFamily: "'Inter', sans-serif", animation: mounted ? 'heroFadeUp 0.7s ease-out 0.1s both' : 'none' }}>
+                            {t.seo.h1}
                         </h1>
 
                         {/* Subtitle — tighter */}
@@ -164,7 +148,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                             className="mt-3 sm:mt-4 text-white/50 text-sm sm:text-base lg:text-lg max-w-lg leading-relaxed"
                             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, animation: mounted ? 'heroFadeUp 0.7s ease-out 0.3s both' : 'none' }}
                         >
-                            {t?.hero?.subtitle || 'Professional digital solutions for ambitious businesses and individuals.'}
+                            {hero?.subtitle || t?.hero?.subtitle || 'Professional digital solutions for ambitious businesses and individuals.'}
                         </p>
 
                         {/* CTAs — compact */}

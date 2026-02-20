@@ -15,6 +15,7 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import CTASection from './components/CTASection';
 import StatsCounter from './components/StatsCounter';
+import WhyUs from './components/WhyUs';
 import FAQSection from './components/FAQSection';
 import TrustBadges from './components/TrustBadges';
 import Newsletter from './components/Newsletter';
@@ -78,7 +79,7 @@ const XyberClanWebsite = () => {
             >
               <img
                 src={getLogo()}
-                alt="XyberClan"
+                alt="XyberClan — Professional Digital Agency Logo"
                 fetchpriority="high"
                 decoding="async"
                 className="w-14 h-14 object-contain"
@@ -196,7 +197,7 @@ const XyberClanWebsite = () => {
             {/* Logo top-left */}
             <div className="absolute top-7 left-8">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
-                <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
+                <img src={getLogo()} alt="XyberClan — Global Tech Solutions" className="w-14 h-14 object-contain" />
                 <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'} notranslate`} translate="no">
                   Xyber<span className="text-cyan-500">Clan</span>
                 </span>
@@ -288,6 +289,11 @@ const XyberClanWebsite = () => {
         <FeaturesGrid />
       </ScrollReveal>
 
+      {/* Why Us Section */}
+      <ScrollReveal animation="fadeUp" delay={0.05} duration={0.9}>
+        <WhyUs translations={t} />
+      </ScrollReveal>
+
       {/* Stats Counter */}
       <ScrollReveal animation="scaleReveal" delay={0.05} duration={0.85}>
         <StatsCounter />
@@ -310,11 +316,10 @@ const XyberClanWebsite = () => {
             <div className="mb-14">
               <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-cyan-400/70' : 'text-cyan-600/70'}`}>Technology</p>
               <h2 className="text-3xl md:text-4xl lg:text-[2.8rem] font-black tracking-tight leading-[1.1] mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-                {t.techStack.title}{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Tech Stack</span>
+                {t.seo.h2_services}
               </h2>
               <p className={`text-base md:text-lg max-w-2xl leading-relaxed ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
-                {t.techStack.subtitle}
+                {t.seo.paragraph}
               </p>
             </div>
 
@@ -406,6 +411,11 @@ const XyberClanWebsite = () => {
       <ScrollReveal animation="tiltIn" delay={0.06} duration={0.95}>
         <Newsletter />
       </ScrollReveal>
+
+      {/* SEO Paragraph — Hidden visually but readable by search engines */}
+      <div className="sr-only" aria-hidden="true">
+        <p>{t.seo.paragraph}</p>
+      </div>
 
       {/* Contact Section */}
       {/* Contact Section */}

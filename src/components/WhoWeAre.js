@@ -2,9 +2,12 @@ import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import { Terminal, BarChart3 } from 'lucide-react';
+import { translations } from '../translations';
 
 const WhoWeAre = () => {
     const { isDark } = useTheme();
+    const [lang] = React.useState('en'); // This should ideally be passed as a prop
+    const t = translations[lang];
     const [ref, visible] = useScrollAnimation();
 
     const partners = [
@@ -46,10 +49,10 @@ const WhoWeAre = () => {
                 {/* Header */}
                 <div className={`text-center mb-16 ${visible ? 'animate-fade-in-up delay-100' : 'opacity-0'}`}>
                     <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-gray-800 text-xs font-bold tracking-widest uppercase mb-6 inline-block">
-                        Use Cases
+                        {t.seo.h2_why}
                     </span>
                     <h2 className="text-4xl md:text-5xl font-medium tracking-tight">
-                        A <span className="font-serif italic">24/7</span> Digital Partner
+                        {t.seo.h2_standards}
                     </h2>
                 </div>
 

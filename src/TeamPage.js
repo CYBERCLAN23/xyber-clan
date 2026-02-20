@@ -152,7 +152,7 @@ const TeamPage = () => {
                     : 'bg-transparent'
                     }`}>
                     <Link to="/" className="flex items-center gap-2.5 group cursor-pointer">
-                        <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
+                        <img src={getLogo()} alt="XyberClan — High-Quality Digital Agency Logo" className="w-14 h-14 object-contain" />
                         <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'} notranslate`} translate="no">
                             Xyber<span className="text-cyan-500">Clan</span>
                         </span>
@@ -202,7 +202,7 @@ const TeamPage = () => {
 
                     <div className="absolute top-7 left-8">
                         <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5">
-                            <img src={getLogo()} alt="XyberClan" className="w-14 h-14 object-contain" />
+                            <img src={getLogo()} alt="XyberClan — Expert Tech Development Group" className="w-14 h-14 object-contain" />
                             <span className={`text-lg font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'} notranslate`} translate="no">
                                 Xyber<span className="text-cyan-500">Clan</span>
                             </span>
@@ -314,7 +314,7 @@ const TeamPage = () => {
                                             <div className="aspect-[3/4] overflow-hidden">
                                                 <img
                                                     src={member.image}
-                                                    alt={member.name}
+                                                    alt={`XyberClan Team Member: ${member.name} - ${member.role}`}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </div>
@@ -374,7 +374,7 @@ const TeamPage = () => {
                                         <div className={`relative rounded-3xl overflow-hidden border ${isDark ? 'border-white/5' : 'border-gray-200'}`}>
                                             <img
                                                 src={member.image}
-                                                alt={member.name}
+                                                alt={`XyberClan Specialist: ${member.name} — ${member.role}`}
                                                 loading="lazy"
                                                 decoding="async"
                                                 className="w-full h-[380px] md:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105"
