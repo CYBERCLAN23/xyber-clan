@@ -15,7 +15,6 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import CTASection from './components/CTASection';
 import StatsCounter from './components/StatsCounter';
-import WhyUs from './components/WhyUs';
 import FAQSection from './components/FAQSection';
 import TrustBadges from './components/TrustBadges';
 import Newsletter from './components/Newsletter';
@@ -287,11 +286,6 @@ const XyberClanWebsite = () => {
       {/* Features Grid */}
       <ScrollReveal animation="tiltIn" delay={0.06} duration={1}>
         <FeaturesGrid />
-      </ScrollReveal>
-
-      {/* Why Us Section */}
-      <ScrollReveal animation="fadeUp" delay={0.05} duration={0.9}>
-        <WhyUs translations={t} />
       </ScrollReveal>
 
       {/* Stats Counter */}
