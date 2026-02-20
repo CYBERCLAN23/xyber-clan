@@ -178,7 +178,7 @@ export const translations = {
         seo: {
             title: "XyberClan — Digital Agency | Web, Design & Cybersecurity | Africa & Worldwide",
             description: "XyberClan, African digital agency serving clients worldwide. Web development, design, cybersecurity. Competitive rates. Free quote.",
-            h1: "African Digital Agency — Web, Design & Cybersecurity Services Worldwide",
+            h1: "Your Trusted Digital Partner",
             h2_why: "Why choose XyberClan?",
             h2_services: "Our Services Available Worldwide",
             h2_standards: "African team, global standards",
@@ -368,7 +368,7 @@ export const translations = {
         seo: {
             title: "XyberClan — Agence Digitale | Web, Design & Cybersécurité | Afrique & Monde",
             description: "XyberClan, agence digitale africaine travaillant avec des clients partout dans le monde. Développement web, design, cybersécurité. Tarifs compétitifs. Devis gratuit.",
-            h1: "Agence Digitale Africaine — Services Web, Design & Cybersécurité dans le Monde Entier",
+            h1: "Votre Partenaire Digital de Confiance",
             h2_why: "Pourquoi choisir XyberClan ?",
             h2_services: "Nos Services Disponibles Partout dans le Monde",
             h2_standards: "Une équipe africaine, des standards mondiaux",
