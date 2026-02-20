@@ -15,8 +15,8 @@ import {
     Settings2, GraduationCap, BarChart, Code2, Package,
     Target, Compass, Trello, Slack,
     LayoutDashboard, Laptop, Rocket,
-    History, MonitorCheck, Server, Bug,
-    ShieldAlert, Globe2, BarChart3, MailPlus, PenTool
+    History, Bug,
+    ShieldAlert, Globe2, BarChart3, MailPlus
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
@@ -338,16 +338,16 @@ const ProjectForm = () => {
                                                 )}
 
                                                 <div className={`mb-6 p-4 rounded-2xl inline-block transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 ${opt.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
-                                                        opt.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
-                                                            opt.color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
-                                                                opt.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
-                                                                    opt.color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
-                                                                        opt.color === 'yellow' ? 'bg-yellow-500/10 text-yellow-500' :
-                                                                            opt.color === 'red' ? 'bg-red-500/10 text-red-500' :
-                                                                                opt.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-500' :
-                                                                                    opt.color === 'rose' ? 'bg-rose-500/10 text-rose-500' :
-                                                                                        opt.color === 'amber' ? 'bg-amber-500/10 text-amber-500' :
-                                                                                            'bg-gray-500/10 text-gray-500'
+                                                    opt.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
+                                                        opt.color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
+                                                            opt.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
+                                                                opt.color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
+                                                                    opt.color === 'yellow' ? 'bg-yellow-500/10 text-yellow-500' :
+                                                                        opt.color === 'red' ? 'bg-red-500/10 text-red-500' :
+                                                                            opt.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-500' :
+                                                                                opt.color === 'rose' ? 'bg-rose-500/10 text-rose-500' :
+                                                                                    opt.color === 'amber' ? 'bg-amber-500/10 text-amber-500' :
+                                                                                        'bg-gray-500/10 text-gray-500'
                                                     }`}>
                                                     {opt.icon}
                                                 </div>
