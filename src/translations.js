@@ -5,6 +5,7 @@ export const translations = {
             about: 'About',
             services: 'Services',
             team: 'Team',
+            partners: 'Partners',
             contact: 'Contact',
             getStarted: 'Get Started',
             toggleTheme: 'Toggle Theme'
@@ -113,16 +114,33 @@ export const translations = {
             ctaButton: 'Contact Us Now'
         },
         partnership: {
-            badge: 'Announcing Collaboration',
-            title: 'Tech Startup Partnership',
-            subtitle: 'Hult Prize UY1 x XYBERCLAN',
-            desc: 'We are reaching a new technological milestone! The Hult Prize University of Yaoundé 1 is proud to announce its partnership with XYBERCLAN.',
+            badge: 'Partnership',
+            title: 'Hult Prize UY1 x XYBERCLAN',
+            subtitle: 'Empowering Social Innovation',
+            desc: 'A strategic alliance designed to bridge the gap between academic brilliance and professional engineering.',
             features: [
                 'Boost of technological innovation within our teams.',
                 'Technical accompaniment for high-impact projects.',
                 'Synergy between tech expertise and social entrepreneurship.'
             ],
             slogan: 'Together, we push the limits of what is possible!'
+        },
+        partnersPage: {
+            title: 'Our Strategic Partners',
+            subtitle: 'Collaborating for a Greater Impact',
+            hultStory: {
+                title: 'The Hult Prize Collaboration',
+                narrative: [
+                    "At XyberClan, we believe that technology is the ultimate force multiplier for social good. That's why our partnership with the Hult Prize at University of Yaoundé 1 is so meaningful to us.",
+                    "We aren't just technical consultants; we are innovation partners. We provide the 'digital muscles' and technical mentorship to the brilliant student teams competing to solve the world's most pressing challenges.",
+                    "Through this collaboration, we help translate ambitious social entrepreneurship ideas into scalable, production-ready prototypes, ensuring that the next generation of Cameroonian leaders has the technical foundation they need to succeed."
+                ],
+                stats: [
+                    { label: 'Technical Mentorship', value: '100%' },
+                    { label: 'Innovation Boost', value: '24/7' },
+                    { label: 'Social Impact', value: 'Global' }
+                ]
+            }
         },
         footer: {
             tagline: 'Building Digital Dreams in Yaoundé',
@@ -133,6 +151,7 @@ export const translations = {
                         { label: 'About Us', url: '/#about' },
                         { label: 'Services', url: '/#services' },
                         { label: 'Our Team', url: '/team' },
+                        { label: 'Our Partners', url: '/partners' },
                         { label: 'Portfolio', url: '/#portfolio' }
                     ]
                 },
@@ -333,6 +352,7 @@ export const translations = {
             about: 'À propos',
             services: 'Services',
             team: 'Équipe',
+            partners: 'Partenaires',
             contact: 'Contact',
             getStarted: 'Commencer',
             toggleTheme: 'Changer de thème'
@@ -441,16 +461,33 @@ export const translations = {
             ctaButton: 'Contactez-nous Maintenant'
         },
         partnership: {
-            badge: 'Annonce de Collaboration',
-            title: 'Partenariat Startup Tech',
-            subtitle: 'Hult Prize UY1 x XYBERCLAN',
-            desc: 'Nous franchissons une nouvelle étape technologique ! Le Hult Prize University of Yaoundé 1 est fier d\'annoncer son partenariat avec XYBERCLAN.',
+            badge: 'Partenariat',
+            title: 'Hult Prize UY1 x XYBERCLAN',
+            subtitle: 'Autonomiser l\'Innovation Sociale',
+            desc: 'Une alliance stratégique conçue pour combler le fossé entre l\'excellence académique et l\'ingénierie professionnelle.',
             features: [
                 'Boost de l\'innovation technologique au sein de nos équipes.',
                 'Accompagnement technique pour des projets à fort impact.',
                 'Synergie entre expertise tech et entrepreneuriat social.',
             ],
             slogan: 'Ensemble, nous repoussons les limites du possible !'
+        },
+        partnersPage: {
+            title: 'Nos Partenaires Stratégiques',
+            subtitle: 'Collaborer pour un Impact Plus Grand',
+            hultStory: {
+                title: 'La Collaboration Hult Prize',
+                narrative: [
+                    "Chez XyberClan, nous croyons que la technologie est le multiplicateur de force ultime pour le bien social. C'est pourquoi notre partenariat avec le Hult Prize de l'Université de Yaoundé 1 est si important pour nous.",
+                    "Nous ne sommes pas seulement des consultants techniques ; nous sommes des partenaires d'innovation. Nous fournissons les 'muscles numériques' et le mentorat technique aux brillantes équipes d'étudiants qui luttent pour résoudre les défis les plus pressants du monde.",
+                    "Grâce à cette collaboration, nous aidons à traduire des idées ambitieuses d'entrepreneuriat social en prototypes évolutifs et prêts pour la production, garantissant que la prochaine génération de leaders camerounais dispose de la base technique nécessaire pour réussir."
+                ],
+                stats: [
+                    { label: 'Mentorat Technique', value: '100%' },
+                    { label: 'Boost d\'Innovation', value: '24/7' },
+                    { label: 'Impact Social', value: 'Global' }
+                ]
+            }
         },
         footer: {
             tagline: 'Construire des Rêves Numériques à Yaoundé',
@@ -461,6 +498,7 @@ export const translations = {
                         { label: 'À Propos', url: '/#about' },
                         { label: 'Services', url: '/#services' },
                         { label: 'Notre Équipe', url: '/team' },
+                        { label: 'Nos Partenaires', url: '/partners' },
                         { label: 'Portfolio', url: '/#portfolio' }
                     ]
                 },

@@ -17,7 +17,6 @@ import CTASection from './components/CTASection';
 import StatsCounter from './components/StatsCounter';
 import FAQSection from './components/FAQSection';
 import TrustBadges from './components/TrustBadges';
-import PartnershipSection from './components/PartnershipSection';
 import Newsletter from './components/Newsletter';
 import Pricing from './components/Pricing';
 import ExitPopup from './components/ExitPopup';
@@ -54,7 +53,7 @@ const XyberClanWebsite = () => {
     setLang(lang === 'en' ? 'fr' : 'en');
   };
 
-  const navLinks = ['home', 'about', 'services', 'team', 'contact'];
+  const navLinks = ['home', 'about', 'services', 'team', 'partners', 'contact'];
 
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -95,10 +94,10 @@ const XyberClanWebsite = () => {
             {/* Center: Nav Links */}
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((item) => (
-                item === 'team' ? (
+                item === 'team' || item === 'partners' ? (
                   <Link
                     key={item}
-                    to="/team"
+                    to={item === 'team' ? "/team" : "/partners"}
                     className={`px-4 py-2 text-[13px] font-medium uppercase tracking-wider transition-all duration-200 rounded-lg ${isScrolled
                       ? (isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900')
                       : 'text-white/70 hover:text-white'
@@ -207,16 +206,16 @@ const XyberClanWebsite = () => {
             {/* Links — large editorial style */}
             <div className="flex-1 flex flex-col justify-center gap-1">
               {navLinks.map((item, idx) => (
-                item === 'team' ? (
+                item === 'team' || item === 'partners' ? (
                   <Link
                     key={item}
-                    to="/team"
+                    to={item === 'team' ? "/team" : "/partners"}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`group flex items-baseline gap-4 py-4 transition-all duration-300 border-b ${isDark ? 'border-white/5 text-white hover:text-cyan-400' : 'border-black/5 text-gray-900 hover:text-cyan-600'}`}
                     style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}
                   >
                     <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
-                    <span className="text-[2rem] font-black tracking-tight leading-none">{t.nav[item]}</span>
+                    <span className="text-[2rem] font-black tracking-tight leading-none">{t.nav[item] || (item === 'partners' ? (lang === 'en' ? 'Partners' : 'Partenaires') : item)}</span>
                     <ChevronRight size={18} className={`ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
                   </Link>
                 ) : (
@@ -297,11 +296,6 @@ const XyberClanWebsite = () => {
       {/* Trust Badges */}
       <ScrollReveal animation="subtleRise" delay={0.12} duration={1.1}>
         <TrustBadges />
-      </ScrollReveal>
-
-      {/* Partnership Section */}
-      <ScrollReveal animation="blurIn" delay={0.1} duration={1.2}>
-        <PartnershipSection translations={t} />
       </ScrollReveal>
 
       {/* Pricing */}

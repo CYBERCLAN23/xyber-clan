@@ -3,6 +3,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Snowfall from './components/Snowfall';
 import XyberClanWebsite from './xybersite';
 import TeamPage from './TeamPage';
+import PartnersPage from './PartnersPage';
 import ProjectForm from './ProjectForm';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/" element={<XyberClanWebsite />} />
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/partners" element={<PartnersPage />} />
           <Route path="/start-project" element={<ProjectForm />} />
         </Routes>
       </Router>
