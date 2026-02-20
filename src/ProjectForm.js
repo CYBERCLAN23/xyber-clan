@@ -6,7 +6,7 @@ import {
     Calendar, Coins,
     Sparkles, ArrowRight, Sun, Moon,
     User, FileText,
-    Timer, Phone, PenTool, Hash
+    Timer, Phone, Monitor, Hash
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
@@ -40,7 +40,7 @@ const ProjectForm = () => {
                 { value: t.options.mobile, label: t.options.mobile, icon: <Smartphone className="w-8 h-8" />, color: 'purple' },
                 { value: t.options.design, label: t.options.design, icon: <Palette className="w-8 h-8" />, color: 'pink' },
                 { value: t.options.cybersec, label: t.options.cybersec, icon: <Shield className="w-8 h-8" />, color: 'blue' },
-                { value: t.options.hardware, label: t.options.hardware, icon: <PenTool className="w-8 h-8" />, color: 'orange' },
+                { value: t.options.hardware, label: t.options.hardware, icon: <Monitor className="w-8 h-8" />, color: 'orange' },
                 { value: t.options.training, label: t.options.training, icon: <Sparkles className="w-8 h-8" />, color: 'green' }
             ]
         },
@@ -152,7 +152,7 @@ const ProjectForm = () => {
 
     const handleEmailSend = () => {
         const subject = `New Project: ${answers.projectName}`;
-        window.location.href = `mailto:contact@xyber-clan.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(generateSummaryText())}`;
+        window.location.href = `mailto:xyberclandev@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(generateSummaryText())}`;
     };
 
     return (

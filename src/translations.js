@@ -146,7 +146,7 @@ export const translations = {
                 title: 'Ready to start a project?',
                 subtitle: "Let's build something exceptional together.",
                 emailLabel: 'EMAIL US',
-                email: 'contact@xyber-clan.com',
+                email: 'xyberclandev@gmail.com',
                 phoneLabel: 'CALL US',
                 phone: '+237 672 446 810'
             },
@@ -377,7 +377,7 @@ export const translations = {
                 title: 'Prêt à lancer un projet ?',
                 subtitle: "Construisons quelque chose d'exceptionnel ensemble.",
                 emailLabel: 'ÉCRIVEZ-NOUS',
-                email: 'contact@xyber-clan.com',
+                email: 'xyberclandev@gmail.com',
                 phoneLabel: 'APPELEZ-NOUS',
                 phone: '+237 672 446 810'
             },

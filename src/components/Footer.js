@@ -11,7 +11,7 @@ const Footer = ({ translations: t }) => {
     const socialLinks = [
         { icon: <Github size={18} />, url: 'https://github.com/CYBERCLAN23', color: 'hover:text-black hover:bg-white' },
         { icon: <Linkedin size={18} />, url: '#', color: 'hover:text-[#0077B5] hover:bg-white' },
-        { icon: <Twitter size={18} />, url: '#', color: 'hover:text-[#1DA1F2] hover:bg-white' },
+        { icon: <Twitter size={18} />, url: 'https://x.com/XyberC60820', color: 'hover:text-[#1DA1F2] hover:bg-white' },
         { icon: <Facebook size={18} />, url: '#', color: 'hover:text-[#1877F2] hover:bg-white' },
     ];
 
