@@ -1,12 +1,12 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-    ChevronRight, ChevronLeft, Mail, MessageCircle, Check,
+    ChevronLeft, Mail, MessageCircle, Check,
     Globe, Smartphone, Palette, Shield,
     Calendar, Coins,
     Sparkles, ArrowRight, Sun, Moon,
-    User, Crosshair, FileText,
-    Timer, Wallet, Phone, Loader, PenTool, Hash
+    User, FileText,
+    Timer, Phone, PenTool, Hash
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
@@ -216,13 +216,13 @@ const ProjectForm = () => {
                                                 : isDark ? 'border-white/5 bg-white/[0.02] hover:border-white/20' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm hover:shadow-lg'
                                                 }`}>
                                             <div className={`mb-6 p-4 rounded-2xl inline-block transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 ${opt.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
-                                                    opt.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
-                                                        opt.color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
-                                                            opt.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
-                                                                opt.color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
-                                                                    opt.color === 'yellow' ? 'bg-yellow-500/10 text-yellow-500' :
-                                                                        opt.color === 'red' ? 'bg-red-500/10 text-red-500' :
-                                                                            'bg-gray-500/10 text-gray-500'
+                                                opt.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
+                                                    opt.color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
+                                                        opt.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
+                                                            opt.color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
+                                                                opt.color === 'yellow' ? 'bg-yellow-500/10 text-yellow-500' :
+                                                                    opt.color === 'red' ? 'bg-red-500/10 text-red-500' :
+                                                                        'bg-gray-500/10 text-gray-500'
                                                 }`}>
                                                 {opt.icon}
                                             </div>
