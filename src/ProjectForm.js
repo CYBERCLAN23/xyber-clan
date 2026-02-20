@@ -15,7 +15,7 @@ import {
     Settings2, GraduationCap, BarChart, Code2, Package,
     Target, Compass, Trello, Slack,
     LayoutDashboard, Laptop, Rocket,
-    Timer, History
+    History
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
