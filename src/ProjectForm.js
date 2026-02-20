@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
     ChevronRight, ChevronLeft, Mail, MessageCircle, Check,
@@ -6,87 +6,100 @@ import {
     Calendar, Coins,
     Sparkles, ArrowRight, Sun, Moon,
     User, Crosshair, FileText,
-    Timer, Wallet, Phone, Loader
+    Timer, Wallet, Phone, Loader, PenTool, Hash
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
+import { translations } from './translations';
 
 const ProjectForm = () => {
+    const { isDark, toggleTheme } = useTheme();
+    const [lang, setLang] = useState('en');
+    const t = translations[lang].form;
+
     const [currentStep, setCurrentStep] = useState(0);
     const [direction, setDirection] = useState('forward');
-    const { isDark, toggleTheme } = useTheme();
+    const [answers, setAnswers] = useState({
+        projectType: '',
+        projectName: '',
+        description: '',
+        timeline: '',
+        budget: '',
+        contactName: '',
+        contactPhone: '',
+        contactEmail: ''
+    });
 
-    const [answers, setAnswers] = useState({});
-
-    // Default Fallback Config
-    const defaultConfig = {
-        title: "Start Your Project",
-        subtitle: "Tell us about your next big idea.",
-        steps: [
-            {
-                id: 'category',
-                question: "What type of project is this?",
-                options: ["Web Development", "Mobile App", "Cybersecurity Audit", "UI/UX Design", "Branding", "Other"]
-            },
-            {
-                id: 'budget',
-                question: "What is your estimated budget?",
-                options: ["<$1k", "$1k - $5k", "$5k - $10k", "$10k+", "Not sure yet"]
-            },
-            {
-                id: 'timeline',
-                question: "What is your desired timeline?",
-                options: ["ASAP", "1 Month", "3 Months", "6+ Months"]
-            }
-        ],
-        contactLabels: {
-            name: "Full Name",
-            email: "Email Address",
-            details: "Project Details"
+    const steps = [
+        {
+            id: 'projectType',
+            type: 'choice',
+            question: t.questions.projectType,
+            options: [
+                { value: t.options.web, label: t.options.web, icon: <Globe className="w-8 h-8" />, color: 'cyan' },
+                { value: t.options.mobile, label: t.options.mobile, icon: <Smartphone className="w-8 h-8" />, color: 'purple' },
+                { value: t.options.design, label: t.options.design, icon: <Palette className="w-8 h-8" />, color: 'pink' },
+                { value: t.options.cybersec, label: t.options.cybersec, icon: <Shield className="w-8 h-8" />, color: 'blue' },
+                { value: t.options.hardware, label: t.options.hardware, icon: <PenTool className="w-8 h-8" />, color: 'orange' },
+                { value: t.options.training, label: t.options.training, icon: <Sparkles className="w-8 h-8" />, color: 'green' }
+            ]
+        },
+        {
+            id: 'projectName',
+            type: 'text',
+            question: t.questions.projectName,
+            placeholder: t.placeholders.projectName,
+            icon: <Hash className="w-8 h-8 text-cyan-500" />
+        },
+        {
+            id: 'description',
+            type: 'textarea',
+            question: t.questions.description,
+            placeholder: t.placeholders.description,
+            icon: <FileText className="w-8 h-8 text-cyan-500" />
+        },
+        {
+            id: 'timeline',
+            type: 'choice',
+            question: t.questions.timeline,
+            options: [
+                { value: t.options.asap, label: t.options.asap, icon: <Timer className="w-8 h-8" />, color: 'red' },
+                { value: t.options.weeks, label: t.options.weeks, icon: <Calendar className="w-8 h-8" />, color: 'orange' },
+                { value: t.options.month, label: t.options.month, icon: <Calendar className="w-8 h-8" />, color: 'yellow' },
+                { value: t.options.months, label: t.options.months, icon: <Calendar className="w-8 h-8" />, color: 'blue' },
+                { value: t.options.flexible, label: t.options.flexible, icon: <Sparkles className="w-8 h-8" />, color: 'cyan' }
+            ]
+        },
+        {
+            id: 'budget',
+            type: 'choice',
+            question: t.questions.budget,
+            options: [
+                { value: t.options.under100k, label: t.options.under100k, icon: <Coins className="w-8 h-8" />, color: 'gray' },
+                { value: t.options.range1, label: t.options.range1, icon: <Coins className="w-8 h-8" />, color: 'cyan' },
+                { value: t.options.range2, label: t.options.range2, icon: <Coins className="w-8 h-8" />, color: 'blue' },
+                { value: t.options.over1m, label: t.options.over1m, icon: <Coins className="w-8 h-8" />, color: 'purple' },
+                { value: t.options.notSure, label: t.options.notSure, icon: <Sparkles className="w-8 h-8" />, color: 'gray' }
+            ]
+        },
+        {
+            id: 'contact',
+            type: 'contact',
+            question: t.questions.contact,
+            fields: [
+                { id: 'contactName', label: t.contactLabels.name, placeholder: t.placeholders.contactName, type: 'text', icon: <User className="w-5 h-5" /> },
+                { id: 'contactPhone', label: t.contactLabels.phone, placeholder: t.placeholders.contactPhone, type: 'tel', icon: <Phone className="w-5 h-5" /> },
+                { id: 'contactEmail', label: t.contactLabels.email, placeholder: t.placeholders.contactEmail, type: 'email', icon: <Mail className="w-5 h-5" /> }
+            ]
         }
-    };
+    ];
 
-    const config = defaultConfig;
-    const contentLoading = false;
-
-    // Contact Step Definition
-    const contactStep = {
-        id: 'contact',
-        type: 'contact',
-        question: "How do we reach you?",
-        subtitle: "We'll contact you within 24 hours",
-        fields: [
-            { id: 'contactName', label: config.contactLabels?.name || "Full Name", placeholder: 'John Doe', type: 'text', icon: <User className="w-5 h-5" /> },
-            { id: 'contactPhone', label: "WhatsApp/Phone", placeholder: '+237 ...', type: 'tel', icon: <Phone className="w-5 h-5" /> },
-            { id: 'contactEmail', label: config.contactLabels?.email || "Email Address", placeholder: 'john@example.com', type: 'email', icon: <Mail className="w-5 h-5" /> }
-        ]
-    };
-
-    // Combine steps with Contact step
-    const questions = useMemo(() => {
-        if (!config.steps) return [contactStep];
-
-        const mappedSteps = config.steps.map(step => ({
-            ...step,
-            type: step.options ? 'choice' : 'text',
-            icon: getIconForStepId(step.id),
-            options: step.options?.map(opt => ({
-                value: opt,
-                label: opt,
-                desc: '',
-                icon: getIconForOptionLabel(opt),
-                color: getColorForOption(opt)
-            }))
-        }));
-
-        return [...mappedSteps, contactStep];
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [config]);
+    const currentQuestion = steps[currentStep];
 
     const handleNext = () => {
         if (isStepValid()) {
             setDirection('forward');
-            setCurrentStep(prev => Math.min(prev + 1, questions.length));
+            setCurrentStep(prev => Math.min(prev + 1, steps.length));
         }
     };
 
@@ -96,12 +109,10 @@ const ProjectForm = () => {
     };
 
     const handleChoice = (value) => {
-        const currentQuestion = questions[currentStep];
         setAnswers(prev => ({ ...prev, [currentQuestion.id]: value }));
-
         setTimeout(() => {
             setDirection('forward');
-            setCurrentStep(prev => Math.min(prev + 1, questions.length));
+            setCurrentStep(prev => Math.min(prev + 1, steps.length));
         }, 300);
     };
 
@@ -110,255 +121,232 @@ const ProjectForm = () => {
     };
 
     const isStepValid = () => {
-        const currentQuestion = questions[currentStep];
         if (!currentQuestion) return true;
-
-        if (currentQuestion.type === 'choice') {
-            return !!answers[currentQuestion.id];
-        } else if (currentQuestion.type === 'contact') {
-            return !!answers.contactName && !!answers.contactPhone;
-        }
+        if (currentQuestion.type === 'choice') return !!answers[currentQuestion.id];
+        if (currentQuestion.id === 'projectName') return !!answers.projectName;
+        if (currentQuestion.id === 'description') return !!answers.description;
+        if (currentQuestion.type === 'contact') return !!answers.contactName && !!answers.contactPhone;
         return true;
     };
 
-    const progress = questions.length > 0 ? ((currentStep) / questions.length) * 100 : 0;
-
-    function getIconForStepId(id) {
-        const map = {
-            category: <Crosshair className="w-8 h-8 text-cyan-500" />,
-            budget: <Wallet className="w-8 h-8 text-cyan-500" />,
-            timeline: <Timer className="w-8 h-8 text-cyan-500" />,
-            contact: <Phone className="w-8 h-8 text-cyan-500" />
-        };
-        return map[id] || <FileText className="w-8 h-8 text-cyan-500" />;
-    }
-
-    function getIconForOptionLabel(label) {
-        const l = label.toLowerCase();
-        if (l.includes('web')) return <Globe className="w-10 h-10" />;
-        if (l.includes('app')) return <Smartphone className="w-10 h-10" />;
-        if (l.includes('design')) return <Palette className="w-10 h-10" />;
-        if (l.includes('secur')) return <Shield className="w-10 h-10" />;
-        if (l.includes('date') || l.includes('month') || l.includes('asap')) return <Calendar className="w-10 h-10" />;
-        if (l.includes('k') || l.includes('$')) return <Coins className="w-10 h-10" />;
-        return <Sparkles className="w-10 h-10" />;
-    }
-
-    function getColorForOption(label) {
-        const colors = ['cyan', 'purple', 'green', 'blue', 'orange', 'pink'];
-        let hash = 0;
-        for (let i = 0; i < label.length; i++) hash = label.charCodeAt(i) + ((hash << 5) - hash);
-        return colors[Math.abs(hash) % colors.length];
-    }
-
-    const getIconColorClass = (color) => {
-        const map = {
-            cyan: 'text-cyan-500', blue: 'text-blue-500', purple: 'text-purple-500',
-            green: 'text-green-500', red: 'text-red-500', orange: 'text-orange-500',
-            pink: 'text-pink-500', gray: 'text-gray-500'
-        };
-        return map[color] || 'text-cyan-500';
-    };
+    const progress = ((currentStep) / steps.length) * 100;
 
     const generateSummaryText = () => {
         let text = `*NEW PROJECT REQUEST* \ud83d\ude80\n\n`;
-        questions.forEach(q => {
-            if (q.type === 'contact') return;
-            text += `*${q.question}*\n\ud83d\udc49 ${answers[q.id] || 'N/A'}\n\n`;
-        });
-
+        text += `*${t.projectType}:* ${answers.projectType}\n`;
+        text += `*${t.projectName}:* ${answers.projectName}\n`;
+        text += `*${t.description}:* ${answers.description}\n`;
+        text += `*${t.timeline}:* ${answers.timeline}\n`;
+        text += `*${t.budget}:* ${answers.budget}\n`;
         text += `\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n`;
         text += `*CONTACT INFO:*\n`;
         text += `\ud83d\udc64 ${answers.contactName}\n`;
         text += `\ud83d\udcf1 ${answers.contactPhone}\n`;
         if (answers.contactEmail) text += `\ud83d\udce7 ${answers.contactEmail}\n`;
-
         return text;
     };
 
     const handleWhatsAppSend = () => {
-        const message = generateSummaryText();
-        window.open(`https://wa.me/237654269488?text=${encodeURIComponent(message)}`, '_blank');
+        window.open(`https://wa.me/237672446810?text=${encodeURIComponent(generateSummaryText())}`, '_blank');
     };
 
     const handleEmailSend = () => {
-        const subject = `New Project Request: ${answers.category || 'Inquiry'}`;
-        const body = generateSummaryText();
-        window.location.href = `mailto:contact@xyberclan.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const subject = `New Project: ${answers.projectName}`;
+        window.location.href = `mailto:contact@xyber-clan.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(generateSummaryText())}`;
     };
 
-    if (contentLoading) {
-        return (
-            <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-black' : 'bg-white'}`}>
-                <Loader className="animate-spin text-cyan-500 w-12 h-12" />
-            </div>
-        );
-    }
-
     return (
-        <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-500`}>
-            {/* Header */}
-            <div className={`fixed top-0 left-0 right-0 z-50 px-4 py-4 transition-all duration-300 ${isDark ? 'bg-black/80 backdrop-blur-xl' : 'bg-white/80 backdrop-blur-xl'}`}>
-                <div className="max-w-3xl mx-auto flex justify-between items-center">
-                    <Link to="/" className="flex items-center gap-2.5 group">
-                        <img src={getLogo()} alt="XyberClan — Reliable Technology Partner" className="w-9 h-9 object-contain rounded-xl" />
-                        <span className={`text-base font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
+        <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-500 overflow-x-hidden`}>
+            {/* Nav Header */}
+            <div className={`fixed top-0 left-0 right-0 z-50 px-4 py-4 transition-all duration-300 ${isDark ? 'bg-black/80 backdrop-blur-xl' : 'bg-white/80 backdrop-blur-xl border-b border-gray-100'}`}>
+                <div className="max-w-4xl mx-auto flex justify-between items-center">
+                    <Link to="/" className="flex items-center gap-2.5 group hover:scale-[1.02] transition-transform">
+                        <img src={getLogo()} alt="XyberClan" className="w-10 h-10 object-contain rounded-xl" />
+                        <span className={`text-xl font-black tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
                             Xyber<span className="text-cyan-500">Clan</span>
                         </span>
                     </Link>
-                    <div className="flex items-center gap-2">
-                        <span className={`hidden sm:inline text-xs font-medium ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                            Step {currentStep + 1} of {questions.length}
-                        </span>
-                        <button onClick={toggleTheme} className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all ${isDark ? 'bg-white/5 text-yellow-400 hover:bg-white/10' : 'bg-black/5 text-blue-600 hover:bg-black/10'}`}>
-                            {isDark ? <Sun size={16} /> : <Moon size={16} />}
+                    <div className="flex items-center gap-3">
+                        <button onClick={() => setLang(l => l === 'en' ? 'fr' : 'en')} className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${isDark ? 'bg-white/5 text-cyan-400 hover:bg-white/10' : 'bg-black/5 text-cyan-600 hover:bg-black/10'}`}>
+                            {lang}
+                        </button>
+                        <button onClick={toggleTheme} className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isDark ? 'bg-white/5 text-yellow-400 hover:bg-white/10' : 'bg-black/5 text-blue-600 hover:bg-black/10'}`}>
+                            {isDark ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
                     </div>
                 </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="fixed top-[60px] left-0 right-0 z-40 px-4 py-2">
-                <div className="max-w-3xl mx-auto">
-                    <div className={`h-1 rounded-full overflow-hidden ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>
-                        <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full transition-all duration-700 ease-out" style={{ width: `${progress}%` }} />
+            <div className="fixed top-[72px] left-0 right-0 z-40 px-4">
+                <div className="max-w-4xl mx-auto">
+                    <div className={`h-1.5 rounded-full overflow-hidden ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>
+                        <div className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 rounded-full transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_15px_rgba(34,211,238,0.3)]" style={{ width: `${progress}%` }} />
                     </div>
                 </div>
             </div>
 
             {/* Main Content */}
-            <div className="pt-32 pb-20 px-4">
-                <div className="max-w-3xl mx-auto">
-                    {currentStep < questions.length ? (
-                        <div key={currentStep} className={`${direction === 'forward' ? 'animate-slide-in-right' : 'animate-slide-in-left'}`}>
+            <div className="pt-32 pb-24 px-4 min-h-screen flex flex-col items-center">
+                <div className="w-full max-w-2xl mx-auto">
+                    {currentStep < steps.length ? (
+                        <div key={currentStep} className={`${direction === 'forward' ? 'animate-slide-up' : 'animate-slide-down'}`}>
+                            {/* Step Indicator */}
+                            <p className="text-center text-[11px] font-bold uppercase tracking-[0.3em] text-cyan-500 mb-6 focus-visible:outline-none">
+                                {t.step} {currentStep + 1} {t.of} {steps.length}
+                            </p>
 
-                            {/* Question Header */}
-                            <div className="text-center mb-10">
-                                {questions[currentStep].icon && (
-                                    <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5 ${isDark ? 'bg-cyan-500/10' : 'bg-cyan-50'}`}>
-                                        {questions[currentStep].icon}
-                                    </div>
-                                )}
-                                <h1 className="text-3xl md:text-5xl font-black mb-3 tracking-tight leading-[1.1]" style={{ fontFamily: "'Inter', sans-serif" }}>
-                                    {questions[currentStep].question}
+                            {/* Question */}
+                            <div className="text-center mb-12">
+                                <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight leading-[1] text-gray-950 dark:text-white">
+                                    {currentQuestion.question}
                                 </h1>
-                                <p className={`text-base md:text-lg ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
-                                    {questions[currentStep].subtitle}
+                                <p className={`text-lg font-light ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                                    {currentQuestion.subtitle || t.summaryDesc}
                                 </p>
                             </div>
 
-                            {/* Dynamic Question Rendering */}
-                            {questions[currentStep].type === 'choice' && (
-                                <div className={`grid gap-3 ${questions[currentStep].options.length > 4 ? 'grid-cols-2' : 'grid-cols-1 md:grid-cols-2'}`}>
-                                    {questions[currentStep].options.map((option) => {
-                                        const isSelected = answers[questions[currentStep].id] === option.value;
-                                        return (
-                                            <button key={option.value} onClick={() => handleChoice(option.value)}
-                                                className={`group relative p-5 rounded-2xl border transition-all duration-300 text-center hover:scale-[1.02] active:scale-[0.98] overflow-hidden
-                                                    ${isSelected
-                                                        ? `border-cyan-500/60 shadow-lg shadow-cyan-500/10 ${isDark ? 'bg-cyan-500/8' : 'bg-cyan-50'}`
-                                                        : `${isDark ? 'border-white/8 hover:border-white/20 bg-white/[0.02]' : 'border-gray-200 hover:border-gray-300 bg-white'}`
-                                                    }`}>
-                                                <div className={`${getIconColorClass(option.color)} mb-3 flex justify-center transition-transform duration-300 group-hover:scale-110`}>
-                                                    {React.cloneElement(option.icon, { className: 'w-8 h-8' })}
-                                                </div>
-                                                <h3 className="text-base font-bold mb-0.5 tracking-tight">{option.label}</h3>
-                                                {option.desc && <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{option.desc}</p>}
-                                            </button>
-                                        );
-                                    })}
+                            {/* Inputs */}
+                            {currentQuestion.type === 'choice' && (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {currentQuestion.options.map((opt) => (
+                                        <button key={opt.value} onClick={() => handleChoice(opt.value)}
+                                            className={`group relative p-8 rounded-3xl border transition-all duration-500 text-left hover:scale-[1.02] active:scale-[0.98] overflow-hidden ${answers[currentQuestion.id] === opt.value
+                                                ? 'border-cyan-500 bg-cyan-500/5 shadow-2xl shadow-cyan-500/10'
+                                                : isDark ? 'border-white/5 bg-white/[0.02] hover:border-white/20' : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm hover:shadow-lg'
+                                                }`}>
+                                            <div className={`mb-6 p-4 rounded-2xl inline-block transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 ${opt.color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
+                                                    opt.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
+                                                        opt.color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
+                                                            opt.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
+                                                                opt.color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
+                                                                    opt.color === 'yellow' ? 'bg-yellow-500/10 text-yellow-500' :
+                                                                        opt.color === 'red' ? 'bg-red-500/10 text-red-500' :
+                                                                            'bg-gray-500/10 text-gray-500'
+                                                }`}>
+                                                {opt.icon}
+                                            </div>
+                                            <h3 className="text-xl font-black tracking-tight mb-1">{opt.label}</h3>
+                                            <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{opt.desc}</p>
+                                        </button>
+                                    ))}
                                 </div>
                             )}
 
-                            {questions[currentStep].type === 'contact' && (
-                                <div className={`rounded-2xl p-6 border space-y-5 ${isDark ? 'bg-white/[0.02] border-white/8' : 'bg-white border-gray-200 shadow-sm'}`}>
-                                    {questions[currentStep].fields.map((field) => (
-                                        <div key={field.id}>
-                                            <label className={`block text-xs font-bold uppercase tracking-[0.12em] mb-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{field.label}</label>
+                            {currentQuestion.type === 'text' && (
+                                <div className="relative group">
+                                    <div className="absolute left-6 top-1/2 -translate-y-1/2 text-cyan-500 transition-transform group-focus-within:scale-110 transition-all duration-500">
+                                        {currentQuestion.icon}
+                                    </div>
+                                    <input autoFocus type="text" value={answers[currentQuestion.id] || ''} onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)} placeholder={currentQuestion.placeholder}
+                                        className={`w-full pl-20 pr-8 py-8 rounded-3xl border-[2.5px] text-2xl font-bold transition-all outline-none ${isDark ? 'bg-white/[0.03] border-white/5 focus:border-cyan-500 focus:bg-white/[0.05]' : 'bg-white border-gray-100 shadow-xl shadow-gray-200/20 focus:border-cyan-500 focus:shadow-2xl focus:shadow-cyan-500/10'}`} />
+                                </div>
+                            )}
+
+                            {currentQuestion.type === 'textarea' && (
+                                <div className="relative group">
+                                    <textarea autoFocus rows={5} value={answers[currentQuestion.id] || ''} onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)} placeholder={currentQuestion.placeholder}
+                                        className={`w-full p-8 rounded-[2.5rem] border-[2.5px] text-xl font-medium transition-all outline-none resize-none ${isDark ? 'bg-white/[0.03] border-white/5 focus:border-cyan-500 focus:bg-white/[0.05]' : 'bg-white border-gray-100 shadow-xl shadow-gray-200/20 focus:border-cyan-500 focus:shadow-2xl focus:shadow-cyan-500/10'}`} />
+                                </div>
+                            )}
+
+                            {currentQuestion.type === 'contact' && (
+                                <div className={`rounded-[2.5rem] p-8 md:p-12 border ${isDark ? 'bg-white/[0.02] border-white/5 shadow-2xl' : 'bg-white border-gray-100 shadow-2xl shadow-gray-200/40'} space-y-8`}>
+                                    {currentQuestion.fields.map((field) => (
+                                        <div key={field.id} className="relative group">
+                                            <label className={`block text-[10px] font-black uppercase tracking-[0.2em] mb-3 ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{field.label}</label>
                                             <div className="relative">
-                                                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>{field.icon}</div>
+                                                <div className={`absolute left-4 top-1/2 -translate-y-1/2 transition-all duration-500 ${isDark ? 'text-gray-600 group-focus-within:text-cyan-500' : 'text-gray-400 group-focus-within:text-cyan-600'}`}>
+                                                    {field.icon}
+                                                </div>
                                                 <input type={field.type} value={answers[field.id] || ''} onChange={(e) => handleInputChange(field.id, e.target.value)} placeholder={field.placeholder}
-                                                    className={`w-full pl-11 pr-4 py-3.5 rounded-xl border text-base transition-all ${isDark ? 'bg-white/[0.03] border-white/8 focus:border-cyan-500 text-white placeholder-gray-600' : 'bg-gray-50/50 border-gray-200 focus:border-cyan-500 text-gray-900 placeholder-gray-400'} focus:outline-none`}
-                                                    style={{ fontFamily: "'Inter', sans-serif" }} />
+                                                    className={`w-full pl-12 pr-6 py-4 rounded-2xl border-2 transition-all outline-none ${isDark ? 'bg-black/20 border-white/5 focus:border-cyan-500/50 text-white' : 'bg-gray-50 border-gray-100 focus:border-cyan-500/50 text-gray-900'} focus:ring-4 focus:ring-cyan-500/5`} />
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             )}
 
-                            {/* Buttons */}
-                            <div className="flex justify-between items-center mt-8">
-                                <button onClick={handlePrevious} className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : ''} ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
-                                    <ChevronLeft className="w-4 h-4" /> Back
+                            {/* Nav Buttons */}
+                            <div className="mt-12 flex items-center justify-between">
+                                <button onClick={handlePrevious} className={`group flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-sm transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : 'hover:bg-gray-500/5 active:scale-95'}`}>
+                                    <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" /> {t.previous}
                                 </button>
-                                {/* Only show Continue button if not auto-advance choice (handled by click) OR if type is contact */}
-                                {questions[currentStep].type === 'contact' && (
+                                {currentQuestion.type !== 'choice' && (
                                     <button onClick={handleNext} disabled={!isStepValid()}
-                                        className={`flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-sm transition-all ${isStepValid()
-                                            ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-xl shadow-cyan-500/20 hover:shadow-cyan-500/30 hover:scale-[1.03]'
-                                            : `${isDark ? 'bg-white/5 text-gray-600' : 'bg-gray-200 text-gray-400'} cursor-not-allowed`}`}>
-                                        Continue <ChevronRight className="w-4 h-4" />
+                                        className={`group flex items-center gap-3 px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${isStepValid()
+                                            ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-2xl shadow-cyan-500/25 hover:scale-[1.05] hover:shadow-cyan-500/40 active:scale-95'
+                                            : `${isDark ? 'bg-white/5 text-gray-600' : 'bg-gray-100 text-gray-400'} cursor-not-allowed`}`}>
+                                        {t.next} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                     </button>
                                 )}
                             </div>
                         </div>
                     ) : (
-                        // Summary & Success View
-                        <div className="animate-slide-in-right">
-                            <div className="text-center mb-10">
-                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 mb-5 shadow-lg shadow-green-500/20">
-                                    <Check className="w-8 h-8 text-white" />
+                        // SUCCESS VIEW
+                        <div className="animate-scale-in flex flex-col items-center">
+                            <div className="relative mb-12">
+                                <div className="absolute inset-0 bg-green-500/20 blur-3xl rounded-full animate-pulse" />
+                                <div className="relative w-24 h-24 rounded-[2.5rem] bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-2xl shadow-green-500/30">
+                                    <Check className="w-12 h-12 text-white stroke-[4px]" />
                                 </div>
-                                <h1 className="text-3xl md:text-5xl font-black mb-3 tracking-tight" style={{ fontFamily: "'Inter', sans-serif" }}>All Set!</h1>
-                                <p className={`text-base ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontWeight: 300 }}>We'll get back to you within 24 hours</p>
                             </div>
 
-                            <div className={`rounded-2xl p-6 mb-8 border ${isDark ? 'bg-white/[0.02] border-white/8' : 'bg-white border-gray-200 shadow-sm'}`}>
-                                <h3 className="text-sm font-bold uppercase tracking-wider mb-4 text-cyan-500">Project Summary</h3>
-                                <div className="space-y-4">
-                                    {questions.slice(0, questions.length - 1).map((q, i) => (
-                                        <div key={i} className={`flex justify-between items-center py-2 border-b ${isDark ? 'border-white/5' : 'border-gray-100'}`}>
-                                            <span className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{q.question}</span>
-                                            <span className="font-bold text-sm text-right">{answers[q.id]}</span>
+                            <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter text-center">{t.summaryTitle}</h1>
+                            <p className={`text-xl font-light text-center mb-12 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{t.summaryDesc}</p>
+
+                            <div className={`w-full rounded-[3rem] p-10 border mb-12 relative overflow-hidden ${isDark ? 'bg-white/[0.02] border-white/5 shadow-2xl' : 'bg-white border-gray-100 shadow-2xl shadow-gray-200/40'}`}>
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
+                                <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-cyan-500 mb-8">{t.projectName}</h3>
+                                <div className="space-y-6">
+                                    {[
+                                        { label: t.projectType, value: answers.projectType },
+                                        { label: t.projectName, value: answers.projectName },
+                                        { label: t.timeline, value: answers.timeline },
+                                        { label: t.budget, value: answers.budget },
+                                        { label: t.contactInfo, value: `${answers.contactName} (${answers.contactPhone})` }
+                                    ].map((item, i) => (
+                                        <div key={i} className="flex justify-between items-start gap-4 pb-4 border-b border-white/5 last:border-0 last:pb-0">
+                                            <span className={`text-sm font-bold opacity-40 uppercase tracking-widest`}>{item.label}</span>
+                                            <span className="text-sm font-black text-right max-w-[200px]">{item.value}</span>
                                         </div>
                                     ))}
-                                    <div className="flex justify-between items-center py-2">
-                                        <span className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Contact</span>
-                                        <span className="font-bold text-sm text-right">{answers.contactName} ({answers.contactPhone})</span>
-                                    </div>
                                 </div>
                             </div>
 
-                            {/* Action Buttons */}
-                            <div className="space-y-3">
-                                <button onClick={handleWhatsAppSend} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-xl font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-green-500/20">
-                                    <MessageCircle className="w-5 h-5" /> Send via WhatsApp <ArrowRight className="w-4 h-4" />
+                            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                                <button onClick={handleWhatsAppSend} className="group flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-6 rounded-3xl font-black text-lg transition-all hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#25D366]/30 active:scale-95 shadow-xl shadow-[#25D366]/10">
+                                    <MessageCircle className="w-6 h-6" /> {t.sendWhatsApp}
                                 </button>
-                                <button onClick={handleEmailSend} className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-4 rounded-xl font-bold text-base transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-cyan-500/20">
-                                    <Mail className="w-5 h-5" /> Send via Email <ArrowRight className="w-4 h-4" />
+                                <button onClick={handleEmailSend} className="group flex items-center justify-center gap-3 bg-gray-950 dark:bg-white text-white dark:text-gray-950 px-8 py-6 rounded-3xl font-black text-lg transition-all hover:scale-[1.03] hover:shadow-2xl hover:shadow-cyan-500/20 active:scale-95 shadow-xl">
+                                    <Mail className="w-6 h-6" /> {t.sendEmail}
                                 </button>
                             </div>
 
-                            <div className="flex justify-center mt-6">
-                                <button onClick={handlePrevious} className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
-                                    <ChevronLeft className="w-4 h-4" /> Edit Answers
-                                </button>
-                            </div>
+                            <button onClick={() => setCurrentStep(0)} className={`flex items-center gap-2 text-sm font-bold uppercase tracking-widest transition-all ${isDark ? 'text-gray-500 hover:text-white' : 'text-gray-400 hover:text-gray-900'}`}>
+                                <ChevronLeft size={16} /> {t.backToEdit}
+                            </button>
                         </div>
                     )}
                 </div>
             </div>
+
             <style jsx>{`
-                @keyframes slide-in-right {
-                    from { opacity: 0; transform: translateX(30px); }
-                    to { opacity: 1; transform: translateX(0); }
+                @keyframes slide-up {
+                    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+                    to { opacity: 1; transform: translateY(0) scale(1); }
                 }
-                @keyframes slide-in-left {
-                    from { opacity: 0; transform: translateX(-30px); }
-                    to { opacity: 1; transform: translateX(0); }
+                @keyframes slide-down {
+                    from { opacity: 0; transform: translateY(-40px) scale(0.95); }
+                    to { opacity: 1; transform: translateY(0) scale(1); }
                 }
-                .animate-slide-in-right { animation: slide-in-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
-                .animate-slide-in-left { animation: slide-in-left 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+                @keyframes scale-in {
+                    from { opacity: 0; transform: scale(0.9); }
+                    to { opacity: 1; transform: scale(1); }
+                }
+                .animate-slide-up { animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+                .animate-slide-down { animation: slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+                .animate-scale-in { animation: scale-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
             `}</style>
         </div>
     );

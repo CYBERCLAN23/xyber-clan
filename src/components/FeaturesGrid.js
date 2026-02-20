@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import { Terminal, Shield, Smartphone, Globe, Zap } from 'lucide-react';
+import { Terminal, Shield, Smartphone, Globe } from 'lucide-react';
 import { translations } from '../translations';
 
 const FeaturesGrid = () => {
@@ -61,8 +61,8 @@ const FeaturesGrid = () => {
                         <div
                             key={index}
                             className={`group p-10 rounded-[2.5rem] border transition-all duration-700 hover:-translate-y-3 ${isDark
-                                    ? 'bg-white/[0.03] border-white/5 hover:bg-white/[0.05] hover:border-cyan-500/30'
-                                    : 'bg-gray-50/50 border-gray-100 hover:bg-white hover:border-cyan-500/20 hover:shadow-2xl hover:shadow-cyan-500/10'
+                                ? 'bg-white/[0.03] border-white/5 hover:bg-white/[0.05] hover:border-cyan-500/30'
+                                : 'bg-gray-50/50 border-gray-100 hover:bg-white hover:border-cyan-500/20 hover:shadow-2xl hover:shadow-cyan-500/10'
                                 }`}
                             style={{ transitionDelay: `${index * 100}ms` }}
                         >
