@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Heart } from 'lucide-react';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Github, Linkedin, Twitter, Facebook, Mail, Phone, Heart } from 'lucide-react';
+import { Github, Linkedin, Twitter, Facebook, Heart } from 'lucide-react';
 import { getLogo } from '../utils/festive';
 
 const Footer = ({ translations: t }) => {
@@ -19,7 +16,7 @@ const Footer = ({ translations: t }) => {
     ];
 
     return (
-        <footer className="relative bg-white text-gray-900 pt-24 pb-12 overflow-hidden">
+        <footer className="relative bg-white text-gray-900 pt-24 pb-12 overflow-hidden border-t border-gray-100">
             {/* CTA SECTION - Ready to start a project */}
             <div className="max-w-7xl mx-auto px-6 mb-32">
                 <div className="relative overflow-hidden rounded-[3rem] bg-gray-50 border border-gray-100 p-12 md:p-20 group transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/5">
@@ -122,10 +119,12 @@ const Footer = ({ translations: t }) => {
                     </div>
                 </div>
             </div>
+
+            <div className="mt-12 text-center text-[10px] text-gray-300 flex items-center justify-center gap-1">
+                Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> by XyberClan
+            </div>
         </footer>
     );
 };
-
-export default Footer;
 
 export default Footer;
