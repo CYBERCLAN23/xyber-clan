@@ -2,17 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from './context/ThemeContext';
 import { translations } from './translations';
 import { Link } from 'react-router-dom';
-import {
-    ChevronLeft, Plus,
-    Heart, ArrowRight,
-    Users, Code2, Zap
-} from 'lucide-react';
+import { ArrowRight, Users, Trophy } from 'lucide-react';
 import { getLogo } from './utils/festive';
 import Footer from './components/Footer';
+import SharedNavbar from './components/SharedNavbar';
 
 const PartnersPage = () => {
     const { isDark } = useTheme();
-    const [lang, setLang] = useState('en');
+    const [lang] = useState('en');
     const t = translations[lang];
     const p = t.partnersPage;
 
@@ -21,32 +18,13 @@ const PartnersPage = () => {
     }, []);
 
     return (
-        <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+        <div className={`min-h-screen transition-colors duration-500 overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
 
-            {/* ─── NAVIGATION ─── */}
-            <nav className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 ${isDark ? 'bg-black/80' : 'bg-white/80'} backdrop-blur-xl border-b ${isDark ? 'border-white/5' : 'border-black/5'}`}>
-                <div className="max-w-7xl mx-auto flex justify-between items-center">
-                    <Link to="/" className="flex items-center gap-2 group">
-                        <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                        <img src={getLogo()} alt="Logo" className="w-8 h-8 object-contain" />
-                        <span className="font-bold tracking-tight">XyberClan</span>
-                    </Link>
-                    <div className="flex items-center gap-4">
-                        <button
-                            onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider border ${isDark ? 'border-white/10 hover:bg-white/5' : 'border-black/10 hover:bg-black/5'}`}
-                        >
-                            {lang}
-                        </button>
-                        <Link to="/start-project" className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-cyan-500/20 hover:scale-[1.03] transition-all">
-                            {t.nav.getStarted}
-                        </Link>
-                    </div>
-                </div>
-            </nav>
+            {/* ─── SHARED NAVIGATION ─── */}
+            <SharedNavbar />
 
             {/* ─── HERO SECTION ─── */}
-            <section className="relative pt-48 pb-24 overflow-hidden">
+            <section className="relative pt-48 pb-16 overflow-hidden">
                 {/* Background Orbs */}
                 <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
                     <div className={`absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full blur-[120px] ${isDark ? 'bg-cyan-500/10' : 'bg-cyan-200/20'}`} />
@@ -58,121 +36,99 @@ const PartnersPage = () => {
                         <Users size={14} />
                         {t.nav.partners}
                     </span>
-                    <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-none mb-8">
+                    <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[1.1] mb-8" style={{ fontFamily: "'Inter', sans-serif" }}>
                         {p.title}
                     </h1>
-                    <p className="text-xl md:text-2xl text-gray-500 font-light max-w-3xl mx-auto leading-relaxed italic">
+                    <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto leading-relaxed italic ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                         "{p.subtitle}"
                     </p>
                 </div>
             </section>
 
-            {/* ─── HULT PRIZE FEATURE SECTION ─── */}
+            {/* ─── PARTNERSHIP: HULT PRIZE ─── */}
             <section className="py-24 px-6 relative">
                 <div className="max-w-7xl mx-auto">
-                    <div className={`rounded-[3.5rem] p-10 md:p-24 border backdrop-blur-3xl relative overflow-hidden ${isDark
-                        ? 'bg-white/[0.02] border-white/5 shadow-2xl'
-                        : 'bg-white border-black/5 shadow-xl'
-                        }`}>
+                    {/* Small Badge / Logo Combo above content (Mobile) or inside (Desktop) */}
 
-                        {/* Interactive Background Elements */}
-                        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20 group">
-                            <div className="absolute top-10 left-10 text-[10px] font-mono whitespace-pre text-cyan-500 leading-tight">
-                                {`function synergy() {\n  return "innovation" + "passion";\n}`}
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+                        {/* Visual Side (Image) */}
+                        <div className="relative group">
+                            {/* Glow behind image */}
+                            <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/20 to-pink-500/20 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+
+                            <div className={`relative aspect-[4/3] rounded-[2.5rem] overflow-hidden border ${isDark ? 'border-white/10' : 'border-gray-200'} shadow-2xl`}>
+                                {/* Replace src with actual relevant partnership image later */}
+                                <img
+                                    src="https://images.unsplash.com/photo-1542868727-8940bfcefc24?q=80&w=1600&auto=format&fit=crop"
+                                    alt="Hult Prize Collaboration"
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                {/* Bottom gradient for depth */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                             </div>
-                            <div className="absolute bottom-10 right-10 text-[10px] font-mono whitespace-pre text-pink-500 leading-tight">
-                                {`class Partnership extends \nFuture {\n  constructor() { ... }\n}`}
+                        </div>
+
+                        {/* Content Side */}
+                        <div className="space-y-8">
+
+                            {/* Hult Prize x XyberClan Small Logo Badge */}
+                            <div className="flex items-center gap-4">
+                                <div className={`flex items-center gap-3 px-4 py-2.5 rounded-2xl border ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-gray-200 shadow-sm'}`}>
+                                    {/* Hult Prize Icon Placeholder */}
+                                    <div className="text-pink-500 flex items-center justify-center shrink-0">
+                                        <Trophy size={20} strokeWidth={2.5} />
+                                    </div>
+                                    <div className="h-4 w-px bg-gray-400/30" />
+                                    {/* XyberClan Icon */}
+                                    <img src={getLogo()} alt="XyberClan Logo" className="w-5 h-5 object-contain shrink-0" />
+                                    <div className="h-4 w-px bg-gray-400/30" />
+                                    <span className={`text-[11px] font-black tracking-widest uppercase ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                                        Hult Prize <span className="text-cyan-500 mx-1">×</span> XyberClan
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-[1.1]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                                    {p.hultStory.title}
+                                </h2>
+                                <div className="w-20 h-1.5 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500" />
+                            </div>
+
+                            <div className="space-y-6 text-lg xl:text-xl leading-relaxed font-light">
+                                {p.hultStory.narrative.map((paragraph, idx) => (
+                                    <p key={idx} className={isDark ? 'text-gray-300' : 'text-gray-600'}>
+                                        {paragraph}
+                                    </p>
+                                ))}
+                            </div>
+
+                            {/* Stats */}
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                                {p.hultStory.stats.map((stat, idx) => (
+                                    <div key={idx} className={`p-5 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${isDark ? 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-cyan-500/30' : 'border-gray-200 bg-white shadow-sm hover:shadow-md hover:border-cyan-500/30'}`}>
+                                        <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 to-blue-600 mb-1">{stat.value}</div>
+                                        <div className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{stat.label}</div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
-                        <div className="grid lg:grid-cols-2 gap-20 items-center">
-
-                            {/* Visual Side */}
-                            <div className="relative flex justify-center items-center py-10">
-                                {/* Glowing halo */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-cyan-500/10 to-blue-500/20 blur-[100px] rounded-full animate-pulse-slow" />
-
-                                {/* Logo Composition */}
-                                <div className="relative flex flex-col md:flex-row items-center gap-8 md:gap-16">
-                                    <div className={`w-36 h-36 md:w-48 md:h-48 rounded-[2.5rem] flex items-center justify-center p-8 transition-all duration-700 hover:rotate-3 hover:scale-105 shadow-2xl ${isDark ? 'bg-white/5 border-white/10 shadow-black/50' : 'bg-white border-gray-100 shadow-gray-200/50'
-                                        }`}>
-                                        <div className="text-center">
-                                            <div className="w-16 h-16 md:w-24 md:h-24 mx-auto mb-3 text-pink-500 animate-spin-slow">
-                                                <svg viewBox="0 0 24 24" fill="currentColor">
-                                                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                                                </svg>
-                                            </div>
-                                            <div className="text-xs md:text-sm font-black tracking-tighter text-pink-500 uppercase leading-none">Hultprize</div>
-                                            <div className="text-[7px] md:text-[9px] font-bold text-gray-500 mt-1 whitespace-nowrap uppercase tracking-widest leading-none">UY1 Chapter</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-gradient-to-r from-pink-500 to-cyan-500 flex items-center justify-center text-white shadow-xl rotate-12 shrink-0">
-                                        <Plus className="w-6 h-6 md:w-8 md:h-8" strokeWidth={4} />
-                                    </div>
-
-                                    <div className={`w-36 h-36 md:w-48 md:h-48 rounded-[2.5rem] flex items-center justify-center p-8 transition-all duration-700 hover:-rotate-3 hover:scale-105 shadow-2xl ${isDark ? 'bg-white/5 border-white/10 shadow-black/50' : 'bg-white border-gray-100 shadow-gray-200/50'
-                                        }`}>
-                                        <img src={getLogo()} alt="XyberClan" className="w-full h-full object-contain" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Content Side */}
-                            <div className="space-y-8">
-                                <div className="space-y-2">
-                                    <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight">
-                                        {p.hultStory.title}
-                                    </h2>
-                                    <div className="w-20 h-1.5 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500" />
-                                </div>
-
-                                <div className="space-y-6 text-lg leading-relaxed font-light">
-                                    {p.hultStory.narrative.map((paragraph, idx) => (
-                                        <p key={idx} className={isDark ? 'text-gray-300' : 'text-gray-600'}>
-                                            {paragraph}
-                                        </p>
-                                    ))}
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
-                                    {p.hultStory.stats.map((stat, idx) => (
-                                        <div key={idx} className={`p-4 rounded-2xl border transition-all duration-300 hover:bg-cyan-500/5 ${isDark ? 'border-white/5 bg-white/5' : 'border-black/5 bg-gray-50'}`}>
-                                            <div className="text-2xl font-black text-cyan-500 leading-none mb-1">{stat.value}</div>
-                                            <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{stat.label}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* ─── NARRATIVE FEATURES ─── */}
-            <section className="py-24 px-6 overflow-hidden">
-                <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-                    {[
-                        { icon: <Zap />, color: 'from-orange-500 to-red-500', title: t.partnership.features[0] },
-                        { icon: <Code2 />, color: 'from-cyan-500 to-blue-500', title: t.partnership.features[1] },
-                        { icon: <Heart />, color: 'from-pink-500 to-rose-500', title: t.partnership.features[2] },
-                    ].map((item, idx) => (
-                        <div key={idx} className={`group p-8 rounded-3xl border transition-all duration-500 hover:-translate-y-2 ${isDark ? 'bg-white/5 border-white/5 hover:border-white/10' : 'bg-white border-black/5 shadow-sm hover:shadow-xl'
-                            }`}>
-                            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white mb-6 shadow-lg rotate-3 group-hover:rotate-6 transition-transform duration-500`}>
-                                {React.cloneElement(item.icon, { size: 28 })}
-                            </div>
-                            <h3 className="text-xl font-bold mb-4 tracking-tight leading-tight">{item.title}</h3>
-                        </div>
-                    ))}
-                </div>
-            </section>
+            {/* ─── Divider between potential future partner sections ─── */}
+            <div className="max-w-7xl mx-auto px-6 py-12">
+                <div className={`w-full h-px ${isDark ? 'bg-gradient-to-r from-transparent via-white/10 to-transparent' : 'bg-gradient-to-r from-transparent via-black/10 to-transparent'}`} />
+            </div>
 
             {/* ─── FINAL CALL TO ACTION ─── */}
             <section className="py-24 px-6 relative overflow-hidden">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-8">
-                        {t.partnership.slogan}
+                    <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-8" style={{ fontFamily: "'Inter', sans-serif" }}>
+                        Ready to partner with us?
                     </h2>
                     <Link to="/start-project" className="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-10 py-5 rounded-2xl text-lg font-black shadow-2xl shadow-cyan-500/20 hover:scale-[1.03] transition-all">
                         {t.nav.getStarted}
@@ -183,20 +139,11 @@ const PartnersPage = () => {
 
             <Footer translations={t} />
 
-            <style jsx>{`
-                @keyframes pulse-slow {
-                    0%, 100% { transform: scale(1); opacity: 0.6; }
-                    50% { transform: scale(1.05); opacity: 0.8; }
-                }
-                @keyframes spin-slow {
-                    from { transform: rotate(0deg); }
-                    to { transform: rotate(360deg); }
-                }
-                .animate-pulse-slow {
-                    animation: pulse-slow 6s ease-in-out infinite;
-                }
-                .animate-spin-slow {
-                    animation: spin-slow 15s linear infinite;
+            <style>{`
+                .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
                 }
             `}</style>
         </div>

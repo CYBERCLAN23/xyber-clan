@@ -53,7 +53,7 @@ const XyberClanWebsite = () => {
     setLang(lang === 'en' ? 'fr' : 'en');
   };
 
-  const navLinks = ['home', 'about', 'services', 'team', 'partners', 'contact'];
+  const navLinks = ['home', 'about', 'services', 'team', 'partners', 'journey', 'contact'];
 
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -94,10 +94,10 @@ const XyberClanWebsite = () => {
             {/* Center: Nav Links */}
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((item) => (
-                item === 'team' || item === 'partners' ? (
+                item === 'team' || item === 'partners' || item === 'journey' ? (
                   <Link
                     key={item}
-                    to={item === 'team' ? "/team" : "/partners"}
+                    to={item === 'team' ? "/team" : item === 'partners' ? "/partners" : "/journey"}
                     className={`px-4 py-2 text-[13px] font-medium uppercase tracking-wider transition-all duration-200 rounded-lg ${isScrolled
                       ? (isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900')
                       : 'text-white/70 hover:text-white'
@@ -206,10 +206,10 @@ const XyberClanWebsite = () => {
             {/* Links — large editorial style */}
             <div className="flex-1 flex flex-col justify-center gap-1">
               {navLinks.map((item, idx) => (
-                item === 'team' || item === 'partners' ? (
+                item === 'team' || item === 'partners' || item === 'journey' ? (
                   <Link
                     key={item}
-                    to={item === 'team' ? "/team" : "/partners"}
+                    to={item === 'team' ? "/team" : item === 'partners' ? "/partners" : "/journey"}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`group flex items-baseline gap-4 py-4 transition-all duration-300 border-b ${isDark ? 'border-white/5 text-white hover:text-cyan-400' : 'border-black/5 text-gray-900 hover:text-cyan-600'}`}
                     style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}

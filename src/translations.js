@@ -6,6 +6,7 @@ export const translations = {
             services: 'Services',
             team: 'Team',
             partners: 'Partners',
+            journey: 'Journey',
             contact: 'Contact',
             getStarted: 'Get Started',
             toggleTheme: 'Toggle Theme'
@@ -140,7 +141,75 @@ export const translations = {
                     { label: 'Innovation Boost', value: '24/7' },
                     { label: 'Social Impact', value: 'Global' }
                 ]
+            },
+            form: {
+                title: 'Become a Partner',
+                subtitle: 'Join forces with XyberClan for mutual growth and impact.',
+                name: 'Company or Organization Name',
+                contact: 'Contact Person Name',
+                email: 'Contact Email',
+                typeLabel: 'Type of Partnership',
+                typeOptions: ['Select Partnership Type', 'Technology Partner', 'Educational/University', 'Business Growth', 'Other'],
+                message: 'How can we collaborate?',
+                submit: 'Submit Partnership Request'
             }
+        },
+        journey: {
+            title: 'Our Journey',
+            subtitle: 'From a spark of passion to a force of innovation — every milestone has shaped who we are.',
+            heroTag: 'The Story So Far',
+            ctaTitle: 'The Next Chapter Starts With You',
+            ctaDesc: 'Every great story needs the next bold move. Let us write it together.',
+            events: [
+                {
+                    date: 'September 2023',
+                    tag: 'Genesis',
+                    title: 'The Spark That Started It All',
+                    description: 'A group of passionate Computer Science students at the University of Yaoundé 1 came together with a shared vision: make cutting-edge technology accessible to everyone. XyberClan was born in a small campus room, fueled by ambition and late-night coding sessions.'
+                },
+                {
+                    date: 'November 2023',
+                    tag: 'Milestone',
+                    title: 'Our First Client, Our First Proof',
+                    description: 'We delivered our very first professional website — a modern, responsive business platform that exceeded expectations. It proved that university students could deliver enterprise-grade solutions. Word started spreading.'
+                },
+                {
+                    date: 'January 2024',
+                    tag: 'Growth',
+                    title: 'The Clan Grows Stronger',
+                    description: 'What started as a small team of developers expanded into a multidisciplinary squad. Designers, cybersecurity specialists, and network engineers joined forces. XyberClan became a full-service digital agency.'
+                },
+                {
+                    date: 'March 2024',
+                    tag: 'Partnership',
+                    title: 'Hult Prize × XyberClan Alliance',
+                    description: 'We partnered with the Hult Prize at UY1 — bridging the gap between academic brilliance and professional engineering. Our technical mentorship helped student teams turn social entrepreneurship ideas into real, scalable prototypes.'
+                },
+                {
+                    date: 'May 2024',
+                    tag: 'Expansion',
+                    title: 'Design & Branding Division Launches',
+                    description: 'Recognizing the power of visual identity, we launched our dedicated design division. From logos and brand identity systems to UI/UX prototyping — XyberClan became a one-stop creative powerhouse.'
+                },
+                {
+                    date: 'August 2024',
+                    tag: 'Security',
+                    title: 'Cybersecurity Services Go Live',
+                    description: 'With growing demand for digital protection, we officially launched our cybersecurity arm. Penetration testing, security audits, and threat assessment — we started protecting businesses from the inside out.'
+                },
+                {
+                    date: 'October 2024',
+                    tag: 'Community',
+                    title: 'Giving Back Through Tech Education',
+                    description: 'We hosted our first series of community workshops and hands-on training events. From Python bootcamps to web dev crash courses — we invested in the next generation of Cameroonian tech talent.'
+                },
+                {
+                    date: 'February 2025',
+                    tag: 'Global',
+                    title: 'Serving Clients Worldwide',
+                    description: 'From Yaoundé to the world. XyberClan now serves clients across France, Belgium, Canada, Nigeria, Ghana, the UK, and beyond. Our mission stays the same — world-class solutions from the heart of Cameroon.'
+                }
+            ]
         },
         footer: {
             tagline: 'Building Digital Dreams in Yaoundé',
@@ -152,6 +221,7 @@ export const translations = {
                         { label: 'Services', url: '/#services' },
                         { label: 'Our Team', url: '/team' },
                         { label: 'Our Partners', url: '/partners' },
+                        { label: 'Our Journey', url: '/journey' },
                         { label: 'Portfolio', url: '/#portfolio' }
                     ]
                 },
@@ -353,6 +423,7 @@ export const translations = {
             services: 'Services',
             team: 'Équipe',
             partners: 'Partenaires',
+            journey: 'Parcours',
             contact: 'Contact',
             getStarted: 'Commencer',
             toggleTheme: 'Changer de thème'
@@ -487,7 +558,75 @@ export const translations = {
                     { label: 'Boost d\'Innovation', value: '24/7' },
                     { label: 'Impact Social', value: 'Global' }
                 ]
+            },
+            form: {
+                title: 'Devenir Partenaire',
+                subtitle: 'Joignez vos forces à celles de XyberClan pour un impact partagé.',
+                name: 'Nom de l\'Entreprise / Organisation',
+                contact: 'Nom du Contact',
+                email: 'Email de Contact',
+                typeLabel: 'Type de Partenariat',
+                typeOptions: ['Sélectionner le Type', 'Partenaire Technologique', 'Éducation / Université', 'Croissance d\'Affaires', 'Autre'],
+                message: 'Comment pouvons-nous collaborer ?',
+                submit: 'Soumettre la Demande'
             }
+        },
+        journey: {
+            title: 'Notre Parcours',
+            subtitle: 'D\'une étincelle de passion à une force d\'innovation — chaque étape a façonné ce que nous sommes.',
+            heroTag: 'L\'Histoire Jusqu\'ici',
+            ctaTitle: 'Le Prochain Chapitre Commence Avec Vous',
+            ctaDesc: 'Chaque grande histoire a besoin d\'un prochain coup audacieux. Écrivons-le ensemble.',
+            events: [
+                {
+                    date: 'Septembre 2023',
+                    tag: 'Genèse',
+                    title: 'L\'Étincelle Qui a Tout Déclenché',
+                    description: 'Un groupe d\'étudiants passionnés en informatique de l\'Université de Yaoundé 1 se sont réunis avec une vision commune : rendre la technologie de pointe accessible à tous. XyberClan est né dans une petite salle de campus, alimenté par l\'ambition et les sessions de codage nocturnes.'
+                },
+                {
+                    date: 'Novembre 2023',
+                    tag: 'Jalon',
+                    title: 'Notre Premier Client, Notre Première Preuve',
+                    description: 'Nous avons livré notre tout premier site web professionnel — une plateforme d\'entreprise moderne et responsive qui a dépassé les attentes. Cela a prouvé que des étudiants universitaires pouvaient livrer des solutions de niveau entreprise.'
+                },
+                {
+                    date: 'Janvier 2024',
+                    tag: 'Croissance',
+                    title: 'Le Clan Se Renforce',
+                    description: 'Ce qui a commencé comme une petite équipe de développeurs s\'est étendu en une escouade multidisciplinaire. Designers, spécialistes en cybersécurité et ingénieurs réseau ont uni leurs forces. XyberClan est devenu une agence digitale complète.'
+                },
+                {
+                    date: 'Mars 2024',
+                    tag: 'Partenariat',
+                    title: 'Alliance Hult Prize × XyberClan',
+                    description: 'Nous nous sommes associés au Hult Prize de l\'UY1 — comblant le fossé entre l\'excellence académique et l\'ingénierie professionnelle. Notre mentorat technique a aidé les équipes d\'étudiants à transformer leurs idées d\'entrepreneuriat social en prototypes évolutifs.'
+                },
+                {
+                    date: 'Mai 2024',
+                    tag: 'Expansion',
+                    title: 'Lancement de la Division Design & Branding',
+                    description: 'Reconnaissant la puissance de l\'identité visuelle, nous avons lancé notre division design dédiée. Des logos aux systèmes d\'identité de marque en passant par le prototypage UI/UX — XyberClan est devenu un centre créatif complet.'
+                },
+                {
+                    date: 'Août 2024',
+                    tag: 'Sécurité',
+                    title: 'Les Services de Cybersécurité Sont Lancés',
+                    description: 'Face à la demande croissante de protection numérique, nous avons officiellement lancé notre branche cybersécurité. Tests d\'intrusion, audits de sécurité et évaluation des menaces — nous avons commencé à protéger les entreprises de l\'intérieur.'
+                },
+                {
+                    date: 'Octobre 2024',
+                    tag: 'Communauté',
+                    title: 'Redonner à Travers l\'Éducation Tech',
+                    description: 'Nous avons organisé nos premières séries d\'ateliers communautaires et formations pratiques. Des bootcamps Python aux cours accélérés de développement web — nous avons investi dans la prochaine génération de talents tech camerounais.'
+                },
+                {
+                    date: 'Février 2025',
+                    tag: 'Global',
+                    title: 'Au Service de Clients du Monde Entier',
+                    description: 'De Yaoundé au monde entier. XyberClan sert désormais des clients en France, Belgique, Canada, Nigéria, Ghana, au Royaume-Uni et au-delà. Notre mission reste la même — des solutions de classe mondiale depuis le cœur du Cameroun.'
+                }
+            ]
         },
         footer: {
             tagline: 'Construire des Rêves Numériques à Yaoundé',
@@ -499,6 +638,7 @@ export const translations = {
                         { label: 'Services', url: '/#services' },
                         { label: 'Notre Équipe', url: '/team' },
                         { label: 'Nos Partenaires', url: '/partners' },
+                        { label: 'Notre Parcours', url: '/journey' },
                         { label: 'Portfolio', url: '/#portfolio' }
                     ]
                 },
