@@ -190,7 +190,7 @@ const JourneyPage = () => {
         <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
 
             {/* Shared Navbar (same as home page) */}
-            <SharedNavbar />
+            <SharedNavbar transparentHero={true} />
 
             {/* ─── HERO SECTION ─── */}
             <PageHero

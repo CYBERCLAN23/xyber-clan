@@ -21,7 +21,7 @@ const PartnersPage = () => {
         <div className={`min-h-screen transition-colors duration-500 overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
 
             {/* ─── SHARED NAVIGATION ─── */}
-            <SharedNavbar />
+            <SharedNavbar transparentHero={true} />
 
             {/* ─── HERO SECTION ─── */}
             <section className="relative pt-48 pb-16 overflow-hidden">

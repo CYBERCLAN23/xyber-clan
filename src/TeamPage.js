@@ -133,7 +133,7 @@ const TeamPage = () => {
         <div className={`min-h-screen w-full overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
 
             {/* ─── Shared Navigation ─── */}
-            <SharedNavbar />
+            <SharedNavbar transparentHero={true} />
 
             {/* ─── Hero Section with Carousel ─── */}
             <section className={`relative pt-40 pb-64 md:pt-48 md:pb-72 overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
