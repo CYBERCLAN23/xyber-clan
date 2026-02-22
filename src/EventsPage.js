@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Calendar, Tag } from 'lucide-react';
+import { ArrowDown, Calendar, Tag, ExternalLink } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { translations } from './translations';
 import Footer from './components/Footer';
@@ -17,61 +17,87 @@ const typeColors = {
     Default: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
 };
 
-const ArticleCard = ({ article, isDark, readMoreText, index }) => {
+const EventSection = ({ article, isDark, readMoreText, index }) => {
     const colorClass = typeColors[article.type] || typeColors.Default;
-    const delay = index * 100;
+    const isEven = index % 2 === 0;
 
     return (
-        <div
-            className={`group relative flex flex-col h-full rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 ${isDark
-                ? 'bg-white/[0.03] border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05]'
-                : 'bg-white border-gray-200/80 hover:border-gray-300 hover:shadow-2xl hover:shadow-gray-200/50'
-                }`}
-            style={{ animation: `heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms both` }}
-        >
-            {/* Image Banner */}
-            <div className="relative h-56 md:h-64 overflow-hidden w-full flex-shrink-0">
+        <section className={`relative min-h-[90vh] flex items-center overflow-hidden py-24 ${isDark ? 'bg-black' : 'bg-gray-50'}`}>
+
+            {/* Background Image with Parallax & Overlays */}
+            <div className="absolute inset-0 z-0">
                 <img
                     src={article.image}
                     alt={article.title}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover opacity-30 md:opacity-40 scale-105"
+                    style={{ transform: 'translateZ(-10px) scale(1.1)' }} // Fallback for basic parallax illusion
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${isDark ? 'from-black/80 via-black/20 to-transparent' : 'from-black/60 via-black/10 to-transparent'}`} />
 
-                {/* Top Badges */}
-                <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md border ${colorClass}`}>
-                        <Tag size={12} />
-                        {article.type}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-black/50 text-white backdrop-blur-md border border-white/10">
-                        <Calendar size={12} />
-                        {article.date}
-                    </span>
+                {/* Advanced Gradients for Text Legibility & Aesthetics */}
+                <div className={`absolute inset-0 bg-gradient-to-b ${isDark ? 'from-black/90 via-black/80 to-black/95' : 'from-white/90 via-white/80 to-white/95'}`} />
+                <div className={`absolute inset-0 ${isEven ? 'bg-gradient-to-r' : 'bg-gradient-to-l'} ${isDark ? 'from-black/90 to-transparent' : 'from-gray-50/90 to-transparent'}`} />
+            </div>
+
+            {/* Content Container */}
+            <div className={`relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
+
+                {/* Text Content */}
+                <div className="flex-1 space-y-8" style={{ animation: `heroFadeUp 1s ease-out ${index * 0.2}s both` }}>
+                    <div className="flex flex-wrap items-center gap-4">
+                        <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-semibold backdrop-blur-md border ${colorClass}`}>
+                            <Tag size={14} />
+                            {article.type}
+                        </span>
+                        <span className={`inline-flex items-center gap-2 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            <Calendar size={14} />
+                            {article.date}
+                        </span>
+                    </div>
+
+                    <h2 className={`text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.1] ${isDark ? 'text-white' : 'text-gray-900'}`} style={{ fontFamily: "'Inter', sans-serif" }}>
+                        {article.title}
+                    </h2>
+
+                    <p className={`text-lg md:text-xl lg:text-2xl leading-relaxed max-w-2xl ${isDark ? 'text-gray-300' : 'text-gray-700'}`} style={{ fontWeight: 300 }}>
+                        {article.description}
+                    </p>
+
+                    <button className={`group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all duration-300 ${isDark
+                            ? 'bg-white/10 text-white hover:bg-white/20 hover:scale-105 border border-white/10'
+                            : 'bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-xl'
+                        }`}>
+                        {readMoreText}
+                        <ExternalLink size={18} className="transform transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                    </button>
+                </div>
+
+                {/* Animated Visual/GIF Element */}
+                <div className="flex-1 w-full max-w-lg relative" style={{ animation: `heroFadeUp 1.2s ease-out ${index * 0.2 + 0.3}s both` }}>
+                    {/* Decorative glow behind the image */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-blue-600/30 rounded-[3rem] blur-3xl" />
+
+                    <div className={`relative aspect-square md:aspect-[4/3] rounded-[2rem] md:rounded-[3rem] overflow-hidden border ${isDark ? 'border-white/10' : 'border-gray-200'} shadow-2xl transition-transform duration-700 hover:scale-[1.02]`}>
+                        <img
+                            src={article.image}
+                            alt={`${article.title} visual`}
+                            className="w-full h-full object-cover"
+                        />
+                        {/* Overlay to blend the image slightly */}
+                        <div className={`absolute inset-0 ${isDark ? 'bg-black/20' : 'bg-white/10'} mix-blend-overlay pointer-events-none`} />
+
+                        {/* Small floating "animated" badge or gif representation overlay */}
+                        <div className="absolute -bottom-6 -right-6 lg:-bottom-8 lg:-right-8 w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-2xl animate-pulse" />
+                    </div>
                 </div>
             </div>
 
-            {/* Content Area */}
-            <div className="p-6 md:p-8 flex flex-col flex-1">
-                <h3 className={`text-xl md:text-2xl font-black tracking-tight leading-tight mb-4 transition-colors duration-300 ${isDark ? 'group-hover:text-cyan-400' : 'group-hover:text-cyan-600'}`} style={{ fontFamily: "'Inter', sans-serif" }}>
-                    {article.title}
-                </h3>
-
-                <p className={`text-[14px] md:text-[15px] leading-relaxed mb-8 flex-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`} style={{ fontWeight: 300 }}>
-                    {article.description}
-                </p>
-
-                {/* Read More button (visual only for now) */}
-                <button className={`inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider mt-auto self-start transition-all duration-300 ${isDark ? 'text-white hover:text-cyan-400' : 'text-gray-900 hover:text-cyan-600'}`}>
-                    {readMoreText}
-                    <ArrowRight size={16} className="transform transition-transform duration-300 group-hover:translate-x-1" />
-                </button>
+            {/* Scroll Indicator (except for last item) */}
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 opacity-50 animate-bounce">
+                <span className={`text-xs uppercase tracking-[0.3em] font-bold ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Scroll</span>
+                <ArrowDown size={16} className={isDark ? 'text-gray-500' : 'text-gray-400'} />
             </div>
-
-            {/* Hover subtle glow */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-500/0 via-transparent to-cyan-500/0 group-hover:from-cyan-500/[0.03] group-hover:to-blue-500/[0.03] transition-colors duration-500 pointer-events-none" />
-        </div>
+        </section>
     );
 };
 
@@ -99,29 +125,25 @@ const EventsPage = () => {
                 trustBadges={[]}
             />
 
-            <section className={`py-20 md:py-32 px-5 md:px-8 relative ${isDark ? 'bg-black' : 'bg-gray-50'}`}>
-                <div className="max-w-[1400px] mx-auto relative">
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                        {ep.articles.map((article, idx) => (
-                            <ArticleCard
-                                key={article.id}
-                                article={article}
-                                isDark={isDark}
-                                readMoreText={ep.readMore}
-                                index={idx}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </section>
+            <div className="w-full flex flex-col">
+                {ep.articles.map((article, idx) => (
+                    <EventSection
+                        key={article.id}
+                        article={article}
+                        isDark={isDark}
+                        readMoreText={ep.readMore}
+                        index={idx}
+                    />
+                ))}
+            </div>
 
             <Footer translations={t} />
             <WhatsAppButton />
 
             <style>{`
                 @keyframes heroFadeUp {
-                    from { opacity: 0; transform: translateY(30px); }
-                    to { opacity: 1; transform: translateY(0); }
+                    from { opacity: 0; transform: translateY(50px); filter: blur(10px); }
+                    to { opacity: 1; transform: translateY(0); filter: blur(0); }
                 }
             `}</style>
         </div>

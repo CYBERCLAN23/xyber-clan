@@ -162,28 +162,60 @@ export const translations = {
             readMore: 'Read More',
             articles: [
                 {
-                    id: 1,
+                    id: 7,
                     type: 'Hackathon',
-                    date: 'March 2024',
-                    title: 'Hult Prize UY1 Technical Mentorship',
-                    description: 'We participated as technical mentors at the Hult Prize event at the University of Yaoundé 1, guiding student teams in bringing their social entrepreneurship ideas to life.',
-                    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    date: 'Recent',
+                    title: 'Tech Hackathon Against GBV',
+                    description: 'We participated in the Tech Hackathon Against Gender-Based Violence (GBV) and proudly secured 3rd place! This event allowed our team to leverage technology for social impact and develop innovative solutions.',
+                    image: '/images/events/tech-hackathon-gbv.png'
                 },
                 {
-                    id: 2,
-                    type: 'Workshop',
-                    date: 'October 2024',
-                    title: 'Community Tech Education Workshops',
-                    description: 'Hosting community workshops and hands-on training events, including Python bootcamps and web dev crash courses for the next generation of Cameroonian tech talent.',
-                    image: 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    id: 6,
+                    type: 'Training',
+                    date: 'Recent',
+                    title: 'MTN Skill Academy Participation',
+                    description: 'We participated in the MTN Skill Academy program, joining forces with other bright minds to develop our tech skills and enhance digital capabilities. Our team successfully completed the program, earning certifications and gaining valuable insights.',
+                    image: '/images/events/mtn-skill-academy.png'
+                },
+                {
+                    id: 5,
+                    type: 'Conference',
+                    date: 'Recent',
+                    title: 'GDG Yaoundé - DevFest 2024',
+                    description: 'Celebrating the Google DevFest with the GDG Yaoundé community. A day of learning, networking, and exploring the latest Google technologies and developer tools.',
+                    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2070&auto=format&fit=crop'
+                },
+                {
+                    id: 4,
+                    type: 'Community',
+                    date: 'Recent',
+                    title: 'Women Techmakers Meetup',
+                    description: 'Participating in the Women Techmakers (WTM) meetup in Yaoundé, supporting diversity and inclusion in the tech ecosystem while learning from inspiring female tech leaders.',
+                    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop'
                 },
                 {
                     id: 3,
+                    type: 'Networking',
+                    date: 'Previous',
+                    title: 'Meeting with Mr. Paul Arsène Biboum Billick',
+                    description: 'An inspiring meeting with Mr. Paul Arsène Biboum Billick, a System Network and Security Administrator, and Cybersecurity Instructor. He shared professional insights and the reality of the cybersecurity landscape.',
+                    image: 'https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=2070&auto=format&fit=crop'
+                },
+                {
+                    id: 2,
                     type: 'Conference',
-                    date: 'February 2025',
-                    title: 'Global Expansion Summit',
-                    description: 'Connecting with international clients and discussing the future of digital solutions across borders, representing XyberClan on the global stage.',
-                    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    date: 'Previous',
+                    title: 'Salon of Cybersecurity',
+                    description: 'Attending the Cybersecurity Salon allowed us to stay at the forefront of digital protection, engaging with experts on ethical hacking and network security.',
+                    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'
+                },
+                {
+                    id: 1,
+                    type: 'Summit',
+                    date: 'Previous',
+                    title: 'Cameroon Tech Summit',
+                    description: 'Contributing to the digital transformation narrative at the Cameroon Tech Summit, connecting with innovators shaping the nation\'s technology future.',
+                    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
                 }
             ]
         },
@@ -613,28 +645,60 @@ export const translations = {
             readMore: 'Lire la Suite',
             articles: [
                 {
-                    id: 1,
+                    id: 7,
                     type: 'Hackathon',
-                    date: 'Mars 2024',
-                    title: 'Mentorat Technique Hult Prize UY1',
-                    description: 'Nous avons participé en tant que mentors techniques au Hult Prize à l\'Université de Yaoundé 1, guidant les équipes étudiantes pour concrétiser leurs idées d\'entrepreneuriat social.',
-                    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    date: 'Récent',
+                    title: 'Hackathon Tech Contre les VBG',
+                    description: 'Nous avons participé au Hackathon Tech Contre les Violences Basées sur le Genre (VBG) et avons fièrement décroché la 3ème place ! Cet événement nous a permis de mettre la technologie au service de l\'impact social et de développer des solutions innovantes.',
+                    image: '/images/events/tech-hackathon-gbv.png'
                 },
                 {
-                    id: 2,
-                    type: 'Atelier',
-                    date: 'Octobre 2024',
-                    title: 'Ateliers Communautaires d\'Éducation Tech',
-                    description: 'Organisation d\'ateliers communautaires et de formations pratiques, y compris des bootcamps Python et des cours accélérés en dév web pour la prochaine génération de talents tech au Cameroun.',
-                    image: 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    id: 6,
+                    type: 'Formation',
+                    date: 'Récent',
+                    title: 'Participation à la MTN Skill Academy',
+                    description: 'Nous avons participé au programme MTN Skill Academy, unissant nos forces à d\'autres esprits brillants pour développer nos compétences technologiques. L\'équipe a terminé le programme avec succès, obtenant des certifications et de précieuses connaissances.',
+                    image: '/images/events/mtn-skill-academy.png'
+                },
+                {
+                    id: 5,
+                    type: 'Conférence',
+                    date: 'Récent',
+                    title: 'GDG Yaoundé - DevFest 2024',
+                    description: 'Célébration du Google DevFest avec la communauté GDG Yaoundé. Une journée d\'apprentissage, de réseautage et d\'exploration des dernières technologies Google.',
+                    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2070&auto=format&fit=crop'
+                },
+                {
+                    id: 4,
+                    type: 'Communauté',
+                    date: 'Récent',
+                    title: 'Meetup Women Techmakers',
+                    description: 'Participation au meetup Women Techmakers (WTM) à Yaoundé, soutenant la diversité et l\'inclusion dans l\'écosystème tech tout en apprenant de leaders inspirantes.',
+                    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop'
                 },
                 {
                     id: 3,
+                    type: 'Réseautage',
+                    date: 'Précédent',
+                    title: 'Rencontre avec M. Paul Arsène Biboum Billick',
+                    description: 'Une rencontre inspirante avec M. Paul Arsène Biboum Billick, Administrateur Réseau et Sécurité. Il a partagé des perspectives professionnelles et la réalité du paysage de la cybersécurité.',
+                    image: 'https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=2070&auto=format&fit=crop'
+                },
+                {
+                    id: 2,
                     type: 'Conférence',
-                    date: 'Février 2025',
-                    title: 'Sommet d\'Expansion Mondiale',
-                    description: 'Échanges avec des clients internationaux et discussions sur l\'avenir des solutions numériques transfrontalières, représentant XyberClan sur la scène mondiale.',
-                    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    date: 'Précédent',
+                    title: 'Salon de la Cybersécurité',
+                    description: 'La participation au Salon de la Cybersécurité nous a permis de rester à la pointe de la protection numérique, en échangeant avec des experts sur le hacking éthique.',
+                    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'
+                },
+                {
+                    id: 1,
+                    type: 'Sommet',
+                    date: 'Précédent',
+                    title: 'Cameroon Tech Summit',
+                    description: 'Contribution au récit de la transformation numérique au Cameroon Tech Summit, en contact avec les innovateurs qui façonnent l\'avenir technologique de la nation.',
+                    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
                 }
             ]
         },
