@@ -29,8 +29,8 @@ const SharedNavbar = ({ transparentHero = false }) => {
         }
     }, [mobileMenuOpen]);
 
-    const navLinks = ['home', 'about', 'services', 'team', 'partners', 'journey', 'contact'];
-    const routeLinks = { team: '/team', partners: '/partners', journey: '/journey' };
+    const navLinks = ['home', 'about', 'team', 'partners', 'journey', 'events', 'contact'];
+    const routeLinks = { team: '/team', partners: '/partners', journey: '/journey', events: '/events' };
 
     const scrollToSection = (id) => {
         if (location.pathname !== '/') {
@@ -88,9 +88,9 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                             key={item}
                                             to={routeLinks[item]}
                                             className={`px-4 py-2 text-[13px] font-medium uppercase tracking-wider transition-all duration-200 rounded-lg ${active ? 'text-cyan-500' :
-                                                    (isScrolled || !showTransparent)
-                                                        ? (isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900')
-                                                        : 'text-white/70 hover:text-white'
+                                                (isScrolled || !showTransparent)
+                                                    ? (isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900')
+                                                    : 'text-white/70 hover:text-white'
                                                 }`}
                                         >
                                             {t.nav[item]}
@@ -106,8 +106,8 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                             scrollToSection(item);
                                         }}
                                         className={`px-4 py-2 text-[13px] font-medium uppercase tracking-wider transition-all duration-200 rounded-lg ${(isScrolled || !showTransparent)
-                                                ? (isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900')
-                                                : 'text-white/70 hover:text-white'
+                                            ? (isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900')
+                                            : 'text-white/70 hover:text-white'
                                             }`}
                                     >
                                         {t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)}
@@ -121,8 +121,8 @@ const SharedNavbar = ({ transparentHero = false }) => {
                             <button
                                 onClick={toggleTheme}
                                 className={`p-2 rounded-lg transition-all duration-200 ${(isScrolled || !showTransparent)
-                                        ? (isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-black/5')
-                                        : 'text-white/60 hover:text-white hover:bg-white/10'
+                                    ? (isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-black/5')
+                                    : 'text-white/60 hover:text-white hover:bg-white/10'
                                     }`}
                                 aria-label="Toggle theme"
                             >
@@ -132,8 +132,8 @@ const SharedNavbar = ({ transparentHero = false }) => {
                             <button
                                 onClick={toggleLang}
                                 className={`flex items-center gap-1 px-2.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 ${(isScrolled || !showTransparent)
-                                        ? (isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-black/5')
-                                        : 'text-white/60 hover:text-white hover:bg-white/10'
+                                    ? (isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-black/5')
+                                    : 'text-white/60 hover:text-white hover:bg-white/10'
                                     }`}
                             >
                                 <Globe size={14} />
@@ -197,8 +197,8 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                             to={routeLinks[item]}
                                             onClick={() => setMobileMenuOpen(false)}
                                             className={`group flex items-baseline gap-4 py-4 transition-all duration-300 border-b ${active
-                                                    ? (isDark ? 'border-white/5 text-cyan-400' : 'border-black/5 text-cyan-600')
-                                                    : (isDark ? 'border-white/5 text-white hover:text-cyan-400' : 'border-black/5 text-gray-900 hover:text-cyan-600')
+                                                ? (isDark ? 'border-white/5 text-cyan-400' : 'border-black/5 text-cyan-600')
+                                                : (isDark ? 'border-white/5 text-white hover:text-cyan-400' : 'border-black/5 text-gray-900 hover:text-cyan-600')
                                                 }`}
                                             style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}
                                         >

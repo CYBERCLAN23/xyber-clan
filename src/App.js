@@ -6,6 +6,7 @@ import TeamPage from './TeamPage';
 import PartnersPage from './PartnersPage';
 import ProjectForm from './ProjectForm';
 import JourneyPage from './JourneyPage';
+import EventsPage from './EventsPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/team" element={<TeamPage />} />
           <Route path="/partners" element={<PartnersPage />} />
           <Route path="/journey" element={<JourneyPage />} />
+          <Route path="/events" element={<EventsPage />} />
           <Route path="/start-project" element={<ProjectForm />} />
         </Routes>
       </Router>

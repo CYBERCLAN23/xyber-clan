@@ -7,6 +7,7 @@ export const translations = {
             team: 'Team',
             partners: 'Partners',
             journey: 'Journey',
+            events: 'Events',
             contact: 'Contact',
             getStarted: 'Get Started',
             toggleTheme: 'Toggle Theme'
@@ -154,6 +155,38 @@ export const translations = {
                 submit: 'Submit Partnership Request'
             }
         },
+        eventsPage: {
+            title: 'Our Events & Blog',
+            subtitle: 'Discover the events we participated in, our latest news, and community highlights.',
+            badge: 'Latest Updates',
+            readMore: 'Read More',
+            articles: [
+                {
+                    id: 1,
+                    type: 'Hackathon',
+                    date: 'March 2024',
+                    title: 'Hult Prize UY1 Technical Mentorship',
+                    description: 'We participated as technical mentors at the Hult Prize event at the University of Yaoundé 1, guiding student teams in bringing their social entrepreneurship ideas to life.',
+                    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    id: 2,
+                    type: 'Workshop',
+                    date: 'October 2024',
+                    title: 'Community Tech Education Workshops',
+                    description: 'Hosting community workshops and hands-on training events, including Python bootcamps and web dev crash courses for the next generation of Cameroonian tech talent.',
+                    image: 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    id: 3,
+                    type: 'Conference',
+                    date: 'February 2025',
+                    title: 'Global Expansion Summit',
+                    description: 'Connecting with international clients and discussing the future of digital solutions across borders, representing XyberClan on the global stage.',
+                    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                }
+            ]
+        },
         journey: {
             title: 'Our Journey',
             subtitle: 'From a spark of passion to a force of innovation — every milestone has shaped who we are.',
@@ -222,6 +255,7 @@ export const translations = {
                         { label: 'Our Team', url: '/team' },
                         { label: 'Our Partners', url: '/partners' },
                         { label: 'Our Journey', url: '/journey' },
+                        { label: 'Events & Blog', url: '/events' },
                         { label: 'Portfolio', url: '/#portfolio' }
                     ]
                 },
@@ -424,6 +458,7 @@ export const translations = {
             team: 'Équipe',
             partners: 'Partenaires',
             journey: 'Parcours',
+            events: 'Événements',
             contact: 'Contact',
             getStarted: 'Commencer',
             toggleTheme: 'Changer de thème'
@@ -571,6 +606,38 @@ export const translations = {
                 submit: 'Soumettre la Demande'
             }
         },
+        eventsPage: {
+            title: 'Nos Événements & Blog',
+            subtitle: 'Découvrez les événements auxquels nous avons participé, nos dernières actualités et nos moments forts.',
+            badge: 'Dernières Mises à Jour',
+            readMore: 'Lire la Suite',
+            articles: [
+                {
+                    id: 1,
+                    type: 'Hackathon',
+                    date: 'Mars 2024',
+                    title: 'Mentorat Technique Hult Prize UY1',
+                    description: 'Nous avons participé en tant que mentors techniques au Hult Prize à l\'Université de Yaoundé 1, guidant les équipes étudiantes pour concrétiser leurs idées d\'entrepreneuriat social.',
+                    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    id: 2,
+                    type: 'Atelier',
+                    date: 'Octobre 2024',
+                    title: 'Ateliers Communautaires d\'Éducation Tech',
+                    description: 'Organisation d\'ateliers communautaires et de formations pratiques, y compris des bootcamps Python et des cours accélérés en dév web pour la prochaine génération de talents tech au Cameroun.',
+                    image: 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    id: 3,
+                    type: 'Conférence',
+                    date: 'Février 2025',
+                    title: 'Sommet d\'Expansion Mondiale',
+                    description: 'Échanges avec des clients internationaux et discussions sur l\'avenir des solutions numériques transfrontalières, représentant XyberClan sur la scène mondiale.',
+                    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                }
+            ]
+        },
         journey: {
             title: 'Notre Parcours',
             subtitle: 'D\'une étincelle de passion à une force d\'innovation — chaque étape a façonné ce que nous sommes.',
@@ -639,6 +706,7 @@ export const translations = {
                         { label: 'Notre Équipe', url: '/team' },
                         { label: 'Nos Partenaires', url: '/partners' },
                         { label: 'Notre Parcours', url: '/journey' },
+                        { label: 'Événements & Blog', url: '/events' },
                         { label: 'Portfolio', url: '/#portfolio' }
                     ]
                 },
