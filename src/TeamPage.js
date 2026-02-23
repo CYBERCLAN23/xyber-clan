@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Code, ChevronRight, Linkedin, Github, Laptop, Briefcase, Palette, Image as ImageIcon, Sparkles, ChevronLeft, ArrowUpRight, Globe } from 'lucide-react';
+import { Shield, Code, ChevronRight, Linkedin, Github, Laptop, Briefcase, Palette, Sparkles, ChevronLeft, ArrowUpRight } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
 import Footer from './components/Footer';
