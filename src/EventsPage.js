@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowDown, Calendar, Tag, ExternalLink } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { translations } from './translations';
@@ -18,6 +18,18 @@ const typeColors = {
 };
 
 const EventSection = ({ article, isDark, readMoreText, index }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const images = useMemo(() => article.images || [article.image], [article.images, article.image]);
+
+    useEffect(() => {
+        if (images.length <= 1) return;
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        }, 10000);
+        return () => clearInterval(interval);
+    }, [images]);
+
+    const displayImage = images[currentImageIndex];
     const colorClass = typeColors[article.type] || typeColors.Default;
     const isEven = index % 2 === 0;
 
@@ -27,11 +39,14 @@ const EventSection = ({ article, isDark, readMoreText, index }) => {
             {/* Background Image with Parallax & Overlays */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src={article.image}
+                    src={displayImage}
                     alt={article.title}
                     loading="lazy"
-                    className="w-full h-full object-cover opacity-30 md:opacity-40 scale-105"
-                    style={{ transform: 'translateZ(-10px) scale(1.1)' }} // Fallback for basic parallax illusion
+                    className="w-full h-full object-cover opacity-30 md:opacity-40 scale-105 transition-all duration-1000"
+                    style={{
+                        transform: 'translateZ(-10px) scale(1.1)',
+                        objectPosition: article.objectPosition || 'center center'
+                    }}
                 />
 
                 {/* Advanced Gradients for Text Legibility & Aesthetics */}
@@ -64,8 +79,8 @@ const EventSection = ({ article, isDark, readMoreText, index }) => {
                     </p>
 
                     <button className={`group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all duration-300 ${isDark
-                            ? 'bg-white/10 text-white hover:bg-white/20 hover:scale-105 border border-white/10'
-                            : 'bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-xl'
+                        ? 'bg-white/10 text-white hover:bg-white/20 hover:scale-105 border border-white/10'
+                        : 'bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-xl'
                         }`}>
                         {readMoreText}
                         <ExternalLink size={18} className="transform transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
@@ -79,9 +94,12 @@ const EventSection = ({ article, isDark, readMoreText, index }) => {
 
                     <div className={`relative aspect-square md:aspect-[4/3] rounded-[2rem] md:rounded-[3rem] overflow-hidden border ${isDark ? 'border-white/10' : 'border-gray-200'} shadow-2xl transition-transform duration-700 hover:scale-[1.02]`}>
                         <img
-                            src={article.image}
+                            src={displayImage}
                             alt={`${article.title} visual`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover transition-all duration-1000"
+                            style={{
+                                objectPosition: article.objectPosition || 'center center'
+                            }}
                         />
                         {/* Overlay to blend the image slightly */}
                         <div className={`absolute inset-0 ${isDark ? 'bg-black/20' : 'bg-white/10'} mix-blend-overlay pointer-events-none`} />

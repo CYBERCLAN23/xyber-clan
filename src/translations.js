@@ -143,16 +143,69 @@ export const translations = {
                     { label: 'Social Impact', value: 'Global' }
                 ]
             },
-            form: {
-                title: 'Become a Partner',
-                subtitle: 'Join forces with XyberClan for mutual growth and impact.',
-                name: 'Company or Organization Name',
-                contact: 'Contact Person Name',
-                email: 'Contact Email',
-                typeLabel: 'Type of Partnership',
-                typeOptions: ['Select Partnership Type', 'Technology Partner', 'Educational/University', 'Business Growth', 'Other'],
-                message: 'How can we collaborate?',
-                submit: 'Submit Partnership Request'
+            ctaPartner: 'Become our partner or collaborator',
+            ctaSponsor: 'Become a sponsor',
+            partnerForm: {
+                title: 'Strategic Partnership',
+                subtitle: 'Let\'s build the future together.',
+                steps: [
+                    {
+                        id: 'type',
+                        question: 'What type of partnership are you looking for?',
+                        options: ['Technology Partner', 'Educational/University', 'Business Growth', 'Creative Collaboration', 'Other']
+                    },
+                    {
+                        id: 'orgName',
+                        question: 'What is the name of your organization?',
+                        placeholder: 'Organization or Company name'
+                    },
+                    {
+                        id: 'goal',
+                        question: 'What is the primary goal of this collaboration?',
+                        placeholder: 'Describe your vision for this partnership...'
+                    },
+                    {
+                        id: 'timeline',
+                        question: 'When would you like to start this collaboration?',
+                        options: ['Immediate', 'Next Month', 'Within 3 Months', 'Flexible']
+                    },
+                    {
+                        id: 'contact',
+                        question: 'Who should we contact to discuss further?',
+                        fields: ['Full Name', 'Phone Number', 'Email Address']
+                    }
+                ]
+            },
+            sponsorForm: {
+                title: 'Become a Sponsor',
+                subtitle: 'Support innovation and empower the next generation.',
+                steps: [
+                    {
+                        id: 'type',
+                        question: 'Who is sponsoring?',
+                        options: ['Individual', 'Company/Enterprise', 'NGO/Organization', 'Public Institution', 'Other']
+                    },
+                    {
+                        id: 'companyName',
+                        question: 'Sponsor identity',
+                        placeholder: 'Your name or organization name'
+                    },
+                    {
+                        id: 'contribution',
+                        question: 'What do you want to bring to us?',
+                        options: ['Financial Support', 'Hardware/Equipment', 'Mentorship & Coaching', 'Venue/Space Hosting', 'Visibility & Media', 'Other']
+                    },
+                    {
+                        id: 'motivation',
+                        question: 'Why support XyberClan activities?',
+                        placeholder: 'Tell us a bit about your motivation...'
+                    },
+                    {
+                        id: 'contact',
+                        question: 'Contact details for sponsorship',
+                        fields: ['Full Name', 'Phone Number', 'Email Address']
+                    }
+                ]
             }
         },
         eventsPage: {
@@ -167,7 +220,8 @@ export const translations = {
                     date: 'Recent',
                     title: 'Tech Hackathon Against GBV',
                     description: 'We participated in the Tech Hackathon Against Gender-Based Violence (GBV) and proudly secured 3rd place! This event allowed our team to leverage technology for social impact and develop innovative solutions.',
-                    image: '/images/events/tech-hackathon-gbv.png'
+                    image: '/images/events/tech-hackathon-gbv.png',
+                    objectPosition: 'center 20%'
                 },
                 {
                     id: 6,
@@ -183,7 +237,8 @@ export const translations = {
                     date: 'Recent',
                     title: 'GDG Yaoundé - DevFest 2024',
                     description: 'Celebrating the Google DevFest with the GDG Yaoundé community. A day of learning, networking, and exploring the latest Google technologies and developer tools.',
-                    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2070&auto=format&fit=crop'
+                    images: ['/images/events/gdg-yaounde-1.png', '/images/events/gdg-yaounde-2.png'],
+                    image: '/images/events/gdg-yaounde-2.png'
                 },
                 {
                     id: 4,
@@ -191,7 +246,7 @@ export const translations = {
                     date: 'Recent',
                     title: 'Women Techmakers Meetup',
                     description: 'Participating in the Women Techmakers (WTM) meetup in Yaoundé, supporting diversity and inclusion in the tech ecosystem while learning from inspiring female tech leaders.',
-                    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop'
+                    image: '/images/events/wtm-yaounde-clean.png'
                 },
                 {
                     id: 3,
@@ -626,16 +681,69 @@ export const translations = {
                     { label: 'Impact Social', value: 'Global' }
                 ]
             },
-            form: {
-                title: 'Devenir Partenaire',
-                subtitle: 'Joignez vos forces à celles de XyberClan pour un impact partagé.',
-                name: 'Nom de l\'Entreprise / Organisation',
-                contact: 'Nom du Contact',
-                email: 'Email de Contact',
-                typeLabel: 'Type de Partenariat',
-                typeOptions: ['Sélectionner le Type', 'Partenaire Technologique', 'Éducation / Université', 'Croissance d\'Affaires', 'Autre'],
-                message: 'Comment pouvons-nous collaborer ?',
-                submit: 'Soumettre la Demande'
+            ctaPartner: 'Devenir notre partenaire ou collaborateur',
+            ctaSponsor: 'Devenir un sponsor',
+            partnerForm: {
+                title: 'Partenariat Stratégique',
+                subtitle: 'Bâtissons l\'avenir ensemble.',
+                steps: [
+                    {
+                        id: 'type',
+                        question: 'Quel type de partenariat recherchez-vous ?',
+                        options: ['Partenaire Technologique', 'Éducatif / Université', 'Croissance d\'Affaires', 'Collaboration Créative', 'Autre']
+                    },
+                    {
+                        id: 'orgName',
+                        question: 'Quel est le nom de votre organisation ?',
+                        placeholder: 'Nom de l\'organisation ou de l\'entreprise'
+                    },
+                    {
+                        id: 'goal',
+                        question: 'Quel est l\'objectif principal de cette collaboration ?',
+                        placeholder: 'Décrivez votre vision pour ce partenariat...'
+                    },
+                    {
+                        id: 'timeline',
+                        question: 'Quand souhaiteriez-vous commencer cette collaboration ?',
+                        options: ['Immédiat', 'Mois Prochain', 'Sous 3 Mois', 'Flexible']
+                    },
+                    {
+                        id: 'contact',
+                        question: 'Qui devrions-nous contacter pour en discuter ?',
+                        fields: ['Nom Complet', 'Numéro de Téléphone', 'Adresse Email']
+                    }
+                ]
+            },
+            sponsorForm: {
+                title: 'Devenir Sponsor',
+                subtitle: 'Soutenez l\'innovation et dynamisez la prochaine génération.',
+                steps: [
+                    {
+                        id: 'type',
+                        question: 'Qui parraine ?',
+                        options: ['Individu', 'Compagnie/Entreprise', 'ONG/Organisation', 'Institution Publique', 'Autre']
+                    },
+                    {
+                        id: 'companyName',
+                        question: 'Identité du sponsor',
+                        placeholder: 'Votre nom ou nom de l\'organisation'
+                    },
+                    {
+                        id: 'contribution',
+                        question: 'Que voulez-vous nous apporter ?',
+                        options: ['Soutien Financier', 'Matériel/Équipement', 'Mentorat & Coaching', 'Hébergement / Espace', 'Visibilité & Médias', 'Autre']
+                    },
+                    {
+                        id: 'motivation',
+                        question: 'Pourquoi soutenir les activités de XyberClan ?',
+                        placeholder: 'Dites-nous en un peu plus sur votre motivation...'
+                    },
+                    {
+                        id: 'contact',
+                        question: 'Coordonnées pour le parrainage',
+                        fields: ['Nom Complet', 'Numéro de Téléphone', 'Adresse Email']
+                    }
+                ]
             }
         },
         eventsPage: {
@@ -650,7 +758,8 @@ export const translations = {
                     date: 'Récent',
                     title: 'Hackathon Tech Contre les VBG',
                     description: 'Nous avons participé au Hackathon Tech Contre les Violences Basées sur le Genre (VBG) et avons fièrement décroché la 3ème place ! Cet événement nous a permis de mettre la technologie au service de l\'impact social et de développer des solutions innovantes.',
-                    image: '/images/events/tech-hackathon-gbv.png'
+                    image: '/images/events/tech-hackathon-gbv.png',
+                    objectPosition: 'center 20%'
                 },
                 {
                     id: 6,
@@ -666,7 +775,8 @@ export const translations = {
                     date: 'Récent',
                     title: 'GDG Yaoundé - DevFest 2024',
                     description: 'Célébration du Google DevFest avec la communauté GDG Yaoundé. Une journée d\'apprentissage, de réseautage et d\'exploration des dernières technologies Google.',
-                    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=2070&auto=format&fit=crop'
+                    images: ['/images/events/gdg-yaounde-1.png', '/images/events/gdg-yaounde-2.png'],
+                    image: '/images/events/gdg-yaounde-2.png'
                 },
                 {
                     id: 4,
@@ -674,7 +784,7 @@ export const translations = {
                     date: 'Récent',
                     title: 'Meetup Women Techmakers',
                     description: 'Participation au meetup Women Techmakers (WTM) à Yaoundé, soutenant la diversité et l\'inclusion dans l\'écosystème tech tout en apprenant de leaders inspirantes.',
-                    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop'
+                    image: '/images/events/wtm-yaounde-clean.png'
                 },
                 {
                     id: 3,

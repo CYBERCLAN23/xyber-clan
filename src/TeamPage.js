@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Code, ChevronRight, Linkedin, Github, Laptop, Briefcase, Palette, Image as ImageIcon, Sparkles, ChevronLeft, ArrowUpRight } from 'lucide-react';
+import { Shield, Code, ChevronRight, Linkedin, Github, Laptop, Briefcase, Palette, Image as ImageIcon, Sparkles, ChevronLeft, ArrowUpRight, Globe } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
 import Footer from './components/Footer';
@@ -14,98 +14,136 @@ const TeamPage = () => {
     const t = translations[lang];
 
     const teamMembers = [
-        { image: '/team/ceo-member.jpg', name: 'Chief Executive Officer', role: 'CEO & Co-Founder' },
-        { image: '/team/dev-member.jpg', name: 'Lead Fullstack Developer', role: 'Senior Fullstack Engineer' },
-        { image: '/team/web-designer.jpg', name: 'Lead Web Designer', role: 'Web Design Specialist' },
-        { image: '/team/cto-redteamer.jpg', name: 'Chief Technology Officer', role: 'CTO & Security Expert' },
-        { image: '/team/communications-manager.jpg', name: 'Analyst Python', role: 'Strategic Planning' },
-        { image: '/team/figma-canva-designer.jpg', name: 'UI/UX Designer', role: 'Design Specialist' },
-        { image: '/team/adobe-designer.jpeg', name: 'Creative Designer', role: 'Adobe Suite Expert' },
-        { image: '/team/frontend-designer.jpg', name: 'Frontend Developer', role: 'Web Designer' },
-        { image: '/team/cybersecurity-chief.jpg', name: 'Chief of Cybersecurity', role: 'Security Educator' }
+        { image: '/team/ceo-member.jpg', name: 'Cedrik Darel Yepmo', role: 'CEO & Co-Founder' },
+        { image: '/team/dev-member.jpg', name: 'YVANA EMILIA LALANE LARCIER', role: 'Frontend Developer' },
+        { image: '/team/ange-demanou.png', name: 'Ange Demanou', role: 'Creative & Data Analyst' },
+        { image: '/team/cto-redteamer.jpg', name: 'AKANA SIGNING JOSIAS AARON', role: 'CTO & Red Team Lead' },
+        { image: '/team/communications-manager.jpg', name: 'ONANA GREGOIRE LEGRAND', role: 'Co-Founder & Strategist' },
+        { image: '/team/william-chandler.png', name: 'William Chandler', role: 'Canva Designer' },
+        { image: '/team/theresa-tcheme.png', name: 'Theresa Tcheme', role: 'Media & Communication', position: 'center 18%', scale: 2.8 },
+        { image: '/team/frontend-designer.jpg', name: 'Zealda Junior', role: 'Frontend & Network' },
+        { image: '/team/cybersecurity-chief.jpg', name: 'Lembou Pharel', role: 'Cybersecurity, AI & Systems' }
     ];
 
     const detailedTeam = [
         {
             image: '/team/ceo-member.jpg',
-            name: 'Chief Executive Officer',
+            name: 'Cedrik Darel Yepmo',
             role: 'CEO & Co-Founder',
             icon: <Briefcase className="w-5 h-5" />,
             description: <span>Visionary leader driving <span className="notranslate" translate="no">XyberClan's</span> mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.</span>,
             expertise: ['Strategic Leadership', 'Business Development', 'Vision & Planning'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/cedarroyal21' }
+            ],
+            portfolio: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/'
         },
         {
             image: '/team/cto-redteamer.jpg',
-            name: 'Chief Technology Officer',
-            role: 'CTO & Security Expert',
+            name: 'AKANA SIGNING JOSIAS AARON',
+            role: 'CTO & AI Security Architect',
             icon: <Shield className="w-5 h-5" />,
-            description: 'Strategic technology leader and cybersecurity specialist ensuring robust security through penetration testing and threat protection.',
-            expertise: ['Penetration Testing', 'Security Audits', 'Infrastructure Architecture'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            description: 'Strategic technology leader and elite Red Teamer specializing in the intersection of cybersecurity and AI. He is an expert in Web & Mobile development (Flutter), networking infrastructure, and computer maintenance, driving innovation through intelligent and secure engineering.',
+            expertise: ['Red Teaming', 'LLM Architect', 'Mobile Dev (Flutter)', 'Network Engineering', 'Computer Maintenance'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/akana-signing-josias-aaron/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/Josiasange37' }
+            ],
+            portfolio: 'https://almightportfolio.vercel.app/'
         },
         {
             image: '/team/dev-member.jpg',
-            name: 'Lead Fullstack Developer',
-            role: 'Senior Fullstack Engineer',
+            name: 'YVANA EMILIA LALANE LARCIER',
+            role: 'Frontend Developer',
             icon: <Laptop className="w-5 h-5" />,
             description: 'Expert in modern web technologies and creating seamless user experiences. Passionate about clean code and innovative solutions.',
-            expertise: ['React & Next.js', 'Node.js & APIs', 'Database Design'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            expertise: ['React & Next.js', 'UI/UX Implementation', 'Responsive Design'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/yvana-emilia-lalane-larcier-50761337b/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/lalanelarcier-ai' }
+            ],
+            portfolio: 'https://www.linkedin.com/in/yvana-emilia-lalane-larcier-50761337b/'
         },
         {
-            image: '/team/web-designer.jpg',
-            name: 'Lead Web Designer',
-            role: 'Web Design Specialist',
+            image: '/team/ange-demanou.png',
+            name: 'Ange Demanou',
+            role: 'Digital Generalist & Data Analyst',
             icon: <Palette className="w-5 h-5" />,
-            description: 'Expert in creating stunning, user-friendly web interfaces. Specializes in modern design principles and responsive layouts.',
-            expertise: ['Responsive Design', 'UI/UX Best Practices', 'Modern CSS'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            description: 'A versatile polymath bridging technology and business. Her multidisciplinary stack includes Web Development, Data & Business Analysis, Graphic Design, and Machine Learning research. She also manages social media strategy with a data-driven approach.',
+            expertise: ['Web Development', 'Data Analysis', 'Machine Learning', 'Graphic Design', 'Social Media Management', 'Business Analysis'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/ange-demanou-367466340/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: '#' }
+            ],
+            portfolio: 'https://www.linkedin.com/in/ange-demanou-367466340/'
         },
         {
             image: '/team/communications-manager.jpg',
-            name: 'Analyst Python',
-            role: 'Strategic Planning & Co-Founder',
+            name: 'ONANA GREGOIRE LEGRAND',
+            role: 'Co-Founder & Business Strategist',
             icon: <Code className="w-5 h-5" />,
-            description: <span>Specializes in Python analysis and strategic planning. Driving the technical vision and business strategy of <span className="notranslate" translate="no">XyberClan</span>.</span>,
-            expertise: ['Python Analysis', 'Strategic Planning', 'Data Science'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            description: <span>A strategic mastermind and technical architect, Onana Gregoire Legrand is the engine behind <span className="notranslate" translate="no">XyberClan's</span> operational precision. He combines advanced Python data analysis with high-level business strategy to optimize growth, identify market opportunities, and ensures every project scales towards global standards.</span>,
+            expertise: ['Business Strategy', 'Python Data Science', 'Operational Precision', 'Market Analysis'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/onana-gregoire-legrand-a18529282/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/psycho237-prog' }
+            ],
+            portfolio: 'https://psycho.is-a.dev'
         },
         {
-            image: '/team/figma-canva-designer.jpg',
-            name: 'UI/UX Designer',
-            role: 'Figma & Canva Specialist',
+            image: '/team/william-chandler.png',
+            name: 'William Chandler',
+            role: 'Visual Content & Canva Designer',
             icon: <Palette className="w-5 h-5" />,
-            description: 'Creates beautiful, functional designs. Specializes in rapid prototyping and transforming ideas into polished visual experiences.',
-            expertise: ['Figma Prototyping', 'Canva Design', 'Design Systems'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            description: 'A visual architect who masters the art of high-impact design through Canva. He brings ideas to life with stunning graphics, ensuring every piece of content tells a compelling story and maintains a pristine brand identity.',
+            expertise: ['Canva Pro Design', 'Visual Storytelling', 'Social Media Branding'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/william-chandler-106147353/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/Evina-Darren' }
+            ],
+            portfolio: 'https://www.linkedin.com/in/william-chandler-106147353/'
         },
         {
-            image: '/team/adobe-designer.jpeg',
-            name: 'Creative Designer',
-            role: 'Adobe Suite Expert',
-            icon: <ImageIcon className="w-5 h-5" />,
-            description: 'Master of visual storytelling. Delivers high-quality graphics and branding materials that elevate brand presence.',
-            expertise: ['Adobe Photoshop', 'Illustrator', 'Brand Identity'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            image: '/team/theresa-tcheme.png',
+            name: 'Theresa Tcheme',
+            role: 'Media & Communication Manager',
+            icon: <Sparkles className="w-5 h-5" />,
+            description: 'Expert in media relations and strategic communications. Theresa leads the narrative at XyberClan, ensuring a consistent and impactful brand voice across all digital channels and media platforms.',
+            expertise: ['Media Relations', 'Strategic Communication', 'Digital Storytelling'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/theresa-tcheme-a5402a358/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: '#' }
+            ],
+            portfolio: 'https://www.linkedin.com/in/theresa-tcheme-a5402a358/',
+            position: 'center 18%',
+            scale: 2.8
         },
         {
             image: '/team/frontend-designer.jpg',
-            name: 'Frontend Developer',
-            role: 'Web Designer & Frontend Dev',
+            name: 'Zealda Junior',
+            role: 'Web Developer & Network Associate',
             icon: <Code className="w-5 h-5" />,
-            description: 'Bridging the gap between design and engineering. Expert in building responsive, pixel-perfect user interfaces.',
-            expertise: ['React', 'Web Design', 'UI/UX Implementation'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            description: 'A multidisciplinary technician blending the worlds of network engineering and modern web development. Zealda specializes in building responsive interfaces and designing intuitive user journeys in Figma, while maintaining a strong focus on the underlying network infrastructure.',
+            expertise: ['Web Development', 'Figma Design', 'Network Engineering'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/zealda-junior-9352b1277/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/zealdajunior' }
+            ],
+            portfolio: 'https://www.linkedin.com/in/zealda-junior-9352b1277/'
         },
         {
             image: '/team/cybersecurity-chief.jpg',
-            name: 'Chief of Cybersecurity',
-            role: 'Security Educator & Pentester',
+            name: 'Lembou Pharel',
+            role: 'Cybersecurity, AI & Systems Engineer',
             icon: <Shield className="w-5 h-5" />,
-            description: 'Leads cybersecurity with expertise in penetration testing and security education. Protects and educates with passion.',
-            expertise: ['Penetration Testing', 'Security Education', 'Backend Dev'],
-            socials: [{ name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' }, { name: 'GitHub', icon: <Github size={18} />, url: '#' }]
+            description: 'Expert in cybersecurity, web development, and mobile applications using Flutter. He bridges systems engineering with applied AI to build resilient, intelligent, and secure software solutions.',
+            expertise: ['Penetration Testing', 'Systems Engineering', 'Applied AI', 'Mobile Dev (Flutter)'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/lembou-pharel/' },
+                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/lemboupharel' }
+            ],
+            portfolio: 'https://www.pharel.dev'
         }
     ];
 
@@ -202,6 +240,11 @@ const TeamPage = () => {
                                                     src={member.image}
                                                     alt={`XyberClan Team Member: ${member.name} - ${member.role}`}
                                                     className="w-full h-full object-cover"
+                                                    style={{
+                                                        imageRendering: '-webkit-optimize-contrast',
+                                                        objectPosition: member.position || 'center',
+                                                        transform: `scale(${member.scale || 1})`
+                                                    }}
                                                 />
                                             </div>
 
@@ -264,6 +307,11 @@ const TeamPage = () => {
                                                 loading="lazy"
                                                 decoding="async"
                                                 className="w-full h-[380px] md:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105"
+                                                style={{
+                                                    imageRendering: '-webkit-optimize-contrast',
+                                                    objectPosition: member.position || 'center',
+                                                    transform: member.name === 'Theresa Tcheme' ? `scale(${member.scale || 1})` : undefined
+                                                }}
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                                             <div className="absolute bottom-5 left-5">
@@ -304,9 +352,14 @@ const TeamPage = () => {
                                                     {social.icon}
                                                 </a>
                                             ))}
-                                            <button className={`flex items-center gap-1.5 px-4 h-11 rounded-xl border text-sm font-medium transition-all hover:scale-[1.03] ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30' : 'bg-white border-gray-200 text-gray-500 hover:text-cyan-600 hover:border-cyan-500/30'}`}>
+                                            <a
+                                                href={member.portfolio || '#'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`flex items-center gap-1.5 px-4 h-11 rounded-xl border text-sm font-medium transition-all hover:scale-[1.03] ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30' : 'bg-white border-gray-200 text-gray-500 hover:text-cyan-600 hover:border-cyan-500/30'}`}
+                                            >
                                                 View Profile <ArrowUpRight size={14} />
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
