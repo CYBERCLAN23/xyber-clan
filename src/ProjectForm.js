@@ -261,7 +261,7 @@ const ProjectForm = () => {
     };
 
     const handleWhatsAppSend = () => {
-        window.open(`https://wa.me/237672446810?text=${encodeURIComponent(generateSummaryText())}`, '_blank');
+        window.open(`https://wa.me/237654269488?text=${encodeURIComponent(generateSummaryText())}`, '_blank');
     };
 
     const handleEmailSend = () => {

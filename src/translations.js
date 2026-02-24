@@ -370,7 +370,7 @@ export const translations = {
                 emailLabel: 'EMAIL US',
                 email: 'xyberclandev@gmail.com',
                 phoneLabel: 'CALL US',
-                phone: '+237 672 446 810'
+                phone: '+237 6 54 26 94 88 / +237 6 96 81 43 91'
             },
             copyright: 'XYBERCLAN — ENGINEERED IN CAMEROON.',
             bottomLinks: {
@@ -908,7 +908,7 @@ export const translations = {
                 emailLabel: 'ÉCRIVEZ-NOUS',
                 email: 'xyberclandev@gmail.com',
                 phoneLabel: 'APPELEZ-NOUS',
-                phone: '+237 672 446 810'
+                phone: '+237 6 54 26 94 88 / +237 6 96 81 43 91'
             },
             copyright: 'XYBERCLAN — CONÇU AU CAMEROUN.',
             bottomLinks: {

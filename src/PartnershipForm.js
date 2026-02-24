@@ -164,7 +164,7 @@ const PartnershipForm = ({ isOpen, onClose, type, lang, t, onComplete }) => {
     };
 
     const handleWhatsAppSend = () => {
-        window.open(`https://wa.me/237672446810?text=${encodeURIComponent(generateSummaryText())}`, '_blank');
+        window.open(`https://wa.me/237696814391?text=${encodeURIComponent(generateSummaryText())}`, '_blank');
         onComplete(generateSummaryText());
     };
 

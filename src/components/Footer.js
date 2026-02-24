@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Linkedin, Twitter, Facebook, Heart } from 'lucide-react';
+import { Github, Linkedin, Twitter, Facebook, Heart, MessageCircle, Youtube, Music } from 'lucide-react';
 import { getLogo } from '../utils/festive';
 import { useTheme } from '../context/ThemeContext';
 
@@ -12,10 +12,13 @@ const Footer = ({ translations: t }) => {
     const { columns, cta, tagline, copyright, bottomLinks } = t.footer;
 
     const socialLinks = [
-        { icon: <Github size={18} />, url: 'https://github.com/CYBERCLAN23', color: 'hover:text-black hover:bg-white' },
-        { icon: <Linkedin size={18} />, url: '#', color: 'hover:text-[#0077B5] hover:bg-white' },
+        { icon: <Github size={18} />, url: 'https://github.com/CYBERCLAN237', color: 'hover:text-black hover:bg-white' },
+        { icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/company/xyberclan/', color: 'hover:text-[#0077B5] hover:bg-white' },
         { icon: <Twitter size={18} />, url: 'https://x.com/XyberC60820', color: 'hover:text-[#1DA1F2] hover:bg-white' },
-        { icon: <Facebook size={18} />, url: '#', color: 'hover:text-[#1877F2] hover:bg-white' },
+        { icon: <Facebook size={18} />, url: 'https://web.facebook.com/profile.php?id=61581514840888', color: 'hover:text-[#1877F2] hover:bg-white' },
+        { icon: <Youtube size={18} />, url: 'https://www.youtube.com/@xyberclan', color: 'hover:text-[#FF0000] hover:bg-white' },
+        { icon: <Music size={18} />, url: 'https://www.tiktok.com/@xyberclan?_r=1&_t=ZM-92Y1vL3Qv7Y', color: 'hover:text-[#000000] hover:bg-[#ff0050]' },
+        { icon: <MessageCircle size={18} />, url: 'https://whatsapp.com/channel/0029VbBLsii2P59lAGA3wO1O', color: 'hover:text-[#25D366] hover:bg-white' },
     ];
 
     return (
@@ -46,9 +49,13 @@ const Footer = ({ translations: t }) => {
                             </div>
                             <div className="text-center md:text-left">
                                 <p className={`text-[10px] font-bold tracking-widest mb-2 uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{cta.phoneLabel}</p>
-                                <a href={`tel:${cta.phone.replace(/\s/g, '')}`} className={`text-lg md:text-xl font-black hover:text-cyan-500 transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-950'}`}>
-                                    {cta.phone}
-                                </a>
+                                <div className="flex flex-col gap-1 items-center md:items-start">
+                                    {cta.phone.split('/').map((p, idx) => (
+                                        <a key={idx} href={`tel:${p.replace(/\s/g, '')}`} className={`text-lg md:text-xl font-black hover:text-cyan-500 transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-950'}`}>
+                                            {p.trim()}
+                                        </a>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
