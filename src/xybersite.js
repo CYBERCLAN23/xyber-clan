@@ -22,6 +22,7 @@ import Pricing from './components/Pricing';
 import ExitPopup from './components/ExitPopup';
 import ThemeSuggestionPopup from './components/ThemeSuggestionPopup';
 import ScrollReveal, { ScrollToTop, ScrollIndicator } from './components/ScrollReveal';
+import Meta from './components/Meta';
 
 
 const XyberClanWebsite = () => {
@@ -50,7 +51,7 @@ const XyberClanWebsite = () => {
   }, [mobileMenuOpen]);
 
   const toggleLang = () => {
-    setLang(lang === 'en' ? 'fr' : 'en');
+    setLang((prev) => (prev === 'en' ? 'fr' : 'en'));
   };
 
   const navLinks = ['home', 'about', 'team', 'partners', 'journey', 'events', 'contact'];
@@ -61,6 +62,10 @@ const XyberClanWebsite = () => {
 
   return (
     <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
+      <Meta
+        title="Digital Agency | Web, Design & Cybersecurity"
+        description="XyberClan is a premium digital agency specializing in web development, cybersecurity, and UI/UX design. Serving global clients from Africa."
+      />
 
       {/* ─── NAVBAR ─── */}
       <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
@@ -172,7 +177,7 @@ const XyberClanWebsite = () => {
         </div>
 
         {/* ─── Mobile Fullscreen Overlay ─── */}
-        <div className={`lg:hidden fixed inset-0 z-[60] transition-all duration-500 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        <div className={`lg:hidden fixed inset-0 z-[60] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}>
           {/* Backdrop */}
           <div

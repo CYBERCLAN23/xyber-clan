@@ -21,6 +21,7 @@ import {
 import { useTheme } from './context/ThemeContext';
 import { getLogo } from './utils/festive';
 import { translations } from './translations';
+import Meta from './components/Meta';
 
 const ProjectForm = () => {
     const { isDark, toggleTheme } = useTheme();
@@ -271,6 +272,10 @@ const ProjectForm = () => {
 
     return (
         <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-500 overflow-x-hidden`}>
+            <Meta
+                title="Start Your Project | Free Quote"
+                description="Ready to build your next big thing? Start your project with XyberClan. Our experts will help you design, develop and secure your digital future."
+            />
             {/* Nav Header */}
             <div className={`fixed top-0 left-0 right-0 z-50 px-4 py-4 transition-all duration-300 ${isDark ? 'bg-black/80 backdrop-blur-xl' : 'bg-white/80 backdrop-blur-xl border-b border-gray-100'}`}>
                 <div className="max-w-4xl mx-auto flex justify-between items-center">

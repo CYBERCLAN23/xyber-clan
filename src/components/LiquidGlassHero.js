@@ -81,7 +81,13 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             {/* POSTER / STATIC BANNER */}
             {/* Shows initially, fades out when video plays, fades back in when sequence completes */}
             <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${videoReady && !showBanner ? 'opacity-0' : 'opacity-100'}`}>
-                <img src={POSTER_SRC} alt="XyberClan Digital Agency - Global Web & Security Solutions" className="w-full h-full object-cover" fetchpriority="high" />
+                <img
+                    src={POSTER_SRC}
+                    alt="XyberClan Digital Agency - Global Web & Security Solutions"
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                    fetchpriority="high"
+                />
             </div>
 
             {/* VIDEO */}

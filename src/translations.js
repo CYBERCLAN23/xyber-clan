@@ -249,12 +249,21 @@ export const translations = {
                     image: '/images/events/wtm-yaounde-clean.png'
                 },
                 {
+                    id: 10,
+                    type: 'Hackathon',
+                    date: 'Previous',
+                    title: 'ICT4D Hackathon Observation',
+                    description: 'Our team attended the ICT4D Hackathon as spectators, gaining valuable insights into how information and communication technologies are being leveraged for development. It was an inspiring experience to witness innovative digital solutions being designed to solve sustainable development challenges.',
+                    image: '/images/events/ict4d-hackathon.png'
+                },
+                {
                     id: 3,
                     type: 'Networking',
                     date: 'Previous',
                     title: 'Meeting with Mr. Paul Arsène Biboum Billick',
                     description: 'An inspiring meeting with Mr. Paul Arsène Biboum Billick, a System Network and Security Administrator, and Cybersecurity Instructor. He shared professional insights and the reality of the cybersecurity landscape.',
-                    image: 'https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=2070&auto=format&fit=crop'
+                    image: '/images/events/paul-arsene.png',
+                    url: 'https://www.linkedin.com/in/paul-ars%C3%A8ne-biboum-billick-86810132/'
                 },
                 {
                     id: 2,
@@ -262,7 +271,7 @@ export const translations = {
                     date: 'Previous',
                     title: 'Salon of Cybersecurity',
                     description: 'Attending the Cybersecurity Salon allowed us to stay at the forefront of digital protection, engaging with experts on ethical hacking and network security.',
-                    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'
+                    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop'
                 },
                 {
                     id: 1,
@@ -270,7 +279,24 @@ export const translations = {
                     date: 'Previous',
                     title: 'Cameroon Tech Summit',
                     description: 'Contributing to the digital transformation narrative at the Cameroon Tech Summit, connecting with innovators shaping the nation\'s technology future.',
-                    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR245v1ulJ2PkSGG0kW--lYlyZ2hfnFYnhIpw&s'
+                },
+                {
+                    id: 9,
+                    type: 'Partnership',
+                    date: 'Feb 2026',
+                    title: 'Strategic Alliance: Official Technical Sponsors of Hult Prize UY1',
+                    description: 'XyberClan is proud to announce its role as the official Technical Sponsor for the Hult Prize at the University of Yaoundé 1. We are providing mentorship, technical infrastructure, and digital muscle to help student entrepreneurs turn their social impact ideas into reality.',
+                    image: '/images/events/hult-prize-sponsor.jpeg'
+                },
+                {
+                    id: 8,
+                    type: 'Press',
+                    date: 'Feb 25, 2026',
+                    title: 'XyberClan in the Spotlight: Featured in Journal l\'Etudiant',
+                    description: 'We appeared in the Wednesday, February 25 edition of the Journal l\'Etudiant newspaper. The article highlights our leadership in cybersecurity as a "Guarantor of Digital Security" and our contribution to securing Cameroon\'s digital ecosystem.',
+                    image: '/images/events/journal-etudiant.jpeg',
+                    objectPosition: 'center 30%'
                 }
             ]
         },
@@ -285,49 +311,81 @@ export const translations = {
                     date: 'September 2023',
                     tag: 'Genesis',
                     title: 'The Spark That Started It All',
-                    description: 'A group of passionate Computer Science students at the University of Yaoundé 1 came together with a shared vision: make cutting-edge technology accessible to everyone. XyberClan was born in a small campus room, fueled by ambition and late-night coding sessions.'
+                    description: 'A group of passionate Computer Science students at the University of Yaoundé 1 came together with a shared vision: make cutting-edge technology accessible to everyone. XyberClan was born in a small campus room, fueled by ambition and late-night coding sessions.',
+                    image: '/images/journey/genesis.jpeg',
+                    objectPosition: 'center 20%'
                 },
                 {
                     date: 'November 2023',
-                    tag: 'Milestone',
-                    title: 'Our First Client, Our First Proof',
-                    description: 'We delivered our very first professional website — a modern, responsive business platform that exceeded expectations. It proved that university students could deliver enterprise-grade solutions. Word started spreading.'
-                },
-                {
-                    date: 'January 2024',
-                    tag: 'Growth',
-                    title: 'The Clan Grows Stronger',
-                    description: 'What started as a small team of developers expanded into a multidisciplinary squad. Designers, cybersecurity specialists, and network engineers joined forces. XyberClan became a full-service digital agency.'
+                    tag: 'Success',
+                    title: 'Our First Professional Success',
+                    description: 'We delivered our first enterprise-grade website, proving that university students could deliver professional solutions. This marked our official entrance into the digital market.',
+                    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
+                    objectPosition: 'center 20%'
                 },
                 {
                     date: 'March 2024',
-                    tag: 'Partnership',
-                    title: 'Hult Prize × XyberClan Alliance',
-                    description: 'We partnered with the Hult Prize at UY1 — bridging the gap between academic brilliance and professional engineering. Our technical mentorship helped student teams turn social entrepreneurship ideas into real, scalable prototypes.'
-                },
-                {
-                    date: 'May 2024',
-                    tag: 'Expansion',
-                    title: 'Design & Branding Division Launches',
-                    description: 'Recognizing the power of visual identity, we launched our dedicated design division. From logos and brand identity systems to UI/UX prototyping — XyberClan became a one-stop creative powerhouse.'
+                    tag: 'Alliance',
+                    title: 'Strategic Partnership with Hult Prize UY1',
+                    description: 'We became the technical muscle for social innovators. This partnership bridged the gap between academic brilliance and professional engineering.',
+                    image: '/images/journey/hult-prize.jpg',
+                    objectPosition: 'center 20%'
                 },
                 {
                     date: 'August 2024',
                     tag: 'Security',
-                    title: 'Cybersecurity Services Go Live',
-                    description: 'With growing demand for digital protection, we officially launched our cybersecurity arm. Penetration testing, security audits, and threat assessment — we started protecting businesses from the inside out.'
+                    title: 'Cybersecurity Arm Goes Live',
+                    description: 'Recognizing the critical need for digital protection, we officially launched our cybersecurity division, offering specialized audits and pentesting services.',
+                    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
+                    objectPosition: 'center center'
                 },
                 {
-                    date: 'October 2024',
+                    date: 'November 2024',
                     tag: 'Community',
-                    title: 'Giving Back Through Tech Education',
-                    description: 'We hosted our first series of community workshops and hands-on training events. From Python bootcamps to web dev crash courses — we invested in the next generation of Cameroonian tech talent.'
+                    title: 'Deepening Community Roots at DevFest',
+                    description: 'Our team actively participated in GDG Yaoundé DevFest 2024, engaging with the wider tech ecosystem and sharing insights on emerging Google technologies.',
+                    image: '/images/journey/gdg.png',
+                    objectPosition: 'center 20%'
+                },
+                {
+                    date: 'December 2024',
+                    tag: 'Award',
+                    title: '3rd Place at Tech Hackathon Against GBV',
+                    description: 'We applied our skills for social impact, securing 3rd place in a national hackathon by developing innovative tech solutions against Gender-Based Violence.',
+                    image: '/images/journey/hackathon.png',
+                    objectPosition: 'center 20%'
+                },
+                {
+                    date: 'January 2025',
+                    tag: 'Mentorship',
+                    title: 'High-Level Professional Guidance',
+                    description: 'We had the honor of meeting with Mr. Paul Arsène Biboum Billick, gaining invaluable professional insights into system security and network administration.',
+                    image: '/images/journey/mentorship.png',
+                    objectPosition: 'center 20%'
+                },
+                {
+                    date: 'January 2025',
+                    tag: 'Observation',
+                    title: 'ICT4D Hackathon Insights',
+                    description: 'Our team attended the ICT4D Hackathon as spectators, witnessing how digital innovation is being applied to solve global development challenges.',
+                    image: '/images/journey/ict4d-hackathon.png',
+                    objectPosition: 'center 50%'
                 },
                 {
                     date: 'February 2025',
                     tag: 'Global',
-                    title: 'Serving Clients Worldwide',
-                    description: 'From Yaoundé to the world. XyberClan now serves clients across France, Belgium, Canada, Nigeria, Ghana, the UK, and beyond. Our mission stays the same — world-class solutions from the heart of Cameroon.'
+                    title: 'Expanding Our Global Footprint',
+                    description: 'From Cameroon to the world. XyberClan officially expanded its services to clients across Europe, North America, and other African nations.',
+                    image: 'https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?q=80&w=2070&auto=format&fit=crop',
+                    objectPosition: 'center 40%'
+                },
+                {
+                    date: 'February 2026',
+                    tag: 'Media',
+                    title: 'Featured in Journal l\'Etudiant',
+                    description: 'Our vision for digital security was spotlighted in a major national publication, cementing our reputation as a trusted protector of the digital ecosystem.',
+                    image: '/images/journey/media.jpeg',
+                    objectPosition: 'center 30%'
                 }
             ]
         },
@@ -787,12 +845,21 @@ export const translations = {
                     image: '/images/events/wtm-yaounde-clean.png'
                 },
                 {
+                    id: 10,
+                    type: 'Hackathon',
+                    date: 'Précédent',
+                    title: 'Observation au Hackathon ICT4D',
+                    description: 'Notre équipe a assisté au Hackathon ICT4D en tant que spectateurs, acquérant des connaissances précieuses sur la manière dont les technologies de l\'information et de la communication sont utilisées pour le développement. Ce fut une expérience inspirante de voir des solutions numériques innovantes être conçues pour résoudre les défis du développement durable.',
+                    image: '/images/events/ict4d-hackathon.png'
+                },
+                {
                     id: 3,
                     type: 'Réseautage',
                     date: 'Précédent',
                     title: 'Rencontre avec M. Paul Arsène Biboum Billick',
                     description: 'Une rencontre inspirante avec M. Paul Arsène Biboum Billick, Administrateur Réseau et Sécurité. Il a partagé des perspectives professionnelles et la réalité du paysage de la cybersécurité.',
-                    image: 'https://images.unsplash.com/photo-1542621334-a254cf47733d?q=80&w=2070&auto=format&fit=crop'
+                    image: '/images/events/paul-arsene.png',
+                    url: 'https://www.linkedin.com/in/paul-ars%C3%A8ne-biboum-billick-86810132/'
                 },
                 {
                     id: 2,
@@ -800,7 +867,7 @@ export const translations = {
                     date: 'Précédent',
                     title: 'Salon de la Cybersécurité',
                     description: 'La participation au Salon de la Cybersécurité nous a permis de rester à la pointe de la protection numérique, en échangeant avec des experts sur le hacking éthique.',
-                    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'
+                    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop'
                 },
                 {
                     id: 1,
@@ -808,7 +875,24 @@ export const translations = {
                     date: 'Précédent',
                     title: 'Cameroon Tech Summit',
                     description: 'Contribution au récit de la transformation numérique au Cameroon Tech Summit, en contact avec les innovateurs qui façonnent l\'avenir technologique de la nation.',
-                    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR245v1ulJ2PkSGG0kW--lYlyZ2hfnFYnhIpw&s'
+                },
+                {
+                    id: 9,
+                    type: 'Partenariat',
+                    date: 'Fév 2026',
+                    title: 'Alliance Stratégique : Sponsors Techniques Officiels du Hult Prize UY1',
+                    description: 'XyberClan est fier d\'annoncer son rôle de Sponsor Technique officiel pour le Hult Prize à l\'Université de Yaoundé 1. Nous fournissons le mentorat, l\'infrastructure technique et la force digitale nécessaire pour aider les étudiants entrepreneurs à concrétiser leurs idées d\'impact social.',
+                    image: '/images/events/hult-prize-sponsor.png'
+                },
+                {
+                    id: 8,
+                    type: 'Presse',
+                    date: '25 Fév 2026',
+                    title: 'XyberClan à la Une : Publié dans le Journal l\'Etudiant',
+                    description: 'Nous sommes parus dans l\'édition du mercredi 25 février du journal "Journal l\'Etudiant". L\'article souligne notre rôle de "Garant de la sécurité numérique" et notre engagement pour la cybersécurité au Cameroun.',
+                    image: '/images/events/journal-etudiant.png',
+                    objectPosition: 'center 30%'
                 }
             ]
         },
@@ -822,50 +906,81 @@ export const translations = {
                 {
                     date: 'Septembre 2023',
                     tag: 'Genèse',
-                    title: 'L\'Étincelle Qui a Tout Déclenché',
-                    description: 'Un groupe d\'étudiants passionnés en informatique de l\'Université de Yaoundé 1 se sont réunis avec une vision commune : rendre la technologie de pointe accessible à tous. XyberClan est né dans une petite salle de campus, alimenté par l\'ambition et les sessions de codage nocturnes.'
+                    title: 'L\'Étincelle Qui a Tout Lancé',
+                    description: 'Un groupe d\'étudiants passionnés en informatique de l\'Université de Yaoundé 1 s\'est réuni avec une vision commune : rendre la technologie de pointe accessible à tous. XyberClan est né dans une petite salle de campus, alimenté par l\'ambition.',
+                    image: '/images/journey/genesis.jpeg',
+                    objectPosition: 'center 20%'
                 },
                 {
                     date: 'Novembre 2023',
-                    tag: 'Jalon',
-                    title: 'Notre Premier Client, Notre Première Preuve',
-                    description: 'Nous avons livré notre tout premier site web professionnel — une plateforme d\'entreprise moderne et responsive qui a dépassé les attentes. Cela a prouvé que des étudiants universitaires pouvaient livrer des solutions de niveau entreprise.'
-                },
-                {
-                    date: 'Janvier 2024',
-                    tag: 'Croissance',
-                    title: 'Le Clan Se Renforce',
-                    description: 'Ce qui a commencé comme une petite équipe de développeurs s\'est étendu en une escouade multidisciplinaire. Designers, spécialistes en cybersécurité et ingénieurs réseau ont uni leurs forces. XyberClan est devenu une agence digitale complète.'
+                    tag: 'Succès',
+                    title: 'Notre Premier Succès Professionnel',
+                    description: 'Nous avons livré notre premier site web de niveau entreprise, prouvant que des étudiants pouvaient offrir des solutions professionnelles. Cela a marqué notre entrée officielle sur le marché.',
+                    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop',
+                    objectPosition: 'center 20%'
                 },
                 {
                     date: 'Mars 2024',
-                    tag: 'Partenariat',
-                    title: 'Alliance Hult Prize × XyberClan',
-                    description: 'Nous nous sommes associés au Hult Prize de l\'UY1 — comblant le fossé entre l\'excellence académique et l\'ingénierie professionnelle. Notre mentorat technique a aidé les équipes d\'étudiants à transformer leurs idées d\'entrepreneuriat social en prototypes évolutifs.'
-                },
-                {
-                    date: 'Mai 2024',
-                    tag: 'Expansion',
-                    title: 'Lancement de la Division Design & Branding',
-                    description: 'Reconnaissant la puissance de l\'identité visuelle, nous avons lancé notre division design dédiée. Des logos aux systèmes d\'identité de marque en passant par le prototypage UI/UX — XyberClan est devenu un centre créatif complet.'
+                    tag: 'Alliance',
+                    title: 'Partenariat Stratégique avec Hult Prize UY1',
+                    description: 'Nous sommes devenus le moteur technique des innovateurs sociaux. Ce partenariat a comblé le fossé entre l\'excellence académique et l\'ingénierie professionnelle.',
+                    image: '/images/journey/hult-prize.png',
+                    objectPosition: 'center 20%'
                 },
                 {
                     date: 'Août 2024',
                     tag: 'Sécurité',
-                    title: 'Les Services de Cybersécurité Sont Lancés',
-                    description: 'Face à la demande croissante de protection numérique, nous avons officiellement lancé notre branche cybersécurité. Tests d\'intrusion, audits de sécurité et évaluation des menaces — nous avons commencé à protéger les entreprises de l\'intérieur.'
+                    title: 'Lancement de la Division Cybersécurité',
+                    description: 'Reconnaissant le besoin critique de protection numérique, nous avons officiellement lancé notre division cybersécurité, offrant des audits spécialisés et des services de pentesting.',
+                    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop',
+                    objectPosition: 'center center'
                 },
                 {
-                    date: 'Octobre 2024',
+                    date: 'Novembre 2024',
                     tag: 'Communauté',
-                    title: 'Redonner à Travers l\'Éducation Tech',
-                    description: 'Nous avons organisé nos premières séries d\'ateliers communautaires et formations pratiques. Des bootcamps Python aux cours accélérés de développement web — nous avons investi dans la prochaine génération de talents tech camerounais.'
+                    title: 'Engagement au DevFest 2024',
+                    description: 'Notre équipe a activement participé au GDG Yaoundé DevFest 2024, échangeant avec l\'écosystème tech et partageant ses connaissances sur les nouvelles technologies Google.',
+                    image: '/images/journey/devfest.png',
+                    objectPosition: 'center 20%'
+                },
+                {
+                    date: 'Décembre 2024',
+                    tag: 'Prix',
+                    title: '3ème Place au Hackathon Tech contre les VBG',
+                    description: 'Nous avons mis nos compétences au service de l\'impact social, décrochant la 3ème place d\'un hackathon national en développant des solutions contre les Violences Basées sur le Genre.',
+                    image: '/images/journey/hackathon.png',
+                    objectPosition: 'center 20%'
+                },
+                {
+                    date: 'Janvier 2025',
+                    tag: 'Mentorat',
+                    title: 'Conseils Professionnels de Haut Niveau',
+                    description: 'Nous avons eu l\'honneur de rencontrer M. Paul Arsène Biboum Billick, bénéficiant d\'une expertise inestimable en sécurité système et administration réseau.',
+                    image: '/images/journey/mentorship.png',
+                    objectPosition: 'center 20%'
+                },
+                {
+                    date: 'Janvier 2025',
+                    tag: 'Observation',
+                    title: 'Perspectives du Hackathon ICT4D',
+                    description: 'Notre équipe a assisté au Hackathon ICT4D en tant que spectateurs, observant comment l\'innovation numérique est appliquée pour résoudre les défis du développement mondial.',
+                    image: '/images/events/ict4d-hackathon.png'
                 },
                 {
                     date: 'Février 2025',
                     tag: 'Global',
-                    title: 'Au Service de Clients du Monde Entier',
-                    description: 'De Yaoundé au monde entier. XyberClan sert désormais des clients en France, Belgique, Canada, Nigéria, Ghana, au Royaume-Uni et au-delà. Notre mission reste la même — des solutions de classe mondiale depuis le cœur du Cameroun.'
+                    title: 'Expansion de Notre Empreinte Mondiale',
+                    description: 'Du Cameroun vers le monde. XyberClan a officiellement étendu ses services à des clients à travers l\'Europe, l\'Amérique du Nord et d\'autres nations africaines.',
+                    image: 'https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?q=80&w=2070&auto=format&fit=crop',
+                    objectPosition: 'center 40%'
+                },
+                {
+                    date: 'Février 2026',
+                    tag: 'Média',
+                    title: 'À la Une du Journal l\'Etudiant',
+                    description: 'Notre vision pour la sécurité numérique a été mise en lumière dans une publication nationale majeure, consolidant notre réputation de protecteur de l\'écosystème digital.',
+                    image: '/images/journey/media.jpeg',
+                    objectPosition: 'center 30%'
                 }
             ]
         },

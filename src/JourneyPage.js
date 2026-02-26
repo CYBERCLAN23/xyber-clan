@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
+import Meta from './components/Meta';
 
 /* ─── Event Images — Unsplash keywords per milestone ─── */
 const eventImages = [
@@ -113,6 +114,7 @@ const CardContent = ({ event, imageUrl, isDark, gradient, align }) => (
                 alt={event.title}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                style={{ objectPosition: event.objectPosition || 'center center' }}
             />
             {/* Gradient overlay */}
             <div className={`absolute inset-0 bg-gradient-to-t ${isDark ? 'from-black/70 via-black/20 to-transparent' : 'from-black/50 via-black/10 to-transparent'
@@ -188,6 +190,10 @@ const JourneyPage = () => {
 
     return (
         <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+            <Meta
+                title="Our Journey | The XyberClan Story"
+                description="Explore the evolution of XyberClan from a campus vision to a global digital agency. Every milestone reflects our passion for innovation and community."
+            />
 
             {/* Shared Navbar (same as home page) */}
             <SharedNavbar transparentHero={true} />
@@ -227,7 +233,7 @@ const JourneyPage = () => {
                             <div key={idx} ref={el => eventRefs.current[idx] = el}>
                                 <EventCard
                                     event={event}
-                                    imageUrl={eventImages[idx] || eventImages[0]}
+                                    imageUrl={event.image || eventImages[idx] || eventImages[0]}
                                     index={idx}
                                     isDark={isDark}
                                     isVisible={visibleEvents.has(idx)}

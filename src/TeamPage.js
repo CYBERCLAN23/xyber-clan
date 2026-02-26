@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import CTASection from './components/CTASection';
 import SharedNavbar from './components/SharedNavbar';
+import Meta from './components/Meta';
 
 const TeamPage = () => {
     const { isDark } = useTheme();
@@ -169,6 +170,10 @@ const TeamPage = () => {
 
     return (
         <div className={`min-h-screen w-full overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
+            <Meta
+                title="Our Expert Team | Engineering the Future"
+                description="Meet the visionaries, developers, and cybersecurity experts at XyberClan. Our team is dedicated to building innovative digital solutions for Cameroon and the world."
+            />
 
             {/* ─── Shared Navigation ─── */}
             <SharedNavbar transparentHero={true} />

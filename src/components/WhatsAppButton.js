@@ -45,14 +45,14 @@ const WhatsAppButton = () => {
             <div className="flex items-center gap-3 cursor-pointer">
                 {/* Main Label tooltip */}
                 <div
-                    className={`bg-white text-gray-900 px-4 py-2 rounded-xl shadow-xl font-bold text-sm transform transition-all duration-300 origin-right ${isHovered ? 'scale-90 opacity-0 translate-x-4 pointer-events-none' : 'scale-100 opacity-100 translate-x-0'}`}
+                    className={`bg-white text-gray-900 px-4 py-2 rounded-[var(--radius-lg)] shadow-2xl font-bold text-sm transform transition-all duration-500 origin-right ${isHovered ? 'scale-90 opacity-0 translate-x-4 pointer-events-none' : 'scale-100 opacity-100 translate-x-0'}`}
                 >
                     {isHolidaySeason() ? "Merry Christmas! 🎄 Chat with us!" : "Chat with us! 👋"}
                 </div>
 
-                <div className="relative">
+                <div className="relative group/btn">
                     <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20 duration-1000"></div>
-                    <div className={`bg-gradient-to-br from-green-400 to-green-600 text-white p-4 rounded-full shadow-lg shadow-green-500/30 transition-all ${isHovered ? 'scale-110 shadow-green-500/50' : 'hover:scale-105'}`}>
+                    <div className={`bg-gradient-to-br from-green-400 to-green-600 text-white p-4 rounded-full shadow-2xl shadow-green-500/30 transition-all duration-500 ${isHovered ? 'scale-110 rotate-12 shadow-green-500/50' : 'hover:scale-105'}`}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="32"

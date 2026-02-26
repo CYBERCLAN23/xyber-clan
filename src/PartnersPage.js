@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import PartnershipForm from './PartnershipForm';
+import Meta from './components/Meta';
 
 const PartnersPage = () => {
     const { isDark } = useTheme();
@@ -36,6 +37,10 @@ const PartnersPage = () => {
 
     return (
         <div className={`min-h-screen transition-colors duration-500 overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+            <Meta
+                title="Our Strategic Partners | Collaborative Innovation"
+                description="Discover XyberClan's strategic alliances, including our technical sponsorship of Hult Prize UY1. We collaborate to drive social and technological impact."
+            />
 
             {/* ─── SHARED NAVIGATION ─── */}
             <SharedNavbar transparentHero={true} />

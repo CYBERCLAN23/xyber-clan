@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
+import Meta from './components/Meta';
 
 /* ─── Tag color palette ─── */
 const typeColors = {
@@ -78,13 +79,18 @@ const EventSection = ({ article, isDark, readMoreText, index }) => {
                         {article.description}
                     </p>
 
-                    <button className={`group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all duration-300 ${isDark
-                        ? 'bg-white/10 text-white hover:bg-white/20 hover:scale-105 border border-white/10'
-                        : 'bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-xl'
-                        }`}>
+                    <a
+                        href={article.url || '#'}
+                        target={article.url ? "_blank" : "_self"}
+                        rel={article.url ? "noopener noreferrer" : ""}
+                        className={`group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all duration-300 ${isDark
+                            ? 'bg-white/10 text-white hover:bg-white/20 hover:scale-105 border border-white/10'
+                            : 'bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-xl'
+                            }`}
+                    >
                         {readMoreText}
                         <ExternalLink size={18} className="transform transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
-                    </button>
+                    </a>
                 </div>
 
                 {/* Animated Visual/GIF Element */}
@@ -131,6 +137,10 @@ const EventsPage = () => {
 
     return (
         <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+            <Meta
+                title="Events & Blog | Stay Connected"
+                description="Follow XyberClan's latest news, event participations, and technical insights. Stay updated with the African tech ecosystem."
+            />
             <SharedNavbar transparentHero={true} />
 
             <PageHero
