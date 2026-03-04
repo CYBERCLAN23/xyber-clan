@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Code, ChevronRight, Linkedin, Github, Laptop, Briefcase, Palette, Sparkles, ChevronLeft, ArrowUpRight } from 'lucide-react';
+import { Shield, Code, ChevronRight, Linkedin, Github, Laptop, Briefcase, Palette, Sparkles, ChevronLeft, ArrowUpRight, Wifi } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
 import Footer from './components/Footer';
@@ -23,7 +23,8 @@ const TeamPage = () => {
         { image: '/team/william-chandler.png', name: 'William Chandler', role: 'Canva Designer' },
         { image: '/team/theresa-tcheme.png', name: 'Theresa Tcheme', role: 'Media & Communication', position: 'center 18%', scale: 2.8 },
         { image: '/team/frontend-designer.jpg', name: 'Zealda Junior', role: 'Frontend & Network' },
-        { image: '/team/cybersecurity-chief.jpg', name: 'Lembou Pharel', role: 'Cybersecurity, AI & Systems' }
+        { image: '/team/cybersecurity-chief.jpg', name: 'Lembou Pharel', role: 'Cybersecurity, AI & Systems' },
+        { image: '/team/yann-felix-wandji.png', name: 'Wandji Tchaleu Yann Félix', role: 'Network, Python & Design', isWhiteBg: true, position: 'center 0%', scale: 4.2 }
     ];
 
     const detailedTeam = [
@@ -145,6 +146,22 @@ const TeamPage = () => {
                 { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/lemboupharel' }
             ],
             portfolio: 'https://www.pharel.dev'
+        },
+        {
+            image: '/team/yann-felix-wandji.png',
+            name: 'Wandji Tchaleu Yann Félix',
+            role: 'Network Engineer, Python Dev & Designer',
+            icon: <Wifi className="w-5 h-5" />,
+            description: 'A versatile technician with a strong foundation in networking infrastructure (CCNA certified), Python development, and creative design. Yann Félix bridges the gap between robust network architecture and elegant visual communication, ensuring solutions are both technically sound and beautifully presented.',
+            expertise: ['Réseau & CCNA', 'Python Development', 'Graphic Design', 'Network Infrastructure'],
+            socials: [
+                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' },
+                { name: 'GitHub', icon: <Github size={18} />, url: '#' }
+            ],
+            portfolio: '#',
+            isWhiteBg: true,
+            position: 'center 0%',
+            scale: 1.0
         }
     ];
 
@@ -240,7 +257,7 @@ const TeamPage = () => {
                                             ? 'border-cyan-500 shadow-2xl shadow-cyan-500/20'
                                             : (isDark ? 'border-white/10' : 'border-gray-200')
                                             }`}>
-                                            <div className="aspect-[3/4] overflow-hidden">
+                                            <div className={`aspect-[3/4] overflow-hidden ${member.hasCustomBg ? 'xyber-card-bg' : ''} ${member.isWhiteBg ? 'bg-white' : ''}`}>
                                                 <img
                                                     src={member.image}
                                                     alt={`XyberClan Team Member: ${member.name} - ${member.role}`}
@@ -305,17 +322,17 @@ const TeamPage = () => {
                                 <div className={`grid lg:grid-cols-5 gap-8 lg:gap-12 items-center`}>
                                     {/* Image — 2 cols */}
                                     <div className={`lg:col-span-2 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                                        <div className={`relative rounded-3xl overflow-hidden border ${isDark ? 'border-white/5' : 'border-gray-200'}`}>
+                                        <div className={`relative rounded-3xl overflow-hidden border ${isDark ? 'border-white/5' : 'border-gray-200'} ${member.hasCustomBg ? 'xyber-detail-card-bg' : ''} ${member.isWhiteBg ? 'bg-white' : ''}`}>
                                             <img
                                                 src={member.image}
                                                 alt={`XyberClan Specialist: ${member.name} — ${member.role}`}
                                                 loading="lazy"
                                                 decoding="async"
-                                                className="w-full h-[380px] md:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105"
+                                                className={`w-full h-[380px] md:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105 ${member.hasCustomBg ? 'relative z-10' : ''}`}
                                                 style={{
                                                     imageRendering: '-webkit-optimize-contrast',
                                                     objectPosition: member.position || 'center',
-                                                    transform: member.name === 'Theresa Tcheme' ? `scale(${member.scale || 1})` : undefined
+                                                    transform: member.scale ? `scale(${member.scale})` : undefined
                                                 }}
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -395,6 +412,86 @@ const TeamPage = () => {
                 @keyframes fadeIn {
                     from { opacity: 0; }
                     to { opacity: 1; }
+                }
+
+                /* XyberClan themed card background for transparent-bg photos */
+                .xyber-card-bg {
+                    background: linear-gradient(135deg, #0a0e1a 0%, #0d1b2a 40%, #0f2847 70%, #0a0e1a 100%);
+                    position: relative;
+                }
+                .xyber-card-bg::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background:
+                        radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.04) 0%, transparent 70%);
+                    z-index: 0;
+                }
+                .xyber-card-bg::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background-image:
+                        linear-gradient(rgba(0, 210, 255, 0.06) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 210, 255, 0.06) 1px, transparent 1px),
+                        radial-gradient(circle at 15% 85%, rgba(0, 210, 255, 0.15) 0px, rgba(0, 210, 255, 0.15) 2px, transparent 2px),
+                        radial-gradient(circle at 85% 15%, rgba(59, 130, 246, 0.15) 0px, rgba(59, 130, 246, 0.15) 2px, transparent 2px),
+                        radial-gradient(circle at 45% 25%, rgba(0, 210, 255, 0.1) 0px, rgba(0, 210, 255, 0.1) 1.5px, transparent 1.5px),
+                        radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.12) 0px, rgba(59, 130, 246, 0.12) 1.5px, transparent 1.5px);
+                    background-size:
+                        40px 40px,
+                        40px 40px,
+                        100% 100%,
+                        100% 100%,
+                        100% 100%,
+                        100% 100%;
+                    z-index: 0;
+                    opacity: 0.7;
+                }
+                .xyber-card-bg img {
+                    position: relative;
+                    z-index: 1;
+                }
+
+                /* Detailed card version */
+                .xyber-detail-card-bg {
+                    background: linear-gradient(145deg, #0a0e1a 0%, #0d1b2a 30%, #102a4a 60%, #0d1b2a 85%, #0a0e1a 100%);
+                    position: relative;
+                }
+                .xyber-detail-card-bg::before {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background:
+                        radial-gradient(ellipse at 25% 20%, rgba(0, 210, 255, 0.15) 0%, transparent 55%),
+                        radial-gradient(ellipse at 75% 80%, rgba(59, 130, 246, 0.12) 0%, transparent 55%),
+                        radial-gradient(circle at 50% 100%, rgba(0, 210, 255, 0.08) 0%, transparent 60%);
+                    z-index: 0;
+                }
+                .xyber-detail-card-bg::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background-image:
+                        linear-gradient(rgba(0, 210, 255, 0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 210, 255, 0.04) 1px, transparent 1px),
+                        radial-gradient(circle at 10% 90%, rgba(0, 210, 255, 0.2) 0px, rgba(0, 210, 255, 0.2) 3px, transparent 3px),
+                        radial-gradient(circle at 90% 10%, rgba(59, 130, 246, 0.18) 0px, rgba(59, 130, 246, 0.18) 3px, transparent 3px),
+                        radial-gradient(circle at 30% 40%, rgba(0, 210, 255, 0.08) 0px, rgba(0, 210, 255, 0.08) 2px, transparent 2px),
+                        radial-gradient(circle at 65% 25%, rgba(59, 130, 246, 0.1) 0px, rgba(59, 130, 246, 0.1) 2px, transparent 2px),
+                        radial-gradient(circle at 80% 55%, rgba(0, 210, 255, 0.06) 0px, rgba(0, 210, 255, 0.06) 2px, transparent 2px);
+                    background-size:
+                        50px 50px,
+                        50px 50px,
+                        100% 100%,
+                        100% 100%,
+                        100% 100%,
+                        100% 100%,
+                        100% 100%;
+                    z-index: 0;
+                    opacity: 0.6;
                 }
             `}</style>
         </div>
