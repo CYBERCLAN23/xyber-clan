@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowDown } from 'lucide-react';
+import EditableText from './cms/EditableText';
+import EditableImage from './cms/EditableImage';
 
 const PageHero = ({
     lang = 'en',
+    contentKeyPrefix, // e.g., "en.partnersPage.hero"
     badgeText,
     title,
     highlightedText,
@@ -41,7 +44,17 @@ const PageHero = ({
 
             {/* BACKGROUND IMAGE */}
             <div className="absolute inset-0">
-                <img src={imageSrc} alt="" className="w-full h-full object-cover" fetchpriority="high" />
+                {contentKeyPrefix ? (
+                    <EditableImage 
+                        contentKey={`${contentKeyPrefix}.bg`} 
+                        src={imageSrc} 
+                        alt="" 
+                        className="w-full h-full object-cover" 
+                        fetchpriority="high" 
+                    />
+                ) : (
+                    <img src={imageSrc} alt="" className="w-full h-full object-cover" fetchpriority="high" />
+                )}
             </div>
 
             {/* OVERLAYS */}
@@ -62,7 +75,9 @@ const PageHero = ({
                                 style={{ animation: mounted ? 'pageHeroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both' : 'none' }}
                             >
                                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                                {badgeText}
+                                {contentKeyPrefix ? (
+                                    <EditableText contentKey={`${contentKeyPrefix}.badge`} fallback={badgeText} />
+                                ) : badgeText}
                             </span>
                         )}
 
@@ -72,15 +87,19 @@ const PageHero = ({
                                 className="block text-[clamp(2.5rem,8vw,6.5rem)] font-black"
                                 style={{ fontFamily: "'Inter', sans-serif", animation: mounted ? 'pageHeroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both' : 'none' }}
                             >
-                                {title}
+                                {contentKeyPrefix ? (
+                                    <EditableText contentKey={`${contentKeyPrefix}.title`} fallback={title} />
+                                ) : title}
                             </span>
-                            {highlightedText && (
+                            {(highlightedText || (contentKeyPrefix && contentKeyPrefix.includes('events'))) && (
                                 <span
                                     className="block text-[clamp(2.5rem,8vw,6.5rem)] font-black mt-2"
                                     style={{ animation: mounted ? 'pageHeroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both' : 'none' }}
                                 >
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
-                                        {highlightedText}
+                                        {contentKeyPrefix ? (
+                                            <EditableText contentKey={`${contentKeyPrefix}.highlight`} fallback={highlightedText} />
+                                        ) : highlightedText}
                                     </span>
                                 </span>
                             )}
@@ -92,7 +111,9 @@ const PageHero = ({
                                 className="mt-6 text-white/50 text-base sm:text-lg lg:text-xl max-w-2xl leading-relaxed"
                                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, animation: mounted ? 'pageHeroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both' : 'none' }}
                             >
-                                {subtitle}
+                                {contentKeyPrefix ? (
+                                    <EditableText contentKey={`${contentKeyPrefix}.subtitle`} fallback={subtitle} />
+                                ) : subtitle}
                             </p>
                         )}
                     </div>
@@ -110,8 +131,16 @@ const PageHero = ({
                                 <React.Fragment key={i}>
                                     {i > 0 && <div className="w-px h-10 bg-white/10" />}
                                     <div className="text-center min-w-[60px]">
-                                        <p className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-none">{s.value}</p>
-                                        <p className="text-[10px] sm:text-[11px] font-semibold text-white/40 uppercase tracking-[0.2em] mt-1">{s.label}</p>
+                                        <p className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-none">
+                                            {contentKeyPrefix ? (
+                                                <EditableText contentKey={`${contentKeyPrefix}.stats.${i}.value`} fallback={s.value} />
+                                            ) : s.value}
+                                        </p>
+                                        <p className="text-[10px] sm:text-[11px] font-semibold text-white/40 uppercase tracking-[0.2em] mt-1">
+                                            {contentKeyPrefix ? (
+                                                <EditableText contentKey={`${contentKeyPrefix}.stats.${i}.label`} fallback={s.label} />
+                                            ) : s.label}
+                                        </p>
                                     </div>
                                 </React.Fragment>
                             ))}
@@ -124,7 +153,9 @@ const PageHero = ({
                             {trustBadges.map((badge, i) => (
                                 <span key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] sm:text-[12px] font-medium border border-white/10 bg-white/[0.02] text-white/60 backdrop-blur-sm">
                                     {badge.icon}
-                                    {badge.label}
+                                    {contentKeyPrefix ? (
+                                        <EditableText contentKey={`${contentKeyPrefix}.trust.${i}`} fallback={badge.label} />
+                                    ) : badge.label}
                                 </span>
                             ))}
                         </div>

@@ -9,6 +9,8 @@ import CTASection from './components/CTASection';
 import SharedNavbar from './components/SharedNavbar';
 import Meta from './components/Meta';
 import EditableText from './components/cms/EditableText';
+import EditableImage from './components/cms/EditableImage';
+import EditableLink from './components/cms/EditableLink';
 
 const TeamPage = () => {
     const { isDark } = useTheme();
@@ -260,7 +262,8 @@ const TeamPage = () => {
                                             : (isDark ? 'border-white/10' : 'border-gray-200')
                                             }`}>
                                             <div className={`aspect-[3/4] overflow-hidden ${member.hasCustomBg ? 'xyber-card-bg' : ''} ${member.isWhiteBg ? 'bg-white' : ''}`}>
-                                                <img
+                                                <EditableImage
+                                                    contentKey={`${language}.team.member${idx}.image`}
                                                     src={member.image}
                                                     alt={`XyberClan Team Member: ${member.name} - ${member.role}`}
                                                     className="w-full h-full object-cover"
@@ -325,7 +328,8 @@ const TeamPage = () => {
                                     {/* Image — 2 cols */}
                                     <div className={`lg:col-span-2 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
                                         <div className={`relative rounded-3xl overflow-hidden border ${isDark ? 'border-white/5' : 'border-gray-200'} ${member.hasCustomBg ? 'xyber-detail-card-bg' : ''} ${member.isWhiteBg ? 'bg-white' : ''}`}>
-                                            <img
+                                            <EditableImage
+                                                contentKey={`${language}.detailedTeam.member${idx}.image`}
                                                 src={member.image}
                                                 alt={`XyberClan Specialist: ${member.name} — ${member.role}`}
                                                 loading="lazy"
@@ -337,8 +341,8 @@ const TeamPage = () => {
                                                     transform: member.scale ? `scale(${member.scale})` : undefined
                                                 }}
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                                            <div className="absolute bottom-5 left-5">
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                                            <div className="absolute bottom-5 left-5 pointer-events-none">
                                                 <div className="w-10 h-10 bg-cyan-500/90 rounded-xl flex items-center justify-center text-white backdrop-blur-sm">
                                                     {member.icon}
                                                 </div>
@@ -360,11 +364,13 @@ const TeamPage = () => {
                                         </p>
 
                                         <div className="space-y-3">
-                                            <p className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>Expertise</p>
+                                            <p className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                                                <EditableText contentKey={`${language}.detailedTeam.member${idx}.expertiseLabel`} fallback="Expertise" />
+                                            </p>
                                             <div className="flex flex-wrap gap-2">
                                                 {member.expertise.map((skill, i) => (
                                                     <span key={i} className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all hover:scale-[1.03] ${isDark ? 'bg-white/3 border-white/8 text-gray-300' : 'bg-white border-gray-200 text-gray-700'}`}>
-                                                        {skill}
+                                                        <EditableText contentKey={`${language}.detailedTeam.member${idx}.expertise${i}`} fallback={skill} />
                                                     </span>
                                                 ))}
                                             </div>
@@ -372,18 +378,19 @@ const TeamPage = () => {
 
                                         <div className="flex gap-2.5 pt-2">
                                             {member.socials.map((social, i) => (
-                                                <a key={i} href={social.url} className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all hover:scale-110 ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400' : 'bg-white border-gray-200 text-gray-500 hover:border-cyan-500/50 hover:text-cyan-600'}`}>
+                                                <EditableLink key={i} hrefKey={`${language}.detailedTeam.member${idx}.social${i}.url`} href={social.url} className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all hover:scale-110 ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400' : 'bg-white border-gray-200 text-gray-500 hover:border-cyan-500/50 hover:text-cyan-600'}`}>
                                                     {social.icon}
-                                                </a>
+                                                </EditableLink>
                                             ))}
-                                            <a
+                                            <EditableLink
+                                                hrefKey={`${language}.detailedTeam.member${idx}.portfolioUrl`}
                                                 href={member.portfolio || '#'}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className={`flex items-center gap-1.5 px-4 h-11 rounded-xl border text-sm font-medium transition-all hover:scale-[1.03] ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30' : 'bg-white border-gray-200 text-gray-500 hover:text-cyan-600 hover:border-cyan-500/30'}`}
                                             >
-                                                View Profile <ArrowUpRight size={14} />
-                                            </a>
+                                                <EditableText contentKey={`${language}.detailedTeam.member${idx}.portfolioLabel`} fallback="View Profile" /> <ArrowUpRight size={14} />
+                                            </EditableLink>
                                         </div>
                                     </div>
                                 </div>

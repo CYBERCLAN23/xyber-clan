@@ -10,6 +10,7 @@ import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import Meta from './components/Meta';
 import EditableText from './components/cms/EditableText';
+import EditableImage from './components/cms/EditableImage';
 
 /* ─── Event Images — Unsplash keywords per milestone ─── */
 const eventImages = [
@@ -111,10 +112,10 @@ const CardContent = ({ event, imageUrl, isDark, gradient, align, index, language
         }`}>
         {/* Image Banner */}
         <div className="relative h-48 md:h-56 overflow-hidden">
-            <img
+            <EditableImage
+                contentKey={`${language}.journeyPage.event${index}.image`}
                 src={imageUrl}
                 alt={event.title}
-                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ objectPosition: event.objectPosition || 'center center' }}
             />
@@ -203,12 +204,15 @@ const JourneyPage = () => {
             {/* ─── HERO SECTION ─── */}
             <PageHero
                 lang={language}
-                badgeText={<EditableText contentKey={`${language}.journeyPage.badge`} fallback={t.nav.journey} />}
-                title={<EditableText contentKey={`${language}.journeyPage.title`} fallback={j.title} />}
-                subtitle={<EditableText contentKey={`${language}.journeyPage.subtitle`} fallback={`"${j.subtitle}"`} multiline />}
-                imageSrc="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop" // Nature horizon / young people looking out context
-                stats={[]}
-                trustBadges={[]}
+                contentKeyPrefix={`${language}.journeyPage.hero`}
+                badgeText={t.nav.journey}
+                title={j.title}
+                subtitle={j.subtitle}
+                imageSrc="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
+                stats={[
+                    { value: '2023', label: 'Inception' },
+                    { value: `${j.events?.length || 8}+`, label: 'Milestones' }
+                ]}
             />
 
             {/* ─── TIMELINE SECTION ─── */}

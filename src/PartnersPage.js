@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
 import { translations } from './translations';
-import { ArrowRight, Handshake, Trophy, Zap, Users, Globe } from 'lucide-react';
+import { ArrowRight, Handshake, Trophy, Zap, Users, Globe, ShieldCheck } from 'lucide-react';
 import Footer from './components/Footer';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import PartnershipForm from './PartnershipForm';
 import Meta from './components/Meta';
 import EditableText from './components/cms/EditableText';
+import EditableImage from './components/cms/EditableImage';
 
 const PartnersPage = () => {
     const { isDark } = useTheme();
@@ -50,9 +51,10 @@ const PartnersPage = () => {
             {/* ─── HERO SECTION ─── */}
             <PageHero
                 lang={language}
-                badgeText={<EditableText contentKey={`${language}.nav.partners`} fallback={t.nav.partners} />}
-                title={<EditableText contentKey={`${language}.partnersPage.title`} fallback={p.title} />}
-                subtitle={<EditableText contentKey={`${language}.partnersPage.subtitle`} tag="span" fallback={`"${p.subtitle}"`} />}
+                contentKeyPrefix={`${language}.partnersPage.hero`}
+                badgeText={t.nav.partners}
+                title={p.title}
+                subtitle={p.subtitle}
                 imageSrc="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
                 stats={[
                     { value: 'Global', label: 'Reach' },
@@ -76,7 +78,8 @@ const PartnersPage = () => {
                         <div className={`relative group transition-all duration-1000 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/30 via-purple-500/30 to-pink-500/30 rounded-[3rem] blur-2xl opacity-60 group-hover:opacity-100 transition-all duration-700 animate-pulse" />
                             <div className={`relative aspect-[4/5] sm:aspect-square rounded-[2.5rem] overflow-hidden border ${isDark ? 'border-white/10' : 'border-gray-200'} shadow-2xl`}>
-                                <img
+                                <EditableImage
+                                    contentKey={`${language}.partnersPage.hultPrizeImage`}
                                     src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop"
                                     alt="Abstract Technology Collaboration"
                                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"

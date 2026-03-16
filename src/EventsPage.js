@@ -9,6 +9,7 @@ import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import Meta from './components/Meta';
 import EditableText from './components/cms/EditableText';
+import EditableImage from './components/cms/EditableImage';
 
 /* ─── Tag color palette ─── */
 const typeColors = {
@@ -41,10 +42,10 @@ const EventSection = ({ article, isDark, readMoreText, index, language }) => {
 
             {/* Background Image with Parallax & Overlays */}
             <div className="absolute inset-0 z-0">
-                <img
+                <EditableImage
+                    contentKey={`${language}.eventsPage.article${index}.bgImage`}
                     src={displayImage}
                     alt={article.title}
-                    loading="lazy"
                     className="w-full h-full object-cover opacity-30 md:opacity-40 scale-105 transition-all duration-1000"
                     style={{
                         transform: 'translateZ(-10px) scale(1.1)',
@@ -101,7 +102,8 @@ const EventSection = ({ article, isDark, readMoreText, index, language }) => {
                     <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-blue-600/30 rounded-[3rem] blur-3xl" />
 
                     <div className={`relative aspect-square md:aspect-[4/3] rounded-[2rem] md:rounded-[3rem] overflow-hidden border ${isDark ? 'border-white/10' : 'border-gray-200'} shadow-2xl transition-transform duration-700 hover:scale-[1.02]`}>
-                        <img
+                        <EditableImage
+                            contentKey={`${language}.eventsPage.article${index}.image`}
                             src={displayImage}
                             alt={`${article.title} visual`}
                             className="w-full h-full object-cover transition-all duration-1000"
@@ -147,10 +149,11 @@ const EventsPage = () => {
 
             <PageHero
                 lang={language}
-                badgeText={<EditableText contentKey={`${language}.eventsPage.badge`} fallback={ep.badge} />}
-                title={<EditableText contentKey={`${language}.eventsPage.title`} fallback={ep.title} />}
-                subtitle={<EditableText contentKey={`${language}.eventsPage.subtitle`} fallback={ep.subtitle} multiline />}
-                imageSrc="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=2070&auto=format&fit=crop" // Abstract event/conference light trails
+                contentKeyPrefix={`${language}.eventsPage.hero`}
+                badgeText={ep.badge}
+                title={ep.title}
+                subtitle={ep.subtitle}
+                imageSrc="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=2070&auto=format&fit=crop"
                 stats={[]}
                 trustBadges={[]}
             />

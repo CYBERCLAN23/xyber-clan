@@ -125,11 +125,14 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                     <EditableImage contentKey="en.global.logo" src={getLogo()} alt="XyberClan Logo" className="w-32 h-32 sm:w-48 sm:h-48 object-contain animate-pulse notranslate" />
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white text-center tracking-tighter mb-2">
-                    <span className="notranslate" translate="no"><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Xyber</span>Clan</span>
+                    <span className="notranslate" translate="no">
+                        <EditableText contentKey="en.hero.endSequenceTitlePart1" fallback="Xyber" className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500" inline />
+                        <EditableText contentKey="en.hero.endSequenceTitlePart2" fallback="Clan" inline />
+                    </span>
                 </h2>
                 <p className="text-white/80 text-lg sm:text-xl font-light tracking-widest uppercase items-center flex gap-3">
                     <span className="w-8 h-px bg-white/30 hidden sm:block"></span>
-                    {t?.footer?.tagline || 'Building Digital Dreams'}
+                    <EditableText contentKey={`${lang}.hero.endSequenceTagline`} fallback={t?.footer?.tagline || 'Building Digital Dreams'} inline />
                     <span className="w-8 h-px bg-white/30 hidden sm:block"></span>
                 </p>
             </div>
