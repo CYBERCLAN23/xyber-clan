@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { isHolidaySeason, HOLIDAY_MESSAGE } from '../utils/festive';
+import EditableText from './cms/EditableText';
 
 const HeroArc = () => {
     const { isDark } = useTheme();
@@ -66,18 +67,23 @@ const HeroArc = () => {
                 )}
 
                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-tight animate-fade-in-up delay-100">
-                    We Build <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Digital</span> <br />
-                    Empires
+                    <EditableText contentKey="en.hero.titlePrefix" tag="span" fallback="We Build" />{' '}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
+                        <EditableText contentKey="en.hero.titleHighlight" tag="span" fallback="Digital" />
+                    </span>{' '}<br />
+                    <EditableText contentKey="en.hero.titleSuffix" tag="span" fallback="Empires" />
                 </h1>
 
                 <p className={`text-xl md:text-2xl max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-200 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                    Precision-engineered software for ambitious brands. <br />
-                    <span className="text-cyan-600 dark:text-cyan-400 font-medium">Built to scale. Built to flex.</span>
+                    <EditableText contentKey="en.hero.subtitle" tag="span" fallback="Precision-engineered software for ambitious brands." /> <br />
+                    <span className="text-cyan-600 dark:text-cyan-400 font-medium">
+                        <EditableText contentKey="en.hero.subtitleHighlight" tag="span" fallback="Built to scale. Built to flex." />
+                    </span>
                 </p>
 
                 <div className="flex justify-center gap-4 animate-fade-in-up delay-300">
                     <Link to="/start-project" className="px-8 py-4 bg-black text-white font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2 shadow-xl shadow-black/20">
-                        Start Project <ArrowRight size={20} />
+                        <EditableText contentKey="en.hero.ctaButton" tag="span" fallback="Start Project" /> <ArrowRight size={20} />
                     </Link>
                 </div>
             </div>
@@ -98,7 +104,9 @@ const HeroArc = () => {
                             <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-300"></div>
 
                             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                                <p className="text-white font-bold text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{card.title}</p>
+                                <p className="text-white font-bold text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <EditableText contentKey={`en.hero.cards.${idx}.title`} tag="span" fallback={card.title} />
+                                </p>
                             </div>
                         </div>
                     ))}

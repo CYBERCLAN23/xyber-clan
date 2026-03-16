@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import EditableText from './cms/EditableText';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import { Github, Figma, Slack, Globe, Mail, MessageSquare, Zap, Code, Shield, Cpu } from 'lucide-react';
 
@@ -70,12 +71,14 @@ const GetStarted = () => {
 
                 {/* Header */}
                 <div className={`text-center mb-24 ${visible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                    <span className="text-cyan-500 font-bold tracking-widest uppercase text-sm mb-4 inline-block">Integrations</span>
+                    <span className="text-cyan-500 font-bold tracking-widest uppercase text-sm mb-4 inline-block">
+                      <EditableText contentKey="en.get_started.badge" tag="span" fallback="Integrations" />
+                    </span>
                     <h2 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
-                        Get Started in <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 font-serif italic italic font-normal">Simple Steps</span>
+                        <EditableText contentKey="en.get_started.title" tag="span" fallback={<>Get Started in <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 font-serif italic italic font-normal">Simple Steps</span></>} />
                     </h2>
                     <p className={`text-xl max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Whether you're a small business or a large enterprise, our process is designed to enhance your productivity and make your workflow easier.
+                        <EditableText contentKey="en.get_started.subtitle" tag="span" fallback="Whether you're a small business or a large enterprise, our process is designed to enhance your productivity and make your workflow easier." />
                     </p>
                 </div>
 

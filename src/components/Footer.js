@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Github, Linkedin, Twitter, Facebook, Heart, MessageCircle, Youtube, Music } from 'lucide-react';
 import { getLogo } from '../utils/festive';
 import { useTheme } from '../context/ThemeContext';
+import EditableText from './cms/EditableText';
+import EditableLink from './cms/EditableLink';
 
 const Footer = ({ translations: t }) => {
     const { isDark } = useTheme();
@@ -33,22 +35,26 @@ const Footer = ({ translations: t }) => {
                     <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-12">
                         <div className="text-center md:text-left">
                             <h2 className={`text-4xl md:text-5xl font-black tracking-tight mb-4 ${isDark ? 'text-white' : 'text-gray-950'}`}>
-                                {cta.title}
+                                <EditableText contentKey="footer.cta.title" fallback={cta.title} />
                             </h2>
                             <p className={`text-xl font-light ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                                {cta.subtitle}
+                                <EditableText contentKey="footer.cta.subtitle" fallback={cta.subtitle} />
                             </p>
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
                             <div className="text-center md:text-left">
-                                <p className={`text-[10px] font-bold tracking-widest mb-2 uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{cta.emailLabel}</p>
+                                <p className={`text-[10px] font-bold tracking-widest mb-2 uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                                    <EditableText contentKey="en.footer.emailLabel" tag="span" fallback={cta.emailLabel} />
+                                </p>
                                 <a href={`mailto:${cta.email}`} className={`text-lg md:text-xl font-black hover:text-cyan-500 transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-950'}`}>
-                                    {cta.email}
+                                    <EditableText contentKey="en.footer.email" tag="span" fallback={cta.email} />
                                 </a>
                             </div>
                             <div className="text-center md:text-left">
-                                <p className={`text-[10px] font-bold tracking-widest mb-2 uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{cta.phoneLabel}</p>
+                                <p className={`text-[10px] font-bold tracking-widest mb-2 uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                                    <EditableText contentKey="en.footer.phoneLabel" tag="span" fallback={cta.phoneLabel} />
+                                </p>
                                 <div className="flex flex-col gap-1 items-center md:items-start">
                                     {cta.phone.split('/').map((p, idx) => (
                                         <a key={idx} href={`tel:${p.replace(/\s/g, '')}`} className={`text-lg md:text-xl font-black hover:text-cyan-500 transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-950'}`}>
@@ -73,19 +79,19 @@ const Footer = ({ translations: t }) => {
                             </span>
                         </div>
                         <p className={`text-xl font-light leading-relaxed mb-10 max-w-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                            {tagline}
+                            <EditableText contentKey="footer.tagline" fallback={tagline} />
                         </p>
                         <div className="flex gap-3">
                             {socialLinks.map((link, idx) => (
-                                <a
+                                <EditableLink
                                     key={idx}
+                                    hrefKey={`en.footer.social.${idx}.url`}
                                     href={link.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                    external
                                     className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 border hover:scale-110 ${link.color} ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:shadow-white/10' : 'bg-gray-50 border-gray-100 text-gray-400 hover:shadow-gray-200/50'}`}
                                 >
                                     {link.icon}
-                                </a>
+                                </EditableLink>
                             ))}
                         </div>
                     </div>
@@ -95,7 +101,7 @@ const Footer = ({ translations: t }) => {
                         {Object.entries(columns).map(([key, col]) => (
                             <div key={key}>
                                 <h4 className={`text-[11px] font-bold tracking-[0.2em] mb-8 uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                                    {col.title}
+                                    <EditableText contentKey={`en.footer.columns.${key}.title`} tag="span" fallback={col.title} />
                                 </h4>
                                 <ul className="space-y-6">
                                     {col.items.map((link, idx) => (
@@ -104,7 +110,7 @@ const Footer = ({ translations: t }) => {
                                                 to={link.url}
                                                 className={`text-[15px] font-medium hover:text-cyan-500 transition-colors duration-300 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}
                                             >
-                                                {link.label}
+                                                <EditableText contentKey={`en.footer.columns.${key}.items.${idx}.label`} tag="span" fallback={link.label} />
                                             </Link>
                                         </li>
                                     ))}
@@ -117,21 +123,21 @@ const Footer = ({ translations: t }) => {
                 {/* Bottom Bar */}
                 <div className={`pt-12 border-t flex flex-col sm:flex-row justify-between items-center gap-8 ${isDark ? 'border-white/10' : 'border-gray-100'}`}>
                     <p className={`text-[11px] font-bold tracking-widest uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                        {copyright}
+                        <EditableText contentKey="footer.copyright" fallback={copyright} />
                     </p>
                     <div className="flex items-center gap-8">
                         <Link to="/privacy" className={`text-[11px] font-bold tracking-widest hover:text-cyan-500 transition-colors uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                            {bottomLinks.privacy}
+                            <EditableText contentKey="en.footer.bottomLinks.privacy" tag="span" fallback={bottomLinks.privacy} />
                         </Link>
                         <Link to="/terms" className={`text-[11px] font-bold tracking-widest hover:text-cyan-500 transition-colors uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                            {bottomLinks.terms}
+                            <EditableText contentKey="en.footer.bottomLinks.terms" tag="span" fallback={bottomLinks.terms} />
                         </Link>
                     </div>
                 </div>
             </div>
 
             <div className={`mt-12 text-center text-[10px] flex items-center justify-center gap-1 ${isDark ? 'text-gray-600' : 'text-gray-300'}`}>
-                Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> by XyberClan
+                <EditableText contentKey="en.footer.madeWith" tag="span" fallback="Made with" /> <Heart className="w-3 h-3 text-red-500 fill-red-500" /> <EditableText contentKey="en.footer.madeBy" tag="span" fallback="by XyberClan" />
             </div>
         </footer>
     );

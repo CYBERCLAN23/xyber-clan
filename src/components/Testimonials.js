@@ -1,5 +1,7 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
+import EditableText from './cms/EditableText';
+import EditableImage from './cms/EditableImage';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 
 const testimonials = [
@@ -46,12 +48,14 @@ const Testimonials = () => {
 
                 {/* Header */}
                 <div className={`text-center mb-24 ${visible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                    <span className="text-cyan-500 font-bold tracking-widest uppercase text-sm mb-4 inline-block">Testimonials</span>
+                    <span className="text-cyan-500 font-bold tracking-widest uppercase text-sm mb-4 inline-block">
+                      <EditableText contentKey="en.testimonials.badge" tag="span" fallback="Testimonials" />
+                    </span>
                     <h2 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
-                        Don't just take our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 font-serif italic italic font-normal">word for it</span>
+                        <EditableText contentKey="en.testimonials.title" tag="span" fallback={<>Don't just take our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 font-serif italic italic font-normal">word for it</span></>} />
                     </h2>
                     <p className={`text-xl max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Take a moment to explore their stories and discover what sets us apart.
+                        <EditableText contentKey="en.testimonials.subtitle" tag="span" fallback="Take a moment to explore their stories and discover what sets us apart." />
                     </p>
                 </div>
 
@@ -63,41 +67,43 @@ const Testimonials = () => {
 
                     <div className="overflow-hidden whitespace-nowrap py-4">
                         <div className="inline-flex animate-marquee-slow hover:pause-marquee space-x-4">
-                            {doubledTestimonials.map((t, i) => (
-                                <div
-                                    key={i}
-                                    className={`w-[380px] inline-block whitespace-normal p-6 rounded-[1.5rem] border transition-all duration-300 ${isDark ? 'bg-neutral-900/40 border-neutral-800/50' : 'bg-gray-50 border-gray-100'}`}
-                                >
-                                    <p className={`text-sm leading-relaxed mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                        "{t.quote}"
-                                    </p>
+                            {doubledTestimonials.map((t, i) => {
+                                const originalIdx = i % testimonials.length;
+                                return (
+                                    <div
+                                        key={i}
+                                        className={`w-[380px] inline-block whitespace-normal p-6 rounded-[1.5rem] border transition-all duration-300 ${isDark ? 'bg-neutral-900/40 border-neutral-800/50' : 'bg-gray-50 border-gray-100'}`}
+                                    >
+                                        <p className={`text-sm leading-relaxed mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                            "<EditableText contentKey={`en.testimonials.list.${originalIdx}.quote`} tag="span" fallback={t.quote} />"
+                                        </p>
 
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full overflow-hidden border border-neutral-700">
-                                                <img
-                                                    src={t.avatar}
-                                                    alt={t.author}
-                                                    loading="lazy"
-                                                    decoding="async"
-                                                    className="w-full h-full object-cover"
-                                                />
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-full overflow-hidden border border-neutral-700">
+                                                    <EditableImage
+                                                        contentKey={`en.testimonials.list.${originalIdx}.avatar`}
+                                                        src={t.avatar}
+                                                        alt={t.author || "Avatar"}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-xs text-white"><EditableText contentKey={`en.testimonials.list.${originalIdx}.author`} tag="span" fallback={t.author} /></h4>
+                                                    <p className="text-[10px] text-gray-500"><EditableText contentKey={`en.testimonials.list.${originalIdx}.role`} tag="span" fallback={t.role} /></p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h4 className="font-bold text-xs text-white">{t.author}</h4>
-                                                <p className="text-[10px] text-gray-500">{t.role}</p>
+                                            <div className="text-right">
+                                                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
+                                                    {/* Placeholder for small logo icon if needed */}
+                                                    <div className="w-2 h-2 rounded-full bg-cyan-500/20"></div>
+                                                    <EditableText contentKey={`en.testimonials.list.${originalIdx}.company`} tag="span" fallback={t.company} />
+                                                </span>
                                             </div>
-                                        </div>
-                                        <div className="text-right">
-                                            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
-                                                {/* Placeholder for small logo icon if needed */}
-                                                <div className="w-2 h-2 rounded-full bg-cyan-500/20"></div>
-                                                {t.company}
-                                            </span>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import EditableText from './cms/EditableText';
+import EditableImage from './cms/EditableImage';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import { Code, Palette, Zap, ArrowRight } from 'lucide-react';
 
@@ -64,13 +66,13 @@ const TeamMinimal = () => {
             <div className="max-w-7xl mx-auto">
                 <div className={`text-center mb-16 ${visible ? 'animate-fade-in-up' : 'opacity-0'}`}>
                     <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-gray-800 text-xs font-bold tracking-widest uppercase mb-6 inline-block">
-                        The <span className="notranslate" translate="no">XyberClan</span>
+                        <EditableText contentKey="en.team_minimal.badge" tag="span" fallback={<>The <span className="notranslate" translate="no">XyberClan</span></>} />
                     </span>
                     <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">
-                        Meet Our <span className="font-serif italic text-cyan-500">Expert</span> Team
+                        <EditableText contentKey="en.team_minimal.title" tag="span" fallback={<>Meet Our <span className="font-serif italic text-cyan-500">Expert</span> Team</>} />
                     </h2>
                     <p className={`text-lg max-w-3xl mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        A collective of software engineers, designers, and strategists dedicated to delivering enterprise-grade quality.
+                        <EditableText contentKey="en.team_minimal.subtitle" tag="span" fallback="A collective of software engineers, designers, and strategists dedicated to delivering enterprise-grade quality." />
                     </p>
                 </div>
 
@@ -84,10 +86,10 @@ const TeamMinimal = () => {
                                 {feature.visual}
                             </div>
                             <h3 className="text-2xl font-bold mb-4 group-hover:text-cyan-500 transition-colors">
-                                {feature.title}
+                                <EditableText contentKey={`en.team_minimal.items.${idx}.title`} fallback={feature.title} />
                             </h3>
                             <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                {feature.desc}
+                                <EditableText contentKey={`en.team_minimal.items.${idx}.desc`} fallback={feature.desc} multiline />
                             </p>
                         </div>
                     ))}
@@ -96,8 +98,12 @@ const TeamMinimal = () => {
                 <div className={`flex flex-col md:flex-row items-center justify-between p-10 rounded-3xl border ${isDark ? 'bg-neutral-900/30 border-neutral-800' : 'bg-cyan-50/50 border-cyan-100'} ${visible ? 'animate-fade-in-up delay-200' : 'opacity-0'}`}>
                     <div className="flex flex-col gap-6">
                         <div>
-                            <h4 className="text-2xl font-bold mb-2">Want to see the full list of our specialists?</h4>
-                            <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'}`}>We have a diverse clan of 9+ specialists ready to tackle any challenge.</p>
+                            <h4 className="text-2xl font-bold mb-2">
+                                <EditableText contentKey="en.team_minimal.cta.title" fallback="Want to see the full list of our specialists?" tag="span" />
+                            </h4>
+                            <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <EditableText contentKey="en.team_minimal.cta.subtitle" fallback="We have a diverse clan of 9+ specialists ready to tackle any challenge." tag="span" />
+                            </p>
                         </div>
 
                         {/* Avatar Stack Preview */}
@@ -114,11 +120,16 @@ const TeamMinimal = () => {
                                 '/team/cybersecurity-chief.jpg'
                             ].map((img, i) => (
                                 <div key={i} className="w-12 h-12 rounded-full border-2 border-white dark:border-black overflow-hidden bg-gray-200">
-                                    <img src={img} alt="XyberClan Digital Professional - Software Engineer & Designer" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                                    <EditableImage 
+                                        contentKey={`en.team_minimal.cta.avatars.${i}`} 
+                                        alt={`XyberClan Specialist ${i+1}`} 
+                                        className="w-full h-full object-cover" 
+                                        src={img} 
+                                    />
                                 </div>
                             ))}
                             <div className="w-12 h-12 rounded-full border-2 border-white dark:border-black bg-cyan-500 flex items-center justify-center text-white text-xs font-bold">
-                                +9
+                                <EditableText contentKey="en.team_minimal.cta.plus_count" fallback="+9" tag="span" />
                             </div>
                         </div>
                     </div>
@@ -126,7 +137,7 @@ const TeamMinimal = () => {
                         to="/team"
                         className="mt-10 md:mt-0 flex items-center gap-2 bg-black text-white px-8 py-4 rounded-2xl font-bold transition-all hover:scale-105 shadow-xl shadow-black/20"
                     >
-                        Explore Elite Team
+                        <EditableText contentKey="en.team_minimal.cta.button" fallback="Explore Elite Team" tag="span" />
                         <ArrowRight size={18} />
                     </Link>
                 </div>

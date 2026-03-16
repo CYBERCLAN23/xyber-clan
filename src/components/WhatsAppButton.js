@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isHolidaySeason } from '../utils/festive';
+import EditableText from './cms/EditableText';
 
 const WhatsAppButton = () => {
     const phoneNumbers = [
@@ -35,8 +36,12 @@ const WhatsAppButton = () => {
                         className={`bg-white text-gray-900 border border-gray-100 px-5 py-3 rounded-2xl shadow-xl font-bold text-sm flex items-center justify-between gap-6 transition-transform hover:scale-[1.03] active:scale-95`}
                         aria-label={`Chat on WhatsApp with ${contact.label}`}
                     >
-                        <span>{contact.label}</span>
-                        <span className="text-gray-500 text-xs">{contact.number.replace('237', '+237 ')}</span>
+                        <span>
+                            <EditableText contentKey={`en.whatsapp.contacts.${index}.label`} tag="span" fallback={contact.label} />
+                        </span>
+                        <span className="text-gray-500 text-xs">
+                            <EditableText contentKey={`en.whatsapp.contacts.${index}.number`} tag="span" fallback={contact.number.replace('237', '+237 ')} />
+                        </span>
                     </a>
                 ))}
             </div>
@@ -47,7 +52,7 @@ const WhatsAppButton = () => {
                 <div
                     className={`bg-white text-gray-900 px-4 py-2 rounded-[var(--radius-lg)] shadow-2xl font-bold text-sm transform transition-all duration-500 origin-right ${isHovered ? 'scale-90 opacity-0 translate-x-4 pointer-events-none' : 'scale-100 opacity-100 translate-x-0'}`}
                 >
-                    {isHolidaySeason() ? "Merry Christmas! 🎄 Chat with us!" : "Chat with us! 👋"}
+                    <EditableText contentKey="en.whatsapp.tooltip" tag="span" fallback={isHolidaySeason() ? "Merry Christmas! 🎄 Chat with us!" : "Chat with us! 👋"} />
                 </div>
 
                 <div className="relative group/btn">

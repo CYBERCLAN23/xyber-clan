@@ -2,17 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Shield, Code, ChevronRight, Linkedin, Github, Laptop, Briefcase, Palette, Sparkles, ChevronLeft, ArrowUpRight, Wifi } from 'lucide-react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
+import { useLanguage } from './context/LanguageContext';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import CTASection from './components/CTASection';
 import SharedNavbar from './components/SharedNavbar';
 import Meta from './components/Meta';
+import EditableText from './components/cms/EditableText';
 
 const TeamPage = () => {
     const { isDark } = useTheme();
-    const [lang] = useState('en');
+    const { language } = useLanguage();
     const [activeIndex, setActiveIndex] = useState(0);
-    const t = translations[lang];
+    const t = translations[language];
 
     const teamMembers = [
         { image: '/team/ceo-member.jpg', name: 'Cedrik Darel Yepmo', role: 'CEO & Co-Founder' },
@@ -33,7 +35,7 @@ const TeamPage = () => {
             name: 'Cedrik Darel Yepmo',
             role: 'CEO & Co-Founder',
             icon: <Briefcase className="w-5 h-5" />,
-            description: <span>Visionary leader driving <span className="notranslate" translate="no">XyberClan's</span> mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.</span>,
+            description: "Visionary leader driving XyberClan's mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.",
             expertise: ['Strategic Leadership', 'Business Development', 'Vision & Planning'],
             socials: [
                 { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/' },
@@ -85,7 +87,7 @@ const TeamPage = () => {
             name: 'ONANA GREGOIRE LEGRAND',
             role: 'Co-Founder & Business Strategist',
             icon: <Code className="w-5 h-5" />,
-            description: <span>A strategic mastermind and technical architect, Onana Gregoire Legrand is the engine behind <span className="notranslate" translate="no">XyberClan's</span> operational precision. He combines advanced Python data analysis with high-level business strategy to optimize growth, identify market opportunities, and ensures every project scales towards global standards.</span>,
+            description: "A strategic mastermind and technical architect, Onana Gregoire Legrand is the engine behind XyberClan's operational precision. He combines advanced Python data analysis with high-level business strategy to optimize growth, identify market opportunities, and ensures every project scales towards global standards.",
             expertise: ['Business Strategy', 'Python Data Science', 'Operational Precision', 'Market Analysis'],
             socials: [
                 { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/onana-gregoire-legrand-a18529282/' },
@@ -209,11 +211,11 @@ const TeamPage = () => {
 
                     {/* Headline */}
                     <h1 className="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-5 animate-fade-in-up delay-100" style={{ fontFamily: "'Inter', sans-serif" }}>
-                        Meet our{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Team</span>
+                        <EditableText contentKey={`${language}.teamPage.heroTitle`} fallback="Meet our" />{' '}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600"><EditableText contentKey={`${language}.teamPage.heroTitleHighlight`} fallback="Team" /></span>
                     </h1>
                     <p className={`text-base md:text-xl max-w-xl mx-auto mb-20 animate-fade-in-up delay-200 ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
-                        Innovative minds working together to engineer Cameroon's digital future.
+                        <EditableText contentKey={`${language}.teamPage.heroSubtitle`} fallback="Innovative minds working together to engineer Cameroon's digital future." multiline />
                     </p>
 
                     {/* Carousel Controls */}
@@ -273,8 +275,8 @@ const TeamPage = () => {
                                             {/* Glass overlay for center card */}
                                             {isCenter && (
                                                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                                                    <h3 className="text-white font-bold text-sm tracking-tight leading-tight">{member.name}</h3>
-                                                    <p className="text-cyan-400 text-xs font-medium">{member.role}</p>
+                                                    <h3 className="text-white font-bold text-sm tracking-tight leading-tight"><EditableText contentKey={`${language}.team.member${idx}.name`} fallback={member.name} /></h3>
+                                                    <p className="text-cyan-400 text-xs font-medium"><EditableText contentKey={`${language}.team.member${idx}.role`} fallback={member.role} /></p>
                                                 </div>
                                             )}
                                         </div>
@@ -305,13 +307,13 @@ const TeamPage = () => {
                 <div className="max-w-7xl mx-auto px-4">
                     {/* Section header */}
                     <div className="mb-16 max-w-2xl">
-                        <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-cyan-400/60' : 'text-cyan-600/60'}`}>The People</p>
+                        <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-cyan-400/60' : 'text-cyan-600/60'}`}><EditableText contentKey={`${language}.teamPage.sectionBadge`} fallback="The People" /></p>
                         <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-[1.1] mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-                            Experts dedicated to{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">your success</span>
+                            <EditableText contentKey={`${language}.teamPage.sectionTitle`} fallback="Experts dedicated to" />{' '}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600"><EditableText contentKey={`${language}.teamPage.sectionTitleHighlight`} fallback="your success" /></span>
                         </h2>
                         <p className={`text-base leading-relaxed ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
-                            Every member brings unique skills and passion to deliver exceptional results.
+                            <EditableText contentKey={`${language}.teamPage.sectionDesc`} fallback="Every member brings unique skills and passion to deliver exceptional results." multiline />
                         </p>
                     </div>
 
@@ -347,14 +349,14 @@ const TeamPage = () => {
                                     {/* Info — 3 cols */}
                                     <div className={`lg:col-span-3 ${idx % 2 === 1 ? 'lg:order-1' : ''} space-y-5`}>
                                         <div>
-                                            <p className={`text-xs font-semibold uppercase tracking-[0.15em] mb-2 ${isDark ? 'text-cyan-400/60' : 'text-cyan-600/60'}`}>{member.role}</p>
+                                            <p className={`text-xs font-semibold uppercase tracking-[0.15em] mb-2 ${isDark ? 'text-cyan-400/60' : 'text-cyan-600/60'}`}><EditableText contentKey={`${language}.detailedTeam.member${idx}.role`} fallback={member.role} /></p>
                                             <h3 className="text-3xl md:text-5xl font-black tracking-tight leading-[1.05]" style={{ fontFamily: "'Inter', sans-serif" }}>
-                                                {member.name}
+                                                <EditableText contentKey={`${language}.detailedTeam.member${idx}.name`} fallback={member.name} />
                                             </h3>
                                         </div>
 
                                         <p className={`text-base md:text-lg leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`} style={{ fontWeight: 300 }}>
-                                            {member.description}
+                                            <EditableText contentKey={`${language}.detailedTeam.member${idx}.desc`} fallback={member.description} multiline />
                                         </p>
 
                                         <div className="space-y-3">

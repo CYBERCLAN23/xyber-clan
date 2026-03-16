@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import EditableText from './cms/EditableText';
 
 const FAQSection = () => {
     const { isDark } = useTheme();
@@ -48,13 +49,17 @@ const FAQSection = () => {
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 mb-6">
                         <HelpCircle className="w-4 h-4 text-cyan-500" />
-                        <span className="text-sm font-bold text-cyan-500">Got Questions?</span>
+                        <span className="text-sm font-bold text-cyan-500">
+                          <EditableText contentKey="en.faq.badge" tag="span" fallback="Got Questions?" />
+                        </span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
-                        Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Questions</span>
+                        <EditableText contentKey="en.faq.title" tag="span" fallback={
+                          <>Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Questions</span></>
+                        } />
                     </h2>
                     <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Everything you need to know about our services
+                        <EditableText contentKey="en.faq.subtitle" tag="span" fallback="Everything you need to know about our services" />
                     </p>
                 </div>
 
@@ -71,7 +76,9 @@ const FAQSection = () => {
                                 onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
                                 className="w-full px-6 py-5 flex items-center justify-between text-left"
                             >
-                                <span className="font-bold text-lg pr-4">{faq.question}</span>
+                                <span className="font-bold text-lg pr-4">
+                                  <EditableText contentKey={`en.faq.items.${index}.question`} tag="span" fallback={faq.question} />
+                                </span>
                                 <ChevronDown
                                     className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''} ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
                                 />
@@ -81,7 +88,7 @@ const FAQSection = () => {
                                 className={`overflow-hidden transition-all duration-300 ${openIndex === index ? 'max-h-96' : 'max-h-0'}`}
                             >
                                 <div className={`px-6 pb-5 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                    {faq.answer}
+                                    <EditableText contentKey={`en.faq.items.${index}.answer`} tag="span" fallback={faq.answer} />
                                 </div>
                             </div>
                         </div>
@@ -91,7 +98,7 @@ const FAQSection = () => {
                 {/* CTA */}
                 <div className="text-center mt-12">
                     <p className={`mb-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Still have questions?
+                        <EditableText contentKey="en.faq.ctaText" tag="span" fallback="Still have questions?" />
                     </p>
                     <a
                         href="https://wa.me/237654269488?text=Hi%20XyberClan!%20I%20have%20a%20question..."
@@ -99,7 +106,7 @@ const FAQSection = () => {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl hover:scale-105 transition-transform shadow-lg shadow-cyan-500/30"
                     >
-                        Chat With Us
+                        <EditableText contentKey="en.faq.ctaButton" tag="span" fallback="Chat With Us" />
                     </a>
                 </div>
             </div>

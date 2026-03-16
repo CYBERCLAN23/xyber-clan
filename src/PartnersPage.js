@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from './context/ThemeContext';
+import { useLanguage } from './context/LanguageContext';
 import { translations } from './translations';
 import { ArrowRight, Handshake, Trophy, Zap, Users, Globe } from 'lucide-react';
 import Footer from './components/Footer';
@@ -7,17 +8,18 @@ import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import PartnershipForm from './PartnershipForm';
 import Meta from './components/Meta';
+import EditableText from './components/cms/EditableText';
 
 const PartnersPage = () => {
     const { isDark } = useTheme();
-    const [lang] = useState('en');
+    const { language } = useLanguage();
     const [mounted, setMounted] = useState(false);
 
     // Form / Interaction State
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [formType, setFormType] = useState('partner'); // 'partner' or 'sponsor'
 
-    const t = translations[lang];
+    const t = translations[language];
     const p = t.partnersPage;
 
     useEffect(() => {
@@ -47,10 +49,10 @@ const PartnersPage = () => {
 
             {/* ─── HERO SECTION ─── */}
             <PageHero
-                lang={lang}
-                badgeText={t.nav.partners}
-                title={p.title}
-                subtitle={`"${p.subtitle}"`}
+                lang={language}
+                badgeText={<EditableText contentKey={`${language}.nav.partners`} fallback={t.nav.partners} />}
+                title={<EditableText contentKey={`${language}.partnersPage.title`} fallback={p.title} />}
+                subtitle={<EditableText contentKey={`${language}.partnersPage.subtitle`} tag="span" fallback={`"${p.subtitle}"`} />}
                 imageSrc="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
                 stats={[
                     { value: 'Global', label: 'Reach' },
@@ -101,14 +103,14 @@ const PartnersPage = () => {
                             </span>
                             <div className="space-y-4">
                                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.1]" style={{ fontFamily: "'Inter', sans-serif" }}>
-                                    {p.hultStory.title}
+                                    <EditableText contentKey={`${language}.partnersPage.hultStory.title`} fallback={p.hultStory.title} />
                                 </h2>
                                 <div className="w-24 h-1.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500" />
                             </div>
                             <div className="space-y-6 text-lg leading-relaxed font-light">
                                 {p.hultStory.narrative.map((paragraph, idx) => (
                                     <p key={idx} className={isDark ? 'text-gray-300' : 'text-gray-600'}>
-                                        {paragraph}
+                                        <EditableText contentKey={`${language}.partnersPage.hultStory.narrative${idx}`} fallback={paragraph} multiline />
                                     </p>
                                 ))}
                             </div>
@@ -142,7 +144,7 @@ const PartnersPage = () => {
                             Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">XyberClan Network</span>
                         </h2>
                         <p className={`text-xl font-light max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Whether you want to build the next big thing or support our tech movement, we have a place for you.
+                            <EditableText contentKey={`${language}.partnersPage.joinSubtitle`} fallback="Whether you want to build the next big thing or support our tech movement, we have a place for you." />
                         </p>
                     </div>
 
@@ -189,7 +191,7 @@ const PartnersPage = () => {
                 isOpen={isFormOpen}
                 onClose={() => setIsFormOpen(false)}
                 type={formType}
-                lang={lang}
+                lang={language}
                 t={t}
                 onComplete={handleFormComplete}
             />

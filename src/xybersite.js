@@ -4,6 +4,7 @@ import { Shield, Eye, Lock, Menu, X, Sun, Moon, ArrowUpRight, Globe, ChevronRigh
 import { ReactIcon, NextIcon, TailwindIcon, NodeIcon, PythonIcon, FirebaseIcon, FigmaIcon, GitHubIcon, AdobeIcon } from './components/TechIcons';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
+import { useLanguage } from './context/LanguageContext';
 import { getLogo } from './utils/festive';
 import WhatsAppButton from './components/WhatsAppButton';
 import LiquidGlassHero from './components/LiquidGlassHero';
@@ -23,14 +24,15 @@ import ExitPopup from './components/ExitPopup';
 import ThemeSuggestionPopup from './components/ThemeSuggestionPopup';
 import ScrollReveal, { ScrollToTop, ScrollIndicator } from './components/ScrollReveal';
 import Meta from './components/Meta';
+import EditableText from './components/cms/EditableText';
 
 
 const XyberClanWebsite = () => {
   const { isDark, toggleTheme } = useTheme();
-  const [lang, setLang] = useState('en');
+  const { language, toggleLanguage } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const t = translations[lang];
+  const t = translations[language];
 
   // Handle scroll effect for navigation
   React.useEffect(() => {
@@ -51,7 +53,7 @@ const XyberClanWebsite = () => {
   }, [mobileMenuOpen]);
 
   const toggleLang = () => {
-    setLang((prev) => (prev === 'en' ? 'fr' : 'en'));
+    toggleLanguage();
   };
 
   const navLinks = ['home', 'about', 'team', 'partners', 'journey', 'events', 'contact'];
@@ -108,7 +110,7 @@ const XyberClanWebsite = () => {
                       : 'text-white/70 hover:text-white'
                       }`}
                   >
-                    {t.nav[item]}
+                    <EditableText contentKey={`${language}.nav.${item}`} fallback={t.nav[item]} />
                   </Link>
                 ) : (
                   <a
@@ -123,7 +125,7 @@ const XyberClanWebsite = () => {
                       : 'text-white/70 hover:text-white'
                       }`}
                   >
-                    {t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)}
+                    <EditableText contentKey={`${language}.nav.${item}`} fallback={t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)} />
                   </a>
                 )
               ))}
@@ -150,14 +152,14 @@ const XyberClanWebsite = () => {
                   }`}
               >
                 <Globe size={14} />
-                {lang}
+                {language}
               </button>
 
               <Link
                 to="/start-project"
                 className="ml-1 flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 hover:scale-[1.03] bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
               >
-                {t.nav.getStarted}
+                <EditableText contentKey={`${language}.nav.getStarted`} fallback={t.nav.getStarted} />
                 <ArrowUpRight size={14} />
               </Link>
             </div>
@@ -220,7 +222,7 @@ const XyberClanWebsite = () => {
                     style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}
                   >
                     <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
-                    <span className="text-[2rem] font-black tracking-tight leading-none">{t.nav[item] || (item === 'partners' ? (lang === 'en' ? 'Partners' : 'Partenaires') : item)}</span>
+                    <span className="text-[2rem] font-black tracking-tight leading-none"><EditableText contentKey={`${language}.nav.${item}`} fallback={t.nav[item] || (item === 'partners' ? (language === 'en' ? 'Partners' : 'Partenaires') : item)} /></span>
                     <ChevronRight size={18} className={`ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
                   </Link>
                 ) : (
@@ -236,7 +238,7 @@ const XyberClanWebsite = () => {
                     style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}
                   >
                     <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
-                    <span className="text-[2rem] font-black tracking-tight leading-none">{t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)}</span>
+                    <span className="text-[2rem] font-black tracking-tight leading-none"><EditableText contentKey={`${language}.nav.${item}`} fallback={t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)} /></span>
                     <ChevronRight size={18} className={`ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
                   </a>
                 )
@@ -253,7 +255,7 @@ const XyberClanWebsite = () => {
                   {isDark ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
                 <button onClick={toggleLang} className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-xs transition-all ${isDark ? 'bg-white/5 text-cyan-400 hover:bg-white/10' : 'bg-black/5 text-cyan-600 hover:bg-black/10'}`}>
-                  {lang.toUpperCase()}
+                  {language.toUpperCase()}
                 </button>
               </div>
               <Link
@@ -270,7 +272,7 @@ const XyberClanWebsite = () => {
 
       {/* Hero Section */}
       <div id="home">
-        <LiquidGlassHero lang={lang} translations={t} />
+        <LiquidGlassHero lang={language} translations={t} />
       </div>
 
       {/* Scroll Progress Indicator */}
@@ -311,14 +313,16 @@ const XyberClanWebsite = () => {
       {/* Technology Section */}
       <section className={`py-24 px-4 ${isDark ? 'bg-black' : 'bg-white'}`}>
         <ScrollReveal animation="slideRight" delay={0.08} duration={0.95}>
-          <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto">
             <div className="mb-14">
-              <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-cyan-400/70' : 'text-cyan-600/70'}`}>Technology</p>
+              <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-cyan-400/70' : 'text-cyan-600/70'}`}>
+                <EditableText contentKey="en.tech.badge" tag="span" fallback="Technology" />
+              </p>
               <h2 className="text-3xl md:text-4xl lg:text-[2.8rem] font-black tracking-tight leading-[1.1] mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-                {t.seo.h2_services}
+                <EditableText contentKey="en.tech.title" tag="span" fallback={t.seo.h2_services} />
               </h2>
               <p className={`text-base md:text-lg max-w-2xl leading-relaxed ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
-                {t.seo.paragraph}
+                <EditableText contentKey="en.tech.paragraph" tag="span" fallback={t.seo.paragraph} />
               </p>
             </div>
 
@@ -423,7 +427,7 @@ const XyberClanWebsite = () => {
           <div className="max-w-7xl mx-auto text-center">
             <div className="mb-14">
               <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-cyan-400/70' : 'text-cyan-600/70'}`}>
-                {lang === 'en' ? 'Get in Touch' : 'Contactez-nous'}
+                {language === 'en' ? 'Get in Touch' : 'Contactez-nous'}
               </p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1] mb-5" style={{ fontFamily: "'Inter', sans-serif" }}>
                 {t.contact.title}{' '}

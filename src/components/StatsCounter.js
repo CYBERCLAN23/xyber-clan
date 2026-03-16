@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Briefcase, Users, Calendar, Award } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import EditableText from './cms/EditableText';
 
 const StatsCounter = () => {
     const { isDark } = useTheme();
@@ -77,10 +78,12 @@ const StatsCounter = () => {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
-                        Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Impact</span>
+                        <EditableText contentKey="en.stats.title" tag="span" fallback={
+                          <>Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Impact</span></>
+                        } />
                     </h2>
                     <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Numbers that speak for themselves
+                        <EditableText contentKey="en.stats.subtitle" tag="span" fallback="Numbers that speak for themselves" />
                     </p>
                 </div>
 
@@ -110,7 +113,7 @@ const StatsCounter = () => {
 
                             {/* Label */}
                             <p className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                {stat.label}
+                                <EditableText contentKey={`en.stats.items.${index}.label`} tag="span" fallback={stat.label} />
                             </p>
                         </div>
                     ))}

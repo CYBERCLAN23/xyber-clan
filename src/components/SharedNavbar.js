@@ -4,6 +4,7 @@ import { Sun, Moon, Menu, X, Globe, ArrowUpRight, ChevronRight } from 'lucide-re
 import { useTheme } from '../context/ThemeContext';
 import { translations } from '../translations';
 import { getLogo } from '../utils/festive';
+import EditableText from './cms/EditableText';
 
 const SharedNavbar = ({ transparentHero = false }) => {
     const { isDark, toggleTheme } = useTheme();
@@ -93,7 +94,7 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                                     : 'text-white/70 hover:text-white'
                                                 }`}
                                         >
-                                            {t.nav[item]}
+                                            <EditableText contentKey={`${lang}.nav.${item}`} fallback={t.nav[item]} />
                                         </Link>
                                     );
                                 }
@@ -110,7 +111,7 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                             : 'text-white/70 hover:text-white'
                                             }`}
                                     >
-                                        {t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)}
+                                        <EditableText contentKey={`${lang}.nav.${item}`} fallback={t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)} />
                                     </a>
                                 );
                             })}
@@ -144,7 +145,7 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                 to="/start-project"
                                 className="ml-1 flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 hover:scale-[1.03] bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
                             >
-                                {t.nav.getStarted}
+                                <EditableText contentKey={`${lang}.nav.getStarted`} fallback={t.nav.getStarted} />
                                 <ArrowUpRight size={14} />
                             </Link>
                         </div>
@@ -203,7 +204,9 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                             style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}
                                         >
                                             <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
-                                            <span className="text-[2rem] font-black tracking-tight leading-none">{t.nav[item]}</span>
+                                            <span className="text-[2rem] font-black tracking-tight leading-none">
+                                                <EditableText contentKey={`${lang}.nav.${item}`} fallback={t.nav[item]} />
+                                            </span>
                                             <ChevronRight size={18} className={`ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
                                         </Link>
                                     );
@@ -221,7 +224,9 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                         style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}
                                     >
                                         <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
-                                        <span className="text-[2rem] font-black tracking-tight leading-none">{t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)}</span>
+                                        <span className="text-[2rem] font-black tracking-tight leading-none">
+                                            <EditableText contentKey={`${lang}.nav.${item}`} fallback={t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)} />
+                                        </span>
                                         <ChevronRight size={18} className={`ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
                                     </a>
                                 );
@@ -245,7 +250,7 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                 onClick={() => setMobileMenuOpen(false)}
                                 className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all hover:scale-[1.03]"
                             >
-                                {t.nav.getStarted} →
+                                <EditableText contentKey={`${lang}.nav.getStarted`} fallback={t.nav.getStarted} /> →
                             </Link>
                         </div>
                     </div>

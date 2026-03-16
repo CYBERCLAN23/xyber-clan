@@ -1,0 +1,81 @@
+/* CMS Editing Overrides */
+.cms-editing * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Enhancing interaction blocks in Edit Mode */
+.cms-editing .cms-editable {
+  outline: 1px dashed rgba(6, 182, 212, 0.5) !important;
+  outline-offset: 2px;
+}
+.cms-editing .cms-editable:hover {
+  outline: 2px solid rgba(6, 182, 212, 0.9) !important;
+  background: rgba(6, 182, 212, 0.1);
+}
+
+.cms-editing .cms-editable-link {
+  outline: 1px dashed rgba(6, 182, 212, 0.5) !important;
+  outline-offset: 2px;
+}
+.cms-editing .cms-editable-link:hover {
+  outline: 2px solid rgba(6, 182, 212, 0.9) !important;
+  background: rgba(6, 182, 212, 0.1);
+}
+
+.cms-editing .cms-editable-image {
+  outline: 1px dashed rgba(6, 182, 212, 0.5) !important;
+  outline-offset: -2px; /* inside the image */
+}
+.cms-editing .cms-editable-image:hover {
+  outline: 2px solid rgba(6, 182, 212, 0.9) !important;
+}
+
+.cms-editing .cms-editable-video {
+  outline: 1px dashed rgba(6, 182, 212, 0.5) !important;
+  outline-offset: -2px;
+}
+.cms-editing .cms-editable-video:hover {
+  outline: 2px solid rgba(6, 182, 212, 0.9) !important;
+}
+
+/* Custom CMS Tooltips */
+.cms-editing [data-cms-tooltip] {
+  position: relative;
+}
+
+.cms-editing [data-cms-tooltip]:hover::before {
+  content: attr(data-cms-tooltip);
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.9);
+  color: #cffafe;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  z-index: 100000;
+  pointer-events: none;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.cms-editing [data-cms-tooltip]:hover::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(15, 23, 42, 0.9) transparent transparent transparent;
+  z-index: 100000;
+  pointer-events: none;
+}

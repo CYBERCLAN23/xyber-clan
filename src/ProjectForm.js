@@ -19,14 +19,15 @@ import {
     ShieldAlert, Globe2, BarChart3, MailPlus
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
+import { useLanguage } from './context/LanguageContext';
 import { getLogo } from './utils/festive';
 import { translations } from './translations';
 import Meta from './components/Meta';
 
 const ProjectForm = () => {
     const { isDark, toggleTheme } = useTheme();
-    const [lang, setLang] = useState('en');
-    const t = translations[lang].form;
+    const { language, toggleLanguage } = useLanguage();
+    const t = translations[language].form;
 
     const [currentStep, setCurrentStep] = useState(0);
     const [direction, setDirection] = useState('forward');
@@ -47,12 +48,12 @@ const ProjectForm = () => {
 
         // Map project types to translation keys
         const typeToKey = {
-            [translations[lang].form.options.web]: 'web',
-            [translations[lang].form.options.mobile]: 'mobile',
-            [translations[lang].form.options.design]: 'design',
-            [translations[lang].form.options.cybersec]: 'cybersec',
-            [translations[lang].form.options.hardware]: 'hardware',
-            [translations[lang].form.options.training]: 'training'
+            [translations[language].form.options.web]: 'web',
+            [translations[language].form.options.mobile]: 'mobile',
+            [translations[language].form.options.design]: 'design',
+            [translations[language].form.options.cybersec]: 'cybersec',
+            [translations[language].form.options.hardware]: 'hardware',
+            [translations[language].form.options.training]: 'training'
         };
 
         // Icon Mapping Helper
@@ -184,7 +185,7 @@ const ProjectForm = () => {
         );
 
         return baseSteps;
-    }, [answers.projectType, lang, t]);
+    }, [answers.projectType, language, t]);
 
     const currentQuestion = steps[currentStep];
 
@@ -286,8 +287,8 @@ const ProjectForm = () => {
                         </span>
                     </Link>
                     <div className="flex items-center gap-3">
-                        <button onClick={() => setLang(l => l === 'en' ? 'fr' : 'en')} className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${isDark ? 'bg-white/5 text-cyan-400 hover:bg-white/10' : 'bg-black/5 text-cyan-600 hover:bg-black/10'}`}>
-                            {lang}
+                        <button onClick={toggleLanguage} className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${isDark ? 'bg-white/5 text-cyan-400 hover:bg-white/10' : 'bg-black/5 text-cyan-600 hover:bg-black/10'}`}>
+                            {language}
                         </button>
                         <button onClick={toggleTheme} className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${isDark ? 'bg-white/5 text-yellow-400 hover:bg-white/10' : 'bg-black/5 text-blue-600 hover:bg-black/10'}`}>
                             {isDark ? <Sun size={18} /> : <Moon size={18} />}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Send, CheckCircle, Sparkles } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import EditableText from './cms/EditableText';
 
 const Newsletter = () => {
     const { isDark } = useTheme();
@@ -30,17 +31,19 @@ const Newsletter = () => {
 
                 {/* Heading */}
                 <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4">
-                    Stay in the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Loop</span>
+                    <EditableText contentKey="en.newsletter.title" tag="span" fallback={<>Stay in the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Loop</span></>} />
                 </h2>
                 <p className={`text-lg mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                    Get tech tips, updates, and exclusive offers delivered to your inbox
+                    <EditableText contentKey="en.newsletter.subtitle" tag="span" fallback="Get tech tips, updates, and exclusive offers delivered to your inbox" />
                 </p>
 
                 {/* Form */}
                 {status === 'success' ? (
                     <div className={`inline-flex items-center gap-3 px-8 py-4 rounded-2xl ${isDark ? 'bg-green-500/10 border border-green-500/20' : 'bg-green-50 border border-green-200'}`}>
                         <CheckCircle className="w-6 h-6 text-green-500" />
-                        <span className="font-bold text-green-500">You're subscribed! Check your inbox.</span>
+                        <span className="font-bold text-green-500">
+                            <EditableText contentKey="en.newsletter.successMsg" tag="span" fallback="You're subscribed! Check your inbox." />
+                        </span>
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
@@ -67,11 +70,11 @@ const Newsletter = () => {
                             {status === 'loading' ? (
                                 <>
                                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                    Subscribing...
+                                    <EditableText contentKey="en.newsletter.subscribingText" tag="span" fallback="Subscribing..." />
                                 </>
                             ) : (
                                 <>
-                                    Subscribe
+                                    <EditableText contentKey="en.newsletter.buttonText" tag="span" fallback="Subscribe" />
                                     <Send className="w-5 h-5" />
                                 </>
                             )}
@@ -81,7 +84,7 @@ const Newsletter = () => {
 
                 {/* Note */}
                 <p className={`text-sm mt-6 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-                    No spam, unsubscribe anytime. We respect your privacy.
+                    <EditableText contentKey="en.newsletter.note" tag="span" fallback="No spam, unsubscribe anytime. We respect your privacy." />
                 </p>
             </div>
         </section>

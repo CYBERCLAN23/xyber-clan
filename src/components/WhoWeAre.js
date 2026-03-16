@@ -3,6 +3,7 @@ import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import { Terminal, BarChart3 } from 'lucide-react';
 import { translations } from '../translations';
+import EditableText from './cms/EditableText';
 
 const WhoWeAre = () => {
     const { isDark } = useTheme();
@@ -38,21 +39,26 @@ const WhoWeAre = () => {
 
                     <div className="flex w-max animate-infinite-scroll">
                         {/* Quadruple the list for extremely smooth seamless loop on wide screens */}
-                        {[...partners, ...partners, ...partners, ...partners].map((partner, idx) => (
-                            <div key={idx} className="mx-12 flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                                <span className="text-xl md:text-2xl font-bold font-serif italic whitespace-nowrap">{partner}</span>
-                            </div>
-                        ))}
+                        {[...partners, ...partners, ...partners, ...partners].map((partner, idx) => {
+                            const originalIdx = idx % partners.length;
+                            return (
+                                <div key={idx} className="mx-12 flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+                                    <span className="text-xl md:text-2xl font-bold font-serif italic whitespace-nowrap">
+                                        <EditableText contentKey={`en.whoWeAre.partners.${originalIdx}`} fallback={partner} />
+                                    </span>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
 
                 {/* Header */}
                 <div className={`text-center mb-16 ${visible ? 'animate-fade-in-up delay-100' : 'opacity-0'}`}>
                     <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-gray-800 text-xs font-bold tracking-widest uppercase mb-6 inline-block">
-                        {t.seo.h2_why}
+                        <EditableText contentKey="en.seo.h2_why" tag="span" fallback={t.seo.h2_why} />
                     </span>
                     <h2 className="text-4xl md:text-5xl font-medium tracking-tight">
-                        {t.seo.h2_standards}
+                        <EditableText contentKey="en.seo.h2_standards" tag="span" fallback={t.seo.h2_standards} />
                     </h2>
                 </div>
 
@@ -74,8 +80,8 @@ const WhoWeAre = () => {
                                 </div>
                             </div>
                         </div>
-                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors">Rapid Innovation</h3>
-                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Concept to prototype in days. We engineer speed.</p>
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors"><EditableText contentKey="en.whoWeAre.card1Title" fallback="Rapid Innovation" /></h3>
+                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}><EditableText contentKey="en.whoWeAre.card1Desc" fallback="Concept to prototype in days. We engineer speed." /></p>
                     </div>
 
                     {/* Card 2 */}
@@ -91,8 +97,8 @@ const WhoWeAre = () => {
                                 <div className="absolute top-2 left-4 text-xs font-mono text-blue-600 dark:text-blue-300 bg-white/50 dark:bg-black/20 px-2 py-0.5 rounded">CPU 99%</div>
                             </div>
                         </div>
-                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors">Scalable Architecture</h3>
-                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Systems designed to handle millions.</p>
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors"><EditableText contentKey="en.whoWeAre.card2Title" fallback="Scalable Architecture" /></h3>
+                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}><EditableText contentKey="en.whoWeAre.card2Desc" fallback="Systems designed to handle millions." /></p>
                     </div>
 
                     {/* Card 3 */}
@@ -110,8 +116,8 @@ const WhoWeAre = () => {
                                 </div>
                             </div>
                         </div>
-                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors">Revenue Enablement</h3>
-                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Tools that actually convert.</p>
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors"><EditableText contentKey="en.whoWeAre.card3Title" fallback="Revenue Enablement" /></h3>
+                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}><EditableText contentKey="en.whoWeAre.card3Desc" fallback="Tools that actually convert." /></p>
                     </div>
                 </div>
 

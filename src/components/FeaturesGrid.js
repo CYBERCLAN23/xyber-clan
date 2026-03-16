@@ -3,6 +3,7 @@ import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import { Terminal, Shield, Smartphone, Globe } from 'lucide-react';
 import { translations } from '../translations';
+import EditableText from './cms/EditableText';
 
 const FeaturesGrid = () => {
     const { isDark } = useTheme();
@@ -46,13 +47,15 @@ const FeaturesGrid = () => {
                 {/* Header */}
                 <div className={`text-center mb-24 transition-all duration-1000 ${visible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
                     <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] bg-cyan-500/10 text-cyan-500 border border-cyan-500/20 mb-6 focus-visible:outline-none">
-                        Features
+                        <EditableText contentKey="en.features.badge" tag="span" fallback="Features" />
                     </span>
                     <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-[0.9]">
-                        Experience our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600">features</span>
+                        <EditableText contentKey="en.features.title" tag="span" fallback={
+                          <>Experience our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600">features</span></>
+                        } />
                     </h2>
                     <p className={`text-xl md:text-2xl max-w-2xl mx-auto font-light leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                        Dive into our features and experience the difference we can make in your work and daily life.
+                        <EditableText contentKey="en.features.subtitle" tag="span" fallback="Dive into our features and experience the difference we can make in your work and daily life." />
                     </p>
                 </div>
 
@@ -74,10 +77,10 @@ const FeaturesGrid = () => {
                             </div>
 
                             <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-cyan-500 transition-colors duration-300">
-                                {feature.title}
+                                <EditableText contentKey={`en.features.items.${index}.title`} tag="span" fallback={feature.title} />
                             </h3>
                             <p className={`text-[15px] leading-relaxed font-medium transition-colors duration-300 ${isDark ? 'text-gray-500 group-hover:text-gray-400' : 'text-gray-500 group-hover:text-gray-600'}`}>
-                                {feature.description}
+                                <EditableText contentKey={`en.features.items.${index}.description`} tag="span" fallback={feature.description} />
                             </p>
 
                             <div className="mt-8 flex items-center gap-2 text-[11px] font-bold tracking-widest text-cyan-500 opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-500 uppercase">

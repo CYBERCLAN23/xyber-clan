@@ -145,6 +145,11 @@ export const translations = {
             },
             ctaPartner: 'Become our partner or collaborator',
             ctaSponsor: 'Become a sponsor',
+            partnerTitle: 'Strategic Partnership',
+            partnerSubtitle: "Let's build the future together.",
+            sponsorTitle: 'Become a Sponsor',
+            sponsorSubtitle: 'Support innovation and empower the next generation.',
+            submit: 'Submit Request',
             partnerForm: {
                 title: 'Strategic Partnership',
                 subtitle: 'Let\'s build the future together.',
@@ -443,6 +448,7 @@ export const translations = {
             backToEdit: 'Back to Edit',
             next: 'Next',
             previous: 'Previous',
+            submit: 'Submit Request',
             summaryTitle: 'Perfect! Here\'s Your Summary',
             summaryDesc: 'Review your information and choose how to send it to us',
             sendWhatsApp: 'Send via WhatsApp',
@@ -593,6 +599,123 @@ export const translations = {
             h3_cyber: "Cybersecurity & Protection",
             h3_mobile: "Mobile Applications",
             paragraph: "XyberClan is your trusted digital partner based in Yaounde, Cameroon, serving clients in France, Belgium, Canada, Switzerland, Nigeria, Ghana, Senegal, the UK, USA and worldwide. We provide professional web development, mobile app creation, graphic design, UI/UX and cybersecurity services at competitive rates. Our team of experts combines technical excellence with creative innovation to deliver world-class digital solutions tailored to your unique needs."
+        },
+        pricing: {
+            title: "Simple, Transparent Pricing",
+            subtitle: "Choose a plan that fits your needs. All plans include our quality guarantee.",
+            plans: [
+                {
+                    name: "Starter",
+                    description: "Perfect for small projects and getting started",
+                    price: "50K",
+                    currency: "XAF",
+                    features: [
+                        "Simple landing page (1-3 pages)",
+                        "Mobile responsive design",
+                        "Contact form",
+                        "Basic SEO setup",
+                        "1 week delivery",
+                        "7 days support after delivery"
+                    ],
+                    cta: "Start Small"
+                },
+                {
+                    name: "Professional",
+                    description: "Most popular for growing businesses",
+                    price: "200K",
+                    currency: "XAF",
+                    features: [
+                        "Full business website (5-10 pages)",
+                        "Premium responsive design",
+                        "Contact & booking forms",
+                        "Photo gallery & portfolio",
+                        "Social media integration",
+                        "Advanced SEO optimization",
+                        "2 weeks delivery",
+                        "30 days support"
+                    ],
+                    cta: "Go Pro"
+                },
+                {
+                    name: "Enterprise",
+                    description: "Custom solutions for large projects",
+                    price: "500K+",
+                    currency: "XAF",
+                    features: [
+                        "Full web application",
+                        "E-commerce capabilities",
+                        "User authentication system",
+                        "Admin dashboard",
+                        "Payment integration",
+                        "Custom features",
+                        "Dedicated team",
+                        "Priority support & maintenance"
+                    ],
+                    cta: "Contact Us"
+                }
+            ]
+        },
+        team_minimal: {
+            badge: "The XyberClan",
+            title: "Meet Our Expert Team",
+            subtitle: "A collective of software engineers, designers, and strategists dedicated to delivering enterprise-grade quality.",
+            items: [
+                {
+                    title: "Engineering Excellence",
+                    desc: "Our developers aren't just coders; they're engineers. We build for performance, security, and longevity."
+                },
+                {
+                    title: "Design-First Mindset",
+                    desc: "We believe in interfaces that are intuitive and beautiful. Every pixel serves a purpose in our designs."
+                },
+                {
+                    title: "Strategic Growth",
+                    desc: "Helping startups and enterprises scale their digital footprint with data-backed strategies and tools."
+                }
+            ]
+        },
+        faq: {
+            badge: "Got Questions?",
+            title: "Frequently Asked Questions",
+            subtitle: "Everything you need to know about our services",
+            items: [
+                {
+                    question: "How much does a website cost?",
+                    answer: "Our websites start from 50,000 XAF for basic landing pages. Business websites with multiple pages, contact forms, and galleries typically range from 150,000 - 500,000 XAF. E-commerce sites and web applications are custom-quoted based on features needed."
+                },
+                {
+                    question: "How long does it take to build a website?",
+                    answer: "A simple landing page can be completed in 3-5 days. Standard business websites take 1-2 weeks. More complex projects like e-commerce stores or web applications typically take 3-6 weeks depending on features and revisions."
+                },
+                {
+                    question: "Do you offer mobile app development?",
+                    answer: "Yes! We build mobile apps for both Android and iOS using modern technologies like React Native and Flutter. This allows us to create one app that works on both platforms, saving you time and money."
+                },
+                {
+                    question: "What payment methods do you accept?",
+                    answer: "We accept Mobile Money (MTN, Orange), bank transfers, and cash payments. We typically require 50% upfront to start the project, with the remaining 50% due upon completion."
+                },
+                {
+                    question: "Do you provide ongoing support?",
+                    answer: "Absolutely! We offer maintenance packages starting from 15,000 XAF/month that include hosting, security updates, backups, and minor content changes. We're always here to help even after your project is complete."
+                },
+                {
+                    question: "Can you help with branding and design?",
+                    answer: "Yes, we offer complete branding services including logo design, business cards, social media graphics, flyers, and full brand identity packages. Our designers create modern, professional designs that make your business stand out."
+                },
+                {
+                    question: "Do I need to provide content for my website?",
+                    answer: "While we can work with content you provide, we also offer content writing services. We can help write compelling copy for your website and source professional stock images if needed."
+                },
+                {
+                    question: "What if I'm not satisfied with the design?",
+                    answer: "We work closely with you throughout the design process and include revision rounds in all our packages. We won't stop until you're 100% happy with the result. Your satisfaction is our priority."
+                }
+            ]
+        },
+        cta: {
+            title: "Get started today",
+            subtitle: "Create a free account. No demos or calls with our sales team are required. Upgrade only if you have to."
         }
     },
     fr: {
@@ -741,6 +864,11 @@ export const translations = {
             },
             ctaPartner: 'Devenir notre partenaire ou collaborateur',
             ctaSponsor: 'Devenir un sponsor',
+            partnerTitle: 'Partenariat Stratégique',
+            partnerSubtitle: "Bâtissons l'avenir ensemble.",
+            sponsorTitle: 'Devenir Sponsor',
+            sponsorSubtitle: "Soutenez l'innovation et dynamisez la prochaine génération.",
+            submit: 'Envoyer la Demande',
             partnerForm: {
                 title: 'Partenariat Stratégique',
                 subtitle: 'Bâtissons l\'avenir ensemble.',
@@ -1038,6 +1166,7 @@ export const translations = {
             backToEdit: 'Retour pour Modifier',
             next: 'Suivant',
             previous: 'Précédent',
+            submit: 'Envoyer la Demande',
             summaryTitle: 'Parfait ! Voici Votre Résumé',
             summaryDesc: 'Vérifiez vos informations et choisissez comment nous les envoyer',
             sendWhatsApp: 'Envoyer via WhatsApp',
@@ -1185,6 +1314,123 @@ export const translations = {
             h3_cyber: "Cybersécurité & Protection",
             h3_mobile: "Applications Mobiles",
             paragraph: "XyberClan est votre partenaire digital de confiance basé à Yaoundé, Cameroun, accompagnant des clients en France, Belgique, Canada, Suisse, Côte d'Ivoire, Sénégal, Nigéria, Ghana et partout dans le monde. Nous proposons le développement de sites web professionnels, la création d'applications mobiles, le design graphique, l'UI/UX design et la cybersécurité à des tarifs compétitifs. Notre équipe d'experts combine excellence technique et innovation créative pour livrer des solutions digitales de qualité mondiale adaptées à vos besoins."
+        },
+        pricing: {
+            title: "Tarification Simple et Transparente",
+            subtitle: "Choisissez un plan qui répond à vos besoins. Tous les plans incluent notre garantie de qualité.",
+            plans: [
+                {
+                    name: "Starter",
+                    description: "Parfait pour les petits projets et pour commencer",
+                    price: "50K",
+                    currency: "XAF",
+                    features: [
+                        "Landing page simple (1-3 pages)",
+                        "Design responsive mobile",
+                        "Formulaire de contact",
+                        "Configuration SEO de base",
+                        "Livraison en 1 semaine",
+                        "7 jours de support après livraison"
+                    ],
+                    cta: "Commencer Petit"
+                },
+                {
+                    name: "Professionnel",
+                    description: "Le plus populaire pour les entreprises en croissance",
+                    price: "200K",
+                    currency: "XAF",
+                    features: [
+                        "Site web complet (5-10 pages)",
+                        "Design responsive premium",
+                        "Formulaires de contact et réservation",
+                        "Galerie photo & portfolio",
+                        "Intégration réseaux sociaux",
+                        "Optimisation SEO avancée",
+                        "Livraison en 2 semaines",
+                        "30 jours de support"
+                    ],
+                    cta: "Devenir Pro"
+                },
+                {
+                    name: "Entreprise",
+                    description: "Solutions sur mesure pour les grands projets",
+                    price: "500K+",
+                    currency: "XAF",
+                    features: [
+                        "Application web complète",
+                        "Capacités e-commerce",
+                        "Système d'authentification utilisateur",
+                        "Tableau de bord admin",
+                        "Intégration de paiement",
+                        "Fonctionnalités personnalisées",
+                        "Équipe dédiée",
+                        "Support & maintenance prioritaires"
+                    ],
+                    cta: "Nous Contacter"
+                }
+            ]
+        },
+        team_minimal: {
+            badge: "Le XyberClan",
+            title: "Rencontrez Notre Équipe d'Experts",
+            subtitle: "Un collectif d'ingénieurs logiciels, de designers et de stratèges dédiés à fournir une qualité de niveau entreprise.",
+            items: [
+                {
+                    title: "Excellence en Ingénierie",
+                    desc: "Nos développeurs ne sont pas seulement des codeurs ; ce sont des ingénieurs. Nous construisons pour la performance, la sécurité et la longévité."
+                },
+                {
+                    title: "Esprit Design-First",
+                    desc: "Nous croyons en des interfaces intuitives et belles. Chaque pixel a une utilité dans nos designs."
+                },
+                {
+                    title: "Croissance Stratégique",
+                    desc: "Aider les startups et les entreprises à étendre leur empreinte numérique avec des stratégies et des outils basés sur les données."
+                }
+            ]
+        },
+        faq: {
+            badge: "Des Questions ?",
+            title: "Foire Aux Questions",
+            subtitle: "Tout ce que vous devez savoir sur nos services",
+            items: [
+                {
+                    question: "Combien coûte un site web ?",
+                    answer: "Nos sites web commencent à partir de 50 000 XAF pour les landing pages de base. Les sites web d'entreprise avec plusieurs pages, formulaires de contact et galeries varient généralement entre 150 000 et 500 000 XAF. Les sites e-commerce et les applications web font l'objet d'un devis personnalisé en fonction des fonctionnalités nécessaires."
+                },
+                {
+                    question: "Combien de temps faut-il pour créer un site web ?",
+                    answer: "Une simple landing page peut être réalisée en 3 à 5 jours. Les sites web d'entreprise standard prennent 1 à 2 semaines. Les projets plus complexes comme les boutiques e-commerce ou les applications web prennent généralement 3 à 6 semaines selon les fonctionnalités et les révisions."
+                },
+                {
+                    question: "Proposez-vous le développement d'applications mobiles ?",
+                    answer: "Oui ! Nous construisons des applications mobiles pour Android et iOS en utilisant des technologies modernes comme React Native et Flutter. Cela nous permet de créer une application qui fonctionne sur les deux plateformes, vous faisant gagner du temps et de l'argent."
+                },
+                {
+                    question: "Quels modes de paiement acceptez-vous ?",
+                    answer: "Nous acceptons Mobile Money (MTN, Orange), les virements bancaires et les paiements en espèces. Nous demandons généralement 50 % d'acompte pour commencer le projet, les 50 % restants étant dus à l'achèvement."
+                },
+                {
+                    question: "Fournissez-vous un support continu ?",
+                    answer: "Absolument ! Nous proposons des forfaits de maintenance à partir de 15 000 XAF/mois qui incluent l'hébergement, les mises à jour de sécurité, les sauvegardes et les modifications mineures de contenu. Nous sommes toujours là pour vous aider même après la fin de votre projet."
+                },
+                {
+                    question: "Pouvez-vous aider pour le branding et le design ?",
+                    answer: "Oui, nous offrons des services de branding complets incluant la création de logos, cartes de visite, graphismes pour réseaux sociaux, flyers et packages d'identité visuelle complète. Nos designers créent des designs modernes et professionnels qui font ressortir votre entreprise."
+                },
+                {
+                    question: "Dois-je fournir le contenu de mon site web ?",
+                    answer: "Bien que nous puissions travailler avec le contenu que vous fournissez, nous proposons également des services de rédaction de contenu. Nous pouvons vous aider à rédiger des textes convaincants pour votre site web et à trouver des images professionnelles si nécessaire."
+                },
+                {
+                    question: "Que se passe-t-il si je ne suis pas satisfait du design ?",
+                    answer: "Nous travaillons en étroite collaboration avec vous tout au long du processus de conception et incluons des cycles de révision dans tous nos forfaits. Nous ne nous arrêterons pas tant que vous ne serez pas 100 % satisfait du résultat. Votre satisfaction est notre priorité."
+                }
+            ]
+        },
+        cta: {
+            title: "Commencez dès aujourd'hui",
+            subtitle: "Commencez votre prochain projet avec nous. Aucune démonstration ou appel requis. Nous construisons, vous grandissez."
         }
     }
 };

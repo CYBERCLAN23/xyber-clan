@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, ExternalLink, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import EditableText from './cms/EditableText';
 
 const PortfolioGrid = () => {
     const { isDark } = useTheme();
@@ -87,10 +88,13 @@ const PortfolioGrid = () => {
                     {/* Header */}
                     <div className="text-center mb-16">
                         <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
-                            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Work</span>
+                            <EditableText contentKey="en.portfolio.titlePrefix" tag="span" fallback="Our" />{' '}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
+                                <EditableText contentKey="en.portfolio.titleHighlight" tag="span" fallback="Work" />
+                            </span>
                         </h2>
                         <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Click on any project to learn more
+                            <EditableText contentKey="en.portfolio.subtitle" tag="span" fallback="Click on any project to learn more" />
                         </p>
                     </div>
 
@@ -115,14 +119,18 @@ const PortfolioGrid = () => {
                                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
 
                                 <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end">
-                                    <span className="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-1">{project.category}</span>
-                                    <h3 className="text-2xl font-bold text-white group-hover:translate-x-2 transition-transform duration-300">{project.title}</h3>
+                                    <span className="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-1">
+                                        <EditableText contentKey={`en.portfolio.projects.${idx}.category`} tag="span" fallback={project.category} />
+                                    </span>
+                                    <h3 className="text-2xl font-bold text-white group-hover:translate-x-2 transition-transform duration-300">
+                                        <EditableText contentKey={`en.portfolio.projects.${idx}.title`} tag="span" fallback={project.title} />
+                                    </h3>
                                 </div>
 
                                 {/* Click indicator */}
                                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <div className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-white text-sm font-medium">
-                                        View Details
+                                        <EditableText contentKey="en.portfolio.viewDetails" tag="span" fallback="View Details" />
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +198,9 @@ const PortfolioGrid = () => {
 
                             {/* Tech Stack */}
                             <div className="mb-8">
-                                <h4 className="text-white font-bold mb-3">Technologies Used</h4>
+                                <h4 className="text-white font-bold mb-3">
+                                    <EditableText contentKey="en.portfolio.techLabel" tag="span" fallback="Technologies Used" />
+                                </h4>
                                 <div className="flex flex-wrap gap-2">
                                     {activeProject.tech.map((tech, i) => (
                                         <span
@@ -210,7 +220,7 @@ const PortfolioGrid = () => {
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 px-6 rounded-xl font-bold hover:scale-105 transition-transform shadow-lg shadow-cyan-500/30"
                             >
-                                Visit Live Site
+                                <EditableText contentKey="en.portfolio.visitSite" tag="span" fallback="Visit Live Site" />
                                 <ExternalLink size={18} />
                             </a>
                         </div>

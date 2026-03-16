@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
+import { useLanguage } from './context/LanguageContext';
 import { translations } from './translations';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import Meta from './components/Meta';
+import EditableText from './components/cms/EditableText';
 
 /* ─── Event Images — Unsplash keywords per milestone ─── */
 const eventImages = [
@@ -40,7 +42,7 @@ const tagColors = {
 };
 
 /* ─── TIMELINE EVENT CARD ─── */
-const EventCard = ({ event, imageUrl, isDark, isVisible, index }) => {
+const EventCard = ({ event, imageUrl, isDark, isVisible, index, language }) => {
     const isLeft = index % 2 === 0;
     const gradient = tagColors[event.tag] || 'from-cyan-500 to-blue-600';
 
@@ -56,12 +58,12 @@ const EventCard = ({ event, imageUrl, isDark, isVisible, index }) => {
                 <div className={isLeft ? '' : 'order-3'}>
                     {isLeft && (
                         <div className={`ml-auto mr-0 max-w-[560px] ${isLeft ? 'text-right' : ''}`}>
-                            <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="right" />
+                            <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="right" index={index} language={language} />
                         </div>
                     )}
                     {!isLeft && (
                         <div className="ml-0 mr-auto max-w-[560px]">
-                            <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="left" />
+                            <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="left" index={index} language={language} />
                         </div>
                     )}
                 </div>
@@ -94,7 +96,7 @@ const EventCard = ({ event, imageUrl, isDark, isVisible, index }) => {
                 </div>
                 {/* Card */}
                 <div className="flex-1 pb-4">
-                    <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="left" />
+                    <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="left" index={index} language={language} />
                 </div>
             </div>
         </div>
@@ -102,7 +104,7 @@ const EventCard = ({ event, imageUrl, isDark, isVisible, index }) => {
 };
 
 /* ─── CARD CONTENT (image banner + text) ─── */
-const CardContent = ({ event, imageUrl, isDark, gradient, align }) => (
+const CardContent = ({ event, imageUrl, isDark, gradient, align, index, language }) => (
     <div className={`group relative rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-1 ${isDark
         ? 'bg-white/[0.03] border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05]'
         : 'bg-white border-gray-200/80 hover:border-gray-300 hover:shadow-xl hover:shadow-gray-200/50'
@@ -122,11 +124,11 @@ const CardContent = ({ event, imageUrl, isDark, gradient, align }) => (
             {/* Date badge on image */}
             <div className="absolute bottom-4 left-5 flex items-center gap-2">
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.15em] bg-gradient-to-r ${gradient} text-white shadow-sm`}>
-                    {event.tag}
+                    <EditableText contentKey={`${language}.journeyPage.event${index}.tag`} fallback={event.tag} />
                 </span>
                 <span className="flex items-center gap-1 text-xs font-medium text-white/80">
                     <Calendar size={11} />
-                    {event.date}
+                    <EditableText contentKey={`${language}.journeyPage.event${index}.date`} fallback={event.date} />
                 </span>
             </div>
         </div>
@@ -137,13 +139,13 @@ const CardContent = ({ event, imageUrl, isDark, gradient, align }) => (
                 className={`text-xl md:text-2xl font-black tracking-tight leading-tight mb-3 ${align === 'right' ? 'lg:text-right' : ''}`}
                 style={{ fontFamily: "'Inter', sans-serif" }}
             >
-                {event.title}
+                <EditableText contentKey={`${language}.journeyPage.event${index}.title`} fallback={event.title} />
             </h3>
             <p
                 className={`text-[14px] md:text-[15px] leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'} ${align === 'right' ? 'lg:text-right' : ''}`}
                 style={{ fontWeight: 300 }}
             >
-                {event.description}
+                <EditableText contentKey={`${language}.journeyPage.event${index}.description`} fallback={event.description} multiline />
             </p>
         </div>
 
@@ -158,8 +160,8 @@ const CardContent = ({ event, imageUrl, isDark, gradient, align }) => (
    ═══════════════════════════════════════════════ */
 const JourneyPage = () => {
     const { isDark } = useTheme();
-    const [lang] = useState('en');
-    const t = translations[lang];
+    const { language } = useLanguage();
+    const t = translations[language];
     const j = t.journey;
     const [visibleEvents, setVisibleEvents] = useState(new Set());
     const eventRefs = useRef([]);
@@ -186,7 +188,7 @@ const JourneyPage = () => {
             observers.push(observer);
         });
         return () => observers.forEach(obs => obs.disconnect());
-    }, [lang]);
+    }, [language]);
 
     return (
         <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
@@ -200,10 +202,10 @@ const JourneyPage = () => {
 
             {/* ─── HERO SECTION ─── */}
             <PageHero
-                lang={lang}
-                badgeText={t.nav.journey}
-                title={j.title}
-                subtitle={`"${j.subtitle}"`}
+                lang={language}
+                badgeText={<EditableText contentKey={`${language}.journeyPage.badge`} fallback={t.nav.journey} />}
+                title={<EditableText contentKey={`${language}.journeyPage.title`} fallback={j.title} />}
+                subtitle={<EditableText contentKey={`${language}.journeyPage.subtitle`} fallback={`"${j.subtitle}"`} multiline />}
                 imageSrc="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop" // Nature horizon / young people looking out context
                 stats={[]}
                 trustBadges={[]}
@@ -237,6 +239,7 @@ const JourneyPage = () => {
                                     index={idx}
                                     isDark={isDark}
                                     isVisible={visibleEvents.has(idx)}
+                                    language={language}
                                 />
                             </div>
                         ))}
@@ -259,21 +262,21 @@ const JourneyPage = () => {
                         className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] mb-6"
                         style={{ fontFamily: "'Inter', sans-serif" }}
                     >
-                        {j.ctaTitle}
+                        <EditableText contentKey={`${language}.journeyPage.ctaTitle`} fallback={j.ctaTitle} />
                     </h2>
 
                     <p
                         className={`text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed ${isDark ? 'text-gray-500' : 'text-gray-500'}`}
                         style={{ fontWeight: 300 }}
                     >
-                        {j.ctaDesc}
+                        <EditableText contentKey={`${language}.journeyPage.ctaDesc`} fallback={j.ctaDesc} multiline />
                     </p>
 
                     <Link
                         to="/start-project"
                         className="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-10 py-5 rounded-2xl text-lg font-black shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-[1.03] transition-all duration-300"
                     >
-                        {t.nav.getStarted}
+                        <EditableText contentKey={`${language}.journeyPage.ctaButton`} fallback={t.nav.getStarted} />
                         <ArrowRight size={20} />
                     </Link>
                 </div>

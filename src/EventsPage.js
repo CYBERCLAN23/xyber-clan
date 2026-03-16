@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowDown, Calendar, Tag, ExternalLink } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
+import { useLanguage } from './context/LanguageContext';
 import { translations } from './translations';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import Meta from './components/Meta';
+import EditableText from './components/cms/EditableText';
 
 /* ─── Tag color palette ─── */
 const typeColors = {
@@ -18,7 +20,7 @@ const typeColors = {
     Default: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
 };
 
-const EventSection = ({ article, isDark, readMoreText, index }) => {
+const EventSection = ({ article, isDark, readMoreText, index, language }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const images = useMemo(() => article.images || [article.image], [article.images, article.image]);
 
@@ -63,20 +65,20 @@ const EventSection = ({ article, isDark, readMoreText, index }) => {
                     <div className="flex flex-wrap items-center gap-4">
                         <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-semibold backdrop-blur-md border ${colorClass}`}>
                             <Tag size={14} />
-                            {article.type}
+                            <EditableText contentKey={`${language}.eventsPage.article${index}.type`} fallback={article.type} />
                         </span>
                         <span className={`inline-flex items-center gap-2 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                             <Calendar size={14} />
-                            {article.date}
+                            <EditableText contentKey={`${language}.eventsPage.article${index}.date`} fallback={article.date} />
                         </span>
                     </div>
 
                     <h2 className={`text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.1] ${isDark ? 'text-white' : 'text-gray-900'}`} style={{ fontFamily: "'Inter', sans-serif" }}>
-                        {article.title}
+                        <EditableText contentKey={`${language}.eventsPage.article${index}.title`} fallback={article.title} />
                     </h2>
 
                     <p className={`text-lg md:text-xl lg:text-2xl leading-relaxed max-w-2xl ${isDark ? 'text-gray-300' : 'text-gray-700'}`} style={{ fontWeight: 300 }}>
-                        {article.description}
+                        <EditableText contentKey={`${language}.eventsPage.article${index}.description`} fallback={article.description} multiline />
                     </p>
 
                     <a
@@ -88,7 +90,7 @@ const EventSection = ({ article, isDark, readMoreText, index }) => {
                             : 'bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-xl'
                             }`}
                     >
-                        {readMoreText}
+                        <EditableText contentKey={`${language}.eventsPage.readMore`} fallback={readMoreText} />
                         <ExternalLink size={18} className="transform transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
                     </a>
                 </div>
@@ -127,8 +129,8 @@ const EventSection = ({ article, isDark, readMoreText, index }) => {
 
 const EventsPage = () => {
     const { isDark } = useTheme();
-    const [lang] = useState('en');
-    const t = translations[lang];
+    const { language } = useLanguage();
+    const t = translations[language];
     const ep = t.eventsPage;
 
     useEffect(() => {
@@ -144,10 +146,10 @@ const EventsPage = () => {
             <SharedNavbar transparentHero={true} />
 
             <PageHero
-                lang={lang}
-                badgeText={ep.badge}
-                title={ep.title}
-                subtitle={ep.subtitle}
+                lang={language}
+                badgeText={<EditableText contentKey={`${language}.eventsPage.badge`} fallback={ep.badge} />}
+                title={<EditableText contentKey={`${language}.eventsPage.title`} fallback={ep.title} />}
+                subtitle={<EditableText contentKey={`${language}.eventsPage.subtitle`} fallback={ep.subtitle} multiline />}
                 imageSrc="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=2070&auto=format&fit=crop" // Abstract event/conference light trails
                 stats={[]}
                 trustBadges={[]}
@@ -161,6 +163,7 @@ const EventsPage = () => {
                         isDark={isDark}
                         readMoreText={ep.readMore}
                         index={idx}
+                        language={language}
                     />
                 ))}
             </div>

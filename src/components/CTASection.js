@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import EditableText from './cms/EditableText';
 import { ChevronRight } from 'lucide-react';
 
 const CTASection = () => {
@@ -38,22 +39,22 @@ const CTASection = () => {
                 <div className="relative z-10 p-12 md:p-24 flex flex-col md:flex-row items-center justify-between gap-12 text-left">
                     <div className="max-w-2xl">
                         <h2 className={`text-5xl md:text-7xl font-black mb-8 tracking-tighter ${isDark ? 'text-white' : 'text-black'}`}>
-                            Get started today
+                            <EditableText contentKey="en.cta.title" tag="span" fallback="Get started today" />
                         </h2>
                         <p className={`text-xl md:text-2xl leading-relaxed mb-12 max-w-xl ${isDark ? 'text-gray-400 font-medium' : 'text-gray-600'}`}>
-                            Create a free account. No demos or calls with our sales team are required. Upgrade only if you have to.
+                            <EditableText contentKey="en.cta.subtitle" tag="span" fallback="Create a free account. No demos or calls with our sales team are required. Upgrade only if you have to." />
                         </p>
 
                         <div className="flex flex-wrap gap-5">
                             {/* Primary Button - Brand Blue */}
                             <Link to="/start-project" className="group bg-[#00A3FF] hover:bg-[#0082CC] text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-xl shadow-[#00A3FF]/20">
-                                Get Started
+                                <EditableText contentKey="en.cta.primaryButton" tag="span" fallback="Get Started" />
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>
 
                             {/* Secondary Button */}
                             <a href="/#contact" className={`group px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all duration-300 hover:scale-105 ${isDark ? 'bg-white text-black font-black' : 'bg-gray-900 text-white'}`}>
-                                Contact Us
+                                <EditableText contentKey="en.cta.secondaryButton" tag="span" fallback="Contact Us" />
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </a>
                         </div>

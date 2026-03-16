@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Zap, MapPin, DollarSign, TrendingUp } from 'lucide-react';
 import { getLogo } from '../utils/festive';
 import heroVideo from '../assets/hero-video.mp4';
+import EditableText from './cms/EditableText';
+import EditableImage from './cms/EditableImage';
+import EditableVideo from './cms/EditableVideo';
+import { useCMS } from '../context/CMSContext';
 
 // Local video file
 const VIDEO_SRC = heroVideo;
 const POSTER_SRC = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
 
 const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
-    const hero = null; // or provide default static values if needed, but the code already has fallbacks
+    const hero = null;
+    const { isEditing } = useCMS();
 
     const videoRef = useRef(null);
     const [videoReady, setVideoReady] = useState(false);
@@ -63,16 +68,16 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
     }, []);
 
     const trustBadges = [
-        { icon: <Zap size={12} />, label: t?.hero?.fastDelivery || 'Fast Delivery' },
-        { icon: <MapPin size={12} />, label: t?.hero?.localExpertise || 'Local Expertise' },
-        { icon: <DollarSign size={12} />, label: t?.hero?.fairPricing || 'Fair Pricing' },
-        { icon: <TrendingUp size={12} />, label: t?.hero?.provenResults || 'Proven Results' },
+        { icon: <Zap size={12} />, label: t?.hero?.fastDelivery || 'Fast Delivery', key: 'fastDelivery' },
+        { icon: <MapPin size={12} />, label: t?.hero?.localExpertise || 'Local Expertise', key: 'localExpertise' },
+        { icon: <DollarSign size={12} />, label: t?.hero?.fairPricing || 'Fair Pricing', key: 'fairPricing' },
+        { icon: <TrendingUp size={12} />, label: t?.hero?.provenResults || 'Proven Results', key: 'provenResults' },
     ];
 
     const stats = [
-        { value: '50+', label: 'Projects' },
-        { value: '99.9%', label: 'Uptime' },
-        { value: '40+', label: 'Clients' },
+        { value: '50+', label: 'Projects', key: 'projects' },
+        { value: '99.9%', label: 'Uptime', key: 'uptime' },
+        { value: '40+', label: 'Clients', key: 'clients' },
     ];
 
     return (
@@ -81,7 +86,8 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             {/* POSTER / STATIC BANNER */}
             {/* Shows initially, fades out when video plays, fades back in when sequence completes */}
             <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${videoReady && !showBanner ? 'opacity-0' : 'opacity-100'}`}>
-                <img
+                <EditableImage
+                    contentKey="en.hero.posterImage"
                     src={POSTER_SRC}
                     alt="XyberClan Digital Agency - Global Web & Security Solutions"
                     className="w-full h-full object-cover"
@@ -93,29 +99,30 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             {/* VIDEO */}
             {/* Plays once, fades out when ended */}
             <div className={`absolute inset-0 transition-opacity duration-[1500ms] ${videoReady && !videoEnded ? 'opacity-100' : 'opacity-0'}`}>
-                <video
+                <EditableVideo
+                    contentKey="en.hero.backgroundVideo"
+                    posterContentKey="en.hero.posterImage"
+                    src={VIDEO_SRC}
+                    poster={POSTER_SRC}
                     ref={videoRef}
                     autoPlay
                     muted
                     playsInline
                     preload="auto"
-                    poster={POSTER_SRC}
                     className="w-full h-full object-cover"
                     onEnded={handleVideoEnd}
-                >
-                    <source src={VIDEO_SRC} type="video/mp4" />
-                </video>
+                />
             </div>
 
             {/* OVERLAYS */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/80" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/80 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
 
             {/* END SEQUENCE OVERLAY - Logo & Motto */}
             {/* Appears after video ends, disappears on Scroll */}
             <div className={`absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none transition-all duration-[1000ms] ${showEndSequence && !scrolledPast ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                <div className="bg-black/40 backdrop-blur-xl p-8 rounded-full mb-6 border border-white/10 shadow-2xl shadow-cyan-500/20">
-                    <img src={getLogo()} alt="XyberClan Logo" className="w-32 h-32 sm:w-48 sm:h-48 object-contain animate-pulse notranslate" />
+                <div className="bg-black/40 backdrop-blur-xl p-8 rounded-full mb-6 border border-white/10 shadow-2xl shadow-cyan-500/20 pointer-events-auto">
+                    <EditableImage contentKey="en.global.logo" src={getLogo()} alt="XyberClan Logo" className="w-32 h-32 sm:w-48 sm:h-48 object-contain animate-pulse notranslate" />
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white text-center tracking-tighter mb-2">
                     <span className="notranslate" translate="no"><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Xyber</span>Clan</span>
@@ -128,11 +135,11 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             </div>
 
             {/* CONTENT — Fades out slightly when end sequence shows to let logo take focus, but stays accessible */}
-            <div className={`relative z-10 h-full flex flex-col px-5 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-24 pb-6 sm:pb-8 transition-opacity duration-1000 ${showEndSequence && !scrolledPast ? 'opacity-20 blur-sm' : 'opacity-100'}`}>
+            <div className={`relative z-10 h-full flex flex-col px-5 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-24 pb-6 sm:pb-8 transition-opacity duration-1000 ${showEndSequence && !scrolledPast ? 'opacity-20 blur-sm' : 'opacity-100'} pointer-events-none`}>
 
                 {/* TOP: Headline area — grows to fill available space */}
                 <div className="flex-1 flex flex-col justify-center min-h-0">
-                    <div className={`transition-all duration-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
+                    <div className={`transition-all duration-700 pointer-events-auto ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
 
                         {/* Agency pill */}
                         <span
@@ -140,7 +147,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                             style={{ animation: mounted ? 'heroFadeUp 0.6s ease-out 0.05s both' : 'none' }}
                         >
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            {lang === 'en' ? 'Digital Agency • Worldwide' : 'Agence Digitale • Monde'}
+                            <EditableText contentKey={`${lang}.hero.agencyPill`} fallback={lang === 'en' ? 'Digital Agency • Worldwide' : 'Agence Digitale • Monde'} />
                         </span>
 
                         {/* Headline — restored premium stylized H1 */}
@@ -149,18 +156,18 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                                 className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black"
                                 style={{ fontFamily: "'Inter', sans-serif", animation: mounted ? 'heroFadeUp 0.7s ease-out 0.1s both' : 'none' }}
                             >
-                                {lang === 'en' ? 'Your Trusted' : 'Votre Partenaire'}
+                                <EditableText contentKey={`${lang}.hero.titleLine1`} fallback={lang === 'en' ? 'Your Trusted' : 'Votre Partenaire'} />
                             </span>
                             <span
                                 className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black mt-1"
                                 style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.2s both' : 'none' }}
                             >
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
-                                    {lang === 'en' ? 'Digital' : 'De Confiance'}
+                                    <EditableText contentKey={`${lang}.hero.titleLine2a`} fallback={lang === 'en' ? 'Digital' : 'De Confiance'} />
                                 </span>
                                 {' '}
                                 <span className="text-white/80 italic font-extralight">
-                                    {lang === 'en' ? 'Partner' : 'Digital'}
+                                    <EditableText contentKey={`${lang}.hero.titleLine2b`} fallback={lang === 'en' ? 'Partner' : 'Digital'} />
                                 </span>
                             </span>
                         </h1>
@@ -170,7 +177,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                             className="mt-3 sm:mt-4 text-white/50 text-sm sm:text-base lg:text-lg max-w-lg leading-relaxed"
                             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, animation: mounted ? 'heroFadeUp 0.7s ease-out 0.3s both' : 'none' }}
                         >
-                            {hero?.subtitle || t?.hero?.subtitle || 'Professional digital solutions for ambitious businesses and individuals.'}
+                            <EditableText contentKey={`${lang}.hero.subtitle`} fallback={hero?.subtitle || t?.hero?.subtitle || 'Professional digital solutions for ambitious businesses and individuals.'} />
                         </p>
 
                         {/* CTAs — compact */}
@@ -182,7 +189,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                                 to="/start-project"
                                 className="group flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/35 hover:scale-[1.02] transition-all duration-300"
                             >
-                                {t?.hero?.startProject || 'Start Your Project'}
+                                <EditableText contentKey={`${lang}.hero.startProject`} fallback={t?.hero?.startProject || 'Start Your Project'} />
                                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                             </Link>
                             <a
@@ -190,7 +197,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                                 onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
                                 className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl border border-white/15 bg-white/5 backdrop-blur-md text-white text-xs sm:text-sm font-medium hover:bg-white/10 transition-all duration-300"
                             >
-                                {t?.hero?.exploreServices || 'Explore Services'}
+                                <EditableText contentKey={`${lang}.hero.exploreServices`} fallback={t?.hero?.exploreServices || 'Explore Services'} />
                             </a>
                         </div>
                     </div>
@@ -198,7 +205,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
 
                 {/* BOTTOM — Stats + Trust badges, fixed to bottom */}
                 <div
-                    className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 sm:gap-6 flex-shrink-0"
+                    className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 sm:gap-6 flex-shrink-0 pointer-events-auto"
                     style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.55s both' : 'none' }}
                 >
                     {/* Glass Stats Card — compact */}
@@ -207,8 +214,12 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                             <React.Fragment key={i}>
                                 {i > 0 && <div className="w-px h-8 bg-white/10" />}
                                 <div className="text-center">
-                                    <p className="text-lg sm:text-xl md:text-2xl font-black text-white tracking-tight leading-none">{s.value}</p>
-                                    <p className="text-[9px] sm:text-[10px] font-semibold text-white/35 uppercase tracking-wider mt-0.5">{s.label}</p>
+                                    <p className="text-lg sm:text-xl md:text-2xl font-black text-white tracking-tight leading-none">
+                                        <EditableText contentKey={`${lang}.hero.stats.${s.key}.value`} fallback={s.value} />
+                                    </p>
+                                    <p className="text-[9px] sm:text-[10px] font-semibold text-white/35 uppercase tracking-wider mt-0.5">
+                                        <EditableText contentKey={`${lang}.hero.stats.${s.key}.label`} fallback={s.label} />
+                                    </p>
                                 </div>
                             </React.Fragment>
                         ))}
@@ -219,7 +230,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                         {trustBadges.map((badge, i) => (
                             <span key={i} className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium border border-white/8 bg-white/[0.04] text-white/50">
                                 {badge.icon}
-                                {badge.label}
+                                <EditableText contentKey={`${lang}.hero.badges.${badge.key}`} fallback={badge.label} />
                             </span>
                         ))}
                     </div>
@@ -230,6 +241,58 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                     <ChevronDown size={18} className="text-white/20 animate-bounce" />
                 </div>
             </div>
+
+            {/* CMS EDIT CARD FOR HERO MEDIA */}
+            {isEditing && (
+                <div className="absolute top-1/2 right-4 sm:right-6 -translate-y-1/2 flex flex-col gap-3 sm:gap-4 p-3 sm:p-5 bg-gray-900/90 border border-white/10 backdrop-blur-xl rounded-2xl z-[100] pointer-events-auto shadow-2xl transition-all hover:border-cyan-500/30">
+                    <h3 className="text-[9px] sm:text-[10px] font-bold text-white/50 uppercase tracking-widest text-center border-b border-white/10 pb-2 mb-1">
+                        Hero Media
+                    </h3>
+
+                    {/* Banner Image */}
+                    <div className="flex flex-col gap-1.5 items-center">
+                        <span className="text-[8px] sm:text-[9px] text-white/70 uppercase tracking-wider font-semibold">Banner Image</span>
+                        <div className="w-20 h-14 sm:w-24 sm:h-16 rounded-lg shadow-inner bg-black/50 relative hover:ring-2 hover:ring-cyan-500 transition-all cursor-pointer">
+                            <EditableImage
+                                contentKey="en.hero.posterImage"
+                                src={POSTER_SRC}
+                                className="absolute inset-0 w-full h-full"
+                                imageClassName="rounded-lg object-cover w-full h-full"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Background Video */}
+                    <div className="flex flex-col gap-1.5 items-center">
+                        <span className="text-[8px] sm:text-[9px] text-white/70 uppercase tracking-wider font-semibold">Back Video</span>
+                        <div className="w-20 h-14 sm:w-24 sm:h-16 rounded-lg shadow-inner bg-black/50 relative hover:ring-2 hover:ring-cyan-500 transition-all cursor-pointer">
+                            <EditableVideo
+                                contentKey="en.hero.backgroundVideo"
+                                posterContentKey="en.hero.posterImage"
+                                src={VIDEO_SRC}
+                                poster={POSTER_SRC}
+                                className="absolute inset-0 w-full h-full"
+                                videoClassName="rounded-lg object-cover w-full h-full"
+                                muted
+                                playsInline
+                            />
+                        </div>
+                    </div>
+
+                    {/* Logo */}
+                    <div className="flex flex-col gap-1.5 items-center mt-1">
+                        <span className="text-[8px] sm:text-[9px] text-white/70 uppercase tracking-wider font-semibold">Hero Logo</span>
+                        <div className="w-20 h-14 sm:w-24 sm:h-16 rounded-lg shadow-inner bg-black/50 relative hover:ring-2 hover:ring-cyan-500 transition-all cursor-pointer">
+                            <EditableImage
+                                contentKey="en.global.logo"
+                                src={getLogo()}
+                                className="absolute inset-0 w-full h-full flex flex-col items-center justify-center pt-2"
+                                imageClassName="w-8 h-8 sm:w-10 sm:h-10 object-contain mx-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <style>{`
                 @keyframes heroFadeUp {
