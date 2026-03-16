@@ -2,18 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useCMS } from '../../context/CMSContext';
 import { Save, RotateCcw, LogOut, ExternalLink, Loader2, CheckCircle2, AlertCircle, Pencil, ChevronDown, Home, Users, Handshake, Map, Calendar, Rocket } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ADMIN_BASE, ADMIN_PAGES as RAW_ADMIN_PAGES } from '../../config/adminPath';
 
 /**
  * Admin pages registry — all navigable pages in the CMS.
+ * Icons are added here (config only exports paths/labels).
  */
-const ADMIN_PAGES = [
-  { path: '/admin',               label: 'Home',          icon: Home },
-  { path: '/admin/team',          label: 'Team',          icon: Users },
-  { path: '/admin/partners',      label: 'Partners',      icon: Handshake },
-  { path: '/admin/journey',       label: 'Journey',       icon: Map },
-  { path: '/admin/events',        label: 'Events',        icon: Calendar },
-  { path: '/admin/start-project', label: 'Start Project', icon: Rocket },
-];
+const PAGE_ICONS = { Home, Team: Users, Partners: Handshake, Journey: Map, Events: Calendar, 'Start Project': Rocket };
+const ADMIN_PAGES = RAW_ADMIN_PAGES.map(p => ({ ...p, icon: PAGE_ICONS[p.label] || Home }));
 
 /**
  * CMSToolbar — Floating bottom toolbar visible only in CMS editing mode.
@@ -42,7 +38,7 @@ const CMSToolbar = () => {
   if (!isEditing) return null;
 
   const currentPage = ADMIN_PAGES.find(p => p.path === location.pathname) || ADMIN_PAGES[0];
-  const publicPath = location.pathname.replace('/admin', '') || '/';
+  const publicPath = location.pathname.replace(ADMIN_BASE, '') || '/';
 
   const handlePageSwitch = (page) => {
     if (page.path === location.pathname) {

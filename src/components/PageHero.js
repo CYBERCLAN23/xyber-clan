@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowDown } from 'lucide-react';
 import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
+import { useCMS } from '../context/CMSContext';
 
 const PageHero = ({
     lang = 'en',
@@ -16,6 +17,11 @@ const PageHero = ({
 }) => {
     const [mounted, setMounted] = useState(false);
     const [scrolledPast, setScrolledPast] = useState(false);
+    const { isEditing, getContent } = useCMS();
+
+    // Resolve the current background from CMS or default
+    const bgKey = contentKeyPrefix ? `${contentKeyPrefix}.bg` : null;
+    const currentBg = bgKey ? getContent(bgKey, imageSrc) : imageSrc;
 
     useEffect(() => {
         const timer = setTimeout(() => setMounted(true), 100);
@@ -24,11 +30,7 @@ const PageHero = ({
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolledPast(true);
-            } else {
-                setScrolledPast(false);
-            }
+            setScrolledPast(window.scrollY > 50);
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
@@ -42,19 +44,14 @@ const PageHero = ({
     return (
         <section className="relative w-full h-[100dvh] overflow-hidden bg-black">
 
-            {/* BACKGROUND IMAGE */}
+            {/* BACKGROUND IMAGE — plain img, no hover edit overlay */}
             <div className="absolute inset-0">
-                {contentKeyPrefix ? (
-                    <EditableImage 
-                        contentKey={`${contentKeyPrefix}.bg`} 
-                        src={imageSrc} 
-                        alt="" 
-                        className="w-full h-full object-cover" 
-                        fetchpriority="high" 
-                    />
-                ) : (
-                    <img src={imageSrc} alt="" className="w-full h-full object-cover" fetchpriority="high" />
-                )}
+                <img
+                    src={currentBg}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    fetchpriority="high"
+                />
             </div>
 
             {/* OVERLAYS */}
@@ -170,6 +167,28 @@ const PageHero = ({
                     <ArrowDown size={20} />
                 </button>
             </div>
+
+            {/* ═══ CMS HERO MEDIA GUIDE ═══ */}
+            {isEditing && contentKeyPrefix && (
+                <div className="absolute top-1/2 right-4 sm:right-6 -translate-y-1/2 flex flex-col gap-3 sm:gap-4 p-3 sm:p-5 bg-gray-900/90 border border-white/10 backdrop-blur-xl rounded-2xl z-[100] pointer-events-auto shadow-2xl transition-all hover:border-cyan-500/30">
+                    <h3 className="text-[9px] sm:text-[10px] font-bold text-white/50 uppercase tracking-widest text-center border-b border-white/10 pb-2 mb-1">
+                        Hero Media
+                    </h3>
+
+                    {/* Background Image */}
+                    <div className="flex flex-col gap-1.5 items-center">
+                        <span className="text-[8px] sm:text-[9px] text-white/70 uppercase tracking-wider font-semibold">Background</span>
+                        <div className="w-20 h-14 sm:w-24 sm:h-16 rounded-lg shadow-inner bg-black/50 relative hover:ring-2 hover:ring-cyan-500 transition-all cursor-pointer">
+                            <EditableImage
+                                contentKey={`${contentKeyPrefix}.bg`}
+                                src={imageSrc}
+                                className="absolute inset-0 w-full h-full"
+                                imageClassName="rounded-lg object-cover w-full h-full"
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <style>{`
                 @keyframes pageHeroFadeUp {

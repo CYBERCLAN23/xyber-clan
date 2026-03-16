@@ -14,6 +14,7 @@ import EventsPage from './EventsPage';
 // CMS Admin
 import AdminLayout from './layouts/AdminLayout';
 import AdminLogin from './pages/AdminLogin';
+import { ADMIN_BASE } from './config/adminPath';
 
 function App() {
   return (
@@ -31,11 +32,9 @@ function App() {
               <Route path="/events" element={<EventsPage />} />
               <Route path="/start-project" element={<ProjectForm />} />
 
-              {/* ═══ CMS Admin Routes ═══ */}
-              <Route path="/admin" element={<AdminLayout />}>
-                {/* Admin login (public, no auth required) */}
+              {/* ═══ CMS Admin Routes (secret hash URL) ═══ */}
+              <Route path={ADMIN_BASE} element={<AdminLayout />}>
                 <Route path="login" element={<AdminLogin />} />
-                {/* Admin pages mirror public pages with CMS enabled */}
                 <Route index element={<XyberClanWebsite />} />
                 <Route path="team" element={<TeamPage />} />
                 <Route path="partners" element={<PartnersPage />} />

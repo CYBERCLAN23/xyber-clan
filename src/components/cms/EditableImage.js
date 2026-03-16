@@ -114,7 +114,7 @@ const EditableImage = ({
 
   return (
     <div 
-      className="relative group cms-editable-image" 
+      className="relative group/cms cms-editable-image" 
       style={{ display: 'inline-block', width: '100%', height: '100%' }}
       data-cms-tooltip={isEditing && contentKey ? `Edit Image: ${contentKey.split('.').pop()}` : undefined}
     >
@@ -126,10 +126,10 @@ const EditableImage = ({
         {...rest}
       />
 
-      {/* Edit overlay */}
+      {/* Edit overlay — uses group/cms to avoid parent group collisions, z-30 to sit above gradient overlays */}
       <div
         onClick={handleClick}
-        className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer rounded-inherit"
+        className="absolute inset-0 z-30 flex items-center justify-center bg-black/50 opacity-0 group-hover/cms:opacity-100 transition-opacity duration-300 cursor-pointer"
         style={{ borderRadius: 'inherit' }}
       >
         {isUploading ? (

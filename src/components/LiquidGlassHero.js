@@ -14,7 +14,11 @@ const POSTER_SRC = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa
 
 const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
     const hero = null;
-    const { isEditing } = useCMS();
+    const { isEditing, getContent } = useCMS();
+
+    // Resolve current poster/video from CMS or default
+    const currentPoster = getContent('en.hero.posterImage', POSTER_SRC);
+    const currentVideo = getContent('en.hero.backgroundVideo', VIDEO_SRC);
 
     const videoRef = useRef(null);
     const [videoReady, setVideoReady] = useState(false);
@@ -83,28 +87,25 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
     return (
         <section className="relative w-full h-[100dvh] overflow-hidden bg-black">
 
-            {/* POSTER / STATIC BANNER */}
+            {/* POSTER / STATIC BANNER — plain img, editing via Hero Media guide */}
             {/* Shows initially, fades out when video plays, fades back in when sequence completes */}
             <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${videoReady && !showBanner ? 'opacity-0' : 'opacity-100'}`}>
-                <EditableImage
-                    contentKey="en.hero.posterImage"
-                    src={POSTER_SRC}
+                <img
+                    src={currentPoster}
                     alt="XyberClan Digital Agency - Global Web & Security Solutions"
                     className="w-full h-full object-cover"
                     loading="eager"
-                    fetchpriority="high"
+                    fetchPriority="high"
                 />
             </div>
 
-            {/* VIDEO */}
+            {/* VIDEO — plain video, editing via Hero Media guide */}
             {/* Plays once, fades out when ended */}
             <div className={`absolute inset-0 transition-opacity duration-[1500ms] ${videoReady && !videoEnded ? 'opacity-100' : 'opacity-0'}`}>
-                <EditableVideo
-                    contentKey="en.hero.backgroundVideo"
-                    posterContentKey="en.hero.posterImage"
-                    src={VIDEO_SRC}
-                    poster={POSTER_SRC}
+                <video
                     ref={videoRef}
+                    src={currentVideo}
+                    poster={currentPoster}
                     autoPlay
                     muted
                     playsInline

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useCMS } from '../context/CMSContext';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Eye, EyeOff, Loader2, AlertCircle, Lock } from 'lucide-react';
+import { ADMIN_BASE } from '../config/adminPath';
 
 /**
  * AdminLogin — Ultra-secure CMS login page.
@@ -19,7 +20,7 @@ const AdminLogin = () => {
 
   // If already logged in, redirect
   React.useEffect(() => {
-    if (user) navigate('/admin');
+    if (user) navigate(ADMIN_BASE);
   }, [user, navigate]);
 
   const handleSubmit = async (e) => {
@@ -39,7 +40,7 @@ const AdminLogin = () => {
     setIsLoading(true);
     try {
       await login(email, password);
-      navigate('/admin');
+      navigate(ADMIN_BASE);
     } catch (err) {
       setAttempts((a) => a + 1);
       if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {

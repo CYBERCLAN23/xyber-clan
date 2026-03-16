@@ -3,23 +3,22 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useCMS } from '../context/CMSContext';
 import CMSToolbar from '../components/cms/CMSToolbar';
 import { Loader2 } from 'lucide-react';
+import { ADMIN_BASE, adminPath } from '../config/adminPath';
 
 /**
- * AdminLayout — Wraps all /admin/* routes.
- * - If not authenticated: redirects to /admin/login
+ * AdminLayout — Wraps all secret admin routes.
+ * - If not authenticated: redirects to login
  * - If authenticated: renders child route + CMS toolbar
  */
 const AdminLayout = () => {
   const { user, authLoading, setIsEditing } = useCMS();
   const location = useLocation();
 
-  // Enable editing mode when user is authenticated and on admin routes
   useEffect(() => {
     if (user) setIsEditing(true);
     return () => setIsEditing(false);
   }, [user, setIsEditing]);
 
-  // Show loading while checking auth
   if (authLoading) {
     return (
       <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
@@ -31,21 +30,19 @@ const AdminLayout = () => {
     );
   }
 
-  // Not logged in — redirect to login (except if already on login page)
-  if (!user && location.pathname !== '/admin/login') {
-    return <Navigate to="/admin/login" state={{ from: location }} replace />;
+  // Not logged in — redirect to login
+  if (!user && location.pathname !== adminPath('login')) {
+    return <Navigate to={adminPath('login')} state={{ from: location }} replace />;
   }
 
-  // If on login page and already logged in, redirect to admin home
-  if (user && location.pathname === '/admin/login') {
-    return <Navigate to="/admin" replace />;
+  // Already logged in on login page — redirect to admin home
+  if (user && location.pathname === adminPath('login')) {
+    return <Navigate to={ADMIN_BASE} replace />;
   }
 
   return (
     <>
-      {/* Render the matched child route (pages with CMS enabled) */}
       <Outlet />
-      {/* CMS floating toolbar */}
       <CMSToolbar />
     </>
   );
