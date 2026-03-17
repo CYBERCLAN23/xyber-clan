@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
 import { translations } from './translations';
-import { ArrowRight, Handshake, Trophy, Zap, Users, Globe, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Handshake, Trophy, Zap, Users, Globe } from 'lucide-react';
 import Footer from './components/Footer';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
