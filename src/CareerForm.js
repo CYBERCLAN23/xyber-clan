@@ -6,7 +6,7 @@ import {
     User, Briefcase, MapPin, Clock,
     Globe, Code, Send,
     GraduationCap, CalendarDays, Phone, Linkedin,
-    FileText, Users, Star, Target, Facebook, MessageCircle, Heart,
+    FileText, Users, Star, Target,     MessageCircle, Heart,
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
