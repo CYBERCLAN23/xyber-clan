@@ -404,6 +404,60 @@ const CareerForm = () => {
                                     </>
                                 )}
 
+                                {/* MULTISELECT */}
+                                {currentQuestion.type === 'multiselect' && (
+                                    <>
+                                        <div className="text-center mb-12">
+                                            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-4">
+                                                {currentQuestion.question}
+                                            </h2>
+                                            {currentQuestion.subtitle && (
+                                                <p className={`text-lg max-w-lg mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                                    {currentQuestion.subtitle}
+                                                </p>
+                                            )}
+                                        </div>
+                                        <div className="flex flex-wrap justify-center gap-4 max-w-2xl mx-auto">
+                                            {currentQuestion.options.map((opt, i) => {
+                                                const selected = answers[currentQuestion.id] || [];
+                                                const isSelected = selected.includes(opt.label);
+                                                const color = colors[i % colors.length];
+
+                                                return (
+                                                    <button
+                                                        key={i}
+                                                        onClick={() => handleMultiSelect(currentQuestion.id, opt.label)}
+                                                        className={`group relative flex items-center gap-3 px-6 py-4 rounded-2xl border-2 transition-all duration-300 hover:scale-[1.03] active:scale-95 ${
+                                                            isSelected
+                                                                ? 'bg-cyan-500/10 border-cyan-500 shadow-xl shadow-cyan-500/10'
+                                                                : `${isDark ? 'bg-white/[0.03] border-white/5 hover:border-white/20' : 'bg-white border-gray-200 hover:border-cyan-300'}`
+                                                        }`}
+                                                    >
+                                                        {isSelected && (
+                                                            <div className="absolute -top-2 -right-2 bg-cyan-500 text-white p-0.5 rounded-full">
+                                                                <Check size={12} strokeWidth={4} />
+                                                            </div>
+                                                        )}
+                                                        <div className={`p-3 rounded-xl transition-all ${
+                                                            isSelected
+                                                                ? 'bg-cyan-500/20 text-cyan-500 scale-110'
+                                                                : color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
+                                                                color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
+                                                                color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
+                                                                color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
+                                                                color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
+                                                                'bg-gray-500/10 text-gray-400'
+                                                        }`}>
+                                                            {React.cloneElement(opt.icon, {})}
+                                                        </div>
+                                                        <span className={`font-bold text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>{opt.label}</span>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </>
+                                )}
+
                                 {/* TEXTAREA */}
                                 {currentQuestion.type === 'textarea' && (
                                     <>
@@ -520,6 +574,33 @@ const CareerForm = () => {
                                                             {field.label}: {answers[`${step.id}_field_${fi}`] || 'N/A'}
                                                         </p>
                                                     ))}
+                                                </div>
+                                            );
+                                        }
+                                        if (step.type === 'multiselect') {
+                                            const selected = answers[step.id] || [];
+                                            return (
+                                                <div key={idx} className={`group relative rounded-3xl p-6 transition-all ${
+                                                    isDark
+                                                        ? 'bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] hover:border-cyan-500/30'
+                                                        : 'bg-white border border-gray-200 hover:border-cyan-500/30'
+                                                }`}>
+                                                    <div className="flex items-start gap-4">
+                                                        <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0">
+                                                            <Star size={20} />
+                                                        </div>
+                                                        <div>
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500/60 mb-1">{step.question.replace(/\?$/, '')}</p>
+                                                            <div className="flex flex-wrap gap-2 mt-1">
+                                                                {selected.map((s, si) => (
+                                                                    <span key={si} className="inline-block px-3 py-1.5 rounded-lg bg-cyan-500/10 text-cyan-500 font-bold text-sm">
+                                                                        {s}
+                                                                    </span>
+                                                                ))}
+                                                                {selected.length === 0 && <span className={`text-lg font-bold ${isDark ? 'text-white/30' : 'text-gray-400'}`}>N/A</span>}
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             );
                                         }
