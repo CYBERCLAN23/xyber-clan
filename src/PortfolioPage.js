@@ -8,6 +8,7 @@ import Meta from './components/Meta';
 import SharedNavbar from './components/SharedNavbar';
 import Footer from './components/Footer';
 import PortfolioGrid, { CATEGORIES } from './components/PortfolioGrid';
+import EditableText from './components/cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -117,8 +118,7 @@ const PortfolioPage = () => {
                             opacity: 0,
                         }}
                     >
-                        Portfolio<br />
-                        <span style={{ fontWeight: 800 }}>XyberClan</span>
+                        <EditableText contentKey={`${language}.portfolioPage.title`} fallback={t.portfolioPage.title} />
                     </h1>
                 </div>
 
@@ -132,7 +132,7 @@ const PortfolioPage = () => {
                         maxWidth: 240,
                         margin: '0 0 36px 0',
                     }}>
-                        We build premium digital experiences for ambitious brands across Africa and beyond.
+                        <EditableText contentKey={`${language}.portfolioPage.subtitle`} fallback={t.portfolioPage.subtitle} />
                     </p>
 
                     {/* Filter label + dropdowns */}
@@ -145,7 +145,7 @@ const PortfolioPage = () => {
                             color: muted,
                             margin: '0 0 10px 0',
                         }}>
-                            Filter by
+                            <EditableText contentKey={`${language}.portfolioPage.filterLabel`} fallback={t.portfolioPage.filterLabel} />
                         </p>
                         <div style={{ display: 'flex', gap: 0, flexWrap: 'wrap' }}>
                             {CATEGORIES.map((cat) => (
@@ -210,7 +210,7 @@ const PortfolioPage = () => {
                     color: muted,
                     margin: 0,
                 }}>
-                    Start a project
+                    <EditableText contentKey={`${language}.portfolioPage.ctaBadge`} fallback={t.portfolioPage.ctaBadge} />
                 </p>
                 <h2 style={{
                     fontWeight: 300,
@@ -221,7 +221,7 @@ const PortfolioPage = () => {
                     margin: 0,
                     maxWidth: 520,
                 }}>
-                    Ready to build something <em style={{ fontStyle: 'italic', fontWeight: 300 }}>exceptional</em>?
+                    <EditableText contentKey={`${language}.portfolioPage.ctaHeading`} fallback={t.portfolioPage.ctaHeading} />
                 </h2>
                 <a
                     href="/start-project"
@@ -241,7 +241,7 @@ const PortfolioPage = () => {
                     onMouseEnter={e => e.currentTarget.style.opacity = '0.55'}
                     onMouseLeave={e => e.currentTarget.style.opacity = '1'}
                 >
-                    Get in touch ↗
+                    <EditableText contentKey={`${language}.portfolioPage.ctaLink`} fallback={t.portfolioPage.ctaLink} />
                 </a>
             </section>
 

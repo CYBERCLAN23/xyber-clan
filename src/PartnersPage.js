@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import SharedNavbar from './components/SharedNavbar';
 import PartnershipForm from './PartnershipForm';
 import Meta from './components/Meta';
+import EditableText from './components/cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -184,7 +185,7 @@ const PartnersPage = () => {
                         maxWidth: 260,
                         margin: 0,
                     }}>
-                        Collaborating for a greater impact — powering innovation through strategic alliances and shared vision.
+                        <EditableText contentKey={`${language}.partnersPage.hero.description`} fallback="Collaborating for a greater impact — powering innovation through strategic alliances and shared vision." />
                     </p>
                 </div>
 
@@ -249,7 +250,7 @@ const PartnersPage = () => {
                                 margin: 0,
                                 opacity: 0,
                             }}>
-                                {p.hultStory.title}
+                                <EditableText contentKey={`${language}.partnersPage.hultStory.title`} fallback={p.hultStory.title} />
                             </h2>
                         </div>
                         <p style={{
@@ -260,7 +261,7 @@ const PartnersPage = () => {
                             maxWidth: 300,
                             margin: 0,
                         }}>
-                            Technical sponsorship powering the next generation of social entrepreneurs at UY1.
+                            <EditableText contentKey={`${language}.partnersPage.hultStory.description`} fallback="Technical sponsorship powering the next generation of social entrepreneurs at UY1." />
                         </p>
                     </div>
 
@@ -277,7 +278,7 @@ const PartnersPage = () => {
                                 color: muted,
                                 margin: '0 0 16px 0',
                             }}>
-                                {paragraph}
+                                <EditableText contentKey={`${language}.partnersPage.hultStory.narrative${idx}`} fallback={paragraph} multiline />
                             </p>
                         ))}
                     </div>
@@ -368,7 +369,7 @@ const PartnersPage = () => {
                             color: '#06b6d4',
                             margin: '0 0 24px 0',
                         }}>
-                            Get Involved
+                            <EditableText contentKey={`${language}.partnersPage.ctaBadge`} fallback="Get Involved" />
                         </p>
                         <h2 style={{
                             fontWeight: 900,
@@ -378,8 +379,7 @@ const PartnersPage = () => {
                             color: text,
                             margin: '0 0 16px 0',
                         }}>
-                            Join the{' '}
-                            <span style={{ color: '#06b6d4' }}>XyberClan Network</span>
+                            <EditableText contentKey={`${language}.partnersPage.ctaHeading`} fallback="Join the XyberClan Network" />
                         </h2>
                         <p style={{
                             fontSize: '0.85rem',
@@ -389,7 +389,7 @@ const PartnersPage = () => {
                             maxWidth: 500,
                             margin: '0 auto',
                         }}>
-                            Whether you want to build the next big thing or support our tech movement, we have a place for you.
+                            <EditableText contentKey={`${language}.partnersPage.ctaSubtitle`} fallback="Whether you want to build the next big thing or support our tech movement, we have a place for you." />
                         </p>
                     </div>
 
@@ -438,7 +438,7 @@ const PartnersPage = () => {
                                 color: text,
                                 margin: '0 0 16px 0',
                             }}>
-                                {p.ctaPartner}
+                                <EditableText contentKey={`${language}.partnersPage.ctaPartner`} fallback={p.ctaPartner} />
                             </h3>
                             <div style={{
                                 display: 'flex',
@@ -448,7 +448,7 @@ const PartnersPage = () => {
                                 fontWeight: 600,
                                 color: '#06b6d4',
                             }}>
-                                <span>Get Started</span>
+                                <span><EditableText contentKey={`${language}.partnersPage.ctaPartnerButton`} fallback="Get Started" /></span>
                                 <ArrowRight size={14} />
                             </div>
                         </button>
@@ -491,7 +491,7 @@ const PartnersPage = () => {
                                 color: text,
                                 margin: '0 0 16px 0',
                             }}>
-                                {p.ctaSponsor}
+                                <EditableText contentKey={`${language}.partnersPage.ctaSponsor`} fallback={p.ctaSponsor} />
                             </h3>
                             <div style={{
                                 display: 'flex',
@@ -501,7 +501,7 @@ const PartnersPage = () => {
                                 fontWeight: 600,
                                 color: '#06b6d4',
                             }}>
-                                <span>Support Us</span>
+                                <span><EditableText contentKey={`${language}.partnersPage.ctaSponsorButton`} fallback="Support Us" /></span>
                                 <ArrowRight size={14} />
                             </div>
                         </button>

@@ -12,6 +12,7 @@ import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
 import { getLogo } from './utils/festive';
 import Meta from './components/Meta';
+import EditableText from './components/cms/EditableText';
 import gsap from 'gsap';
 import mountainBg from './assets/hero-mountain.png';
 
@@ -324,7 +325,7 @@ const CareerForm = () => {
                                     <div className="text-center">
                                         <div className="inline-flex items-center gap-2 px-5 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-8">
                                             <Sparkles className="w-4 h-4 text-cyan-500" />
-                                            <span className="text-sm font-bold text-cyan-500">{currentQuestion.badge}</span>
+                                            <span className="text-sm font-bold text-cyan-500"><EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.badge`} fallback={currentQuestion.badge} /></span>
                                         </div>
 
                                         <div className="w-20 h-20 rounded-[2rem] bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-cyan-500/30">
@@ -332,17 +333,17 @@ const CareerForm = () => {
                                         </div>
 
                                         <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-4">
-                                            {currentQuestion.question}
+                                            <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.question`} fallback={currentQuestion.question} />
                                         </h2>
                                         <p className={`text-lg max-w-lg mx-auto leading-relaxed mb-12 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                                            {currentQuestion.subtitle}
+                                            <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.subtitle`} fallback={currentQuestion.subtitle} />
                                         </p>
 
                                         <button
                                             onClick={handleNext}
                                             className="group inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-10 py-5 rounded-[2rem] font-black text-lg transition-all hover:scale-[1.05] hover:shadow-2xl hover:shadow-cyan-500/30 active:scale-95 shadow-xl shadow-cyan-500/20"
                                         >
-                                            Start Application
+                                            <EditableText contentKey={`${language}.careerForm.ui.startApplication`} fallback="Start Application" />
                                             <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform" />
                                         </button>
                                     </div>
@@ -353,7 +354,7 @@ const CareerForm = () => {
                                     <>
                                         <div className="text-center mb-16">
                                             <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-6">
-                                                {currentQuestion.question}
+                                                <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.question`} fallback={currentQuestion.question} />
                                             </h2>
                                         </div>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -389,7 +390,7 @@ const CareerForm = () => {
                                                         }`}>
                                                             {React.cloneElement(opt.icon, {})}
                                                         </div>
-                                                        <h3 className={`text-xl font-black tracking-tight leading-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>{opt.label}</h3>
+                                                        <h3 className={`text-xl font-black tracking-tight leading-tight ${isDark ? 'text-white' : 'text-gray-900'}`}><EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.options.${i}`} fallback={opt.label} /></h3>
                                                     </button>
                                                 );
                                             })}
@@ -402,7 +403,7 @@ const CareerForm = () => {
                                     <>
                                         <div className="text-center mb-16">
                                             <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-6">
-                                                {currentQuestion.question}
+                                                <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.question`} fallback={currentQuestion.question} />
                                             </h2>
                                         </div>
                                         <div className="relative max-w-xl mx-auto">
@@ -432,11 +433,11 @@ const CareerForm = () => {
                                     <>
                                         <div className="text-center mb-12">
                                             <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-4">
-                                                {currentQuestion.question}
+                                                <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.question`} fallback={currentQuestion.question} />
                                             </h2>
                                             {currentQuestion.subtitle && (
                                                 <p className={`text-lg max-w-lg mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                                                    {currentQuestion.subtitle}
+                                                    <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.subtitle`} fallback={currentQuestion.subtitle} />
                                                 </p>
                                             )}
                                         </div>
@@ -473,7 +474,7 @@ const CareerForm = () => {
                                                         }`}>
                                                             {React.cloneElement(opt.icon, {})}
                                                         </div>
-                                                        <span className={`font-bold text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>{opt.label}</span>
+                                                        <span className={`font-bold text-base ${isDark ? 'text-white' : 'text-gray-900'}`}><EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.options.${i}`} fallback={opt.label} /></span>
                                                     </button>
                                                 );
                                             })}
@@ -486,7 +487,7 @@ const CareerForm = () => {
                                     <>
                                         <div className="text-center mb-16">
                                             <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-6">
-                                                {currentQuestion.question}
+                                                <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.question`} fallback={currentQuestion.question} />
                                             </h2>
                                         </div>
                                         <div className="relative max-w-xl mx-auto">
@@ -511,7 +512,7 @@ const CareerForm = () => {
                                     <>
                                         <div className="text-center mb-16">
                                             <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-6">
-                                                {currentQuestion.question}
+                                                <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.question`} fallback={currentQuestion.question} />
                                             </h2>
                                         </div>
                                         <div className={`max-w-xl mx-auto rounded-[3rem] p-10 space-y-10 shadow-2xl relative overflow-hidden ${
@@ -520,7 +521,7 @@ const CareerForm = () => {
                                             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
                                             {currentQuestion.fields.map((field, i) => (
                                                 <div key={i} className="relative group">
-                                                    <label className={`block text-[10px] font-black uppercase tracking-[0.3em] mb-4 ml-1 italic ${isDark ? 'text-white/30' : 'text-gray-400'}`}>{field.label}</label>
+                                                    <label className={`block text-[10px] font-black uppercase tracking-[0.3em] mb-4 ml-1 italic ${isDark ? 'text-white/30' : 'text-gray-400'}`}><EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.fields.${i}.label`} fallback={field.label} /></label>
                                                     <div className="relative">
                                                         <div className={`absolute left-5 top-1/2 -translate-y-1/2 transition-all duration-500 ${
                                                             isDark ? 'text-white/20 group-focus-within:text-cyan-500' : 'text-gray-400 group-focus-within:text-cyan-600'
@@ -551,7 +552,7 @@ const CareerForm = () => {
                                         onClick={handlePrev}
                                         className={`group flex items-center gap-2 px-8 py-4 rounded-xl font-black text-sm uppercase tracking-widest transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : ''} ${isDark ? 'text-white/40 hover:text-white hover:bg-white/5' : 'text-gray-400 hover:text-gray-900 hover:bg-black/5'}`}
                                     >
-                                        <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> Back
+                                        <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> <EditableText contentKey={`${language}.careerForm.ui.back`} fallback="Back" />
                                     </button>
 
                                     {(currentQuestion.type !== 'welcome' && currentQuestion.type !== 'choice') && (
@@ -562,7 +563,7 @@ const CareerForm = () => {
                                                 ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-2xl shadow-cyan-500/30 hover:scale-[1.05] hover:shadow-cyan-500/50 active:scale-95'
                                                 : 'bg-white/5 text-white/20 cursor-not-allowed'}`}
                                         >
-                                            {currentStep === steps.length - 1 ? 'Submit' : 'Next'}
+                                            {currentStep === steps.length - 1 ? <EditableText contentKey={`${language}.careerForm.ui.submit`} fallback="Submit" /> : <EditableText contentKey={`${language}.careerForm.ui.next`} fallback="Next" />}
                                             {currentStep === steps.length - 1 ? <Send size={20} /> : <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
                                         </button>
                                     )}
@@ -579,10 +580,10 @@ const CareerForm = () => {
                                 </div>
 
                                 <h2 className={`text-3xl md:text-5xl font-black tracking-tighter text-center mb-3 leading-none ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                    Application Summary
+                                    <EditableText contentKey={`${language}.careerForm.summary.title`} fallback="Application Summary" />
                                 </h2>
                                 <p className={`text-lg font-medium text-center mb-10 max-w-md mx-auto ${isDark ? 'text-white/40' : 'text-gray-400'}`}>
-                                    Review your answers before sending
+                                    <EditableText contentKey={`${language}.careerForm.summary.subtitle`} fallback="Review your answers before sending" />
                                 </p>
 
                                 <div className="w-full space-y-4 mb-10">
@@ -591,10 +592,10 @@ const CareerForm = () => {
                                         if (step.type === 'fields') {
                                             return (
                                                 <div key={idx} className={`rounded-3xl p-6 ${isDark ? 'bg-white/[0.03] border border-white/5' : 'bg-white border border-gray-200'}`}>
-                                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500/60 mb-3">{step.question.replace(/\?$/, '')}</p>
+                                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500/60 mb-3"><EditableText contentKey={`${language}.careerForm.steps.${step.id}.label`} fallback={step.question.replace(/\?$/, '')} /></p>
                                                     {step.fields.map((field, fi) => (
                                                         <p key={fi} className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                                            {field.label}: {answers[`${step.id}_field_${fi}`] || 'N/A'}
+                                                            <EditableText contentKey={`${language}.careerForm.steps.${step.id}.fields.${fi}.label`} fallback={field.label} />: {answers[`${step.id}_field_${fi}`] || 'N/A'}
                                                         </p>
                                                     ))}
                                                 </div>
@@ -613,7 +614,7 @@ const CareerForm = () => {
                                                             <Star size={20} />
                                                         </div>
                                                         <div>
-                                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500/60 mb-1">{step.question.replace(/\?$/, '')}</p>
+                                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500/60 mb-1"><EditableText contentKey={`${language}.careerForm.steps.${step.id}.label`} fallback={step.question.replace(/\?$/, '')} /></p>
                                                             <div className="flex flex-wrap gap-2 mt-1">
                                                                 {selected.map((s, si) => (
                                                                     <span key={si} className="inline-block px-3 py-1.5 rounded-lg bg-cyan-500/10 text-cyan-500 font-bold text-sm">
@@ -638,7 +639,7 @@ const CareerForm = () => {
                                                         {idx === 1 ? <User size={20} /> : idx === 2 ? <Mail size={20} /> : <FileText size={20} />}
                                                     </div>
                                                     <div>
-                                                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500/60 mb-1">{step.question.replace(/\?$/, '')}</p>
+                                                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500/60 mb-1"><EditableText contentKey={`${language}.careerForm.steps.${step.id}.label`} fallback={step.question.replace(/\?$/, '')} /></p>
                                                         <p className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{answers[step.id] || 'N/A'}</p>
                                                     </div>
                                                 </div>
@@ -652,7 +653,7 @@ const CareerForm = () => {
                                         onClick={handleEmailSend}
                                         className="group flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-6 rounded-3xl font-black text-lg transition-all hover:scale-[1.03] hover:shadow-2xl hover:shadow-cyan-500/30 active:scale-95 shadow-xl shadow-cyan-500/10"
                                     >
-                                        <Mail className="w-6 h-6" /> Send Application
+                                        <Mail className="w-6 h-6" /> <EditableText contentKey={`${language}.careerForm.summary.send`} fallback="Send Application" />
                                     </button>
                                     <button
                                         onClick={() => setIsCompleted(false)}
@@ -662,7 +663,7 @@ const CareerForm = () => {
                                                 : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                                         }`}
                                     >
-                                        <ChevronLeft size={20} /> Back to Edit
+                                        <ChevronLeft size={20} /> <EditableText contentKey={`${language}.careerForm.summary.backToEdit`} fallback="Back to Edit" />
                                     </button>
                                 </div>
 
@@ -670,7 +671,7 @@ const CareerForm = () => {
                                     to="/"
                                     className={`mt-8 flex items-center gap-2 transition-colors font-black text-[10px] uppercase tracking-widest ${isDark ? 'text-white/40 hover:text-white' : 'text-gray-400 hover:text-gray-900'}`}
                                 >
-                                    Return to Homepage
+                                    <EditableText contentKey={`${language}.careerForm.summary.returnHome`} fallback="Return to Homepage" />
                                 </Link>
                             </div>
                         )}

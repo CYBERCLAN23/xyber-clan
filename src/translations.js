@@ -395,9 +395,18 @@ export const translations = {
                 }
             ]
         },
+        teamPage: {
+            title: 'Meet Our',
+            titleBold: 'Specialists',
+            subtitle: 'A premium collective of engineers, designers, and strategists working together to build exceptional technologies.'
+        },
         portfolioPage: {
             title: 'Our Portfolio',
             subtitle: 'A showcase of projects we have built, designed, and delivered with passion.',
+            filterLabel: 'Filter by',
+            ctaBadge: 'Start a project',
+            ctaHeading: 'Ready to build something exceptional?',
+            ctaLink: 'Get in touch ↗',
             badge: 'Our Work',
             ctaTitle: 'Have a Project in Mind?',
             ctaDesc: 'Let us bring your vision to life. Start your project today.',
@@ -1130,9 +1139,18 @@ export const translations = {
                 }
             ]
         },
+        teamPage: {
+            title: 'Rencontrez Nos',
+            titleBold: 'Spécialistes',
+            subtitle: 'Un collectif haut de gamme d\'ingénieurs, designers et stratèges travaillant ensemble pour bâtir des technologies exceptionnelles.'
+        },
         portfolioPage: {
             title: 'Notre Portfolio',
             subtitle: 'Une vitrine des projets que nous avons construits, conçus et livrés avec passion.',
+            filterLabel: 'Filtrer par',
+            ctaBadge: 'Démarrer un projet',
+            ctaHeading: 'Prêt à construire quelque chose d\'exceptionnel ?',
+            ctaLink: 'Contactez-nous ↗',
             badge: 'Notre Travail',
             ctaTitle: 'Vous avez un projet en tête ?',
             ctaDesc: 'Laissez-nous donner vie à votre vision. Commencez votre projet dès aujourd\'hui.',

@@ -9,6 +9,8 @@ import { useLanguage } from './context/LanguageContext';
 import Footer from './components/Footer';
 import SharedNavbar from './components/SharedNavbar';
 import Meta from './components/Meta';
+import EditableText from './components/cms/EditableText';
+import EditableImage from './components/cms/EditableImage';
 
 const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
@@ -225,6 +227,7 @@ const FloatingPreview = ({ src, visible }) => {
 
 /* ─── Detail Panel ────────────────────────────────────────────────── */
 const TeamDetailPanel = ({ member, onClose, isDark }) => {
+    const { language } = useLanguage();
     const panelRef = useRef(null);
     const contentRef = useRef(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -264,10 +267,10 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
     }, [handleClose]);
 
     const metaRows = [
-        { label: 'Role', value: member.role },
-        { label: 'Geography', value: member.geography },
-        { label: 'Industry', value: member.industry },
-        { label: 'Key Expertise', value: member.expertise.slice(0, 3).join(', ') },
+        { label: 'Role', key: 'role', value: member.role },
+        { label: 'Geography', key: 'geography', value: member.geography },
+        { label: 'Industry', key: 'industry', value: member.industry },
+        { label: 'Key Expertise', key: 'expertise', value: member.expertise.slice(0, 3).join(', ') },
     ];
 
     return (
@@ -312,20 +315,17 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
                 )}
 
                 <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
-                    <img
+                    <EditableImage
+                        contentKey={`${language}.teamPage.members.${member.id}.image`}
                         src={member.image}
                         alt={member.name}
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            display: 'block',
-                        }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                     />
                     <div style={{
                         position: 'absolute',
                         inset: 0,
                         background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 40%, rgba(0,0,0,0.2) 100%)',
+                        pointerEvents: 'none',
                     }} />
                 </div>
             </div>
@@ -377,7 +377,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
                     color: isDark ? '#f0f0f0' : '#111',
                     margin: '0 0 40px 0',
                 }}>
-                    {member.name}
+                    <EditableText contentKey={`${language}.teamPage.members.${member.id}.name`} fallback={member.name} />
                 </h2>
 
                 {/* Metadata */}
@@ -385,7 +385,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
                     borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
                     marginBottom: 36,
                 }}>
-                    {metaRows.map(({ label, value }) => (
+                    {metaRows.map(({ label, key, value }) => (
                         <div
                             key={label}
                             style={{
@@ -412,7 +412,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
                                 textAlign: 'right',
                                 paddingLeft: 16,
                             }}>
-                                {value}
+                                <EditableText contentKey={`${language}.teamPage.members.${member.id}.${key}`} fallback={value} />
                             </span>
                         </div>
                     ))}
@@ -427,7 +427,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
                     maxWidth: 440,
                     marginBottom: 40,
                 }}>
-                    {member.description}
+                    <EditableText contentKey={`${language}.teamPage.members.${member.id}.description`} fallback={member.description} multiline />
                 </p>
 
                 {/* Socials & Portfolio */}
@@ -510,6 +510,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
 
 /* ─── Grid Cell ──────────────────────────────────────────────── */
 const GridCell = ({ member, onOpen, setHoverMember, isDark }) => {
+    const { language } = useLanguage();
     const [hovered, setHovered] = useState(false);
     const cellRef = useRef(null);
     const imgRef = useRef(null);
@@ -606,7 +607,7 @@ const GridCell = ({ member, onOpen, setHoverMember, isDark }) => {
                     transition: 'color 0.3s',
                     lineHeight: 1.2,
                 }}>
-                    {member.name}
+                    <EditableText contentKey={`${language}.teamPage.members.${member.id}.name`} fallback={member.name} />
                 </span>
                 <span style={{
                     fontFamily: FONT,
@@ -619,7 +620,7 @@ const GridCell = ({ member, onOpen, setHoverMember, isDark }) => {
                         : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)'),
                     transition: 'color 0.3s',
                 }}>
-                    {member.role}
+                    <EditableText contentKey={`${language}.teamPage.members.${member.id}.role`} fallback={member.role} />
                 </span>
                 <span style={{
                     fontFamily: FONT,
@@ -736,8 +737,8 @@ const TeamPage = () => {
                             opacity: 0,
                         }}
                     >
-                        Meet Our<br />
-                        <span style={{ fontWeight: 800 }}>Specialists</span>
+                        <EditableText contentKey={`${language}.teamPage.title`} fallback={t.teamPage.title} /><br />
+                        <span style={{ fontWeight: 800 }}><EditableText contentKey={`${language}.teamPage.titleBold`} fallback={t.teamPage.titleBold} /></span>
                     </h1>
                 </div>
 
@@ -750,7 +751,7 @@ const TeamPage = () => {
                         maxWidth: 260,
                         margin: 0,
                     }}>
-                        A premium collective of engineers, designers, and strategists working together to build exceptional technologies.
+                        <EditableText contentKey={`${language}.teamPage.subtitle`} fallback={t.teamPage.subtitle} />
                     </p>
                 </div>
 
