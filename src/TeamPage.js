@@ -621,6 +621,21 @@ const GridCell = ({ member, onOpen, setHoverMember, isDark }) => {
                 }}>
                     {member.role}
                 </span>
+                <span style={{
+                    fontFamily: FONT,
+                    fontWeight: 500,
+                    fontSize: '0.5rem',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: hovered
+                        ? 'rgba(255,255,255,0.45)'
+                        : 'transparent',
+                    transition: 'color 0.35s ease, opacity 0.35s ease',
+                    marginTop: 4,
+                    opacity: hovered ? 1 : 0,
+                }}>
+                    Click for more
+                </span>
             </div>
         </div>
     );
