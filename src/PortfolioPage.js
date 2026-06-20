@@ -22,7 +22,6 @@ const PortfolioPage = () => {
     const [mounted, setMounted] = useState(false);
 
     /* refs for entrance animations */
-    const tagRef   = useRef(null);
     const titleRef = useRef(null);
     const descRef  = useRef(null);
     const filterRef = useRef(null);

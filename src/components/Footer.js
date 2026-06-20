@@ -15,7 +15,6 @@ const Footer = ({ translations: t }) => {
 
     const { columns, cta, tagline, copyright, bottomLinks } = t.footer;
 
-    const bg = isDark ? '#0a0a0a' : '#f5f4f2';
     const text = isDark ? '#f0f0f0' : '#111';
     const muted = isDark ? '#666' : '#888';
     const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';

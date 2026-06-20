@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
 import EditableText from './cms/EditableText';
-import { Github, Figma, Slack, Globe, Mail, MessageSquare, Zap, Code, Shield, Cpu } from 'lucide-react';
+import { Github, Figma, Slack, Globe, Mail, MessageSquare, Code } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 

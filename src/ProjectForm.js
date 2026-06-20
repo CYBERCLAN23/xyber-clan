@@ -16,7 +16,7 @@ import {
     Target, Compass, Trello, Slack,
     LayoutDashboard, Laptop, Rocket,
     History, Bug,
-    ShieldAlert, Globe2, BarChart3, MailPlus, X
+    ShieldAlert, Globe2, BarChart3, MailPlus
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
@@ -33,7 +33,7 @@ const ProjectForm = () => {
     const t = translations[language].form;
     
     const [currentStep, setCurrentStep] = useState(0);
-    const [direction, setDirection] = useState('forward');
+    const [, setDirection] = useState('forward');
     const [isMobile, setIsMobile] = useState(false);
     
     const leftPanelRef = useRef(null);
@@ -278,8 +278,6 @@ const ProjectForm = () => {
         if (currentQuestion.type === 'contact') return !!answers.contactName && !!answers.contactPhone;
         return !!answers[currentQuestion.id];
     };
-
-    const progress = ((currentStep) / steps.length) * 100;
 
     const generateSummaryText = () => {
         let text = `*NEW PROJECT REQUEST* 🚀\n\n`;

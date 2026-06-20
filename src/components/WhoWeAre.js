@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Leaf } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);

@@ -9,7 +9,7 @@ import {
     Cpu, Sparkles, Building2, Users,
     Landmark, Heart, Coins, Wrench,
     UserCircle, MapPin, Radio, Layout,
-    Hash, MessageCircle, Info, Sun, Moon, Calendar, Clock, History, Compass, CreditCard
+
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
@@ -18,13 +18,11 @@ import gsap from 'gsap';
 const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const PartnershipForm = ({ isOpen, onClose, type, lang, t, onComplete }) => {
-    const { isDark, toggleTheme } = useTheme();
-    const { language } = useLanguage();
+    const { isDark } = useTheme();
     
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState({});
-    const [mounted, setMounted] = useState(false);
-    const [direction, setDirection] = useState('forward');
+    const [, setDirection] = useState('forward');
     const [isCompleted, setIsCompleted] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -129,7 +127,7 @@ const PartnershipForm = ({ isOpen, onClose, type, lang, t, onComplete }) => {
         return iconMap[option] || <Sparkles />;
     };
 
-    const colors = ['#06b6d4', '#a855f7', '#ec4899', '#3b82f6', '#f97316', '#22c55e', '#6366f1', '#f43f5e', '#f59e0b'];
+
 
     if (!isOpen) return null;
 

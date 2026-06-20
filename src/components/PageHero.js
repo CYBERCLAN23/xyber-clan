@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import mountainBg from '../assets/hero-mountain.png';
 import EditableText from './cms/EditableText';
-import { useCMS } from '../context/CMSContext';
 import { useTheme } from '../context/ThemeContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -24,7 +23,6 @@ const PageHero = ({
     heroBg
 }) => {
     const { isDark } = useTheme();
-    const { getContent } = useCMS();
     const [mounted, setMounted] = useState(false);
     const sectionRef = useRef(null);
     const imgRef = useRef(null);

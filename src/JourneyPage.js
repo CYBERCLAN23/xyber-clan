@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calendar, ChevronRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, Calendar, ChevronRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from './context/ThemeContext';
