@@ -8,11 +8,10 @@ import {
     Search, Briefcase, GraduationCap,
     Cpu, Sparkles, Building2, Users,
     Landmark, Heart, Coins, Wrench,
-    UserCircle, MapPin, Radio, Layout,
+    UserCircle, MapPin, Radio, Layout, MessageCircle,
 
 } from 'lucide-react';
 import { useTheme } from './context/ThemeContext';
-import { useLanguage } from './context/LanguageContext';
 import gsap from 'gsap';
 
 const FONT = "'Inter', 'Helvetica Neue', sans-serif";
@@ -20,6 +19,7 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 const PartnershipForm = ({ isOpen, onClose, type, lang, t, onComplete }) => {
     const { isDark } = useTheme();
     
+    const [, setMounted] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState({});
     const [, setDirection] = useState('forward');
