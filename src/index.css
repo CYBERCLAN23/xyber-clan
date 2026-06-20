@@ -65,7 +65,7 @@ body {
 
   body {
     @apply bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     background-image:
       linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
       linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);

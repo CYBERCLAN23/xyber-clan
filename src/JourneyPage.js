@@ -1,304 +1,530 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight, Calendar, ChevronRight, ChevronDown } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
 import { translations } from './translations';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import SharedNavbar from './components/SharedNavbar';
-import PageHero from './components/PageHero';
 import Meta from './components/Meta';
 import EditableText from './components/cms/EditableText';
 import EditableImage from './components/cms/EditableImage';
 
-/* ─── Event Images — Unsplash keywords per milestone ─── */
-const eventImages = [
-    'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop&q=80', // students collaborating
-    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop&q=80', // first website launch
-    'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop&q=80', // team growth
-    'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=500&fit=crop&q=80', // partnership handshake
-    'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=500&fit=crop&q=80', // design tools
-    'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=500&fit=crop&q=80', // cybersecurity
-    'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=500&fit=crop&q=80', // workshop/education
-    'https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?w=800&h=500&fit=crop&q=80', // global reach
-];
+gsap.registerPlugin(ScrollTrigger);
 
-/* ─── Tag color palette ─── */
-const tagColors = {
-    Genesis: 'from-violet-500 to-purple-600',
-    Genèse: 'from-violet-500 to-purple-600',
-    Milestone: 'from-cyan-500 to-blue-600',
-    Jalon: 'from-cyan-500 to-blue-600',
-    Growth: 'from-emerald-500 to-teal-600',
-    Croissance: 'from-emerald-500 to-teal-600',
-    Partnership: 'from-pink-500 to-rose-600',
-    Partenariat: 'from-pink-500 to-rose-600',
-    Expansion: 'from-orange-500 to-amber-600',
-    Security: 'from-red-500 to-rose-600',
-    Sécurité: 'from-red-500 to-rose-600',
-    Community: 'from-blue-500 to-indigo-600',
-    Communauté: 'from-blue-500 to-indigo-600',
-    Global: 'from-cyan-400 to-blue-500',
-};
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
-/* ─── TIMELINE EVENT CARD ─── */
-const EventCard = ({ event, imageUrl, isDark, isVisible, index, language }) => {
-    const isLeft = index % 2 === 0;
-    const gradient = tagColors[event.tag] || 'from-cyan-500 to-blue-600';
-
-    return (
-        <div
-            className={`relative w-full transition-all duration-[900ms] ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
-                }`}
-            style={{ transitionDelay: `${index * 100}ms` }}
-        >
-            {/* Desktop: two-column layout */}
-            <div className="hidden lg:grid lg:grid-cols-[1fr_80px_1fr] items-start">
-                {/* Left column */}
-                <div className={isLeft ? '' : 'order-3'}>
-                    {isLeft && (
-                        <div className={`ml-auto mr-0 max-w-[560px] ${isLeft ? 'text-right' : ''}`}>
-                            <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="right" index={index} language={language} />
-                        </div>
-                    )}
-                    {!isLeft && (
-                        <div className="ml-0 mr-auto max-w-[560px]">
-                            <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="left" index={index} language={language} />
-                        </div>
-                    )}
-                </div>
-
-                {/* Center: timeline dot & line */}
-                <div className="flex flex-col items-center order-2 relative">
-                    <div
-                        className={`w-5 h-5 rounded-full bg-gradient-to-br ${gradient} shadow-lg ring-4 ${isDark ? 'ring-black' : 'ring-gray-50'
-                            } transition-all duration-700 ${isVisible ? 'scale-100' : 'scale-0'}`}
-                        style={{ transitionDelay: `${index * 100 + 300}ms` }}
-                    />
-                    {/* Pulsing glow */}
-                    <div className={`absolute top-0 w-5 h-5 rounded-full bg-gradient-to-br ${gradient} opacity-40 blur-md animate-pulse`} />
-                </div>
-
-                {/* Right column */}
-                <div className={!isLeft ? '' : 'order-3'}>
-                    {/* spacer — content is on the other side */}
-                </div>
-            </div>
-
-            {/* Mobile: single column with left line */}
-            <div className="lg:hidden flex gap-6">
-                {/* Left dot */}
-                <div className="flex flex-col items-center flex-shrink-0 pt-2">
-                    <div
-                        className={`w-4 h-4 rounded-full bg-gradient-to-br ${gradient} shadow-md ring-[3px] ${isDark ? 'ring-black' : 'ring-gray-50'
-                            } transition-all duration-500 ${isVisible ? 'scale-100' : 'scale-0'}`}
-                    />
-                </div>
-                {/* Card */}
-                <div className="flex-1 pb-4">
-                    <CardContent event={event} imageUrl={imageUrl} isDark={isDark} gradient={gradient} align="left" index={index} language={language} />
-                </div>
-            </div>
-        </div>
-    );
-};
-
-/* ─── CARD CONTENT (image banner + text) ─── */
-const CardContent = ({ event, imageUrl, isDark, gradient, align, index, language }) => (
-    <div className={`group relative rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-1 ${isDark
-        ? 'bg-white/[0.03] border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05]'
-        : 'bg-white border-gray-200/80 hover:border-gray-300 hover:shadow-xl hover:shadow-gray-200/50'
-        }`}>
-        {/* Image Banner */}
-        <div className="relative h-48 md:h-56 overflow-hidden">
-            <EditableImage
-                contentKey={`${language}.journeyPage.event${index}.image`}
-                src={imageUrl}
-                alt={event.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                style={{ objectPosition: event.objectPosition || 'center center' }}
-            />
-            {/* Gradient overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-t ${isDark ? 'from-black/70 via-black/20 to-transparent' : 'from-black/50 via-black/10 to-transparent'
-                }`} />
-            {/* Date badge on image */}
-            <div className="absolute bottom-4 left-5 flex items-center gap-2">
-                <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.15em] bg-gradient-to-r ${gradient} text-white shadow-sm`}>
-                    <EditableText contentKey={`${language}.journeyPage.event${index}.tag`} fallback={event.tag} />
-                </span>
-                <span className="flex items-center gap-1 text-xs font-medium text-white/80">
-                    <Calendar size={11} />
-                    <EditableText contentKey={`${language}.journeyPage.event${index}.date`} fallback={event.date} />
-                </span>
-            </div>
-        </div>
-
-        {/* Text content */}
-        <div className="p-7 md:p-8">
-            <h3
-                className={`text-xl md:text-2xl font-black tracking-tight leading-tight mb-3 ${align === 'right' ? 'lg:text-right' : ''}`}
-                style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-                <EditableText contentKey={`${language}.journeyPage.event${index}.title`} fallback={event.title} />
-            </h3>
-            <p
-                className={`text-[14px] md:text-[15px] leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'} ${align === 'right' ? 'lg:text-right' : ''}`}
-                style={{ fontWeight: 300 }}
-            >
-                <EditableText contentKey={`${language}.journeyPage.event${index}.description`} fallback={event.description} multiline />
-            </p>
-        </div>
-
-        {/* Hover glow accent */}
-        <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500 pointer-events-none`} />
-    </div>
-);
-
-
-/* ═══════════════════════════════════════════════
-   JOURNEY PAGE
-   ═══════════════════════════════════════════════ */
 const JourneyPage = () => {
     const { isDark } = useTheme();
     const { language } = useLanguage();
     const t = translations[language];
     const j = t.journey;
-    const [visibleEvents, setVisibleEvents] = useState(new Set());
-    const eventRefs = useRef([]);
+    const events = useMemo(() => j.events || [], [j.events]);
+
+    const scrollSectionRef = useRef(null);
+    const trackRef = useRef(null);
+    const cardsRef = useRef([]);
+    const nodesRef = useRef([]);
+    const progressLineRef = useRef(null);
+    const baseLineRef = useRef(null);
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    const bg = isDark ? '#0a0a0a' : '#f5f4f2';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#666' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    // IntersectionObserver for scroll-triggered card reveals
     useEffect(() => {
-        const observers = [];
-        eventRefs.current.forEach((ref, idx) => {
-            if (!ref) return;
-            const observer = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting) {
-                        setVisibleEvents(prev => new Set([...prev, idx]));
-                        observer.unobserve(ref);
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (!events.length || isMobile) return;
+
+        const ctx = gsap.context(() => {
+            const track = trackRef.current;
+            const cards = cardsRef.current.filter(Boolean);
+            const nodes = nodesRef.current.filter(Boolean);
+            const baseLine = baseLineRef.current;
+            const progressLine = progressLineRef.current;
+            
+            const N = cards.length;
+            
+            // Timeline pinning ScrollTrigger
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: scrollSectionRef.current,
+                    start: 'top top',
+                    end: `+=${N * 1800}px`,
+                    scrub: 1.2,
+                    pin: true,
+                    anticipatePin: 1,
+                }
+            });
+
+            // Initial state layout
+            // All cards are in their layout positions (y: -220 or y: 220), small, slightly faded, and blurred
+            cards.forEach((card, idx) => {
+                const initialY = idx % 2 === 0 ? -200 : 200;
+                gsap.set(card, { 
+                    y: initialY, 
+                    scale: 0.8, 
+                    opacity: 0.15, 
+                    filter: 'blur(8px)',
+                    zIndex: 10 
+                });
+            });
+            gsap.set(nodes, { scale: 0.8, backgroundColor: isDark ? '#222' : '#ddd', borderColor: border });
+            
+            // Center the first card horizontally on start (align its center with 50vw center)
+            gsap.set(track, { x: -350 });
+            gsap.set(cards[0], { scale: 1.0, opacity: 0.8, filter: 'blur(0px)', zIndex: 20 });
+
+            // Create step animations for all milestones
+            events.forEach((_, idx) => {
+                const card = cards[idx];
+                const node = nodes[idx];
+                const targetY = idx % 2 === 0 ? -200 : 200; // Original graph track offset
+                const trackOffset = -(idx * 850 + 350); // Horizontal spacing offset to center card idx
+
+                // ── STEP A: Slide the track to align the current milestone node in center ──
+                if (idx > 0) {
+                    tl.to(track, {
+                        x: trackOffset,
+                        duration: 1.2,
+                        ease: 'power2.inOut',
+                    }, `slide-${idx}`);
+
+                    // Fade previous card back to graph state and shrink/blur it
+                    const prevCard = cards[idx - 1];
+                    const prevTargetY = (idx - 1) % 2 === 0 ? -200 : 200;
+                    tl.to(prevCard, {
+                        y: prevTargetY,
+                        scale: 0.8,
+                        opacity: 0.1,
+                        filter: 'blur(6px)',
+                        zIndex: 10,
+                        duration: 0.8,
+                        ease: 'power2.out',
+                    }, `slide-${idx}`);
+
+                    tl.to(nodes[idx - 1], {
+                        scale: 0.8,
+                        backgroundColor: isDark ? '#222' : '#ddd',
+                        borderColor: border,
+                        duration: 0.8,
+                    }, `slide-${idx}`);
+
+                    // Prepare current card as it moves into the screen
+                    tl.to(card, {
+                        opacity: 0.6,
+                        scale: 0.9,
+                        filter: 'blur(3px)',
+                        duration: 0.8,
+                        ease: 'power2.out',
+                    }, `slide-${idx}`);
+
+                    // Move axis progress fill line
+                    const progressPercent = (idx / (N - 1)) * 100;
+                    tl.to(progressLine, {
+                        width: `${progressPercent}%`,
+                        duration: 1.2,
+                        ease: 'power2.inOut',
+                    }, `slide-${idx}`);
+                }
+
+                // ── STEP B: Zoom INTO the card (Full View / Detail Panel take over) ──
+                // We move the card to Y: 0 (center of line), scale it up to 1.45,
+                // and hide the axis line, nodes, and dim everything else.
+                tl.to(card, {
+                    y: 0,
+                    scale: 1.4,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    zIndex: 100,
+                    duration: 1.5,
+                    ease: 'power3.inOut',
+                }, `zoom-${idx}`);
+
+                tl.to(node, {
+                    scale: 1.8,
+                    backgroundColor: '#06b6d4',
+                    borderColor: '#06b6d4',
+                    duration: 1.0,
+                    ease: 'power2.out',
+                }, `zoom-${idx}`);
+
+                // Hide graph axis lines and other nodes during the full screen card detail view
+                tl.to([baseLine, progressLine], {
+                    opacity: 0.05,
+                    duration: 1.0,
+                    ease: 'power2.out',
+                }, `zoom-${idx}`);
+
+                // Hide other nodes during zoom
+                const otherNodes = nodes.filter((_, nIdx) => nIdx !== idx);
+                if (otherNodes.length) {
+                    tl.to(otherNodes, {
+                        opacity: 0,
+                        duration: 1.0,
+                    }, `zoom-${idx}`);
+                }
+
+                // ── STEP C: Hold detail screen state so user can read ──
+                tl.to({}, { duration: 2.0 });
+
+                // ── STEP D: Zoom BACK OUT to the graph track ──
+                // Restore card coordinates, bring back the axis, nodes, and progress line
+                if (idx < N - 1) {
+                    tl.to(card, {
+                        y: targetY,
+                        scale: 0.9,
+                        opacity: 0.5,
+                        filter: 'blur(3px)',
+                        zIndex: 20,
+                        duration: 1.5,
+                        ease: 'power3.inOut',
+                    }, `unzoom-${idx}`);
+
+                    tl.to(node, {
+                        scale: 1.0,
+                        backgroundColor: '#06b6d4',
+                        borderColor: '#06b6d4',
+                        duration: 1.0,
+                    }, `unzoom-${idx}`);
+
+                    tl.to([baseLine, progressLine], {
+                        opacity: 1.0,
+                        duration: 1.0,
+                        ease: 'power2.inOut',
+                    }, `unzoom-${idx}`);
+
+                    if (otherNodes.length) {
+                        tl.to(otherNodes, {
+                            opacity: 1.0,
+                            duration: 1.0,
+                        }, `unzoom-${idx}`);
                     }
-                },
-                { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
-            );
-            observer.observe(ref);
-            observers.push(observer);
-        });
-        return () => observers.forEach(obs => obs.disconnect());
-    }, [language]);
+                } else {
+                    // For the last card, let it stay zoomed or scale down slightly at the very end of scroll
+                    tl.to(card, {
+                        scale: 1.35,
+                        duration: 1.0,
+                    });
+                }
+            });
+
+        }, scrollSectionRef);
+
+        return () => ctx.revert();
+    }, [events, isDark, border, isMobile]);
 
     return (
-        <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+        <div style={{ background: bg, color: text, fontFamily: FONT }} className="min-h-screen transition-colors duration-300">
             <Meta
                 title="Our Journey | The XyberClan Story"
                 description="Explore the evolution of XyberClan from a campus vision to a global digital agency. Every milestone reflects our passion for innovation and community."
             />
-
-            {/* Shared Navbar (same as home page) */}
             <SharedNavbar transparentHero={true} />
 
-            {/* ─── HERO SECTION ─── */}
-            <PageHero
-                lang={language}
-                contentKeyPrefix={`${language}.journeyPage.hero`}
-                badgeText={t.nav.journey}
-                title={j.title}
-                subtitle={j.subtitle}
-                imageSrc="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
-                stats={[
-                    { value: '2023', label: 'Inception' },
-                    { value: `${j.events?.length || 8}+`, label: 'Milestones' }
-                ]}
-            />
-
-            {/* ─── TIMELINE SECTION ─── */}
-            <section className={`py-16 md:py-24 px-6 relative ${isDark ? 'bg-black' : 'bg-gray-50'}`}>
-                {/* Desktop vertical center line */}
-                <div className="hidden lg:block absolute left-1/2 -translate-x-px top-0 bottom-0 w-[2px]">
-                    <div className={`w-full h-full ${isDark
-                        ? 'bg-gradient-to-b from-transparent via-white/[0.06] to-transparent'
-                        : 'bg-gradient-to-b from-transparent via-gray-200/80 to-transparent'
-                        }`} />
-                </div>
-
-                {/* Mobile vertical left line */}
-                <div className="lg:hidden absolute left-[1.85rem] top-0 bottom-0 w-[2px]">
-                    <div className={`w-full h-full ${isDark
-                        ? 'bg-gradient-to-b from-transparent via-white/[0.06] to-transparent'
-                        : 'bg-gradient-to-b from-transparent via-gray-200/80 to-transparent'
-                        }`} />
-                </div>
-
-                <div className="max-w-7xl mx-auto relative">
-                    <div className="space-y-12 lg:space-y-20">
-                        {j.events.map((event, idx) => (
-                            <div key={idx} ref={el => eventRefs.current[idx] = el}>
-                                <EventCard
-                                    event={event}
-                                    imageUrl={event.image || eventImages[idx] || eventImages[0]}
-                                    index={idx}
-                                    isDark={isDark}
-                                    isVisible={visibleEvents.has(idx)}
-                                    language={language}
-                                />
+            {/* ─── Editorial Hero ─── */}
+            <section className="relative pt-44 pb-20 md:pb-28" style={{ borderBottom: `1px solid ${border}` }}>
+                <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20">
+                    <div className="grid lg:grid-cols-12 gap-12 items-end">
+                        <div className="lg:col-span-7">
+                            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-8" style={{ color: '#06b6d4' }}>
+                                {j.heroTag || "The Story So Far"}
+                            </p>
+                            <h1 className="leading-[0.85] tracking-[-0.04em] mb-4" style={{ fontWeight: 900, fontSize: 'clamp(3.5rem, 8vw, 7.5rem)' }}>
+                                Our<br />Journey.
+                            </h1>
+                        </div>
+                        <div className="lg:col-span-5 lg:pl-12 relative">
+                            {/* Accent dot */}
+                            <div className="absolute -left-6 top-2.5 w-2 h-2 rounded-full bg-red-600" />
+                            <p className="text-base leading-relaxed mb-6 font-light" style={{ color: muted }}>
+                                {j.subtitle}
+                            </p>
+                            <div className="flex gap-12 pt-4 border-t" style={{ borderColor: border }}>
+                                <div>
+                                    <span className="block text-2xl font-black text-cyan-500">2023</span>
+                                    <span className="text-[10px] uppercase tracking-widest font-semibold text-gray-500">Inception</span>
+                                </div>
+                                <div>
+                                    <span className="block text-2xl font-black text-cyan-500">{events.length}</span>
+                                    <span className="text-[10px] uppercase tracking-widest font-semibold text-gray-500">Milestones</span>
+                                </div>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             </section>
 
+            {/* ─── HORIZONTAL SCROLL TIMELINE GRAPH OR MOBILE VERTICAL TIMELINE ─── */}
+            {isMobile ? (
+                /* Mobile Vertical Timeline */
+                <section className="relative px-6 py-16" style={{ background: bg }}>
+                    {/* Dynamic Cyan Mesh Glow */}
+                    <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ background: `radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 60%)` }} />
 
-            {/* ─── CTA SECTION ─── */}
-            <section className={`py-32 px-6 relative overflow-hidden ${isDark ? 'bg-black' : 'bg-gray-50'}`}>
-                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full blur-[150px] pointer-events-none ${isDark ? 'bg-cyan-500/8' : 'bg-cyan-100/40'
-                    }`} />
+                    <div className="relative max-w-[600px] mx-auto">
+                        {/* Vertical Path Line */}
+                        <div 
+                            style={{ 
+                                position: 'absolute',
+                                left: 16,
+                                top: 0,
+                                bottom: 0,
+                                width: 2,
+                                background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
+                            }}
+                        />
 
-                <div className="max-w-4xl mx-auto text-center relative z-10">
-                    <div className="flex justify-center mb-10">
-                        <div className="w-16 h-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600" />
+                        <div className="flex flex-col gap-12 relative">
+                            {events.map((event, idx) => (
+                                <div key={idx} className="relative pl-10 flex flex-col items-start">
+                                    {/* Timeline Node dot */}
+                                    <div 
+                                        style={{
+                                            position: 'absolute',
+                                            left: 12,
+                                            top: 24,
+                                            width: 10,
+                                            height: 10,
+                                            borderRadius: '50%',
+                                            backgroundColor: '#06b6d4',
+                                            border: `2px solid ${isDark ? '#000' : '#fff'}`,
+                                            boxShadow: '0 0 8px rgba(6,182,212,0.6)',
+                                            zIndex: 2,
+                                        }}
+                                    />
+
+                                    {/* Card */}
+                                    <div 
+                                        className="rounded-2xl border overflow-hidden flex flex-col w-full"
+                                        style={{
+                                            borderColor: border,
+                                            background: isDark ? '#111' : '#fff',
+                                            boxShadow: isDark ? '0 10px 30px rgba(0,0,0,0.3)' : '0 10px 30px rgba(0,0,0,0.03)',
+                                        }}
+                                    >
+                                        {/* Top Image */}
+                                        <div className="w-full h-48 relative overflow-hidden">
+                                            <EditableImage
+                                                contentKey={`${language}.journeyPage.event${idx}.image`}
+                                                src={event.image}
+                                                alt={event.title}
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                            <div className="absolute bottom-4 left-4">
+                                                <span className="inline-block px-2 py-0.5 rounded text-[8px] font-semibold uppercase tracking-[0.12em] mb-1" style={{ background: '#06b6d4', color: '#fff' }}>
+                                                    <EditableText contentKey={`${language}.journeyPage.event${idx}.tag`} fallback={event.tag} />
+                                                </span>
+                                                <div className="text-white/90 text-[10px] font-semibold">
+                                                    <EditableText contentKey={`${language}.journeyPage.event${idx}.date`} fallback={event.date} />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Bottom Details */}
+                                        <div className="p-6">
+                                            <span className="text-[9px] font-bold tracking-widest text-cyan-500 uppercase block mb-1">
+                                                Milestone 0{idx + 1}
+                                            </span>
+                                            <h3 className="text-lg font-black leading-tight mb-2" style={{ color: text }}>
+                                                <EditableText contentKey={`${language}.journeyPage.event${idx}.title`} fallback={event.title} />
+                                            </h3>
+                                            <p className="text-xs leading-relaxed font-light" style={{ color: muted }}>
+                                                <EditableText contentKey={`${language}.journeyPage.event${idx}.description`} fallback={event.description} multiline />
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            ) : (
+                /* Desktop Horizontal Timeline */
+                <section
+                    ref={scrollSectionRef}
+                    className="relative h-screen overflow-hidden flex flex-col justify-center"
+                    style={{ background: bg }}
+                >
+                    {/* Dynamic Cyan Mesh Glow */}
+                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ background: `radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 60%)` }} />
+
+                    {/* Subtitle / Scroll Prompt Instruction */}
+                    <div className="absolute top-12 left-8 md:left-20 z-20 flex items-center gap-3">
+                        <span className="text-[10px] font-bold tracking-widest uppercase text-cyan-500 animate-pulse">
+                            Scroll down to travel
+                        </span>
+                        <ChevronRight size={14} className="text-cyan-500 animate-bounce horizontal" />
                     </div>
 
-                    <h2
-                        className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] mb-6"
-                        style={{ fontFamily: "'Inter', sans-serif" }}
-                    >
+                    {/* Horizontal Rail track */}
+                    <div className="relative w-full overflow-visible h-[600px] flex items-center">
+                        
+                        {/* The Background Timeline Axis Line */}
+                        <div 
+                            ref={baseLineRef}
+                            style={{ 
+                                position: 'absolute',
+                                left: '50vw',
+                                right: 0,
+                                top: '50%',
+                                height: 2,
+                                background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
+                                transform: 'translateY(-50%)',
+                                zIndex: 1,
+                                willChange: 'opacity',
+                            }}
+                        />
+
+                        {/* Cyan progress overlay line */}
+                        <div 
+                            ref={progressLineRef}
+                            style={{ 
+                                position: 'absolute',
+                                left: '50vw',
+                                top: '50%',
+                                height: 2,
+                                width: '0%',
+                                background: '#06b6d4',
+                                transform: 'translateY(-50%)',
+                                zIndex: 2,
+                                boxShadow: '0 0 8px rgba(6,182,212,0.6)',
+                                willChange: 'width, opacity',
+                            }}
+                        />
+
+                        {/* Sliding Rail track containing all milestones */}
+                        <div 
+                            ref={trackRef}
+                            className="flex items-center gap-[150px] px-[50vw] relative z-10"
+                            style={{ willChange: 'transform' }}
+                        >
+                            {events.map((event, idx) => {
+                                return (
+                                    <div 
+                                        key={idx}
+                                        className="relative flex items-center justify-center shrink-0"
+                                        style={{ width: 700, height: '100%' }}
+                                    >
+                                        {/* Timeline Node Point directly on the horizontal line */}
+                                        <div 
+                                            ref={el => nodesRef.current[idx] = el}
+                                            style={{
+                                                position: 'absolute',
+                                                top: '50%',
+                                                left: '50%',
+                                                transform: 'translate(-50%, -50%)',
+                                                width: 14,
+                                                height: 14,
+                                                borderRadius: '50%',
+                                                border: `2px solid ${isDark ? '#000' : '#fff'}`,
+                                                backgroundColor: isDark ? '#222' : '#ddd',
+                                                zIndex: 5,
+                                                transition: 'background-color 0.3s, border-color 0.3s',
+                                                willChange: 'transform, opacity',
+                                            }}
+                                        />
+
+                                        {/* Event Card positioned above/below the axis alternatively */}
+                                        <div
+                                            ref={el => cardsRef.current[idx] = el}
+                                            className="rounded-2xl border overflow-hidden flex absolute"
+                                            style={{
+                                                borderColor: border,
+                                                background: isDark ? '#111' : '#fff',
+                                                boxShadow: isDark ? '0 20px 50px rgba(0,0,0,0.6)' : '0 20px 50px rgba(0,0,0,0.06)',
+                                                width: 700,
+                                                height: 340,
+                                                willChange: 'transform, opacity, filter',
+                                            }}
+                                        >
+                                            {/* Left Side: Photo */}
+                                            <div className="w-[45%] h-full relative shrink-0 overflow-hidden">
+                                                <EditableImage
+                                                    contentKey={`${language}.journeyPage.event${idx}.image`}
+                                                    src={event.image}
+                                                    alt={event.title}
+                                                    className="w-full h-full object-cover"
+                                                    style={{ objectPosition: event.objectPosition || 'center center' }}
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                                
+                                                {/* Date / Tag Overlay */}
+                                                <div className="absolute bottom-6 left-6">
+                                                    <span className="inline-block px-2.5 py-0.5 rounded text-[8px] font-semibold uppercase tracking-[0.15em] mb-2" style={{ background: '#06b6d4', color: '#fff' }}>
+                                                        <EditableText contentKey={`${language}.journeyPage.event${idx}.tag`} fallback={event.tag} />
+                                                    </span>
+                                                    <div className="flex items-center gap-1.5 text-white/90 text-xs font-semibold">
+                                                        <Calendar size={12} className="text-cyan-400" />
+                                                        <EditableText contentKey={`${language}.journeyPage.event${idx}.date`} fallback={event.date} />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Right Side: Details */}
+                                            <div className="flex-1 p-8 flex flex-col justify-center">
+                                                <span className="text-[10px] font-bold tracking-widest text-cyan-500 uppercase mb-2">
+                                                    Milestone 0{idx + 1}
+                                                </span>
+                                                <h3 className="text-xl font-black leading-tight mb-4" style={{ color: text, tracking: '-0.02em' }}>
+                                                    <EditableText contentKey={`${language}.journeyPage.event${idx}.title`} fallback={event.title} />
+                                                </h3>
+                                                <p className="text-xs leading-relaxed font-light" style={{ color: muted }}>
+                                                    <EditableText contentKey={`${language}.journeyPage.event${idx}.description`} fallback={event.description} multiline />
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                    </div>
+                </section>
+            )}
+
+            {/* ─── CTA SECTION ─── */}
+            <section className="relative overflow-hidden" style={{ background: bg, color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}>
+                <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 py-28 md:py-36 text-center">
+                    <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6" style={{ color: '#06b6d4' }}>
+                        What's Next
+                    </p>
+                    <h2 className="leading-[0.9] tracking-[-0.03em] mb-6" style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}>
                         <EditableText contentKey={`${language}.journeyPage.ctaTitle`} fallback={j.ctaTitle} />
                     </h2>
-
-                    <p
-                        className={`text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed ${isDark ? 'text-gray-500' : 'text-gray-500'}`}
-                        style={{ fontWeight: 300 }}
-                    >
+                    <p className="text-sm max-w-xl mx-auto mb-10 leading-relaxed font-light" style={{ color: muted }}>
                         <EditableText contentKey={`${language}.journeyPage.ctaDesc`} fallback={j.ctaDesc} multiline />
                     </p>
-
                     <Link
                         to="/start-project"
-                        className="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-10 py-5 rounded-2xl text-lg font-black shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-[1.03] transition-all duration-300"
+                        className="inline-flex items-center gap-2.5 px-8 py-4 rounded-lg font-semibold text-sm transition-all duration-300 hover:gap-3"
+                        style={{ background: isDark ? '#fff' : '#111', color: isDark ? '#000' : '#fff' }}
                     >
                         <EditableText contentKey={`${language}.journeyPage.ctaButton`} fallback={t.nav.getStarted} />
-                        <ArrowRight size={20} />
+                        <ArrowRight size={16} />
                     </Link>
                 </div>
             </section>
 
             <Footer translations={t} />
             <WhatsAppButton />
-
-            <style>{`
-                .journey-fade-in {
-                    animation: journeyFadeUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
-                }
-                @keyframes journeyFadeUp {
-                    from { opacity: 0; transform: translateY(25px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-
-            `}</style>
         </div>
     );
 };

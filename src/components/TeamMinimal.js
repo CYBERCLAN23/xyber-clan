@@ -1,145 +1,132 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
 import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
-import useScrollAnimation from '../hooks/useScrollAnimation';
-import { Code, Palette, Zap, ArrowRight } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
+
+const teamMembers = [
+    { key: 'cedrik', name: 'Cedrik Darel Yepmo', role: 'CEO & Co-Founder', image: '/team/ceo-member.jpg' },
+    { key: 'josias', name: 'Akana Signing Josias Aaron', role: 'CTO & AI Security Architect', image: '/team/cto-redteamer.jpg' },
+    { key: 'onana', name: 'Onana Gregoire Legrand', role: 'Co-Founder & Strategist', image: '/team/communications-manager.jpg' },
+    { key: 'ange', name: 'Ange Demanou', role: 'Digital Generalist', image: '/team/ange-demanou.png' },
+    { key: 'william', name: 'William Chandler', role: 'Visual Content Designer', image: '/team/william-chandler.png' },
+    { key: 'yann', name: 'Wandji Tchaleu Yann Félix', role: 'Network Eng & Python', image: '/team/yann-felix-wandji.png' },
+    { key: 'yvana', name: 'Yvana Emilia Lalane Larcier', role: 'Frontend Developer', image: '/team/dev-member.jpg' },
+    { key: 'zealda', name: 'Zealda Junior', role: 'Web Dev & Network', image: '/team/frontend-designer.jpg' },
+    { key: 'lembou', name: 'Lembou Pharel', role: 'Cybersecurity & Systems', image: '/team/cybersecurity-chief.jpg' },
+    { key: 'theresa', name: 'Theresa Tcheme', role: 'Media & Comm Manager', image: '/team/theresa-tcheme.png' }
+];
 
 const TeamMinimal = () => {
     const { isDark } = useTheme();
-    const [ref, visible] = useScrollAnimation();
+    const sectionRef = useRef(null);
+    const labelRef = useRef(null);
+    const headRef = useRef(null);
+    const membersRef = useRef([]);
 
-    // Default static features
-    const defaultFeatures = [
-        {
-            title: "Engineering Excellence",
-            desc: "Our developers aren't just coders; they're engineers. We build for performance, security, and longevity.",
-            visual: (
-                <div className="relative w-full h-32 bg-cyan-100/50 dark:bg-cyan-900/20 rounded-xl overflow-hidden p-4 flex flex-col justify-center gap-2">
-                    <div className="flex gap-2">
-                        <div className="w-1/4 h-2 bg-cyan-500 rounded-full animate-pulse"></div>
-                        <div className="w-1/2 h-2 bg-cyan-300 dark:bg-cyan-700 rounded-full"></div>
-                    </div>
-                    <div className="flex gap-2">
-                        <div className="w-1/2 h-2 bg-cyan-300 dark:bg-cyan-700 rounded-full"></div>
-                        <div className="w-1/3 h-2 bg-cyan-500 rounded-full"></div>
-                    </div>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                        <Code size={40} className="text-cyan-500/30" />
-                    </div>
-                </div>
-            )
-        },
-        {
-            title: "Design-First Mindset",
-            desc: "We believe in interfaces that are intuitive and beautiful. Every pixel serves a purpose in our designs.",
-            visual: (
-                <div className="relative w-full h-32 bg-blue-100/50 dark:bg-blue-900/20 rounded-xl overflow-hidden p-4 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-blue-500/20 border-2 border-blue-500 border-dashed animate-spin-slow"></div>
-                    <Palette size={32} className="text-blue-500 absolute" />
-                    <div className="absolute bottom-2 right-2 text-[10px] font-mono text-blue-500 opacity-50">#3B82F6</div>
-                </div>
-            )
-        },
-        {
-            title: "Strategic Growth",
-            desc: "Helping startups and enterprises scale their digital footprint with data-backed strategies and tools.",
-            visual: (
-                <div className="relative w-full h-32 bg-indigo-100/50 dark:bg-indigo-900/20 rounded-xl overflow-hidden p-4 flex flex-col justify-end">
-                    <div className="flex items-end gap-1 h-full">
-                        <div className="w-3 h-8 bg-indigo-500 rounded-t-sm animate-bounce-short"></div>
-                        <div className="w-3 h-12 bg-indigo-400 rounded-t-sm animate-bounce-short delay-75"></div>
-                        <div className="w-3 h-16 bg-indigo-300 rounded-t-sm animate-bounce-short delay-150"></div>
-                        <div className="w-3 h-20 bg-indigo-500 rounded-t-sm animate-bounce-short delay-200"></div>
-                    </div>
-                    <Zap size={20} className="text-indigo-500 absolute top-4 right-4" />
-                </div>
-            )
-        }
-    ];
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(labelRef.current,
+                { opacity: 0, y: 14 },
+                { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+                  scrollTrigger: { trigger: labelRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(headRef.current,
+                { opacity: 0, y: 40 },
+                { opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+                  scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(membersRef.current,
+                { opacity: 0, y: 32 },
+                { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: 'power3.out',
+                  scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+            );
+        }, sectionRef);
+        return () => ctx.revert();
+    }, []);
 
-    const teamFeatures = defaultFeatures;
+    const bg = isDark ? '#0a0a0a' : '#fff';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#666' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
+    const cardBg = isDark ? '#1a1a1a' : '#f5f4f2';
 
     return (
-        <section id="team" ref={ref} className={`py-24 px-4 ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
-            <div className="max-w-7xl mx-auto">
-                <div className={`text-center mb-16 ${visible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                    <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-gray-800 text-xs font-bold tracking-widest uppercase mb-6 inline-block">
-                        <EditableText contentKey="en.team_minimal.badge" tag="span" fallback={<>The <span className="notranslate" translate="no">XyberClan</span></>} />
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-6">
-                        <EditableText contentKey="en.team_minimal.title" tag="span" fallback={<>Meet Our <span className="font-serif italic text-cyan-500">Expert</span> Team</>} />
-                    </h2>
-                    <p className={`text-lg max-w-3xl mx-auto leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        <EditableText contentKey="en.team_minimal.subtitle" tag="span" fallback="A collective of software engineers, designers, and strategists dedicated to delivering enterprise-grade quality." />
+        <section
+            id="team"
+            ref={sectionRef}
+            style={{ background: bg, color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}
+            className="relative overflow-hidden py-28 md:py-36"
+        >
+            <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 mb-16">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                    <div>
+                        <p
+                            ref={labelRef}
+                            className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
+                            style={{ color: '#06b6d4', opacity: 0 }}
+                        >
+                            <EditableText contentKey="en.team_minimal.badge" fallback="The XyberClan" />
+                        </p>
+                        <h2
+                            ref={headRef}
+                            className="leading-[0.9] tracking-[-0.03em]"
+                            style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
+                        >
+                            <EditableText contentKey="en.team_minimal.title" fallback={<>The people<br />behind the code.</>} />
+                        </h2>
+                    </div>
+                    <p
+                        className="text-sm leading-relaxed max-w-xs"
+                        style={{ color: muted, fontWeight: 300 }}
+                    >
+                        <EditableText
+                            contentKey="en.team_minimal.subtitle"
+                            fallback="A collective of engineers, designers, and security specialists dedicated to building what matters."
+                        />
                     </p>
                 </div>
+            </div>
 
-                <div className="grid md:grid-cols-3 gap-8 mb-16">
-                    {teamFeatures.map((feature, idx) => (
+            {/* Horizontal Team Grid */}
+            <div className="w-full overflow-x-auto hide-scrollbar cursor-grab active:cursor-grabbing pb-8 px-8 md:px-14 lg:px-20">
+                <div className="flex w-max" style={{ border: `1px solid ${border}` }}>
+                    {teamMembers.map((member, i) => (
                         <div
-                            key={idx}
-                            className={`group p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 border ${isDark ? 'bg-neutral-900/50 border-neutral-800 hover:border-cyan-500/50' : 'bg-gray-50 border-gray-100 hover:bg-white hover:shadow-2xl hover:shadow-cyan-500/5 hover:border-cyan-200'}`}
+                            key={i}
+                            ref={el => membersRef.current[i] = el}
+                            className="group relative w-[260px] md:w-[320px] h-[350px] md:h-[420px] overflow-hidden flex-shrink-0"
+                            style={{ 
+                                opacity: 0,
+                                backgroundColor: cardBg,
+                                borderRight: i < teamMembers.length - 1 ? `1px solid ${border}` : 'none'
+                            }}
                         >
-                            <div className="mb-8 transform transition-transform duration-500 group-hover:scale-105">
-                                {feature.visual}
+                            {/* Image */}
+                            <EditableImage
+                                contentKey={`en.team.${member.key}.image`}
+                                src={member.image}
+                                alt={member.name}
+                                className="w-full h-full object-cover object-center grayscale opacity-80 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
+                            />
+                            
+                            {/* Hover overlay for name */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 text-white">
+                                <h3 className="text-xl font-bold tracking-tight mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                                    <EditableText contentKey={`en.team.${member.key}.name`} fallback={member.name} />
+                                </h3>
+                                <p className="text-[11px] uppercase font-mono tracking-[0.1em] text-cyan-400 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out delay-75">
+                                    <EditableText contentKey={`en.team.${member.key}.role`} fallback={member.role} />
+                                </p>
                             </div>
-                            <h3 className="text-2xl font-bold mb-4 group-hover:text-cyan-500 transition-colors">
-                                <EditableText contentKey={`en.team_minimal.items.${idx}.title`} fallback={feature.title} />
-                            </h3>
-                            <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                <EditableText contentKey={`en.team_minimal.items.${idx}.desc`} fallback={feature.desc} multiline />
-                            </p>
                         </div>
                     ))}
-                </div>
-
-                <div className={`flex flex-col md:flex-row items-center justify-between p-10 rounded-3xl border ${isDark ? 'bg-neutral-900/30 border-neutral-800' : 'bg-cyan-50/50 border-cyan-100'} ${visible ? 'animate-fade-in-up delay-200' : 'opacity-0'}`}>
-                    <div className="flex flex-col gap-6">
-                        <div>
-                            <h4 className="text-2xl font-bold mb-2">
-                                <EditableText contentKey="en.team_minimal.cta.title" fallback="Want to see the full list of our specialists?" tag="span" />
-                            </h4>
-                            <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                <EditableText contentKey="en.team_minimal.cta.subtitle" fallback="We have a diverse clan of 9+ specialists ready to tackle any challenge." tag="span" />
-                            </p>
-                        </div>
-
-                        {/* Avatar Stack Preview */}
-                        <div className="flex items-center -space-x-4">
-                            {[
-                                '/team/ceo-member.jpg',
-                                '/team/cto-redteamer.jpg',
-                                '/team/dev-member.jpg',
-                                '/team/web-designer.jpg',
-                                '/team/communications-manager.jpg',
-                                '/team/figma-canva-designer.jpg',
-                                '/team/adobe-designer.jpeg',
-                                '/team/frontend-designer.jpg',
-                                '/team/cybersecurity-chief.jpg'
-                            ].map((img, i) => (
-                                <div key={i} className="w-12 h-12 rounded-full border-2 border-white dark:border-black overflow-hidden bg-gray-200">
-                                    <EditableImage 
-                                        contentKey={`en.team_minimal.cta.avatars.${i}`} 
-                                        alt={`XyberClan Specialist ${i+1}`} 
-                                        className="w-full h-full object-cover" 
-                                        src={img} 
-                                    />
-                                </div>
-                            ))}
-                            <div className="w-12 h-12 rounded-full border-2 border-white dark:border-black bg-cyan-500 flex items-center justify-center text-white text-xs font-bold">
-                                <EditableText contentKey="en.team_minimal.cta.plus_count" fallback="+9" tag="span" />
-                            </div>
-                        </div>
-                    </div>
-                    <Link
-                        to="/team"
-                        className="mt-10 md:mt-0 flex items-center gap-2 bg-black text-white px-8 py-4 rounded-2xl font-bold transition-all hover:scale-105 shadow-xl shadow-black/20"
-                    >
-                        <EditableText contentKey="en.team_minimal.cta.button" fallback="Explore Elite Team" tag="span" />
-                        <ArrowRight size={18} />
-                    </Link>
                 </div>
             </div>
         </section>

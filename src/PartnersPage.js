@@ -1,31 +1,111 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
 import { translations } from './translations';
-import { ArrowRight, Handshake, Trophy, Zap, Users, Globe } from 'lucide-react';
+import { ArrowRight, Handshake, Trophy, Users, Globe, Zap } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Footer from './components/Footer';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import PartnershipForm from './PartnershipForm';
 import Meta from './components/Meta';
 import EditableText from './components/cms/EditableText';
-import EditableImage from './components/cms/EditableImage';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
+
+const HULT_STATS = [
+    { icon: <Zap size={16} />, label: 'Technical Mentorship', value: '100%' },
+    { icon: <Users size={16} />, label: 'Innovation Boost', value: '24/7' },
+    { icon: <Globe size={16} />, label: 'Social Impact', value: 'Global' },
+];
 
 const PartnersPage = () => {
     const { isDark } = useTheme();
     const { language } = useLanguage();
-    const [mounted, setMounted] = useState(false);
-
-    // Form / Interaction State
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [formType, setFormType] = useState('partner'); // 'partner' or 'sponsor'
+    const [formType, setFormType] = useState('partner');
 
     const t = translations[language];
     const p = t.partnersPage;
 
+    const sectionRef = useRef(null);
+    const bgParallaxRef = useRef(null);
+    const labelRef = useRef(null);
+    const headRef = useRef(null);
+    const textRef = useRef(null);
+    const statsRef = useRef([]);
+    const ctaSectionRef = useRef(null);
+    const ctaTitleRef = useRef(null);
+    const ctaCardsRef = useRef([]);
+
+    const bg = isDark ? '#0a0a0a' : '#f5f4f2';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#666' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
+
+    const heroBg = 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=2070&auto=format&fit=crop';
+
     useEffect(() => {
         window.scrollTo(0, 0);
-        setMounted(true);
+    }, []);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(labelRef.current,
+                { opacity: 0, y: 14, filter: 'blur(4px)' },
+                { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out',
+                    scrollTrigger: { trigger: labelRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(headRef.current,
+                { opacity: 0, y: 60, scale: 0.95, filter: 'blur(6px)' },
+                { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out',
+                    scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(textRef.current,
+                { opacity: 0, y: 30, filter: 'blur(3px)' },
+                { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.9, ease: 'power2.out',
+                    scrollTrigger: { trigger: textRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(statsRef.current,
+                { opacity: 0, y: 50, scale: 0.9, filter: 'blur(4px)' },
+                { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1, stagger: 0.12, ease: 'power3.out',
+                    scrollTrigger: { trigger: statsRef.current[0], start: 'top 88%', once: true } }
+            );
+            gsap.fromTo(bgParallaxRef.current,
+                { scale: 1, opacity: 0.1 },
+                { scale: 1.15, opacity: 0.06, ease: 'none',
+                    scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1.5 } }
+            );
+            gsap.fromTo(ctaTitleRef.current,
+                { opacity: 0, y: 30, filter: 'blur(4px)' },
+                {
+                    opacity: 1, y: 0, filter: 'blur(0px)',
+                    duration: 0.9, ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: ctaSectionRef.current,
+                        start: 'top 80%',
+                        once: true
+                    }
+                }
+            );
+            gsap.fromTo(ctaCardsRef.current,
+                { opacity: 0, y: 60, scale: 0.92 },
+                {
+                    opacity: 1, y: 0, scale: 1,
+                    duration: 1, stagger: 0.15, ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: ctaSectionRef.current,
+                        start: 'top 75%',
+                        once: true
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
     }, []);
 
     const openForm = (type) => {
@@ -35,27 +115,24 @@ const PartnersPage = () => {
 
     const handleFormComplete = (summary) => {
         console.log("Form completed:", summary);
-        // Form now handles its own internal success state
     };
 
     return (
-        <div className={`min-h-screen transition-colors duration-500 overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+        <div style={{ background: bg, color: text, fontFamily: FONT }} className="min-h-screen transition-colors duration-300">
             <Meta
                 title="Our Strategic Partners | Collaborative Innovation"
                 description="Discover XyberClan's strategic alliances, including our technical sponsorship of Hult Prize UY1. We collaborate to drive social and technological impact."
             />
-
-            {/* ─── SHARED NAVIGATION ─── */}
             <SharedNavbar transparentHero={true} />
 
-            {/* ─── HERO SECTION ─── */}
             <PageHero
                 lang={language}
                 contentKeyPrefix={`${language}.partnersPage.hero`}
                 badgeText={t.nav.partners}
                 title={p.title}
                 subtitle={p.subtitle}
-                imageSrc="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+                imageSrc=""
+                heroBg={heroBg}
                 stats={[
                     { value: 'Global', label: 'Reach' },
                     { value: '100%', label: 'Commitment' }
@@ -64,132 +141,119 @@ const PartnersPage = () => {
                     { icon: <Handshake size={14} />, label: 'Strategic Alliance' },
                     { icon: <Globe size={14} />, label: 'Worldwide Network' }
                 ]}
+                transitionLabel="Partners"
             />
 
-            {/* ─── PARTNERSHIP: HULT PRIZE SECTION ─── */}
-            <section className="py-24 px-6 relative mt-12">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl h-[600px] pointer-events-none">
-                    <div className="absolute top-0 left-0 w-96 h-96 bg-pink-500/10 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]" />
-                </div>
+            {/* ─── HULT PRIZE — THE STRATEGIC PARTNER ─── */}
+            <section
+                ref={sectionRef}
+                className="relative overflow-hidden"
+                style={{ background: bg, color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}
+            >
+                <div ref={bgParallaxRef} className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ background: `radial-gradient(ellipse at 50% 50%, #06b6d4 0%, transparent 70%)` }} />
+                <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 py-28 md:py-36 relative z-10">
+                    <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-6">
+                        <div>
+                            <p ref={labelRef} className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6" style={{ color: '#06b6d4', opacity: 0 }}>
+                                Strategic Partnership
+                            </p>
+                            <h2 ref={headRef} className="leading-[0.9] tracking-[-0.03em]" style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}>
+                                <EditableText contentKey={`${language}.partnersPage.hultStory.title`} fallback={p.hultStory.title} />
+                            </h2>
+                        </div>
+                        <p className="text-sm leading-relaxed max-w-xs" style={{ color: muted, fontWeight: 300 }}>
+                            Technical sponsorship powering the next generation of social entrepreneurs at UY1.
+                        </p>
+                    </div>
 
-                <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-                        <div className={`relative group transition-all duration-1000 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                            <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/30 via-purple-500/30 to-pink-500/30 rounded-[3rem] blur-2xl opacity-60 group-hover:opacity-100 transition-all duration-700 animate-pulse" />
-                            <div className={`relative aspect-[4/5] sm:aspect-square rounded-[2.5rem] overflow-hidden border ${isDark ? 'border-white/10' : 'border-gray-200'} shadow-2xl`}>
-                                <EditableImage
-                                    contentKey={`${language}.partnersPage.hultPrizeImage`}
-                                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop"
-                                    alt="Abstract Technology Collaboration"
-                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                                <div className="absolute bottom-8 left-8 right-8 p-6 rounded-3xl backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center shadow-lg text-white">
-                                            <Trophy size={24} />
-                                        </div>
-                                        <div>
-                                            <p className="text-white font-black text-xl tracking-tight">Hult Prize Collaboration</p>
-                                            <p className="text-white/70 font-medium text-sm">Empowering Social Innovation</p>
-                                        </div>
-                                    </div>
+                    <div ref={textRef} className="max-w-3xl space-y-5 mb-16 text-[15px] leading-relaxed" style={{ color: muted, fontWeight: 300, opacity: 0 }}>
+                        {p.hultStory.narrative.map((paragraph, idx) => (
+                            <p key={idx}>
+                                <EditableText contentKey={`${language}.partnersPage.hultStory.narrative${idx}`} fallback={paragraph} multiline />
+                            </p>
+                        ))}
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        {HULT_STATS.map((stat, idx) => (
+                            <div
+                                key={idx}
+                                ref={el => statsRef.current[idx] = el}
+                                className="group p-8 rounded-2xl border flex items-start gap-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                                style={{
+                                    opacity: 0,
+                                    borderColor: border,
+                                    backgroundColor: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)',
+                                }}
+                            >
+                                <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 text-[#06b6d4] group-hover:bg-[#06b6d4] group-hover:text-white transition-colors duration-300" style={{ background: isDark ? 'rgba(6,182,212,0.1)' : 'rgba(6,182,212,0.06)' }}>
+                                    {stat.icon}
+                                </div>
+                                <div>
+                                    <div className="text-2xl font-black mb-0.5" style={{ color: text }}>{stat.value}</div>
+                                    <div className="text-[10px] font-semibold uppercase tracking-[0.15em]" style={{ color: muted }}>{stat.label}</div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className={`space-y-8 transition-all duration-1000 delay-300 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
-                            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-500 text-xs font-black uppercase tracking-[0.2em]">
-                                <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
-                                Strategic Partnership
-                            </span>
-                            <div className="space-y-4">
-                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[1.1]" style={{ fontFamily: "'Inter', sans-serif" }}>
-                                    <EditableText contentKey={`${language}.partnersPage.hultStory.title`} fallback={p.hultStory.title} />
-                                </h2>
-                                <div className="w-24 h-1.5 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500" />
-                            </div>
-                            <div className="space-y-6 text-lg leading-relaxed font-light">
-                                {p.hultStory.narrative.map((paragraph, idx) => (
-                                    <p key={idx} className={isDark ? 'text-gray-300' : 'text-gray-600'}>
-                                        <EditableText contentKey={`${language}.partnersPage.hultStory.narrative${idx}`} fallback={paragraph} multiline />
-                                    </p>
-                                ))}
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
-                                {p.hultStory.stats.map((stat, idx) => (
-                                    <div
-                                        key={idx}
-                                        className={`group p-6 rounded-3xl border transition-all duration-500 hover:-translate-y-2 ${isDark ? 'border-white/10 bg-white/5 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]' : 'border-gray-200 bg-white shadow-lg hover:shadow-xl hover:border-cyan-500/30'}`}
-                                    >
-                                        <div className="w-10 h-10 mb-4 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center text-cyan-500 group-hover:scale-110 transition-transform">
-                                            {idx === 0 ? <Zap size={20} /> : idx === 1 ? <Users size={20} /> : <Globe size={20} />}
-                                        </div>
-                                        <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 to-blue-600 mb-1">{stat.value}</div>
-                                        <div className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{stat.label}</div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* ─── CTA: INTERACTIVE BUTTONS SECTION ─── */}
-            <section className={`py-32 px-6 relative overflow-hidden ${isDark ? 'bg-white/[0.02]' : 'bg-gray-100/50'}`}>
-                <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-b from-cyan-500/5 to-transparent rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-t from-purple-500/5 to-transparent rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2" />
-
-                <div className="max-w-7xl mx-auto relative z-10 text-center">
-                    <div className={`space-y-6 mb-16 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter" style={{ fontFamily: "'Inter', sans-serif" }}>
-                            Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">XyberClan Network</span>
+            {/* ─── CTA SECTION ─── */}
+            <section ref={ctaSectionRef} className="relative overflow-hidden" style={{ background: bg, color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}>
+                <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 py-28 md:py-36 text-center">
+                    <div ref={ctaTitleRef} className="space-y-4 mb-16" style={{ opacity: 0 }}>
+                        <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6" style={{ color: '#06b6d4' }}>
+                            Get Involved
+                        </p>
+                        <h2 className="leading-[0.9] tracking-[-0.03em]" style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 1 }}>
+                            Join the <span style={{ color: '#06b6d4' }}>XyberClan Network</span>
                         </h2>
-                        <p className={`text-xl font-light max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <p className="text-sm max-w-xl mx-auto leading-relaxed" style={{ color: muted, fontWeight: 300 }}>
                             <EditableText contentKey={`${language}.partnersPage.joinSubtitle`} fallback="Whether you want to build the next big thing or support our tech movement, we have a place for you." />
                         </p>
                     </div>
 
-                    <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto transition-all duration-1000 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                         <button
+                            ref={el => ctaCardsRef.current[0] = el}
                             onClick={() => openForm('partner')}
-                            className={`group relative p-12 rounded-[2.5rem] border transition-all duration-500 active:scale-95 overflow-hidden text-left ${isDark ? 'bg-white/[0.03] border-white/10 hover:border-cyan-500/50 shadow-2xl' : 'bg-white border-gray-200 hover:border-cyan-500/50 shadow-xl shadow-gray-200/50'}`}
+                            className="group relative p-10 rounded-xl border transition-all duration-300 text-left active:scale-[0.98]"
+                            style={{ border: `1px solid ${border}`, background: isDark ? '#111' : '#fff', opacity: 0 }}
                         >
                             <div className="relative z-10 flex flex-col h-full">
-                                <div className="w-16 h-16 rounded-3xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-8 group-hover:scale-110 transition-transform duration-500">
-                                    <Handshake size={32} />
+                                <div className="w-12 h-12 rounded-lg flex items-center justify-center text-[#06b6d4] mb-8 transition-transform duration-300 group-hover:scale-105" style={{ background: isDark ? 'rgba(6,182,212,0.1)' : 'rgba(6,182,212,0.06)' }}>
+                                    <Handshake size={24} />
                                 </div>
-                                <h3 className="text-3xl font-black mb-3 tracking-tight">{p.ctaPartner}</h3>
-                                <div className="flex items-center gap-2 text-cyan-500 font-bold group-hover:translate-x-2 transition-transform">
+                                <h3 className="text-2xl font-black mb-2 tracking-tight" style={{ color: text }}>{p.ctaPartner}</h3>
+                                <div className="flex items-center gap-1 text-sm font-semibold transition-all duration-300 hover:gap-2" style={{ color: '#06b6d4' }}>
                                     <span>Get Started</span>
-                                    <ArrowRight size={20} />
+                                    <ArrowRight size={15} />
                                 </div>
                             </div>
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
                         </button>
 
                         <button
+                            ref={el => ctaCardsRef.current[1] = el}
                             onClick={() => openForm('sponsor')}
-                            className={`group relative p-12 rounded-[2.5rem] border transition-all duration-500 active:scale-95 overflow-hidden text-left ${isDark ? 'bg-white/[0.03] border-white/10 hover:border-purple-500/50 shadow-2xl' : 'bg-white border-gray-200 hover:border-purple-500/50 shadow-xl shadow-gray-200/50'}`}
+                            className="group relative p-10 rounded-xl border transition-all duration-300 text-left active:scale-[0.98]"
+                            style={{ border: `1px solid ${border}`, background: isDark ? '#111' : '#fff', opacity: 0 }}
                         >
                             <div className="relative z-10 flex flex-col h-full">
-                                <div className="w-16 h-16 rounded-3xl bg-purple-500/10 flex items-center justify-center text-purple-500 mb-8 group-hover:scale-110 transition-transform duration-500">
-                                    <Trophy size={32} />
+                                <div className="w-12 h-12 rounded-lg flex items-center justify-center text-[#06b6d4] mb-8 transition-transform duration-300 group-hover:scale-105" style={{ background: isDark ? 'rgba(6,182,212,0.1)' : 'rgba(6,182,212,0.06)' }}>
+                                    <Trophy size={24} />
                                 </div>
-                                <h3 className="text-3xl font-black mb-3 tracking-tight">{p.ctaSponsor}</h3>
-                                <div className="flex items-center gap-2 text-purple-500 font-bold group-hover:translate-x-2 transition-transform">
+                                <h3 className="text-2xl font-black mb-2 tracking-tight" style={{ color: text }}>{p.ctaSponsor}</h3>
+                                <div className="flex items-center gap-1 text-sm font-semibold transition-all duration-300 hover:gap-2" style={{ color: '#06b6d4' }}>
                                     <span>Support Us</span>
-                                    <ArrowRight size={20} />
+                                    <ArrowRight size={15} />
                                 </div>
                             </div>
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-3xl rounded-full" />
                         </button>
                     </div>
                 </div>
             </section>
 
-            {/* MODAL FORM OVERLAY */}
             <PartnershipForm
                 isOpen={isFormOpen}
                 onClose={() => setIsFormOpen(false)}
@@ -200,7 +264,6 @@ const PartnersPage = () => {
             />
 
             <Footer translations={t} />
-
         </div>
     );
 };

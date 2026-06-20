@@ -1,309 +1,323 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Zap, MapPin, DollarSign, TrendingUp } from 'lucide-react';
-import { getLogo } from '../utils/festive';
-import heroVideo from '../assets/hero-video.mp4';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import mountainBg from '../assets/hero-mountain.png';
 import EditableText from './cms/EditableText';
-import EditableImage from './cms/EditableImage';
-import EditableVideo from './cms/EditableVideo';
-import { useCMS } from '../context/CMSContext';
+import { useTheme } from '../context/ThemeContext';
 
-// Local video file
-const VIDEO_SRC = heroVideo;
-const POSTER_SRC = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop';
+gsap.registerPlugin(ScrollTrigger);
 
 const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
-    const hero = null;
-    const { isEditing, getContent } = useCMS();
-
-    // Resolve current poster/video from CMS or default
-    const currentPoster = getContent('en.hero.posterImage', POSTER_SRC);
-    const currentVideo = getContent('en.hero.backgroundVideo', VIDEO_SRC);
-
-    const videoRef = useRef(null);
-    const [videoReady, setVideoReady] = useState(false);
-    const [videoEnded, setVideoEnded] = useState(false);
-    const [showEndSequence, setShowEndSequence] = useState(false);
-    const [showBanner, setShowBanner] = useState(false);
+    const { isDark } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const sectionRef = useRef(null);
+    const line1Ref = useRef(null);
+    const line2Ref = useRef(null);
+    const line3Ref = useRef(null);
+    const descRef = useRef(null);
+    const scrollRef = useRef(null);
+    const dotRef = useRef(null);
+    const imgRef = useRef(null);
+    const cloudTopRef = useRef(null);
+    const cloudBottomRef = useRef(null);
+    const cloudLeftRef = useRef(null);
+    const transTextRef = useRef(null);
+    const transTitleRef = useRef(null);
+
+    const text = isDark ? '#f0f0f0' : '#111';
 
     useEffect(() => {
-        const timer = setTimeout(() => setMounted(true), 100);
+        const timer = setTimeout(() => setMounted(true), 80);
         return () => clearTimeout(timer);
     }, []);
 
+    // ─── Entrance animation ────────────────────────────────────────────────────
     useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
+        if (!mounted) return;
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        // Slower playback speed
-        video.playbackRate = 0.6;
+        tl.fromTo(imgRef.current,
+            { opacity: 0, scale: 1.04 },
+            { opacity: 1, scale: 1, duration: 1.6, ease: 'power2.out' },
+            0
+        );
+        tl.fromTo([line1Ref.current, line2Ref.current, line3Ref.current],
+            { opacity: 0, y: 60 },
+            { opacity: 1, y: 0, duration: 1.1, stagger: 0.12 },
+            0.2
+        );
+        tl.fromTo([descRef.current, scrollRef.current],
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 },
+            0.7
+        );
+        tl.fromTo(dotRef.current,
+            { opacity: 0, scale: 0 },
+            { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)' },
+            0.9
+        );
+        return () => tl.kill();
+    }, [mounted]);
 
-        const onReady = () => setVideoReady(true);
-        video.addEventListener('canplaythrough', onReady);
-        if (video.readyState >= 4) setVideoReady(true);
-        return () => video.removeEventListener('canplaythrough', onReady);
-    }, []);
-
-    const handleVideoEnd = () => {
-        setVideoEnded(true);
-        // Sequence: Video Ends -> Logo shows (Interstitial) -> Logo hides & Banner shows (Main State)
-        setTimeout(() => setShowEndSequence(true), 500);
-
-        // After 5s of logo, hide logo and show banner
-        setTimeout(() => {
-            setShowEndSequence(false);
-            setShowBanner(true);
-        }, 5500);
-    };
-
-    const [scrolledPast, setScrolledPast] = useState(false);
-
+    // ─── Scroll → Mountain zoom closer + clouds appear ────────────────────────
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolledPast(true);
-            } else {
-                setScrolledPast(false);
+        if (!mounted) return;
+
+        // Mountain zooms in as you scroll down the hero and into the next section
+        const zoomTrigger = ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.4,
+            onUpdate: (self) => {
+                const p = self.progress;
+                // Mountain scales from 1 → 1.5 (zoom in = getting closer)
+                if (imgRef.current) {
+                    gsap.set(imgRef.current, {
+                        scale: 1 + p * 0.5,
+                        filter: `brightness(${1.05 - p * 0.1}) contrast(${0.88 + p * 0.12})`,
+                    });
+                }
+                // Clouds grow in from edges (opacity 0 → 1)
+                if (cloudTopRef.current) gsap.set(cloudTopRef.current, { opacity: p * 0.9 });
+                if (cloudBottomRef.current) gsap.set(cloudBottomRef.current, { opacity: Math.min(1, p * 1.5) });
+                if (cloudLeftRef.current) gsap.set(cloudLeftRef.current, { opacity: p * 0.75 });
+
+                // Headline text drifts up & fades as you scroll
+                const textFade = Math.max(0, 1 - p * 3);
+                const lines = [line1Ref.current, line2Ref.current, line3Ref.current].filter(Boolean);
+                if (lines.length) {
+                    gsap.set(lines, {
+                        opacity: textFade,
+                        y: -p * 60,
+                    });
+                }
+                
+                const decs = [descRef.current, scrollRef.current, dotRef.current].filter(Boolean);
+                if (decs.length) {
+                    gsap.set(decs, {
+                        opacity: textFade * 0.8,
+                    });
+                }
+
+                // Transition text parallax & fade
+                if (transTextRef.current) {
+                    let transOpacity = 0;
+                    if (p > 0.1 && p < 0.2) transOpacity = (p - 0.1) / 0.1; // Quick fade in for the container/badge
+                    else if (p >= 0.2 && p <= 0.75) transOpacity = 1;
+                    else if (p > 0.75) transOpacity = Math.max(0, 1 - (p - 0.75) / 0.25);
+                    
+                    gsap.set(transTextRef.current, {
+                        opacity: transOpacity,
+                        y: 120 - p * 350,
+                        scale: 0.95 + p * 0.05
+                    });
+                }
+            },
+        });
+
+        // Staggered text reveal timeline linked to scroll
+        const textTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: '15% top',
+                end: '40% top',
+                scrub: 1.2
             }
+        });
+        
+        if (transTitleRef.current) {
+            const chars = transTitleRef.current.querySelectorAll('[data-char]');
+            textTl.fromTo(chars, 
+                { opacity: 0, filter: 'blur(8px)', y: 15 },
+                { opacity: 1, filter: 'blur(0px)', y: 0, stagger: 0.05, ease: 'power2.out' }
+            );
+        }
+
+        return () => {
+            zoomTrigger.kill();
+            textTl.kill();
         };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+    }, [mounted]);
+
+    // ─── Mouse parallax ───────────────────────────────────────────────────────
+    useEffect(() => {
+        const handleMove = (e) => {
+            const xPct = (e.clientX / window.innerWidth - 0.5) * 14;
+            const yPct = (e.clientY / window.innerHeight - 0.5) * 7;
+            gsap.to(imgRef.current, { x: xPct, y: yPct, duration: 1.8, ease: 'power1.out' });
+        };
+        window.addEventListener('mousemove', handleMove);
+        return () => window.removeEventListener('mousemove', handleMove);
     }, []);
 
-    const trustBadges = [
-        { icon: <Zap size={12} />, label: t?.hero?.fastDelivery || 'Fast Delivery', key: 'fastDelivery' },
-        { icon: <MapPin size={12} />, label: t?.hero?.localExpertise || 'Local Expertise', key: 'localExpertise' },
-        { icon: <DollarSign size={12} />, label: t?.hero?.fairPricing || 'Fair Pricing', key: 'fairPricing' },
-        { icon: <TrendingUp size={12} />, label: t?.hero?.provenResults || 'Proven Results', key: 'provenResults' },
-    ];
-
-    const stats = [
-        { value: '50+', label: 'Projects', key: 'projects' },
-        { value: '99.9%', label: 'Uptime', key: 'uptime' },
-        { value: '40+', label: 'Clients', key: 'clients' },
-    ];
+    const bgRgb = isDark ? '10,10,10' : '245,244,242';
 
     return (
-        <section className="relative w-full h-[100dvh] overflow-hidden bg-black">
-
-            {/* POSTER / STATIC BANNER — plain img, editing via Hero Media guide */}
-            {/* Shows initially, fades out when video plays, fades back in when sequence completes */}
-            <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${videoReady && !showBanner ? 'opacity-0' : 'opacity-100'}`}>
+        <section
+            ref={sectionRef}
+            className="relative w-full"
+            style={{ minHeight: '220svh' }}
+        >
+            {/* ─── Mountain Background (Fixed) ─── */}
+            <div className="fixed top-0 left-0 w-full h-screen overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
                 <img
-                    src={currentPoster}
-                    alt="XyberClan Digital Agency - Global Web & Security Solutions"
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                    fetchPriority="high"
+                    ref={imgRef}
+                    src={mountainBg}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute w-full h-full object-cover object-center"
+                    style={{
+                        opacity: 0,
+                        filter: 'brightness(1.05) contrast(0.88)',
+                        mixBlendMode: isDark ? 'lighten' : 'multiply',
+                    }}
+                />
+                {/* Fade edges: left & bottom (always on) */}
+                <div 
+                    className="absolute inset-0 pointer-events-none" 
+                    style={{ width: '45%', background: `linear-gradient(to right, rgba(${bgRgb},1) 0%, rgba(${bgRgb},0.4) 60%, transparent 100%)` }} 
+                />
+                <div 
+                    className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" 
+                    style={{ background: `linear-gradient(to top, rgba(${bgRgb},1) 0%, transparent 100%)` }} 
+                />
+                <div 
+                    className="absolute top-0 left-0 right-0 h-32 pointer-events-none" 
+                    style={{ background: `linear-gradient(to bottom, rgba(${bgRgb},1) 0%, transparent 100%)` }} 
+                />
+
+                {/* ─── Scroll-driven cloud overlays ─── */}
+                <div
+                    ref={cloudTopRef}
+                    className="absolute top-0 left-0 right-0 pointer-events-none"
+                    style={{ opacity: 0, height: '55%', background: `linear-gradient(to bottom, rgba(${bgRgb},0.98) 0%, rgba(${bgRgb},0.7) 40%, transparent 100%)` }}
+                />
+                <div
+                    ref={cloudBottomRef}
+                    className="absolute bottom-0 left-0 right-0 pointer-events-none"
+                    style={{ opacity: 0, height: '60%', background: `linear-gradient(to top, rgba(${bgRgb},1) 0%, rgba(${bgRgb},0.85) 35%, rgba(${bgRgb},0.3) 70%, transparent 100%)` }}
+                />
+                <div
+                    ref={cloudLeftRef}
+                    className="absolute top-0 bottom-0 left-0 pointer-events-none"
+                    style={{ opacity: 0, width: '40%', background: `linear-gradient(to right, rgba(${bgRgb},0.95) 0%, rgba(${bgRgb},0.5) 60%, transparent 100%)` }}
                 />
             </div>
 
-            {/* VIDEO — plain video, editing via Hero Media guide */}
-            {/* Plays once, fades out when ended */}
-            <div className={`absolute inset-0 transition-opacity duration-[1500ms] ${videoReady && !videoEnded ? 'opacity-100' : 'opacity-0'}`}>
-                <video
-                    ref={videoRef}
-                    src={currentVideo}
-                    poster={currentPoster}
-                    autoPlay
-                    muted
-                    playsInline
-                    preload="auto"
-                    className="w-full h-full object-cover"
-                    onEnded={handleVideoEnd}
-                />
-            </div>
-
-            {/* OVERLAYS */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/80 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
-
-            {/* END SEQUENCE OVERLAY - Logo & Motto */}
-            {/* Appears after video ends, disappears on Scroll */}
-            <div className={`absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none transition-all duration-[1000ms] ${showEndSequence && !scrolledPast ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                <div className="bg-black/40 backdrop-blur-xl p-8 rounded-full mb-6 border border-white/10 shadow-2xl shadow-cyan-500/20 pointer-events-auto">
-                    <EditableImage contentKey="en.global.logo" src={getLogo()} alt="XyberClan Logo" className="w-32 h-32 sm:w-48 sm:h-48 object-contain animate-pulse notranslate" />
-                </div>
-                <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white text-center tracking-tighter mb-2">
-                    <span className="notranslate" translate="no">
-                        <EditableText contentKey="en.hero.endSequenceTitlePart1" fallback="Xyber" className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500" inline />
-                        <EditableText contentKey="en.hero.endSequenceTitlePart2" fallback="Clan" inline />
-                    </span>
-                </h2>
-                <p className="text-white/80 text-lg sm:text-xl font-light tracking-widest uppercase items-center flex gap-3">
-                    <span className="w-8 h-px bg-white/30 hidden sm:block"></span>
-                    <EditableText contentKey={`${lang}.hero.endSequenceTagline`} fallback={t?.footer?.tagline || 'Building Digital Dreams'} inline />
-                    <span className="w-8 h-px bg-white/30 hidden sm:block"></span>
-                </p>
-            </div>
-
-            {/* CONTENT — Fades out slightly when end sequence shows to let logo take focus, but stays accessible */}
-            <div className={`relative z-10 h-full flex flex-col px-5 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-24 pb-6 sm:pb-8 transition-opacity duration-1000 ${showEndSequence && !scrolledPast ? 'opacity-20 blur-sm' : 'opacity-100'} pointer-events-none`}>
-
-                {/* TOP: Headline area — grows to fill available space */}
-                <div className="flex-1 flex flex-col justify-center min-h-0">
-                    <div className={`transition-all duration-700 pointer-events-auto ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
-
-                        {/* Agency pill */}
-                        <span
-                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.15em] border border-white/15 bg-white/5 backdrop-blur-md text-white/70 mb-4 sm:mb-5"
-                            style={{ animation: mounted ? 'heroFadeUp 0.6s ease-out 0.05s both' : 'none' }}
+            {/* ─── Main Content Wrapper ─── */}
+            <div className="absolute top-0 left-0 w-full">
+                
+                {/* ─── Hero Phase (100vh) ─── */}
+                <div className="flex flex-col justify-between h-screen px-8 md:px-14 lg:px-20 pt-36 pb-12 relative z-10">
+                    <div className="flex-1 flex flex-col justify-center">
+                        <h1
+                            className="leading-[0.88] tracking-[-0.03em] select-none"
+                            style={{
+                                color: text,
+                                fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+                                fontWeight: 900,
+                                fontSize: 'clamp(5rem, 14vw, 13rem)',
+                            }}
                         >
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            <EditableText contentKey={`${lang}.hero.agencyPill`} fallback={lang === 'en' ? 'Digital Agency • Worldwide' : 'Agence Digitale • Monde'} />
-                        </span>
-
-                        {/* Headline — restored premium stylized H1 */}
-                        <h1 className="text-white leading-[0.9] tracking-tighter">
-                            <span
-                                className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black"
-                                style={{ fontFamily: "'Inter', sans-serif", animation: mounted ? 'heroFadeUp 0.7s ease-out 0.1s both' : 'none' }}
-                            >
-                                <EditableText contentKey={`${lang}.hero.titleLine1`} fallback={lang === 'en' ? 'Your Trusted' : 'Votre Partenaire'} />
+                            <span ref={line1Ref} className="block" style={{ opacity: 0 }}>
+                                <EditableText
+                                    contentKey={`${lang}.hero.titleLine1`}
+                                    fallback={lang === 'en' ? 'Build' : 'Construire'}
+                                />
                             </span>
-                            <span
-                                className="block text-[clamp(2.2rem,7vw,5.5rem)] font-black mt-1"
-                                style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.2s both' : 'none' }}
-                            >
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
-                                    <EditableText contentKey={`${lang}.hero.titleLine2a`} fallback={lang === 'en' ? 'Digital' : 'De Confiance'} />
-                                </span>
-                                {' '}
-                                <span className="text-white/80 italic font-extralight">
-                                    <EditableText contentKey={`${lang}.hero.titleLine2b`} fallback={lang === 'en' ? 'Partner' : 'Digital'} />
+                            <span ref={line2Ref} className="block pl-[0.15em]" style={{ opacity: 0 }}>
+                                <EditableText
+                                    contentKey={`${lang}.hero.titleLine2a`}
+                                    fallback={lang === 'en' ? 'to' : 'pour'}
+                                />
+                            </span>
+                            <span ref={line3Ref} className="block pl-[0.35em]" style={{ opacity: 0 }}>
+                                <span style={{ color: text }}>
+                                    <EditableText
+                                        contentKey={`${lang}.hero.titleLine2b`}
+                                        fallback={lang === 'en' ? 'dominate' : 'dominer'}
+                                    />
                                 </span>
                             </span>
                         </h1>
+                    </div>
 
-                        {/* Subtitle — tighter */}
-                        <p
-                            className="mt-3 sm:mt-4 text-white/50 text-sm sm:text-base lg:text-lg max-w-lg leading-relaxed"
-                            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, animation: mounted ? 'heroFadeUp 0.7s ease-out 0.3s both' : 'none' }}
-                        >
-                            <EditableText contentKey={`${lang}.hero.subtitle`} fallback={hero?.subtitle || t?.hero?.subtitle || 'Professional digital solutions for ambitious businesses and individuals.'} />
-                        </p>
+                    <div className="flex items-end justify-between mt-16">
+                        <span ref={scrollRef} className="text-[10px] font-bold tracking-[0.2em] uppercase origin-left transform -rotate-90 translate-y-8 select-none" style={{ color: isDark ? '#666' : '#888' }}>
+                            <EditableText contentKey={`${lang}.hero.scroll`} fallback="Scroll" />
+                        </span>
 
-                        {/* CTAs — compact */}
                         <div
-                            className="mt-4 sm:mt-6 flex flex-wrap gap-2.5 sm:gap-3"
-                            style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.4s both' : 'none' }}
+                            ref={descRef}
+                            className="flex flex-col items-start gap-4 max-w-[240px] md:max-w-[280px]"
                         >
+                            <span
+                                ref={dotRef}
+                                className="w-2.5 h-2.5 rounded-full bg-cyan-500 self-end mb-1"
+                                style={{ opacity: 0 }}
+                            />
+
+                            <p
+                                className="leading-relaxed"
+                                style={{
+                                    color: isDark ? '#a0a0a0' : '#444',
+                                    fontFamily: "'Inter', sans-serif",
+                                    fontWeight: 300,
+                                    fontSize: '0.9rem',
+                                    lineHeight: 1.65,
+                                }}
+                            >
+                                <EditableText
+                                    contentKey={`${lang}.hero.subtitle`}
+                                    fallback={
+                                        lang === 'en'
+                                            ? 'Premium digital solutions for high-growth brands and ambitious entrepreneurs.'
+                                            : 'Solutions digitales premium pour les marques en forte croissance.'
+                                    }
+                                />
+                            </p>
+
                             <Link
                                 to="/start-project"
-                                className="group flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/35 hover:scale-[1.02] transition-all duration-300"
+                                className="text-[12px] font-semibold border-b pb-0.5 hover:text-cyan-600 hover:border-cyan-600 transition-colors duration-200 tracking-wide uppercase"
+                                style={{ color: text, borderColor: text, letterSpacing: '0.05em' }}
                             >
-                                <EditableText contentKey={`${lang}.hero.startProject`} fallback={t?.hero?.startProject || 'Start Your Project'} />
-                                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                                <EditableText
+                                    contentKey={`${lang}.hero.startProject`}
+                                    fallback={t?.hero?.startProject || 'Digital Services'}
+                                />
                             </Link>
-                            <a
-                                href="#services"
-                                onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl border border-white/15 bg-white/5 backdrop-blur-md text-white text-xs sm:text-sm font-medium hover:bg-white/10 transition-all duration-300"
-                            >
-                                <EditableText contentKey={`${lang}.hero.exploreServices`} fallback={t?.hero?.exploreServices || 'Explore Services'} />
-                            </a>
                         </div>
                     </div>
                 </div>
 
-                {/* BOTTOM — Stats + Trust badges, fixed to bottom */}
-                <div
-                    className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 sm:gap-6 flex-shrink-0 pointer-events-auto"
-                    style={{ animation: mounted ? 'heroFadeUp 0.7s ease-out 0.55s both' : 'none' }}
-                >
-                    {/* Glass Stats Card — compact */}
-                    <div className="flex items-center gap-4 sm:gap-6 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl backdrop-blur-2xl border bg-white/[0.06] border-white/[0.1]">
-                        {stats.map((s, i) => (
-                            <React.Fragment key={i}>
-                                {i > 0 && <div className="w-px h-8 bg-white/10" />}
-                                <div className="text-center">
-                                    <p className="text-lg sm:text-xl md:text-2xl font-black text-white tracking-tight leading-none">
-                                        <EditableText contentKey={`${lang}.hero.stats.${s.key}.value`} fallback={s.value} />
-                                    </p>
-                                    <p className="text-[9px] sm:text-[10px] font-semibold text-white/35 uppercase tracking-wider mt-0.5">
-                                        <EditableText contentKey={`${lang}.hero.stats.${s.key}.label`} fallback={s.label} />
-                                    </p>
-                                </div>
-                            </React.Fragment>
-                        ))}
-                    </div>
-
-                    {/* Trust badges */}
-                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                        {trustBadges.map((badge, i) => (
-                            <span key={i} className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium border border-white/8 bg-white/[0.04] text-white/50">
-                                {badge.icon}
-                                <EditableText contentKey={`${lang}.hero.badges.${badge.key}`} fallback={badge.label} />
-                            </span>
-                        ))}
+                {/* ─── Transition Phase (120vh) ─── */}
+                <div className="flex flex-col justify-center items-center h-[120svh] px-8 sm:px-14 lg:px-20 relative z-20 text-center pointer-events-none">
+                    <div ref={transTextRef} className="flex flex-col items-center max-w-5xl mx-auto drop-shadow-xl" style={{ textShadow: isDark ? '0 4px 24px rgba(0,0,0,0.8)' : '0 4px 24px rgba(255,255,255,0.8)' }}>
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-600 mb-6 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+                        <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase font-semibold mb-6" style={{ color: isDark ? '#a0a0a0' : '#666' }}>
+                            About XyberClan
+                        </p>
+                        <h2 
+                            ref={transTitleRef}
+                            className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-[-0.03em] leading-[1.05]" 
+                            style={{ 
+                                color: text,
+                                fontFamily: "'Inter', 'Helvetica Neue', sans-serif", 
+                            }}
+                        >
+                            {"A premium digital agency focused on driving technological growth".split('').map((char, i) => (
+                                char === ' ' 
+                                    ? <span key={`s${i}`}>&nbsp;</span> 
+                                    : <span key={`c${i}`} data-char style={{ display: 'inline-block', opacity: 0, filter: 'blur(8px)', transform: 'translateY(15px)' }}>{char}</span>
+                            ))}
+                        </h2>
                     </div>
                 </div>
-
-                {/* Scroll chevron — inside the hero, at absolute bottom center */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                    <ChevronDown size={18} className="text-white/20 animate-bounce" />
-                </div>
+                
             </div>
-
-            {/* CMS EDIT CARD FOR HERO MEDIA */}
-            {isEditing && (
-                <div className="absolute top-1/2 right-4 sm:right-6 -translate-y-1/2 flex flex-col gap-3 sm:gap-4 p-3 sm:p-5 bg-gray-900/90 border border-white/10 backdrop-blur-xl rounded-2xl z-[100] pointer-events-auto shadow-2xl transition-all hover:border-cyan-500/30">
-                    <h3 className="text-[9px] sm:text-[10px] font-bold text-white/50 uppercase tracking-widest text-center border-b border-white/10 pb-2 mb-1">
-                        Hero Media
-                    </h3>
-
-                    {/* Banner Image */}
-                    <div className="flex flex-col gap-1.5 items-center">
-                        <span className="text-[8px] sm:text-[9px] text-white/70 uppercase tracking-wider font-semibold">Banner Image</span>
-                        <div className="w-20 h-14 sm:w-24 sm:h-16 rounded-lg shadow-inner bg-black/50 relative hover:ring-2 hover:ring-cyan-500 transition-all cursor-pointer">
-                            <EditableImage
-                                contentKey="en.hero.posterImage"
-                                src={POSTER_SRC}
-                                className="absolute inset-0 w-full h-full"
-                                imageClassName="rounded-lg object-cover w-full h-full"
-                            />
-                        </div>
-                    </div>
-
-                    {/* Background Video */}
-                    <div className="flex flex-col gap-1.5 items-center">
-                        <span className="text-[8px] sm:text-[9px] text-white/70 uppercase tracking-wider font-semibold">Back Video</span>
-                        <div className="w-20 h-14 sm:w-24 sm:h-16 rounded-lg shadow-inner bg-black/50 relative hover:ring-2 hover:ring-cyan-500 transition-all cursor-pointer">
-                            <EditableVideo
-                                contentKey="en.hero.backgroundVideo"
-                                posterContentKey="en.hero.posterImage"
-                                src={VIDEO_SRC}
-                                poster={POSTER_SRC}
-                                className="absolute inset-0 w-full h-full"
-                                videoClassName="rounded-lg object-cover w-full h-full"
-                                muted
-                                playsInline
-                            />
-                        </div>
-                    </div>
-
-                    {/* Logo */}
-                    <div className="flex flex-col gap-1.5 items-center mt-1">
-                        <span className="text-[8px] sm:text-[9px] text-white/70 uppercase tracking-wider font-semibold">Hero Logo</span>
-                        <div className="w-20 h-14 sm:w-24 sm:h-16 rounded-lg shadow-inner bg-black/50 relative hover:ring-2 hover:ring-cyan-500 transition-all cursor-pointer">
-                            <EditableImage
-                                contentKey="en.global.logo"
-                                src={getLogo()}
-                                className="absolute inset-0 w-full h-full flex flex-col items-center justify-center pt-2"
-                                imageClassName="w-8 h-8 sm:w-10 sm:h-10 object-contain mx-auto"
-                            />
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            <style>{`
-                @keyframes heroFadeUp {
-                    from { opacity: 0; transform: translateY(24px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `}</style>
         </section>
     );
 };

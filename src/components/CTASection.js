@@ -1,67 +1,112 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
 import EditableText from './cms/EditableText';
-import { ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const CTASection = () => {
     const { isDark } = useTheme();
+    const sectionRef = useRef(null);
+    const line1Ref = useRef(null);
+    const line2Ref = useRef(null);
+    const bodyRef = useRef(null);
+    const btnsRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo([line1Ref.current, line2Ref.current],
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1.1, stagger: 0.13, ease: 'power3.out',
+                  scrollTrigger: { trigger: line1Ref.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo([bodyRef.current, btnsRef.current],
+                { opacity: 0, y: 22 },
+                { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out',
+                  scrollTrigger: { trigger: bodyRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+        }, sectionRef);
+        return () => ctx.revert();
+    }, []);
+
+    const bg = isDark ? '#0a0a0a' : '#f5f4f2';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#666' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
 
     return (
-        <div className="py-10">
-            <div className={`max-w-7xl mx-auto relative overflow-hidden rounded-[2.5rem] ${isDark ? 'bg-[#0a0a0a] border border-white/5' : 'bg-gray-100 border border-gray-200'}`}>
+        <section
+            ref={sectionRef}
+            style={{ backgroundColor: 'transparent', color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}
+            className="relative overflow-hidden"
+        >
+            <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 py-32 md:py-44">
+                <div className="max-w-3xl">
 
-                {/* Mesh / Dot Pattern Background */}
-                <div className="absolute right-0 top-0 w-full h-full pointer-events-none opacity-40">
-                    <svg width="100%" height="100%" viewBox="0 0 800 400" preserveAspectRatio="none">
-                        <defs>
-                            <pattern id="dotPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                                <circle cx="2" cy="2" r="1" fill={isDark ? "white" : "black"} opacity="0.2" />
-                            </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#dotPattern)" />
+                    {/* Display headline */}
+                    <h2
+                        className="leading-[0.9] tracking-[-0.03em] mb-10"
+                        style={{ fontWeight: 900, fontSize: 'clamp(3.2rem, 7vw, 7rem)' }}
+                    >
+                        <span ref={line1Ref} className="block" style={{ opacity: 0 }}>
+                            <EditableText contentKey="en.cta.title" fallback="Ready to" />
+                        </span>
+                        <span ref={line2Ref} className="block pl-[0.1em]" style={{ opacity: 0 }}>
+                            get started?
+                        </span>
+                    </h2>
 
-                        {/* Wavy Mesh Overlay Concept */}
-                        <path
-                            d="M 400,400 Q 550,200 800,400 T 1200,400"
-                            stroke={isDark ? "rgba(6,182,212,0.1)" : "rgba(6,182,212,0.05)"}
-                            strokeWidth="80"
-                            fill="none"
-                            strokeLinecap="round"
-                            className="translate-x-32"
+                    <p
+                        ref={bodyRef}
+                        className="text-base leading-relaxed mb-10 max-w-sm"
+                        style={{ color: muted, fontWeight: 300, opacity: 0 }}
+                    >
+                        <EditableText
+                            contentKey="en.cta.subtitle"
+                            fallback="No demos, no lengthy calls. Tell us what you need — we'll build it."
                         />
-                    </svg>
+                    </p>
 
-                    {/* Radial Glow */}
-                    <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[80%] bg-cyan-500/10 blur-[120px] rounded-full"></div>
-                </div>
-
-                <div className="relative z-10 p-12 md:p-24 flex flex-col md:flex-row items-center justify-between gap-12 text-left">
-                    <div className="max-w-2xl">
-                        <h2 className={`text-5xl md:text-7xl font-black mb-8 tracking-tighter ${isDark ? 'text-white' : 'text-black'}`}>
-                            <EditableText contentKey="en.cta.title" tag="span" fallback="Get started today" />
-                        </h2>
-                        <p className={`text-xl md:text-2xl leading-relaxed mb-12 max-w-xl ${isDark ? 'text-gray-400 font-medium' : 'text-gray-600'}`}>
-                            <EditableText contentKey="en.cta.subtitle" tag="span" fallback="Create a free account. No demos or calls with our sales team are required. Upgrade only if you have to." />
-                        </p>
-
-                        <div className="flex flex-wrap gap-5">
-                            {/* Primary Button - Brand Blue */}
-                            <Link to="/start-project" className="group bg-[#00A3FF] hover:bg-[#0082CC] text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-xl shadow-[#00A3FF]/20">
-                                <EditableText contentKey="en.cta.primaryButton" tag="span" fallback="Get Started" />
-                                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-
-                            {/* Secondary Button */}
-                            <a href="/#contact" className={`group px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all duration-300 hover:scale-105 ${isDark ? 'bg-white text-black font-black' : 'bg-gray-900 text-white'}`}>
-                                <EditableText contentKey="en.cta.secondaryButton" tag="span" fallback="Contact Us" />
-                                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </a>
-                        </div>
+                    {/* CTAs */}
+                    <div ref={btnsRef} className="flex flex-wrap gap-5 items-center" style={{ opacity: 0 }}>
+                        <Link
+                            to="/start-project"
+                            className="group flex items-center gap-3 px-8 py-4 font-bold text-sm tracking-wide text-white transition-all duration-200 hover:gap-4"
+                            style={{ background: '#06b6d4', borderRadius: 0 }}
+                        >
+                            <EditableText contentKey="en.cta.primaryButton" fallback="Start your project" />
+                            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                        </Link>
+                        <a
+                            href="#contact"
+                            className="text-sm font-semibold border-b pb-0.5 transition-colors duration-200 hover:text-cyan-500 hover:border-cyan-500"
+                            style={{ color: text, borderColor: text }}
+                        >
+                            <EditableText contentKey="en.cta.secondaryButton" fallback="Or contact us →" />
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
+
+            {/* Large background text watermark */}
+            <div
+                className="absolute bottom-0 right-0 pointer-events-none select-none overflow-hidden leading-none"
+                style={{
+                    fontSize: 'clamp(8rem, 18vw, 18rem)',
+                    fontWeight: 900,
+                    color: isDark ? 'rgba(255,255,255,0.025)' : 'rgba(0,0,0,0.04)',
+                    letterSpacing: '-0.05em',
+                    lineHeight: 0.85,
+                }}
+            >
+                XC
+            </div>
+        </section>
     );
 };
 

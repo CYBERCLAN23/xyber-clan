@@ -1,134 +1,135 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
 import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
-import useScrollAnimation from '../hooks/useScrollAnimation';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const testimonials = [
-    {
-        quote: "The robust project management tools, integrated communication features, and customizable dashboards have made collaboration a breeze.",
-        author: "Paul Smith",
-        role: "Software Tester",
-        company: "Monaco",
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&h=150&auto=format&fit=crop"
-    },
-    {
-        quote: "The feedback and analytics tools have also helped us gain valuable insights and continuously improve our services. It's like having our own virtual office!",
-        author: "Tim Williams",
-        role: "Business Owner",
-        company: "Proline",
-        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&h=150&auto=format&fit=crop"
-    },
-    {
-        quote: "As a marketing professional, I rely heavily on data to drive my campaigns. They have been instrumental in helping me analyze and visualize data effectively.",
-        author: "Katie Adams",
-        role: "Entrepreneur",
-        company: "Delaware",
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&h=150&auto=format&fit=crop"
-    },
-    {
-        quote: "With its powerful help desk features and automation capabilities, we have been able to provide faster and more personalized support to our clients.",
-        author: "Alex Schiller",
-        role: "Senior Engineer",
-        company: "Luminous",
-        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop"
-    }
+    { quote: "Concept to launched product in record time. XyberClan delivered exactly what we needed.", author: "Paul Smith", role: "Software Tester", company: "Monaco", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&h=150&auto=format&fit=crop" },
+    { quote: "Their attention to UX detail is unmatched. Our conversion rate jumped 40% after the redesign.", author: "Tim Williams", role: "Business Owner", company: "Proline", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&h=150&auto=format&fit=crop" },
+    { quote: "The security audit they performed found critical vulnerabilities we didn't know existed. Outstanding work.", author: "Katie Adams", role: "Entrepreneur", company: "Delaware", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&h=150&auto=format&fit=crop" },
+    { quote: "From design to deploy in two weeks. Responsive, fast, and exactly on brand. Highly recommend.", author: "Alex Schiller", role: "Senior Engineer", company: "Luminous", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&h=150&auto=format&fit=crop" },
 ];
 
 const Testimonials = () => {
     const { isDark } = useTheme();
-    const [ref, visible] = useScrollAnimation();
+    const sectionRef = useRef(null);
+    const labelRef = useRef(null);
+    const headRef = useRef(null);
 
-    // Double the testimonials for seamless infinite scroll
-    const doubledTestimonials = [...testimonials, ...testimonials];
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(labelRef.current,
+                { opacity: 0, y: 14 },
+                { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+                  scrollTrigger: { trigger: labelRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(headRef.current,
+                { opacity: 0, y: 40 },
+                { opacity: 1, y: 0, duration: 1, stagger: 0.14, ease: 'power3.out',
+                  scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+            );
+        }, sectionRef);
+        return () => ctx.revert();
+    }, []);
+
+    const bg = isDark ? '#111' : '#fff';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#666' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
+    const cardBg = isDark ? 'rgba(255,255,255,0.02)' : '#f5f4f2';
+
+    const doubled = [...testimonials, ...testimonials];
 
     return (
-        <section ref={ref} className={`py-32 px-4 relative overflow-hidden ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
-            <div className="max-w-7xl mx-auto px-4">
-
-                {/* Header */}
-                <div className={`text-center mb-24 ${visible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-                    <span className="text-cyan-500 font-bold tracking-widest uppercase text-sm mb-4 inline-block">
-                      <EditableText contentKey="en.testimonials.badge" tag="span" fallback="Testimonials" />
-                    </span>
-                    <h2 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
-                        <EditableText contentKey="en.testimonials.title" tag="span" fallback={<>Don't just take our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 font-serif italic italic font-normal">word for it</span></>} />
-                    </h2>
-                    <p className={`text-xl max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        <EditableText contentKey="en.testimonials.subtitle" tag="span" fallback="Take a moment to explore their stories and discover what sets us apart." />
+        <section
+            ref={sectionRef}
+            style={{ background: bg, color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}
+            className="overflow-hidden"
+        >
+            <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 pt-28 md:pt-36 pb-16">
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
+                    <div>
+                        <p
+                            ref={labelRef}
+                            className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
+                            style={{ color: '#06b6d4', opacity: 0 }}
+                        >
+                            <EditableText contentKey="en.testimonials.badge" fallback="Testimonials" />
+                        </p>
+                        <h2
+                            ref={headRef}
+                            className="leading-[0.9] tracking-[-0.03em]"
+                            style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
+                        >
+                            <EditableText contentKey="en.testimonials.title" fallback={<>What our<br />clients say.</>} />
+                        </h2>
+                    </div>
+                    <p className="text-sm leading-relaxed max-w-xs" style={{ color: muted, fontWeight: 300 }}>
+                        <EditableText contentKey="en.testimonials.subtitle" fallback="Real words from real clients who've shipped with us." />
                     </p>
                 </div>
-
-                {/* Carousel Wrapper */}
-                <div className="relative group">
-                    {/* Fade Overlays */}
-                    <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10 hidden md:block group-hover:opacity-50 transition-opacity"></div>
-                    <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10 hidden md:block group-hover:opacity-50 transition-opacity"></div>
-
-                    <div className="overflow-hidden whitespace-nowrap py-4">
-                        <div className="inline-flex animate-marquee-slow hover:pause-marquee space-x-4">
-                            {doubledTestimonials.map((t, i) => {
-                                const originalIdx = i % testimonials.length;
-                                return (
-                                    <div
-                                        key={i}
-                                        className={`w-[380px] inline-block whitespace-normal p-6 rounded-[1.5rem] border transition-all duration-300 ${isDark ? 'bg-neutral-900/40 border-neutral-800/50' : 'bg-gray-50 border-gray-100'}`}
-                                    >
-                                        <p className={`text-sm leading-relaxed mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                            "<EditableText contentKey={`en.testimonials.list.${originalIdx}.quote`} tag="span" fallback={t.quote} />"
-                                        </p>
-
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full overflow-hidden border border-neutral-700">
-                                                    <EditableImage
-                                                        contentKey={`en.testimonials.list.${originalIdx}.avatar`}
-                                                        src={t.avatar}
-                                                        alt={t.author || "Avatar"}
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-bold text-xs text-white"><EditableText contentKey={`en.testimonials.list.${originalIdx}.author`} tag="span" fallback={t.author} /></h4>
-                                                    <p className="text-[10px] text-gray-500"><EditableText contentKey={`en.testimonials.list.${originalIdx}.role`} tag="span" fallback={t.role} /></p>
-                                                </div>
-                                            </div>
-                                            <div className="text-right">
-                                                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
-                                                    {/* Placeholder for small logo icon if needed */}
-                                                    <div className="w-2 h-2 rounded-full bg-cyan-500/20"></div>
-                                                    <EditableText contentKey={`en.testimonials.list.${originalIdx}.company`} tag="span" fallback={t.company} />
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
-            <style>{`
-                @keyframes marquee-slow {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(calc(-50% - 12px)); }
-                }
-                .animate-marquee-slow {
-                    animation: marquee-slow 40s linear infinite;
-                }
-                .pause-marquee {
-                    animation-play-state: paused !important;
-                }
-                .no-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-                .no-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            `}</style>
+            {/* Marquee strip — full bleed */}
+            <div className="relative pb-28 md:pb-36">
+                <style>{`
+                    @keyframes marquee-ltr { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+                    .testimonial-track { animation: marquee-ltr 38s linear infinite; }
+                    .testimonial-track:hover { animation-play-state: paused; }
+                `}</style>
+
+                {/* Edge fade */}
+                <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+                    style={{ background: `linear-gradient(to right, ${bg}, transparent)` }} />
+                <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+                    style={{ background: `linear-gradient(to left, ${bg}, transparent)` }} />
+
+                <div className="overflow-hidden">
+                    <div className="flex w-max testimonial-track gap-5 px-5">
+                        {doubled.map((t, i) => {
+                            const idx = i % testimonials.length;
+                            return (
+                                <div
+                                    key={i}
+                                    className="w-[340px] shrink-0 flex flex-col justify-between p-8 gap-8"
+                                    style={{ background: cardBg, border: `1px solid ${border}` }}
+                                >
+                                    <p className="text-[15px] leading-relaxed font-light" style={{ color: muted }}>
+                                        "<EditableText contentKey={`en.testimonials.list.${idx}.quote`} fallback={t.quote} />"
+                                    </p>
+                                    <div className="flex items-center gap-3 pt-4" style={{ borderTop: `1px solid ${border}` }}>
+                                        <div className="w-9 h-9 rounded-full overflow-hidden shrink-0">
+                                            <EditableImage
+                                                contentKey={`en.testimonials.list.${idx}.avatar`}
+                                                src={t.avatar}
+                                                alt={t.author}
+                                                className="w-full h-full object-cover grayscale"
+                                            />
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-[13px] font-bold truncate" style={{ color: text }}>
+                                                <EditableText contentKey={`en.testimonials.list.${idx}.author`} fallback={t.author} />
+                                            </p>
+                                            <p className="text-[11px] truncate" style={{ color: muted }}>
+                                                <EditableText contentKey={`en.testimonials.list.${idx}.role`} fallback={t.role} />
+                                            </p>
+                                        </div>
+                                        <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: '#06b6d4' }}>
+                                            <EditableText contentKey={`en.testimonials.list.${idx}.company`} fallback={t.company} />
+                                        </span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
         </section>
     );
 };

@@ -1,234 +1,572 @@
-import React, { useState } from 'react';
-import { X, ExternalLink, ArrowLeft, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { X, ArrowUpRight } from 'lucide-react';
+import { gsap } from 'gsap';
 import { useTheme } from '../context/ThemeContext';
-import useScrollAnimation from '../hooks/useScrollAnimation';
-import EditableText from './cms/EditableText';
 
-const PortfolioGrid = () => {
-    const { isDark } = useTheme();
-    const [ref, isVisible] = useScrollAnimation();
-    const [lightboxOpen, setLightboxOpen] = useState(false);
-    const [activeProject, setActiveProject] = useState(null);
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
-    const projects = [
-        {
-            title: 'NB Dance Awards',
-            category: 'Event Platform',
-            image: '/portfolio/portfolio_nbdance_1766276075058.png',
-            url: 'https://www.nbdanceawards.app/',
-            size: 'col-span-1',
-            description: 'A comprehensive event voting and ticketing platform for dance competitions. Features real-time voting, mobile money payments, and live results.',
-            tech: ['React', 'Next.js', 'Firebase', 'Mobile Money API']
-        },
-        {
-            title: 'Vanguard Elite',
-            category: 'Corporate Identity',
-            image: '/portfolio/portfolio_vanguard_1766276251484.png',
-            url: 'https://vangaurd-elite.vercel.app/',
-            size: 'col-span-2',
-            description: 'Premium corporate website for a security and executive protection firm. Features elegant design, service showcase, and contact systems.',
-            tech: ['React', 'Tailwind CSS', 'Framer Motion']
-        },
-        {
-            title: 'African Marketplace',
-            category: 'E-Commerce',
-            image: '/portfolio/portfolio_marketplace_1766277433883.png',
-            url: 'https://v0-africanmarketplace22.vercel.app/',
-            size: 'col-span-1',
-            description: 'Multi-vendor e-commerce platform connecting African artisans with global buyers. Features product listings, secure checkout, and vendor dashboards.',
-            tech: ['Next.js', 'MongoDB', 'Stripe']
-        },
-        {
-            title: 'Devil Pool',
-            category: 'Creative Portfolio',
-            image: '/portfolio/portfolio_devilpool_1766276804758.png',
-            url: 'https://devil-po-ol.vercel.app/',
-            size: 'col-span-1',
-            description: 'Stunning creative portfolio website with immersive animations and visual storytelling. Features smooth transitions and interactive elements.',
-            tech: ['React', 'Three.js', 'GSAP']
-        },
-        {
-            title: 'Secure Login',
-            category: 'Security UI',
-            image: '/portfolio/portfolio_blur_login_1766277063816.png',
-            url: 'https://v0-login-screen-blur.vercel.app/',
-            size: 'col-span-full',
-            description: 'Modern authentication interface with glassmorphism design. Features secure input handling, animated backgrounds, and responsive layout.',
-            tech: ['React', 'CSS Glass Effects', 'Auth Integration']
-        }
-    ];
+/* ─── Project Data ────────────────────────────────────────────────── */
+const projects = [
+    {
+        id: 1,
+        client: 'NB Dance Awards',
+        logoText: 'NB Dance',
+        image: '/portfolio/portfolio_nbdance_1766276075058.png',
+        previewImage: '/portfolio/portfolio_nbdance_1766276075058.png',
+        url: 'https://www.nbdanceawards.app/',
+        category: 'Event Platform',
+        status: 'Live',
+        geography: 'Cameroon',
+        industry: 'Entertainment',
+        description: 'A comprehensive event voting and ticketing platform for dance competitions. Features real-time voting, mobile money payments, and live results broadcasting.',
+    },
+    {
+        id: 2,
+        client: 'Vanguard Elite',
+        logoText: 'VANGUARD',
+        image: '/portfolio/portfolio_vanguard_1766276251484.png',
+        previewImage: '/portfolio/portfolio_vanguard_1766276251484.png',
+        url: 'https://vangaurd-elite.vercel.app/',
+        category: 'Corporate Identity',
+        status: 'Live',
+        geography: 'Global',
+        industry: 'Security',
+        description: 'Premium corporate website for a security and executive protection firm. Features elegant design, service showcase, and secure contact systems.',
+    },
+    {
+        id: 3,
+        client: 'African Marketplace',
+        logoText: 'AfriMarket',
+        image: '/portfolio/portfolio_marketplace_1766277433883.png',
+        previewImage: '/portfolio/portfolio_marketplace_1766277433883.png',
+        url: 'https://v0-africanmarketplace22.vercel.app/',
+        category: 'E-Commerce',
+        status: 'Live',
+        geography: 'Africa',
+        industry: 'Retail',
+        description: 'Multi-vendor e-commerce platform connecting African artisans with global buyers. Features product listings, secure checkout, and vendor dashboards.',
+    },
+    {
+        id: 4,
+        client: 'Devil Pool',
+        logoText: 'DEVIL POOL',
+        image: '/portfolio/portfolio_devilpool_1766276804758.png',
+        previewImage: '/portfolio/portfolio_devilpool_1766276804758.png',
+        url: 'https://devil-po-ol.vercel.app/',
+        category: 'Creative Portfolio',
+        status: 'Live',
+        geography: 'Global',
+        industry: 'Creative',
+        description: 'Stunning creative portfolio with immersive animations and visual storytelling. Features smooth transitions, Three.js effects, and interactive elements.',
+    },
+    {
+        id: 5,
+        client: 'XyberShield App',
+        logoText: 'XyberShield',
+        image: '/portfolio/portfolio_xybershield_app_1766276389826.png',
+        previewImage: '/portfolio/portfolio_xybershield_app_1766276389826.png',
+        url: '#',
+        category: 'Cybersecurity',
+        status: 'In Portfolio',
+        geography: 'Cameroon',
+        industry: 'Technology',
+        description: 'Mobile cybersecurity application providing real-time threat detection, VPN services, and security auditing for enterprise clients.',
+    },
+    {
+        id: 6,
+        client: 'Secure Login UI',
+        logoText: 'SecureAuth',
+        image: '/portfolio/portfolio_blur_login_1766277063816.png',
+        previewImage: '/portfolio/portfolio_blur_login_1766277063816.png',
+        url: 'https://v0-login-screen-blur.vercel.app/',
+        category: 'Security UI',
+        status: 'Live',
+        geography: 'Global',
+        industry: 'Technology',
+        description: 'Modern authentication interface with glassmorphism design. Features secure input handling, animated backgrounds, and responsive layout.',
+    },
+    {
+        id: 7,
+        client: 'XyberShield Web',
+        logoText: 'XyberShield Web',
+        image: '/portfolio/portfolio_xybershield_web_1766276548512.png',
+        previewImage: '/portfolio/portfolio_xybershield_web_1766276548512.png',
+        url: '#',
+        category: 'Web Application',
+        status: 'In Portfolio',
+        geography: 'Africa',
+        industry: 'Technology',
+        description: 'Web dashboard for XyberShield security platform. Real-time threat monitoring, incident response, and network visualisation for enterprise clients.',
+    },
+];
 
-    const openLightbox = (project) => {
-        setActiveProject(project);
-        setLightboxOpen(true);
-        document.body.style.overflow = 'hidden';
-    };
+const CATEGORIES = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
 
-    const closeLightbox = () => {
-        setLightboxOpen(false);
-        setActiveProject(null);
-        document.body.style.overflow = 'auto';
-    };
+/* ─── Hover image that follows mouse ─────────────────────────────── */
+const FloatingPreview = ({ src, visible }) => {
+    const ref = useRef(null);
 
-    const navigateProject = (direction) => {
-        const currentIndex = projects.findIndex(p => p.title === activeProject.title);
-        let newIndex;
-        if (direction === 'next') {
-            newIndex = (currentIndex + 1) % projects.length;
-        } else {
-            newIndex = currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
-        }
-        setActiveProject(projects[newIndex]);
-    };
+    useEffect(() => {
+        const move = (e) => {
+            if (!ref.current) return;
+            gsap.to(ref.current, {
+                x: e.clientX + 20,
+                y: e.clientY - 100,
+                duration: 0.4,
+                ease: 'power2.out',
+            });
+        };
+        window.addEventListener('mousemove', move);
+        return () => window.removeEventListener('mousemove', move);
+    }, []);
 
     return (
-        <>
-            <section ref={ref} className={`py-24 px-4 ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
-                <div className="max-w-7xl mx-auto">
-                    {/* Header */}
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
-                            <EditableText contentKey="en.portfolio.titlePrefix" tag="span" fallback="Our" />{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
-                                <EditableText contentKey="en.portfolio.titleHighlight" tag="span" fallback="Work" />
-                            </span>
-                        </h2>
-                        <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <EditableText contentKey="en.portfolio.subtitle" tag="span" fallback="Click on any project to learn more" />
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {projects.map((project, idx) => (
-                            <div
-                                key={idx}
-                                onClick={() => openLightbox(project)}
-                                className={`group relative overflow-hidden rounded-[2.5rem] bg-neutral-900 border-4 border-white dark:border-neutral-800 shadow-2xl transition-all duration-500 hover:scale-[1.02] cursor-pointer ${project.size === 'col-span-2' ? 'md:col-span-2 h-[450px]' :
-                                    project.size === 'col-span-full' ? 'md:col-span-3 h-[450px]' :
-                                        'md:col-span-1 h-[450px]'
-                                    }`}
-                            >
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    loading="lazy"
-                                    decoding="async"
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                {/* Overlay */}
-                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500"></div>
-
-                                <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end">
-                                    <span className="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-1">
-                                        <EditableText contentKey={`en.portfolio.projects.${idx}.category`} tag="span" fallback={project.category} />
-                                    </span>
-                                    <h3 className="text-2xl font-bold text-white group-hover:translate-x-2 transition-transform duration-300">
-                                        <EditableText contentKey={`en.portfolio.projects.${idx}.title`} tag="span" fallback={project.title} />
-                                    </h3>
-                                </div>
-
-                                {/* Click indicator */}
-                                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <div className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-white text-sm font-medium">
-                                        <EditableText contentKey="en.portfolio.viewDetails" tag="span" fallback="View Details" />
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Lightbox Modal */}
-            {lightboxOpen && activeProject && (
-                <div className="fixed inset-0 z-[9999] flex items-center justify-center">
-                    {/* Backdrop */}
-                    <div
-                        className="absolute inset-0 bg-black/90 backdrop-blur-md"
-                        onClick={closeLightbox}
-                    />
-
-                    {/* Close Button */}
-                    <button
-                        onClick={closeLightbox}
-                        className="absolute top-6 right-6 z-10 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
-                    >
-                        <X size={24} />
-                    </button>
-
-                    {/* Navigation Arrows */}
-                    <button
-                        onClick={() => navigateProject('prev')}
-                        className="absolute left-4 md:left-8 z-10 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
-                    >
-                        <ArrowLeft size={24} />
-                    </button>
-                    <button
-                        onClick={() => navigateProject('next')}
-                        className="absolute right-4 md:right-8 z-10 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
-                    >
-                        <ArrowRight size={24} />
-                    </button>
-
-                    {/* Content */}
-                    <div className="relative z-10 max-w-5xl w-full mx-4 max-h-[90vh] overflow-y-auto bg-neutral-900 rounded-3xl shadow-2xl">
-                        {/* Image */}
-                        <div className="relative h-64 md:h-96 overflow-hidden rounded-t-3xl">
-                            <img
-                                src={activeProject.image}
-                                alt={activeProject.title}
-                                loading="lazy"
-                                decoding="async"
-                                className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                        </div>
-
-                        {/* Details */}
-                        <div className="p-8">
-                            <span className="text-cyan-400 text-sm font-bold uppercase tracking-widest">
-                                {activeProject.category}
-                            </span>
-                            <h2 className="text-3xl md:text-4xl font-black text-white mt-2 mb-4">
-                                {activeProject.title}
-                            </h2>
-                            <p className="text-gray-400 text-lg mb-6 leading-relaxed">
-                                {activeProject.description}
-                            </p>
-
-                            {/* Tech Stack */}
-                            <div className="mb-8">
-                                <h4 className="text-white font-bold mb-3">
-                                    <EditableText contentKey="en.portfolio.techLabel" tag="span" fallback="Technologies Used" />
-                                </h4>
-                                <div className="flex flex-wrap gap-2">
-                                    {activeProject.tech.map((tech, i) => (
-                                        <span
-                                            key={i}
-                                            className="px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm font-medium"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* CTA */}
-                            <a
-                                href={activeProject.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 px-6 rounded-xl font-bold hover:scale-105 transition-transform shadow-lg shadow-cyan-500/30"
-                            >
-                                <EditableText contentKey="en.portfolio.visitSite" tag="span" fallback="Visit Live Site" />
-                                <ExternalLink size={18} />
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        <div
+            ref={ref}
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: 280,
+                height: 190,
+                pointerEvents: 'none',
+                zIndex: 9000,
+                opacity: visible ? 1 : 0,
+                transform: 'translate(0,0)',
+                transition: 'opacity 0.25s ease',
+                overflow: 'hidden',
+                borderRadius: 2,
+                boxShadow: '0 20px 60px rgba(0,0,0,0.35)',
+            }}
+        >
+            {src && (
+                <img
+                    src={src}
+                    alt=""
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
             )}
-        </>
+        </div>
     );
 };
 
+/* ─── Detail Panel ────────────────────────────────────────────────── */
+const DetailPanel = ({ project, onClose, isDark }) => {
+    const panelRef = useRef(null);
+    const contentRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (!panelRef.current) return;
+        gsap.fromTo(panelRef.current,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, ease: 'power2.out' }
+        );
+        gsap.fromTo(contentRef.current,
+            { x: isMobile ? 0 : 60, y: isMobile ? 40 : 0, opacity: 0 },
+            { x: 0, y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', delay: 0.1 }
+        );
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, [project, isMobile]);
+
+    const handleClose = useCallback(() => {
+        gsap.to(panelRef.current, {
+            opacity: 0,
+            duration: 0.25,
+            onComplete: onClose,
+        });
+    }, [onClose]);
+
+    useEffect(() => {
+        const handleKey = (e) => { if (e.key === 'Escape') handleClose(); };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, [handleClose]);
+
+    const metaRows = [
+        { label: 'Category', value: project.category },
+        { label: 'Status', value: project.status },
+        { label: 'Geography', value: project.geography },
+        { label: 'Industry', value: project.industry },
+    ];
+
+    return (
+        <div
+            ref={panelRef}
+            style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 9999,
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                fontFamily: FONT,
+                opacity: 0,
+                overflowY: isMobile ? 'auto' : 'hidden',
+                background: isDark ? '#0d0d0d' : '#fff',
+            }}
+        >
+            {/* ── Left: dark panel with logo + image ── */}
+            <div
+                style={{
+                    width: isMobile ? '100%' : '42%',
+                    height: isMobile ? '35vh' : 'auto',
+                    background: isDark ? '#111' : '#1a1a1a',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative',
+                    flexShrink: 0,
+                }}
+            >
+                {!isMobile && (
+                    <div style={{ padding: '28px 32px' }}>
+                        <span style={{
+                            fontWeight: 800,
+                            fontSize: '0.75rem',
+                            letterSpacing: '0.18em',
+                            textTransform: 'uppercase',
+                            color: '#555',
+                        }}>
+                            {project.client}
+                        </span>
+                    </div>
+                )}
+
+                {/* Project image — fills remaining space */}
+                <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+                    <img
+                        src={project.image}
+                        alt={project.client}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            display: 'block',
+                        }}
+                    />
+                    {/* subtle dark vignette */}
+                    <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 40%, rgba(0,0,0,0.2) 100%)',
+                    }} />
+                </div>
+            </div>
+
+            {/* ── Right: light panel with details ── */}
+            <div
+                ref={contentRef}
+                style={{
+                    flex: 1,
+                    background: isDark ? '#0d0d0d' : '#fff',
+                    overflowY: isMobile ? 'visible' : 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: isMobile ? '24px 28px 48px 28px' : '28px 48px 48px 48px',
+                    position: 'relative',
+                }}
+            >
+                {/* Close button — top right */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 48 }}>
+                    <button
+                        onClick={handleClose}
+                        aria-label="Close"
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: 4,
+                            color: isDark ? '#666' : '#999',
+                            lineHeight: 1,
+                            fontSize: '0.7rem',
+                            letterSpacing: '0.1em',
+                            textTransform: 'uppercase',
+                            fontFamily: FONT,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 6,
+                        }}
+                    >
+                        <X size={14} />
+                    </button>
+                </div>
+
+                {/* Project name */}
+                <h2 style={{
+                    fontWeight: 300,
+                    fontSize: 'clamp(2.2rem, 4vw, 3.5rem)',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.05,
+                    color: isDark ? '#f0f0f0' : '#111',
+                    margin: '0 0 40px 0',
+                }}>
+                    {project.client}
+                </h2>
+
+                {/* Metadata rows */}
+                <div style={{
+                    borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
+                    marginBottom: 36,
+                }}>
+                    {metaRows.map(({ label, value }) => (
+                        <div
+                            key={label}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '14px 0',
+                                borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+                            }}
+                        >
+                            <span style={{
+                                fontSize: '0.65rem',
+                                fontWeight: 700,
+                                letterSpacing: '0.16em',
+                                textTransform: 'uppercase',
+                                color: isDark ? '#444' : '#aaa',
+                            }}>
+                                {label}
+                            </span>
+                            <span style={{
+                                fontSize: '0.82rem',
+                                fontWeight: 400,
+                                color: isDark ? '#ccc' : '#333',
+                            }}>
+                                {value}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Description */}
+                <p style={{
+                    fontSize: '0.95rem',
+                    fontWeight: 300,
+                    lineHeight: 1.75,
+                    color: isDark ? '#888' : '#555',
+                    maxWidth: 440,
+                    marginBottom: 40,
+                }}>
+                    {project.description}
+                </p>
+
+                {/* Visit link */}
+                {project.url && project.url !== '#' && (
+                    <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 6,
+                            fontSize: '0.8rem',
+                            fontWeight: 500,
+                            color: isDark ? '#f0f0f0' : '#111',
+                            textDecoration: 'none',
+                            borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)'}`,
+                            paddingBottom: 2,
+                            width: 'fit-content',
+                            transition: 'opacity 0.2s',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
+                        onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                    >
+                        Visit the site
+                        <ArrowUpRight size={14} />
+                    </a>
+                )}
+
+                {/* Red dot — bottom right (brand accent matching reference) */}
+                <div style={{
+                    position: 'absolute',
+                    bottom: 28,
+                    right: 28,
+                    width: 7,
+                    height: 7,
+                    borderRadius: '50%',
+                    background: '#dc2626',
+                    boxShadow: '0 0 10px rgba(220,38,38,0.6)',
+                }} />
+            </div>
+        </div>
+    );
+};
+
+/* ─── Logo Grid Cell ──────────────────────────────────────────────── */
+const GridCell = ({ project, onOpen, setHoverProject, isDark }) => {
+    const [hovered, setHovered] = useState(false);
+    const cellRef = useRef(null);
+    const imgRef = useRef(null);
+
+    const handleEnter = () => {
+        setHovered(true);
+        setHoverProject(project);
+        gsap.fromTo(imgRef.current,
+            { opacity: 0, scale: 1.06 },
+            { opacity: 1, scale: 1, duration: 0.45, ease: 'power2.out' }
+        );
+    };
+
+    const handleLeave = () => {
+        setHovered(false);
+        setHoverProject(null);
+        gsap.to(imgRef.current, { opacity: 0, scale: 1.04, duration: 0.3, ease: 'power2.in' });
+    };
+
+    const borderColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.09)';
+    const hoverBg = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)';
+
+    return (
+        <div
+            ref={cellRef}
+            onClick={() => onOpen(project)}
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+            style={{
+                position: 'relative',
+                aspectRatio: '4/3',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                border: `1px solid ${borderColor}`,
+                background: hovered ? hoverBg : 'transparent',
+                transition: 'background 0.3s',
+                overflow: 'hidden',
+            }}
+        >
+            {/* Project image — only visible on hover */}
+            <div
+                ref={imgRef}
+                style={{
+                    position: 'absolute',
+                    inset: 0,
+                    opacity: 0,
+                    zIndex: 1,
+                }}
+            >
+                <img
+                    src={project.previewImage}
+                    alt=""
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                        filter: isDark ? 'brightness(0.65)' : 'brightness(0.75)',
+                    }}
+                />
+                {/* overlay so the logo still reads on top */}
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: isDark
+                        ? 'rgba(0,0,0,0.45)'
+                        : 'rgba(255,255,255,0.12)',
+                }} />
+            </div>
+
+            {/* Logo / wordmark — always visible, on top of image */}
+            <div style={{
+                position: 'relative',
+                zIndex: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 8,
+                transition: 'transform 0.3s ease',
+                transform: hovered ? 'scale(1.04)' : 'scale(1)',
+                padding: '16px 24px',
+                textAlign: 'center',
+            }}>
+                <span style={{
+                    fontFamily: FONT,
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.8rem, 1.4vw, 1.1rem)',
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    color: hovered
+                        ? '#fff'
+                        : (isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.45)'),
+                    transition: 'color 0.3s',
+                    lineHeight: 1.2,
+                }}>
+                    {project.logoText}
+                </span>
+                <span style={{
+                    fontFamily: FONT,
+                    fontWeight: 400,
+                    fontSize: '0.6rem',
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    color: hovered
+                        ? 'rgba(255,255,255,0.7)'
+                        : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)'),
+                    transition: 'color 0.3s',
+                }}>
+                    {project.category}
+                </span>
+            </div>
+        </div>
+    );
+};
+
+/* ─── Main Export ─────────────────────────────────────────────────── */
+const PortfolioGrid = ({ activeFilter = 'All' }) => {
+    const { isDark } = useTheme();
+    const [activeProject, setActiveProject] = useState(null);
+    const [hoverProject, setHoverProject] = useState(null);
+
+    const filtered = activeFilter === 'All'
+        ? projects
+        : projects.filter(p => p.category === activeFilter);
+
+    const bgColor = isDark ? '#0a0a0a' : '#f0eeec';
+
+    return (
+        <section style={{ background: bgColor, fontFamily: FONT }}>
+            {/* Logo grid */}
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.09)'}`,
+            }}>
+                {filtered.map(project => (
+                    <GridCell
+                        key={project.id}
+                        project={project}
+                        onOpen={setActiveProject}
+                        setHoverProject={setHoverProject}
+                        isDark={isDark}
+                    />
+                ))}
+            </div>
+
+            {/* Floating image preview that follows cursor */}
+            <FloatingPreview
+                src={hoverProject?.previewImage || null}
+                visible={!!hoverProject}
+            />
+
+            {/* Detail panel */}
+            {activeProject && (
+                <DetailPanel
+                    project={activeProject}
+                    onClose={() => setActiveProject(null)}
+                    isDark={isDark}
+                />
+            )}
+        </section>
+    );
+};
+
+export { CATEGORIES };
 export default PortfolioGrid;

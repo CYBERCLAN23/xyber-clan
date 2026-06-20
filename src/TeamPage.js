@@ -1,508 +1,790 @@
-import React, { useState, useEffect } from 'react';
-import { Shield, Code, ChevronRight, Linkedin, Github, Laptop, Briefcase, Palette, Sparkles, ChevronLeft, ArrowUpRight, Wifi } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { X, ArrowUpRight } from 'lucide-react';
+import { FiShield, FiCode, FiMonitor, FiBriefcase, FiFeather, FiZap, FiWifi } from 'react-icons/fi';
+import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
+import { gsap } from 'gsap';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
 import Footer from './components/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
-import CTASection from './components/CTASection';
 import SharedNavbar from './components/SharedNavbar';
 import Meta from './components/Meta';
-import EditableText from './components/cms/EditableText';
-import EditableImage from './components/cms/EditableImage';
-import EditableLink from './components/cms/EditableLink';
 
-const TeamPage = () => {
-    const { isDark } = useTheme();
-    const { language } = useLanguage();
-    const [activeIndex, setActiveIndex] = useState(0);
-    const t = translations[language];
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
-    const teamMembers = [
-        { image: '/team/ceo-member.jpg', name: 'Cedrik Darel Yepmo', role: 'CEO & Co-Founder' },
-        { image: '/team/dev-member.jpg', name: 'YVANA EMILIA LALANE LARCIER', role: 'Frontend Developer' },
-        { image: '/team/ange-demanou.png', name: 'Ange Demanou', role: 'Creative & Data Analyst' },
-        { image: '/team/cto-redteamer.jpg', name: 'AKANA SIGNING JOSIAS AARON', role: 'CTO & Red Team Lead' },
-        { image: '/team/communications-manager.jpg', name: 'ONANA GREGOIRE LEGRAND', role: 'Co-Founder & Strategist' },
-        { image: '/team/william-chandler.png', name: 'William Chandler', role: 'Canva Designer' },
-        { image: '/team/theresa-tcheme.png', name: 'Theresa Tcheme', role: 'Media & Communication', position: 'center 18%', scale: 2.8 },
-        { image: '/team/frontend-designer.jpg', name: 'Zealda Junior', role: 'Frontend & Network' },
-        { image: '/team/cybersecurity-chief.jpg', name: 'Lembou Pharel', role: 'Cybersecurity, AI & Systems' },
-        { image: '/team/yann-felix-wandji.png', name: 'Wandji Tchaleu Yann Félix', role: 'Network, Python & Design', isWhiteBg: true, position: 'center 0%', scale: 4.2 }
-    ];
+const detailedTeam = [
+    {
+        id: 1,
+        image: '/team/ceo-member.jpg',
+        name: 'Cedrik Darel Yepmo',
+        role: 'CEO & Co-Founder',
+        icon: <FiBriefcase size={20} />,
+        description: "Visionary leader driving XyberClan's mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.",
+        expertise: ['Strategic Leadership', 'Business Development', 'Vision & Planning'],
+        geography: 'Cameroon',
+        industry: 'Executive / Strategy',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/cedarroyal21' }
+        ],
+        portfolio: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/'
+    },
+    {
+        id: 2,
+        image: '/team/cto-redteamer.jpg',
+        name: 'AKANA SIGNING JOSIAS AARON',
+        role: 'CTO & AI Security Architect',
+        icon: <FiShield size={20} />,
+        description: 'Strategic technology leader and elite Red Teamer specializing in the intersection of cybersecurity and AI. He is an expert in Web & Mobile development (Flutter), networking infrastructure, and computer maintenance, driving innovation through intelligent and secure engineering.',
+        expertise: ['Red Teaming', 'LLM Architect', 'Mobile Dev (Flutter)', 'Network Engineering', 'Computer Maintenance'],
+        geography: 'Cameroon',
+        industry: 'Cybersecurity & Engineering',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/akana-signing-josias-aaron/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/Josiasange37' }
+        ],
+        portfolio: 'https://almightportfolio.vercel.app/'
+    },
+    {
+        id: 3,
+        image: '/team/dev-member.jpg',
+        name: 'YVANA EMILIA LALANE LARCIER',
+        role: 'Frontend Developer',
+        icon: <FiMonitor size={20} />,
+        description: 'Expert in modern web technologies and creating seamless user experiences. Passionate about clean code and innovative solutions.',
+        expertise: ['React & Next.js', 'UI/UX Implementation', 'Responsive Design'],
+        geography: 'Global / Remote',
+        industry: 'Software Development',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/yvana-emilia-lalane-larcier-50761337b/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/lalanelarcier-ai' }
+        ],
+        portfolio: 'https://www.linkedin.com/in/yvana-emilia-lalane-larcier-50761337b/'
+    },
+    {
+        id: 4,
+        image: '/team/ange-demanou.png',
+        name: 'Ange Demanou',
+        role: 'Digital Generalist & Data Analyst',
+        icon: <FiFeather size={20} />,
+        description: 'A versatile polymath bridging technology and business. Her multidisciplinary stack includes Web Development, Data & Business Analysis, Graphic Design, and Machine Learning research. She also manages social media strategy with a data-driven approach.',
+        expertise: ['Web Development', 'Data Analysis', 'Machine Learning', 'Graphic Design', 'Social Media Management', 'Business Analysis'],
+        geography: 'Cameroon',
+        industry: 'Data & Analytics',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/ange-demanou-367466340/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: '#' }
+        ],
+        portfolio: 'https://www.linkedin.com/in/ange-demanou-367466340/'
+    },
+    {
+        id: 5,
+        image: '/team/communications-manager.jpg',
+        name: 'ONANA GREGOIRE LEGRAND',
+        role: 'Co-Founder & Business Strategist',
+        icon: <FiCode size={20} />,
+        description: "A strategic mastermind and technical architect, Onana Gregoire Legrand is the engine behind XyberClan's operational precision. He combines advanced Python data analysis with high-level business strategy to optimize growth, identify market opportunities, and ensures every project scales towards global standards.",
+        expertise: ['Business Strategy', 'Python Data Science', 'Operational Precision', 'Market Analysis'],
+        geography: 'Cameroon',
+        industry: 'Business Intelligence',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/onana-gregoire-legrand-a18529282/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/psycho237-prog' }
+        ],
+        portfolio: 'https://psycho.is-a.dev'
+    },
+    {
+        id: 6,
+        image: '/team/william-chandler.png',
+        name: 'William Chandler',
+        role: 'Visual Content & Canva Designer',
+        icon: <FiFeather size={20} />,
+        description: 'A visual architect who masters the art of high-impact design through Canva. He brings ideas to life with stunning graphics, ensuring every piece of content tells a compelling story and maintains a pristine brand identity.',
+        expertise: ['Canva Pro Design', 'Visual Storytelling', 'Social Media Branding'],
+        geography: 'Cameroon',
+        industry: 'Branding & Design',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/william-chandler-106147353/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/Evina-Darren' }
+        ],
+        portfolio: 'https://www.linkedin.com/in/william-chandler-106147353/'
+    },
+    {
+        id: 7,
+        image: '/team/theresa-tcheme.png',
+        name: 'Theresa Tcheme',
+        role: 'Media & Communication Manager',
+        icon: <FiZap size={20} />,
+        description: 'Expert in media relations and strategic communications. Theresa leads the narrative at XyberClan, ensuring a consistent and impactful brand voice across all digital channels and media platforms.',
+        expertise: ['Media Relations', 'Strategic Communication', 'Digital Storytelling'],
+        geography: 'Cameroon',
+        industry: 'Communications & Media',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/theresa-tcheme-a5402a358/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: '#' }
+        ],
+        portfolio: 'https://www.linkedin.com/in/theresa-tcheme-a5402a358/'
+    },
+    {
+        id: 8,
+        image: '/team/frontend-designer.jpg',
+        name: 'Zealda Junior',
+        role: 'Web Developer & Network Associate',
+        icon: <FiCode size={20} />,
+        description: 'A multidisciplinary technician blending the worlds of network engineering and modern web development. Zealda specializes in building responsive interfaces and designing intuitive user journeys in Figma, while maintaining a strong focus on the underlying network infrastructure.',
+        expertise: ['Web Development', 'Figma Design', 'Network Engineering'],
+        geography: 'Cameroon',
+        industry: 'Frontend & Networks',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/zealda-junior-9352b1277/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/zealdajunior' }
+        ],
+        portfolio: 'https://www.linkedin.com/in/zealda-junior-9352b1277/'
+    },
+    {
+        id: 9,
+        image: '/team/cybersecurity-chief.jpg',
+        name: 'Lembou Pharel',
+        role: 'Cybersecurity, AI & Systems Engineer',
+        icon: <FiShield size={20} />,
+        description: 'Expert in cybersecurity, web development, and mobile applications using Flutter. He bridges systems engineering with applied AI to build resilient, intelligent, and secure software solutions.',
+        expertise: ['Penetration Testing', 'Systems Engineering', 'Applied AI', 'Mobile Dev (Flutter)'],
+        geography: 'Cameroon',
+        industry: 'Cybersecurity & AI',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/lembou-pharel/' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/lemboupharel' }
+        ],
+        portfolio: 'https://www.pharel.dev'
+    },
+    {
+        id: 10,
+        image: '/team/yann-felix-wandji.png',
+        name: 'Wandji Tchaleu Yann Félix',
+        role: 'Network Engineer, Python Dev & Designer',
+        icon: <FiWifi size={20} />,
+        description: 'A versatile technician with a strong foundation in networking infrastructure (CCNA certified), Python development, and creative design. Yann Félix bridges the gap between robust network architecture and elegant visual communication, ensuring solutions are both technically sound and beautifully presented.',
+        expertise: ['Réseau & CCNA', 'Python Development', 'Graphic Design', 'Network Infrastructure'],
+        geography: 'Cameroon',
+        industry: 'Networks & Development',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' },
+            { name: 'GitHub', icon: <FaGithub size={16} />, url: '#' }
+        ],
+        portfolio: '#'
+    }
+];
 
-    const detailedTeam = [
-        {
-            image: '/team/ceo-member.jpg',
-            name: 'Cedrik Darel Yepmo',
-            role: 'CEO & Co-Founder',
-            icon: <Briefcase className="w-5 h-5" />,
-            description: "Visionary leader driving XyberClan's mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.",
-            expertise: ['Strategic Leadership', 'Business Development', 'Vision & Planning'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/cedarroyal21' }
-            ],
-            portfolio: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/'
-        },
-        {
-            image: '/team/cto-redteamer.jpg',
-            name: 'AKANA SIGNING JOSIAS AARON',
-            role: 'CTO & AI Security Architect',
-            icon: <Shield className="w-5 h-5" />,
-            description: 'Strategic technology leader and elite Red Teamer specializing in the intersection of cybersecurity and AI. He is an expert in Web & Mobile development (Flutter), networking infrastructure, and computer maintenance, driving innovation through intelligent and secure engineering.',
-            expertise: ['Red Teaming', 'LLM Architect', 'Mobile Dev (Flutter)', 'Network Engineering', 'Computer Maintenance'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/akana-signing-josias-aaron/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/Josiasange37' }
-            ],
-            portfolio: 'https://almightportfolio.vercel.app/'
-        },
-        {
-            image: '/team/dev-member.jpg',
-            name: 'YVANA EMILIA LALANE LARCIER',
-            role: 'Frontend Developer',
-            icon: <Laptop className="w-5 h-5" />,
-            description: 'Expert in modern web technologies and creating seamless user experiences. Passionate about clean code and innovative solutions.',
-            expertise: ['React & Next.js', 'UI/UX Implementation', 'Responsive Design'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/yvana-emilia-lalane-larcier-50761337b/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/lalanelarcier-ai' }
-            ],
-            portfolio: 'https://www.linkedin.com/in/yvana-emilia-lalane-larcier-50761337b/'
-        },
-        {
-            image: '/team/ange-demanou.png',
-            name: 'Ange Demanou',
-            role: 'Digital Generalist & Data Analyst',
-            icon: <Palette className="w-5 h-5" />,
-            description: 'A versatile polymath bridging technology and business. Her multidisciplinary stack includes Web Development, Data & Business Analysis, Graphic Design, and Machine Learning research. She also manages social media strategy with a data-driven approach.',
-            expertise: ['Web Development', 'Data Analysis', 'Machine Learning', 'Graphic Design', 'Social Media Management', 'Business Analysis'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/ange-demanou-367466340/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: '#' }
-            ],
-            portfolio: 'https://www.linkedin.com/in/ange-demanou-367466340/'
-        },
-        {
-            image: '/team/communications-manager.jpg',
-            name: 'ONANA GREGOIRE LEGRAND',
-            role: 'Co-Founder & Business Strategist',
-            icon: <Code className="w-5 h-5" />,
-            description: "A strategic mastermind and technical architect, Onana Gregoire Legrand is the engine behind XyberClan's operational precision. He combines advanced Python data analysis with high-level business strategy to optimize growth, identify market opportunities, and ensures every project scales towards global standards.",
-            expertise: ['Business Strategy', 'Python Data Science', 'Operational Precision', 'Market Analysis'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/onana-gregoire-legrand-a18529282/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/psycho237-prog' }
-            ],
-            portfolio: 'https://psycho.is-a.dev'
-        },
-        {
-            image: '/team/william-chandler.png',
-            name: 'William Chandler',
-            role: 'Visual Content & Canva Designer',
-            icon: <Palette className="w-5 h-5" />,
-            description: 'A visual architect who masters the art of high-impact design through Canva. He brings ideas to life with stunning graphics, ensuring every piece of content tells a compelling story and maintains a pristine brand identity.',
-            expertise: ['Canva Pro Design', 'Visual Storytelling', 'Social Media Branding'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/william-chandler-106147353/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/Evina-Darren' }
-            ],
-            portfolio: 'https://www.linkedin.com/in/william-chandler-106147353/'
-        },
-        {
-            image: '/team/theresa-tcheme.png',
-            name: 'Theresa Tcheme',
-            role: 'Media & Communication Manager',
-            icon: <Sparkles className="w-5 h-5" />,
-            description: 'Expert in media relations and strategic communications. Theresa leads the narrative at XyberClan, ensuring a consistent and impactful brand voice across all digital channels and media platforms.',
-            expertise: ['Media Relations', 'Strategic Communication', 'Digital Storytelling'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/theresa-tcheme-a5402a358/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: '#' }
-            ],
-            portfolio: 'https://www.linkedin.com/in/theresa-tcheme-a5402a358/',
-            position: 'center 18%',
-            scale: 2.8
-        },
-        {
-            image: '/team/frontend-designer.jpg',
-            name: 'Zealda Junior',
-            role: 'Web Developer & Network Associate',
-            icon: <Code className="w-5 h-5" />,
-            description: 'A multidisciplinary technician blending the worlds of network engineering and modern web development. Zealda specializes in building responsive interfaces and designing intuitive user journeys in Figma, while maintaining a strong focus on the underlying network infrastructure.',
-            expertise: ['Web Development', 'Figma Design', 'Network Engineering'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/zealda-junior-9352b1277/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/zealdajunior' }
-            ],
-            portfolio: 'https://www.linkedin.com/in/zealda-junior-9352b1277/'
-        },
-        {
-            image: '/team/cybersecurity-chief.jpg',
-            name: 'Lembou Pharel',
-            role: 'Cybersecurity, AI & Systems Engineer',
-            icon: <Shield className="w-5 h-5" />,
-            description: 'Expert in cybersecurity, web development, and mobile applications using Flutter. He bridges systems engineering with applied AI to build resilient, intelligent, and secure software solutions.',
-            expertise: ['Penetration Testing', 'Systems Engineering', 'Applied AI', 'Mobile Dev (Flutter)'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/in/lembou-pharel/' },
-                { name: 'GitHub', icon: <Github size={18} />, url: 'https://github.com/lemboupharel' }
-            ],
-            portfolio: 'https://www.pharel.dev'
-        },
-        {
-            image: '/team/yann-felix-wandji.png',
-            name: 'Wandji Tchaleu Yann Félix',
-            role: 'Network Engineer, Python Dev & Designer',
-            icon: <Wifi className="w-5 h-5" />,
-            description: 'A versatile technician with a strong foundation in networking infrastructure (CCNA certified), Python development, and creative design. Yann Félix bridges the gap between robust network architecture and elegant visual communication, ensuring solutions are both technically sound and beautifully presented.',
-            expertise: ['Réseau & CCNA', 'Python Development', 'Graphic Design', 'Network Infrastructure'],
-            socials: [
-                { name: 'LinkedIn', icon: <Linkedin size={18} />, url: '#' },
-                { name: 'GitHub', icon: <Github size={18} />, url: '#' }
-            ],
-            portfolio: '#',
-            isWhiteBg: true,
-            position: 'center 0%',
-            scale: 1.0
-        }
-    ];
-
-    const [radius, setRadius] = useState(750);
+/* ─── Hover photo that follows mouse ─────────────────────────────── */
+const FloatingPreview = ({ src, visible }) => {
+    const ref = useRef(null);
 
     useEffect(() => {
-        const handleResize = () => {
-            setRadius(window.innerWidth < 768 ? 320 : 700);
+        const move = (e) => {
+            if (!ref.current) return;
+            gsap.to(ref.current, {
+                x: e.clientX + 20,
+                y: e.clientY - 100,
+                duration: 0.4,
+                ease: 'power2.out',
+            });
         };
-        handleResize();
+        window.addEventListener('mousemove', move);
+        return () => window.removeEventListener('mousemove', move);
+    }, []);
+
+    return (
+        <div
+            ref={ref}
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: 260,
+                height: 320,
+                pointerEvents: 'none',
+                zIndex: 9000,
+                opacity: visible ? 1 : 0,
+                transform: 'translate(0,0)',
+                transition: 'opacity 0.25s ease',
+                overflow: 'hidden',
+                borderRadius: 2,
+                boxShadow: '0 20px 60px rgba(0,0,0,0.35)',
+            }}
+        >
+            {src && (
+                <img
+                    src={src}
+                    alt=""
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+            )}
+        </div>
+    );
+};
+
+/* ─── Detail Panel ────────────────────────────────────────────────── */
+const TeamDetailPanel = ({ member, onClose, isDark }) => {
+    const panelRef = useRef(null);
+    const contentRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const nextMember = () => setActiveIndex((prev) => (prev + 1) % teamMembers.length);
-    const prevMember = () => setActiveIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+    useEffect(() => {
+        if (!panelRef.current) return;
+        gsap.fromTo(panelRef.current,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, ease: 'power2.out' }
+        );
+        gsap.fromTo(contentRef.current,
+            { x: isMobile ? 0 : 60, y: isMobile ? 40 : 0, opacity: 0 },
+            { x: 0, y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', delay: 0.1 }
+        );
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, [member, isMobile]);
+
+    const handleClose = useCallback(() => {
+        gsap.to(panelRef.current, {
+            opacity: 0,
+            duration: 0.25,
+            onComplete: onClose,
+        });
+    }, [onClose]);
 
     useEffect(() => {
-        const interval = setInterval(nextMember, 5000);
-        return () => clearInterval(interval);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        const handleKey = (e) => { if (e.key === 'Escape') handleClose(); };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, [handleClose]);
+
+    const metaRows = [
+        { label: 'Role', value: member.role },
+        { label: 'Geography', value: member.geography },
+        { label: 'Industry', value: member.industry },
+        { label: 'Key Expertise', value: member.expertise.slice(0, 3).join(', ') },
+    ];
 
     return (
-        <div className={`min-h-screen w-full overflow-x-hidden ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
+        <div
+            ref={panelRef}
+            style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 9999,
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                fontFamily: FONT,
+                opacity: 0,
+                overflowY: isMobile ? 'auto' : 'hidden',
+                background: isDark ? '#0d0d0d' : '#fff',
+            }}
+        >
+            {/* ── Left: dark panel with member image ── */}
+            <div
+                style={{
+                    width: isMobile ? '100%' : '42%',
+                    height: isMobile ? '35vh' : 'auto',
+                    background: isDark ? '#111' : '#1a1a1a',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative',
+                    flexShrink: 0,
+                }}
+            >
+                {!isMobile && (
+                    <div style={{ padding: '28px 32px' }}>
+                        <span style={{
+                            fontWeight: 800,
+                            fontSize: '0.75rem',
+                            letterSpacing: '0.18em',
+                            textTransform: 'uppercase',
+                            color: '#555',
+                        }}>
+                            XyberClan Team
+                        </span>
+                    </div>
+                )}
+
+                <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+                    <img
+                        src={member.image}
+                        alt={member.name}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            display: 'block',
+                        }}
+                    />
+                    <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 40%, rgba(0,0,0,0.2) 100%)',
+                    }} />
+                </div>
+            </div>
+
+            {/* ── Right: details ── */}
+            <div
+                ref={contentRef}
+                style={{
+                    flex: 1,
+                    background: isDark ? '#0d0d0d' : '#fff',
+                    overflowY: isMobile ? 'visible' : 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: isMobile ? '24px 28px 48px 28px' : '28px 48px 48px 48px',
+                    position: 'relative',
+                }}
+            >
+                {/* Close */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 48 }}>
+                    <button
+                        onClick={handleClose}
+                        aria-label="Close"
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: 4,
+                            color: isDark ? '#666' : '#999',
+                            lineHeight: 1,
+                            fontSize: '0.7rem',
+                            letterSpacing: '0.1em',
+                            textTransform: 'uppercase',
+                            fontFamily: FONT,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 6,
+                        }}
+                    >
+                        <X size={14} />
+                    </button>
+                </div>
+
+                {/* Name */}
+                <h2 style={{
+                    fontWeight: 300,
+                    fontSize: 'clamp(2.2rem, 4vw, 3.5rem)',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.05,
+                    color: isDark ? '#f0f0f0' : '#111',
+                    margin: '0 0 40px 0',
+                }}>
+                    {member.name}
+                </h2>
+
+                {/* Metadata */}
+                <div style={{
+                    borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
+                    marginBottom: 36,
+                }}>
+                    {metaRows.map(({ label, value }) => (
+                        <div
+                            key={label}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '14px 0',
+                                borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+                            }}
+                        >
+                            <span style={{
+                                fontSize: '0.65rem',
+                                fontWeight: 700,
+                                letterSpacing: '0.16em',
+                                textTransform: 'uppercase',
+                                color: isDark ? '#444' : '#aaa',
+                            }}>
+                                {label}
+                            </span>
+                            <span style={{
+                                fontSize: '0.82rem',
+                                fontWeight: 400,
+                                color: isDark ? '#ccc' : '#333',
+                                textAlign: 'right',
+                                paddingLeft: 16,
+                            }}>
+                                {value}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Description */}
+                <p style={{
+                    fontSize: '0.95rem',
+                    fontWeight: 300,
+                    lineHeight: 1.75,
+                    color: isDark ? '#888' : '#555',
+                    maxWidth: 440,
+                    marginBottom: 40,
+                }}>
+                    {member.description}
+                </p>
+
+                {/* Socials & Portfolio */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24, marginTop: 'auto' }}>
+                    <div style={{ display: 'flex', gap: 12 }}>
+                        {member.socials.map((social, i) => (
+                            social.url && social.url !== '#' && (
+                                <a
+                                    key={i}
+                                    href={social.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: 36,
+                                        height: 36,
+                                        borderRadius: '50%',
+                                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'}`,
+                                        color: isDark ? '#ccc' : '#555',
+                                        transition: 'all 0.2s',
+                                    }}
+                                    onMouseEnter={e => {
+                                        e.currentTarget.style.borderColor = '#06b6d4';
+                                        e.currentTarget.style.color = '#06b6d4';
+                                    }}
+                                    onMouseLeave={e => {
+                                        e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)';
+                                        e.currentTarget.style.color = isDark ? '#ccc' : '#555';
+                                    }}
+                                >
+                                    {social.icon}
+                                </a>
+                            )
+                        ))}
+                    </div>
+
+                    {member.portfolio && member.portfolio !== '#' && (
+                        <a
+                            href={member.portfolio}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: 6,
+                                fontSize: '0.8rem',
+                                fontWeight: 500,
+                                color: isDark ? '#f0f0f0' : '#111',
+                                textDecoration: 'none',
+                                borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)'}`,
+                                paddingBottom: 2,
+                                transition: 'opacity 0.2s',
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
+                            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                        >
+                            Visit Portfolio
+                            <ArrowUpRight size={14} />
+                        </a>
+                    )}
+                </div>
+
+                {/* Red dot */}
+                <div style={{
+                    position: 'absolute',
+                    bottom: 28,
+                    right: 28,
+                    width: 7,
+                    height: 7,
+                    borderRadius: '50%',
+                    background: '#dc2626',
+                    boxShadow: '0 0 10px rgba(220,38,38,0.6)',
+                }} />
+            </div>
+        </div>
+    );
+};
+
+/* ─── Grid Cell ──────────────────────────────────────────────── */
+const GridCell = ({ member, onOpen, setHoverMember, isDark }) => {
+    const [hovered, setHovered] = useState(false);
+    const cellRef = useRef(null);
+    const imgRef = useRef(null);
+
+    const handleEnter = () => {
+        setHovered(true);
+        setHoverMember(member);
+        gsap.fromTo(imgRef.current,
+            { opacity: 0, scale: 1.06 },
+            { opacity: 1, scale: 1, duration: 0.45, ease: 'power2.out' }
+        );
+    };
+
+    const handleLeave = () => {
+        setHovered(false);
+        setHoverMember(null);
+        gsap.to(imgRef.current, { opacity: 0, scale: 1.04, duration: 0.3, ease: 'power2.in' });
+    };
+
+    const borderColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.09)';
+    const hoverBg = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)';
+
+    return (
+        <div
+            ref={cellRef}
+            onClick={() => onOpen(member)}
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+            style={{
+                position: 'relative',
+                aspectRatio: '4/3',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                border: `1px solid ${borderColor}`,
+                background: hovered ? hoverBg : 'transparent',
+                transition: 'background 0.3s',
+                overflow: 'hidden',
+            }}
+        >
+            {/* Photo — only visible on hover */}
+            <div
+                ref={imgRef}
+                style={{
+                    position: 'absolute',
+                    inset: 0,
+                    opacity: 0,
+                    zIndex: 1,
+                }}
+            >
+                <img
+                    src={member.image}
+                    alt=""
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                        filter: isDark ? 'brightness(0.65)' : 'brightness(0.75)',
+                    }}
+                />
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: isDark
+                        ? 'rgba(0,0,0,0.45)'
+                        : 'rgba(255,255,255,0.12)',
+                }} />
+            </div>
+
+            {/* Title / Role */}
+            <div style={{
+                position: 'relative',
+                zIndex: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 8,
+                transition: 'transform 0.3s ease',
+                transform: hovered ? 'scale(1.04)' : 'scale(1)',
+                padding: '16px 24px',
+                textAlign: 'center',
+            }}>
+                <span style={{
+                    fontFamily: FONT,
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.8rem, 1.4vw, 1.1rem)',
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    color: hovered
+                        ? '#fff'
+                        : (isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.45)'),
+                    transition: 'color 0.3s',
+                    lineHeight: 1.2,
+                }}>
+                    {member.name}
+                </span>
+                <span style={{
+                    fontFamily: FONT,
+                    fontWeight: 400,
+                    fontSize: '0.6rem',
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    color: hovered
+                        ? 'rgba(255,255,255,0.7)'
+                        : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)'),
+                    transition: 'color 0.3s',
+                }}>
+                    {member.role}
+                </span>
+            </div>
+        </div>
+    );
+};
+
+/* ─── TeamPage Component ──────────────────────────────────────────── */
+const TeamPage = () => {
+    const { isDark } = useTheme();
+    const { language } = useLanguage();
+    const t = translations[language];
+
+    const [activeProject, setActiveProject] = useState(null);
+    const [hoverProject, setHoverProject] = useState(null);
+    const [mounted, setMounted] = useState(false);
+
+    const titleRef = useRef(null);
+    const descRef = useRef(null);
+    const dotRef = useRef(null);
+
+    useEffect(() => { window.scrollTo(0, 0); }, []);
+    useEffect(() => {
+        const timer = setTimeout(() => setMounted(true), 60);
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+        if (!mounted) return;
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        tl.fromTo(dotRef.current,
+            { opacity: 0, scale: 0 },
+            { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)' }
+        );
+        tl.fromTo(titleRef.current,
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1.1 },
+            '-=0.2'
+        );
+        tl.fromTo(descRef.current,
+            { opacity: 0, y: 24 },
+            { opacity: 1, y: 0, duration: 0.75 },
+            '-=0.6'
+        );
+        return () => tl.kill();
+    }, [mounted]);
+
+    const bg = isDark ? '#0a0a0a' : '#f0eeec';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#555' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)';
+
+    return (
+        <div style={{
+            minHeight: '100vh',
+            background: bg,
+            color: text,
+            fontFamily: FONT,
+            overflowX: 'hidden',
+        }}>
             <Meta
                 title="Our Expert Team | Engineering the Future"
                 description="Meet the visionaries, developers, and cybersecurity experts at XyberClan. Our team is dedicated to building innovative digital solutions for Cameroon and the world."
             />
+            <SharedNavbar transparentHero={false} />
 
-            {/* ─── Shared Navigation ─── */}
-            <SharedNavbar transparentHero={true} />
+            {/* ─── Hero ─────────────────────────────────────────────────── */}
+            <header style={{
+                padding: 'clamp(100px, 14vh, 140px) clamp(24px, 5vw, 80px) 0',
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gridTemplateRows: 'auto auto',
+                gap: '0 40px',
+                position: 'relative',
+            }}>
+                <div ref={dotRef} style={{
+                    position: 'absolute',
+                    left: '48%',
+                    top: 'clamp(110px, 15vh, 155px)',
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: '#dc2626',
+                    boxShadow: '0 0 12px rgba(220,38,38,0.7)',
+                    opacity: 0,
+                }} />
 
-            {/* ─── Hero Section with Carousel ─── */}
-            <section className={`relative pt-40 pb-64 md:pt-48 md:pb-72 overflow-hidden ${isDark ? 'bg-black' : 'bg-white'}`}>
-                {/* Gradient glow behind carousel */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 w-[900px] h-[500px] bg-gradient-to-b from-cyan-500/8 to-blue-600/5 blur-[130px] rounded-full pointer-events-none" />
+                <div />
 
-                <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-500 mb-6 animate-fade-in-up">
-                        <Sparkles size={14} />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Our People</span>
-                    </div>
-
-                    {/* Headline */}
-                    <h1 className="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-5 animate-fade-in-up delay-100" style={{ fontFamily: "'Inter', sans-serif" }}>
-                        <EditableText contentKey={`${language}.teamPage.heroTitle`} fallback="Meet our" />{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600"><EditableText contentKey={`${language}.teamPage.heroTitleHighlight`} fallback="Team" /></span>
+                <div>
+                    <h1
+                        ref={titleRef}
+                        style={{
+                            fontWeight: 300,
+                            fontSize: 'clamp(3.8rem, 9vw, 9rem)',
+                            letterSpacing: '-0.04em',
+                            lineHeight: 0.92,
+                            color: text,
+                            margin: 0,
+                            opacity: 0,
+                        }}
+                    >
+                        Meet Our<br />
+                        <span style={{ fontWeight: 800 }}>Specialists</span>
                     </h1>
-                    <p className={`text-base md:text-xl max-w-xl mx-auto mb-20 animate-fade-in-up delay-200 ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
-                        <EditableText contentKey={`${language}.teamPage.heroSubtitle`} fallback="Innovative minds working together to engineer Cameroon's digital future." multiline />
+                </div>
+
+                <div ref={descRef} style={{ paddingTop: 40, paddingBottom: 48, opacity: 0 }}>
+                    <p style={{
+                        fontSize: '0.9rem',
+                        fontWeight: 300,
+                        lineHeight: 1.7,
+                        color: muted,
+                        maxWidth: 260,
+                        margin: 0,
+                    }}>
+                        A premium collective of engineers, designers, and strategists working together to build exceptional technologies.
                     </p>
-
-                    {/* Carousel Controls */}
-                    <div className="absolute left-4 right-4 md:left-10 md:right-10 top-[55%] flex justify-between z-20 pointer-events-none">
-                        <button onClick={prevMember} className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl backdrop-blur-xl border flex items-center justify-center transition-all pointer-events-auto hover:scale-110 ${isDark ? 'bg-white/5 border-white/10 text-white hover:bg-white/10' : 'bg-black/5 border-black/10 text-gray-900 hover:bg-black/10'}`}>
-                            <ChevronLeft size={24} />
-                        </button>
-                        <button onClick={nextMember} className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl backdrop-blur-xl border flex items-center justify-center transition-all pointer-events-auto hover:scale-110 ${isDark ? 'bg-white/5 border-white/10 text-white hover:bg-white/10' : 'bg-black/5 border-black/10 text-gray-900 hover:bg-black/10'}`}>
-                            <ChevronRight size={24} />
-                        </button>
-                    </div>
-
-                    {/* Arc Carousel */}
-                    <div className="relative w-full max-w-5xl mx-auto h-[450px] md:h-[550px]">
-                        <div className="absolute top-0 left-0 right-0 flex justify-center items-end">
-                            {teamMembers.map((member, idx) => {
-                                const total = teamMembers.length;
-                                let diff = idx - activeIndex;
-                                if (diff > total / 2) diff -= total;
-                                if (diff < -total / 2) diff += total;
-
-                                const angle = diff * 22;
-                                const x = Math.sin(angle * (Math.PI / 180)) * radius;
-                                const y = (1 - Math.cos(angle * (Math.PI / 180))) * radius + 200;
-                                const isCenter = Math.abs(diff) < 0.1;
-                                const isNear = Math.abs(diff) <= 2;
-
-                                return (
-                                    <div
-                                        key={idx}
-                                        className={`absolute transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${isCenter ? 'z-50' : 'z-10'} pointer-events-auto cursor-pointer`}
-                                        onClick={() => setActiveIndex(idx)}
-                                        style={{
-                                            transform: `translate(${x}px, ${y}px) rotate(${angle * 0.5}deg) scale(${isCenter ? 1.15 : 0.8})`,
-                                            width: window.innerWidth < 768 ? '160px' : '200px',
-                                            opacity: isNear ? 1 : 0.3,
-                                            filter: isCenter ? 'none' : 'grayscale(30%)'
-                                        }}
-                                    >
-                                        <div className={`relative rounded-3xl overflow-hidden border-2 transition-all duration-500 ${isCenter
-                                            ? 'border-cyan-500 shadow-2xl shadow-cyan-500/20'
-                                            : (isDark ? 'border-white/10' : 'border-gray-200')
-                                            }`}>
-                                            <div className={`aspect-[3/4] overflow-hidden ${member.hasCustomBg ? 'xyber-card-bg' : ''} ${member.isWhiteBg ? 'bg-white' : ''}`}>
-                                                <EditableImage
-                                                    contentKey={`${language}.team.member${idx}.image`}
-                                                    src={member.image}
-                                                    alt={`XyberClan Team Member: ${member.name} - ${member.role}`}
-                                                    className="w-full h-full object-cover"
-                                                    style={{
-                                                        imageRendering: '-webkit-optimize-contrast',
-                                                        objectPosition: member.position || 'center',
-                                                        transform: `scale(${member.scale || 1})`
-                                                    }}
-                                                />
-                                            </div>
-
-                                            {/* Glass overlay for center card */}
-                                            {isCenter && (
-                                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                                                    <h3 className="text-white font-bold text-sm tracking-tight leading-tight"><EditableText contentKey={`${language}.team.member${idx}.name`} fallback={member.name} /></h3>
-                                                    <p className="text-cyan-400 text-xs font-medium"><EditableText contentKey={`${language}.team.member${idx}.role`} fallback={member.role} /></p>
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {/* Glow behind active */}
-                                        <div className={`absolute inset-0 -z-10 bg-cyan-500/15 blur-3xl transition-opacity duration-700 rounded-full ${isCenter ? 'opacity-100' : 'opacity-0'}`} />
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-
-                    {/* Dot indicators */}
-                    <div className="flex justify-center gap-2 mt-8">
-                        {teamMembers.map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setActiveIndex(idx)}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${idx === activeIndex ? 'w-8 bg-cyan-500' : `w-1.5 ${isDark ? 'bg-white/20' : 'bg-black/15'}`}`}
-                            />
-                        ))}
-                    </div>
                 </div>
-            </section>
 
-            {/* ─── Team Detail Cards ─── */}
-            <div className={`py-24 ${isDark ? 'bg-black' : 'bg-gray-50'}`}>
-                <div className="max-w-7xl mx-auto px-4">
-                    {/* Section header */}
-                    <div className="mb-16 max-w-2xl">
-                        <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-cyan-400/60' : 'text-cyan-600/60'}`}><EditableText contentKey={`${language}.teamPage.sectionBadge`} fallback="The People" /></p>
-                        <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-[1.1] mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-                            <EditableText contentKey={`${language}.teamPage.sectionTitle`} fallback="Experts dedicated to" />{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600"><EditableText contentKey={`${language}.teamPage.sectionTitleHighlight`} fallback="your success" /></span>
-                        </h2>
-                        <p className={`text-base leading-relaxed ${isDark ? 'text-gray-500' : 'text-gray-500'}`} style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
-                            <EditableText contentKey={`${language}.teamPage.sectionDesc`} fallback="Every member brings unique skills and passion to deliver exceptional results." multiline />
-                        </p>
-                    </div>
+                <div />
+            </header>
 
-                    {/* Cards grid */}
-                    <div className="space-y-20">
-                        {detailedTeam.map((member, idx) => (
-                            <section key={idx} className="group">
-                                <div className={`grid lg:grid-cols-5 gap-8 lg:gap-12 items-center`}>
-                                    {/* Image — 2 cols */}
-                                    <div className={`lg:col-span-2 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                                        <div className={`relative rounded-3xl overflow-hidden border ${isDark ? 'border-white/5' : 'border-gray-200'} ${member.hasCustomBg ? 'xyber-detail-card-bg' : ''} ${member.isWhiteBg ? 'bg-white' : ''}`}>
-                                            <EditableImage
-                                                contentKey={`${language}.detailedTeam.member${idx}.image`}
-                                                src={member.image}
-                                                alt={`XyberClan Specialist: ${member.name} — ${member.role}`}
-                                                loading="lazy"
-                                                decoding="async"
-                                                className={`w-full h-[380px] md:h-[480px] object-cover transition-transform duration-700 group-hover:scale-105 ${member.hasCustomBg ? 'relative z-10' : ''}`}
-                                                style={{
-                                                    imageRendering: '-webkit-optimize-contrast',
-                                                    objectPosition: member.position || 'center',
-                                                    transform: member.scale ? `scale(${member.scale})` : undefined
-                                                }}
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                                            <div className="absolute bottom-5 left-5 pointer-events-none">
-                                                <div className="w-10 h-10 bg-cyan-500/90 rounded-xl flex items-center justify-center text-white backdrop-blur-sm">
-                                                    {member.icon}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+            {/* Separator */}
+            <div style={{
+                height: 1,
+                background: border,
+                margin: '0 clamp(24px, 5vw, 80px)',
+            }} />
 
-                                    {/* Info — 3 cols */}
-                                    <div className={`lg:col-span-3 ${idx % 2 === 1 ? 'lg:order-1' : ''} space-y-5`}>
-                                        <div>
-                                            <p className={`text-xs font-semibold uppercase tracking-[0.15em] mb-2 ${isDark ? 'text-cyan-400/60' : 'text-cyan-600/60'}`}><EditableText contentKey={`${language}.detailedTeam.member${idx}.role`} fallback={member.role} /></p>
-                                            <h3 className="text-3xl md:text-5xl font-black tracking-tight leading-[1.05]" style={{ fontFamily: "'Inter', sans-serif" }}>
-                                                <EditableText contentKey={`${language}.detailedTeam.member${idx}.name`} fallback={member.name} />
-                                            </h3>
-                                        </div>
-
-                                        <p className={`text-base md:text-lg leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`} style={{ fontWeight: 300 }}>
-                                            <EditableText contentKey={`${language}.detailedTeam.member${idx}.desc`} fallback={member.description} multiline />
-                                        </p>
-
-                                        <div className="space-y-3">
-                                            <p className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-                                                <EditableText contentKey={`${language}.detailedTeam.member${idx}.expertiseLabel`} fallback="Expertise" />
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {member.expertise.map((skill, i) => (
-                                                    <span key={i} className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all hover:scale-[1.03] ${isDark ? 'bg-white/3 border-white/8 text-gray-300' : 'bg-white border-gray-200 text-gray-700'}`}>
-                                                        <EditableText contentKey={`${language}.detailedTeam.member${idx}.expertise${i}`} fallback={skill} />
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        <div className="flex gap-2.5 pt-2">
-                                            {member.socials.map((social, i) => (
-                                                <EditableLink key={i} hrefKey={`${language}.detailedTeam.member${idx}.social${i}.url`} href={social.url} className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all hover:scale-110 ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:border-cyan-500/50 hover:text-cyan-400' : 'bg-white border-gray-200 text-gray-500 hover:border-cyan-500/50 hover:text-cyan-600'}`}>
-                                                    {social.icon}
-                                                </EditableLink>
-                                            ))}
-                                            <EditableLink
-                                                hrefKey={`${language}.detailedTeam.member${idx}.portfolioUrl`}
-                                                href={member.portfolio || '#'}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className={`flex items-center gap-1.5 px-4 h-11 rounded-xl border text-sm font-medium transition-all hover:scale-[1.03] ${isDark ? 'bg-white/5 border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-500/30' : 'bg-white border-gray-200 text-gray-500 hover:text-cyan-600 hover:border-cyan-500/30'}`}
-                                            >
-                                                <EditableText contentKey={`${language}.detailedTeam.member${idx}.portfolioLabel`} fallback="View Profile" /> <ArrowUpRight size={14} />
-                                            </EditableLink>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Divider */}
-                                {idx < detailedTeam.length - 1 && (
-                                    <div className={`mt-20 h-px ${isDark ? 'bg-white/5' : 'bg-gray-200'}`} />
-                                )}
-                            </section>
-                        ))}
-                    </div>
+            {/* ─── Grid ─────────────────────────────────────────────────── */}
+            <main style={{ padding: '0 clamp(24px, 5vw, 80px)' }}>
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                    borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.09)'}`,
+                }}>
+                    {detailedTeam.map(member => (
+                        <GridCell
+                            key={member.id}
+                            member={member}
+                            onOpen={setActiveProject}
+                            setHoverMember={setHoverProject}
+                            isDark={isDark}
+                        />
+                    ))}
                 </div>
-            </div>
+            </main>
 
-            <CTASection />
+            {/* Floating preview on hover */}
+            <FloatingPreview
+                src={hoverProject?.image || null}
+                visible={!!hoverProject}
+            />
+
+            {/* Modal Detail Panel */}
+            {activeProject && (
+                <TeamDetailPanel
+                    member={activeProject}
+                    onClose={() => setActiveProject(null)}
+                    isDark={isDark}
+                />
+            )}
+
+            {/* ─── Footer ─── */}
             <Footer translations={t} />
-            <WhatsAppButton />
-
-            <style>{`
-                .animate-fade-in-up { animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-                .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
-                .delay-100 { animation-delay: 0.1s; }
-                .delay-200 { animation-delay: 0.2s; }
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(30px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                }
-
-                /* XyberClan themed card background for transparent-bg photos */
-                .xyber-card-bg {
-                    background: linear-gradient(135deg, #0a0e1a 0%, #0d1b2a 40%, #0f2847 70%, #0a0e1a 100%);
-                    position: relative;
-                }
-                .xyber-card-bg::before {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background:
-                        radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.04) 0%, transparent 70%);
-                    z-index: 0;
-                }
-                .xyber-card-bg::after {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background-image:
-                        linear-gradient(rgba(0, 210, 255, 0.06) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(0, 210, 255, 0.06) 1px, transparent 1px),
-                        radial-gradient(circle at 15% 85%, rgba(0, 210, 255, 0.15) 0px, rgba(0, 210, 255, 0.15) 2px, transparent 2px),
-                        radial-gradient(circle at 85% 15%, rgba(59, 130, 246, 0.15) 0px, rgba(59, 130, 246, 0.15) 2px, transparent 2px),
-                        radial-gradient(circle at 45% 25%, rgba(0, 210, 255, 0.1) 0px, rgba(0, 210, 255, 0.1) 1.5px, transparent 1.5px),
-                        radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.12) 0px, rgba(59, 130, 246, 0.12) 1.5px, transparent 1.5px);
-                    background-size:
-                        40px 40px,
-                        40px 40px,
-                        100% 100%,
-                        100% 100%,
-                        100% 100%,
-                        100% 100%;
-                    z-index: 0;
-                    opacity: 0.7;
-                }
-                .xyber-card-bg img {
-                    position: relative;
-                    z-index: 1;
-                }
-
-                /* Detailed card version */
-                .xyber-detail-card-bg {
-                    background: linear-gradient(145deg, #0a0e1a 0%, #0d1b2a 30%, #102a4a 60%, #0d1b2a 85%, #0a0e1a 100%);
-                    position: relative;
-                }
-                .xyber-detail-card-bg::before {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background:
-                        radial-gradient(ellipse at 25% 20%, rgba(0, 210, 255, 0.15) 0%, transparent 55%),
-                        radial-gradient(ellipse at 75% 80%, rgba(59, 130, 246, 0.12) 0%, transparent 55%),
-                        radial-gradient(circle at 50% 100%, rgba(0, 210, 255, 0.08) 0%, transparent 60%);
-                    z-index: 0;
-                }
-                .xyber-detail-card-bg::after {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background-image:
-                        linear-gradient(rgba(0, 210, 255, 0.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(0, 210, 255, 0.04) 1px, transparent 1px),
-                        radial-gradient(circle at 10% 90%, rgba(0, 210, 255, 0.2) 0px, rgba(0, 210, 255, 0.2) 3px, transparent 3px),
-                        radial-gradient(circle at 90% 10%, rgba(59, 130, 246, 0.18) 0px, rgba(59, 130, 246, 0.18) 3px, transparent 3px),
-                        radial-gradient(circle at 30% 40%, rgba(0, 210, 255, 0.08) 0px, rgba(0, 210, 255, 0.08) 2px, transparent 2px),
-                        radial-gradient(circle at 65% 25%, rgba(59, 130, 246, 0.1) 0px, rgba(59, 130, 246, 0.1) 2px, transparent 2px),
-                        radial-gradient(circle at 80% 55%, rgba(0, 210, 255, 0.06) 0px, rgba(0, 210, 255, 0.06) 2px, transparent 2px);
-                    background-size:
-                        50px 50px,
-                        50px 50px,
-                        100% 100%,
-                        100% 100%,
-                        100% 100%,
-                        100% 100%,
-                        100% 100%;
-                    z-index: 0;
-                    opacity: 0.6;
-                }
-            `}</style>
         </div>
     );
 };

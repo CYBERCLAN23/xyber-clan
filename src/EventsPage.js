@@ -1,146 +1,415 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { ArrowDown, Calendar, Tag, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Calendar, X, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
 import { translations } from './translations';
 import Footer from './components/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
 import SharedNavbar from './components/SharedNavbar';
 import PageHero from './components/PageHero';
 import Meta from './components/Meta';
 import EditableText from './components/cms/EditableText';
 import EditableImage from './components/cms/EditableImage';
 
-/* ─── Tag color palette ─── */
-const typeColors = {
-    Hackathon: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-    Workshop: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    Atelier: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    Conference: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
-    Conférence: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
-    Default: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
-};
+gsap.registerPlugin(ScrollTrigger);
 
-const EventSection = ({ article, isDark, readMoreText, index, language }) => {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const images = useMemo(() => article.images || [article.image], [article.images, article.image]);
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
-    useEffect(() => {
-        if (images.length <= 1) return;
-        const interval = setInterval(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length);
-        }, 10000);
-        return () => clearInterval(interval);
-    }, [images]);
+/* ─── Mini Image Carousel for Left Side ──────────────────────────── */
+const LeftPanelCarousel = ({ images, title }) => {
+    const [activeIndex, setActiveIndex] = useState(0);
 
-    const displayImage = images[currentImageIndex];
-    const colorClass = typeColors[article.type] || typeColors.Default;
-    const isEven = index % 2 === 0;
+    if (!images || images.length === 0) return null;
+
+    const handlePrev = (e) => {
+        e.stopPropagation();
+        setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    };
+
+    const handleNext = (e) => {
+        e.stopPropagation();
+        setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    };
 
     return (
-        <section className={`relative min-h-[90vh] flex items-center overflow-hidden py-24 ${isDark ? 'bg-black' : 'bg-gray-50'}`}>
-
-            {/* Background Image with Parallax & Overlays */}
-            <div className="absolute inset-0 z-0">
-                <EditableImage
-                    contentKey={`${language}.eventsPage.article${index}.bgImage`}
-                    src={displayImage}
-                    alt={article.title}
-                    className="w-full h-full object-cover opacity-30 md:opacity-40 scale-105 transition-all duration-1000"
+        <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+            {images.map((img, idx) => (
+                <div
+                    key={idx}
                     style={{
-                        transform: 'translateZ(-10px) scale(1.1)',
-                        objectPosition: article.objectPosition || 'center center'
+                        position: 'absolute',
+                        inset: 0,
+                        opacity: idx === activeIndex ? 1 : 0,
+                        transform: idx === activeIndex ? 'scale(1)' : 'scale(1.05)',
+                        transition: 'opacity 0.5s ease, transform 0.5s ease',
                     }}
-                />
+                >
+                    <img
+                        src={img}
+                        alt={`${title} - ${idx + 1}`}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                </div>
+            ))}
 
-                {/* Advanced Gradients for Text Legibility & Aesthetics */}
-                <div className={`absolute inset-0 bg-gradient-to-b ${isDark ? 'from-black/90 via-black/80 to-black/95' : 'from-white/90 via-white/80 to-white/95'}`} />
-                <div className={`absolute inset-0 ${isEven ? 'bg-gradient-to-r' : 'bg-gradient-to-l'} ${isDark ? 'from-black/90 to-transparent' : 'from-gray-50/90 to-transparent'}`} />
-            </div>
+            {/* Subtle Vignette */}
+            <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 50%, rgba(0,0,0,0.4) 100%)',
+                pointerEvents: 'none',
+            }} />
 
-            {/* Content Container */}
-            <div className={`relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
-
-                {/* Text Content */}
-                <div className="flex-1 space-y-8" style={{ animation: `heroFadeUp 1s ease-out ${index * 0.2}s both` }}>
-                    <div className="flex flex-wrap items-center gap-4">
-                        <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-semibold backdrop-blur-md border ${colorClass}`}>
-                            <Tag size={14} />
-                            <EditableText contentKey={`${language}.eventsPage.article${index}.type`} fallback={article.type} />
-                        </span>
-                        <span className={`inline-flex items-center gap-2 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            <Calendar size={14} />
-                            <EditableText contentKey={`${language}.eventsPage.article${index}.date`} fallback={article.date} />
-                        </span>
-                    </div>
-
-                    <h2 className={`text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.1] ${isDark ? 'text-white' : 'text-gray-900'}`} style={{ fontFamily: "'Inter', sans-serif" }}>
-                        <EditableText contentKey={`${language}.eventsPage.article${index}.title`} fallback={article.title} />
-                    </h2>
-
-                    <p className={`text-lg md:text-xl lg:text-2xl leading-relaxed max-w-2xl ${isDark ? 'text-gray-300' : 'text-gray-700'}`} style={{ fontWeight: 300 }}>
-                        <EditableText contentKey={`${language}.eventsPage.article${index}.description`} fallback={article.description} multiline />
-                    </p>
-
-                    <a
-                        href={article.url || '#'}
-                        target={article.url ? "_blank" : "_self"}
-                        rel={article.url ? "noopener noreferrer" : ""}
-                        className={`group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold transition-all duration-300 ${isDark
-                            ? 'bg-white/10 text-white hover:bg-white/20 hover:scale-105 border border-white/10'
-                            : 'bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-xl'
-                            }`}
+            {/* Controls */}
+            {images.length > 1 && (
+                <div style={{
+                    position: 'absolute',
+                    bottom: 24,
+                    left: 24,
+                    display: 'flex',
+                    gap: 12,
+                    zIndex: 10,
+                }}>
+                    <button
+                        onClick={handlePrev}
+                        style={{
+                            background: 'rgba(0,0,0,0.5)',
+                            border: 'none',
+                            color: '#fff',
+                            width: 32,
+                            height: 32,
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'background 0.2s',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = '#06b6d4'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.5)'}
                     >
-                        <EditableText contentKey={`${language}.eventsPage.readMore`} fallback={readMoreText} />
-                        <ExternalLink size={18} className="transform transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
-                    </a>
+                        <ChevronLeft size={16} />
+                    </button>
+                    <button
+                        onClick={handleNext}
+                        style={{
+                            background: 'rgba(0,0,0,0.5)',
+                            border: 'none',
+                            color: '#fff',
+                            width: 32,
+                            height: 32,
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'background 0.2s',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = '#06b6d4'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.5)'}
+                    >
+                        <ChevronRight size={16} />
+                    </button>
                 </div>
-
-                {/* Animated Visual/GIF Element */}
-                <div className="flex-1 w-full max-w-lg relative" style={{ animation: `heroFadeUp 1.2s ease-out ${index * 0.2 + 0.3}s both` }}>
-                    {/* Decorative glow behind the image */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 to-blue-600/30 rounded-[3rem] blur-3xl" />
-
-                    <div className={`relative aspect-square md:aspect-[4/3] rounded-[2rem] md:rounded-[3rem] overflow-hidden border ${isDark ? 'border-white/10' : 'border-gray-200'} shadow-2xl transition-transform duration-700 hover:scale-[1.02]`}>
-                        <EditableImage
-                            contentKey={`${language}.eventsPage.article${index}.image`}
-                            src={displayImage}
-                            alt={`${article.title} visual`}
-                            className="w-full h-full object-cover transition-all duration-1000"
-                            style={{
-                                objectPosition: article.objectPosition || 'center center'
-                            }}
-                        />
-                        {/* Overlay to blend the image slightly */}
-                        <div className={`absolute inset-0 ${isDark ? 'bg-black/20' : 'bg-white/10'} mix-blend-overlay pointer-events-none`} />
-
-                        {/* Small floating "animated" badge or gif representation overlay */}
-                        <div className="absolute -bottom-6 -right-6 lg:-bottom-8 lg:-right-8 w-32 h-32 md:w-48 md:h-48 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-2xl animate-pulse" />
-                    </div>
-                </div>
-            </div>
-
-            {/* Scroll Indicator (except for last item) */}
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 opacity-50 animate-bounce">
-                <span className={`text-xs uppercase tracking-[0.3em] font-bold ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Scroll</span>
-                <ArrowDown size={16} className={isDark ? 'text-gray-500' : 'text-gray-400'} />
-            </div>
-        </section>
+            )}
+        </div>
     );
 };
 
+/* ─── Event Detail Panel ─────────────────────────────────────────── */
+const EventDetailPanel = ({ article, onClose, isDark }) => {
+    const panelRef = useRef(null);
+    const contentRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        if (!panelRef.current) return;
+        gsap.fromTo(panelRef.current,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, ease: 'power2.out' }
+        );
+        gsap.fromTo(contentRef.current,
+            { x: isMobile ? 0 : 60, y: isMobile ? 40 : 0, opacity: 0 },
+            { x: 0, y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', delay: 0.1 }
+        );
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, [article, isMobile]);
+
+    const handleClose = useCallback(() => {
+        gsap.to(panelRef.current, {
+            opacity: 0,
+            duration: 0.25,
+            onComplete: onClose,
+        });
+    }, [onClose]);
+
+    useEffect(() => {
+        const handleKey = (e) => { if (e.key === 'Escape') handleClose(); };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, [handleClose]);
+
+    const images = article.images || [article.image];
+
+    const metaRows = [
+        { label: 'Event Type', value: article.type },
+        { label: 'Date / Period', value: article.date },
+        { label: 'Status', value: 'Completed' },
+        { label: 'Focus', value: 'Technology & Impact' },
+    ];
+
+    return (
+        <div
+            ref={panelRef}
+            style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 9999,
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                fontFamily: FONT,
+                opacity: 0,
+                overflowY: isMobile ? 'auto' : 'hidden',
+                background: isDark ? '#0d0d0d' : '#fff',
+            }}
+        >
+            {/* ── Left: Event Image Carousel ── */}
+            <div
+                style={{
+                    width: isMobile ? '100%' : '42%',
+                    height: isMobile ? '35vh' : 'auto',
+                    background: isDark ? '#111' : '#1a1a1a',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative',
+                    flexShrink: 0,
+                }}
+            >
+                {!isMobile && (
+                    <div style={{ padding: '28px 32px' }}>
+                        <span style={{
+                            fontWeight: 800,
+                            fontSize: '0.75rem',
+                            letterSpacing: '0.18em',
+                            textTransform: 'uppercase',
+                            color: '#555',
+                        }}>
+                            XyberClan Event
+                        </span>
+                    </div>
+                )}
+
+                <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+                    <LeftPanelCarousel images={images} title={article.title} />
+                </div>
+            </div>
+
+            {/* ── Right: Event details ── */}
+            <div
+                ref={contentRef}
+                style={{
+                    flex: 1,
+                    background: isDark ? '#0d0d0d' : '#fff',
+                    overflowY: isMobile ? 'visible' : 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: isMobile ? '24px 28px 48px 28px' : '28px 48px 48px 48px',
+                    position: 'relative',
+                }}
+            >
+                {/* Close */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 48 }}>
+                    <button
+                        onClick={handleClose}
+                        aria-label="Close"
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: 4,
+                            color: isDark ? '#666' : '#999',
+                            lineHeight: 1,
+                            fontSize: '0.7rem',
+                            letterSpacing: '0.1em',
+                            textTransform: 'uppercase',
+                            fontFamily: FONT,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 6,
+                        }}
+                    >
+                        <X size={14} />
+                    </button>
+                </div>
+
+                {/* Title */}
+                <h2 style={{
+                    fontWeight: 300,
+                    fontSize: 'clamp(2.2rem, 4vw, 3.5rem)',
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.05,
+                    color: isDark ? '#f0f0f0' : '#111',
+                    margin: '0 0 40px 0',
+                }}>
+                    {article.title}
+                </h2>
+
+                {/* Metadata */}
+                <div style={{
+                    borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}`,
+                    marginBottom: 36,
+                }}>
+                    {metaRows.map(({ label, value }) => (
+                        <div
+                            key={label}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '14px 0',
+                                borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
+                            }}
+                        >
+                            <span style={{
+                                fontSize: '0.65rem',
+                                fontWeight: 700,
+                                letterSpacing: '0.16em',
+                                textTransform: 'uppercase',
+                                color: isDark ? '#444' : '#aaa',
+                            }}>
+                                {label}
+                            </span>
+                            <span style={{
+                                fontSize: '0.82rem',
+                                fontWeight: 400,
+                                color: isDark ? '#ccc' : '#333',
+                                textAlign: 'right',
+                            }}>
+                                {value}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Description */}
+                <p style={{
+                    fontSize: '0.95rem',
+                    fontWeight: 300,
+                    lineHeight: 1.75,
+                    color: isDark ? '#888' : '#555',
+                    maxWidth: 440,
+                    marginBottom: 40,
+                }}>
+                    {article.description}
+                </p>
+
+                {/* External Link */}
+                {article.url && article.url !== '#' && (
+                    <a
+                        href={article.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 6,
+                            fontSize: '0.8rem',
+                            fontWeight: 500,
+                            color: isDark ? '#f0f0f0' : '#111',
+                            textDecoration: 'none',
+                            borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)'}`,
+                            paddingBottom: 2,
+                            width: 'fit-content',
+                            transition: 'opacity 0.2s',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
+                        onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                    >
+                        View external post
+                        <ArrowUpRight size={14} />
+                    </a>
+                )}
+
+                {/* Red dot */}
+                <div style={{
+                    position: 'absolute',
+                    bottom: 28,
+                    right: 28,
+                    width: 7,
+                    height: 7,
+                    borderRadius: '50%',
+                    background: '#dc2626',
+                    boxShadow: '0 0 10px rgba(220,38,38,0.6)',
+                }} />
+            </div>
+        </div>
+    );
+};
+
+/* ─── Main EventsPage Component ──────────────────────────────────── */
 const EventsPage = () => {
     const { isDark } = useTheme();
     const { language } = useLanguage();
     const t = translations[language];
     const ep = t.eventsPage;
+    const articles = ep.articles || [];
+
+    const [activeArticle, setActiveArticle] = useState(null);
+
+    const sectionRef = useRef(null);
+    const bgParallaxRef = useRef(null);
+    const labelRef = useRef(null);
+    const headRef = useRef(null);
+    const cardsRef = useRef([]);
+
+    const bg = isDark ? '#0a0a0a' : '#f5f4f2';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#666' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
+
+    const heroBg = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop';
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    useEffect(() => {
+        if (!articles.length) return;
+        const ctx = gsap.context(() => {
+            gsap.fromTo(labelRef.current,
+                { opacity: 0, y: 14, filter: 'blur(4px)' },
+                { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out',
+                    scrollTrigger: { trigger: labelRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(headRef.current,
+                { opacity: 0, y: 50, scale: 0.95, filter: 'blur(6px)' },
+                { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out',
+                    scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(cardsRef.current,
+                { opacity: 0, y: 60, scale: 0.9, filter: 'blur(6px)' },
+                { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.1, stagger: 0.1, ease: 'power3.out',
+                    scrollTrigger: { trigger: cardsRef.current[0], start: 'top 88%', once: true } }
+            );
+            gsap.fromTo(bgParallaxRef.current,
+                { scale: 1, opacity: 0.08 },
+                { scale: 1.2, opacity: 0.03, ease: 'none',
+                    scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 1.5 } }
+            );
+        }, sectionRef);
+        return () => ctx.revert();
+    }, [articles.length]);
+
     return (
-        <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+        <div style={{ background: bg, color: text, fontFamily: FONT }} className="min-h-screen transition-colors duration-300">
             <Meta
                 title="Events & Blog | Stay Connected"
                 description="Follow XyberClan's latest news, event participations, and technical insights. Stay updated with the African tech ecosystem."
@@ -153,33 +422,102 @@ const EventsPage = () => {
                 badgeText={ep.badge}
                 title={ep.title}
                 subtitle={ep.subtitle}
-                imageSrc="https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=2070&auto=format&fit=crop"
-                stats={[]}
+                imageSrc=""
+                heroBg={heroBg}
+                stats={[
+                    { value: `${articles.length}+`, label: 'Events' },
+                    { value: 'Impact', label: 'Driven' }
+                ]}
                 trustBadges={[]}
+                transitionLabel="Events & Blog"
+                transitionText="Stay connected with XyberClan's latest news, events, and technical insights"
             />
 
-            <div className="w-full flex flex-col">
-                {ep.articles.map((article, idx) => (
-                    <EventSection
-                        key={article.id}
-                        article={article}
-                        isDark={isDark}
-                        readMoreText={ep.readMore}
-                        index={idx}
-                        language={language}
-                    />
-                ))}
-            </div>
+            {/* ─── EVENTS GRID ─── */}
+            <section
+                ref={sectionRef}
+                className="relative overflow-hidden"
+                style={{ background: bg, color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}
+            >
+                <div ref={bgParallaxRef} className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ background: `radial-gradient(ellipse at 50% 0%, #06b6d4 0%, transparent 60%)` }} />
+                <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 py-28 md:py-36 relative z-10">
+                    <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-6">
+                        <div>
+                            <p ref={labelRef} className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6" style={{ color: '#06b6d4', opacity: 0 }}>
+                                {ep.badge}
+                            </p>
+                            <h2 ref={headRef} className="leading-[0.9] tracking-[-0.03em]" style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}>
+                                Latest<br />Updates
+                            </h2>
+                        </div>
+                        <p className="text-sm leading-relaxed max-w-xs" style={{ color: muted, fontWeight: 300 }}>
+                            From hackathons to conferences — follow our journey through the tech ecosystem.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {articles.map((article, idx) => {
+                            const images = article.images || [article.image];
+                            const displayImage = images[0];
+                            return (
+                                <div
+                                    key={article.id}
+                                    ref={el => cardsRef.current[idx] = el}
+                                    onClick={() => setActiveArticle(article)}
+                                    className="group rounded-2xl border overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl cursor-pointer"
+                                    style={{ opacity: 0, borderColor: border, background: isDark ? '#111' : '#fff' }}
+                                >
+                                    <div className="relative h-48 overflow-hidden">
+                                        <EditableImage
+                                            contentKey={`${language}.eventsPage.article${idx}.image`}
+                                            src={displayImage}
+                                            alt={article.title}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            style={{ objectPosition: article.objectPosition || 'center 20%' }}
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                                        <div className="absolute top-4 left-4">
+                                            <span className="inline-flex items-center px-2.5 py-0.5 rounded text-[9px] font-semibold uppercase tracking-[0.12em]" style={{ background: '#06b6d4', color: '#fff' }}>
+                                                <EditableText contentKey={`${language}.eventsPage.article${idx}.type`} fallback={article.type} />
+                                            </span>
+                                        </div>
+                                        <div className="absolute bottom-4 left-4 flex items-center gap-1.5 text-[11px] font-medium text-white/80">
+                                            <Calendar size={11} />
+                                            <EditableText contentKey={`${language}.eventsPage.article${idx}.date`} fallback={article.date} />
+                                        </div>
+                                    </div>
+                                    <div className="p-6">
+                                        <h3 className="text-lg font-black tracking-tight leading-tight mb-2 group-hover:text-cyan-500 transition-colors duration-200" style={{ color: text }}>
+                                            <EditableText contentKey={`${language}.eventsPage.article${idx}.title`} fallback={article.title} />
+                                        </h3>
+                                        <p className="text-[13px] leading-relaxed mb-4 line-clamp-3" style={{ color: muted, fontWeight: 300 }}>
+                                            <EditableText contentKey={`${language}.eventsPage.article${idx}.description`} fallback={article.description} multiline />
+                                        </p>
+                                        <span
+                                            className="inline-flex items-center gap-1.5 text-xs font-semibold"
+                                            style={{ color: '#06b6d4' }}
+                                        >
+                                            View details
+                                            <ArrowUpRight size={12} />
+                                        </span>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            {/* Modal Detail Panel */}
+            {activeArticle && (
+                <EventDetailPanel
+                    article={activeArticle}
+                    onClose={() => setActiveArticle(null)}
+                    isDark={isDark}
+                />
+            )}
 
             <Footer translations={t} />
-            <WhatsAppButton />
-
-            <style>{`
-                @keyframes heroFadeUp {
-                    from { opacity: 0; transform: translateY(50px); filter: blur(10px); }
-                    to { opacity: 1; transform: translateY(0); filter: blur(0); }
-                }
-            `}</style>
         </div>
     );
 };

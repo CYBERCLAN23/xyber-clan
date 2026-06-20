@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
     ChevronLeft, Mail, Check,
@@ -12,15 +12,28 @@ import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
 import { getLogo } from './utils/festive';
 import Meta from './components/Meta';
+import gsap from 'gsap';
+import mountainBg from './assets/hero-mountain.png';
 
 const CareerForm = () => {
     const { isDark, toggleTheme } = useTheme();
     const { language, toggleLanguage } = useLanguage();
 
+    const formRef = useRef(null);
     const [currentStep, setCurrentStep] = useState(0);
     const [direction, setDirection] = useState('forward');
     const [answers, setAnswers] = useState({});
     const [isCompleted, setIsCompleted] = useState(false);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(formRef.current,
+                { opacity: 0, y: 30 },
+                { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }
+            );
+        }, formRef);
+        return () => ctx.revert();
+    }, [currentStep]);
 
     const steps = useMemo(() => [
         {
@@ -241,6 +254,16 @@ const CareerForm = () => {
 
     return (
         <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
+            {/* Fixed Mountain Background */}
+            <div className="fixed inset-0 -z-20">
+                <img
+                    src={mountainBg}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    style={{ filter: isDark ? 'brightness(0.3) saturate(0.4)' : 'brightness(0.9) saturate(0.6)', transform: 'scale(1.1)' }}
+                />
+            </div>
+
             <Meta
                 title="Apply: Community Manager | XyberClan Careers"
                 description="Join XyberClan as our Community Manager. Apply now to help shape our digital community."
@@ -285,7 +308,7 @@ const CareerForm = () => {
                 </div>
 
                 {/* Content Area */}
-                <div className="flex-1 px-6 pb-24">
+                <div ref={formRef} className="flex-1 px-6 pb-24">
                     <div className="max-w-2xl mx-auto">
                         {!isCompleted ? (
                             <div key={currentStep} className={`${direction === 'forward' ? 'animate-slide-up' : 'animate-slide-down'}`}>

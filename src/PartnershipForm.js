@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     X, ChevronLeft,
     Handshake, Trophy,
@@ -9,19 +9,38 @@ import {
     Cpu, Sparkles, Building2, Users,
     Landmark, Heart, Coins, Wrench,
     UserCircle, MapPin, Radio, Layout,
-    Hash, MessageCircle, Info
+    Hash, MessageCircle, Info, Sun, Moon, Calendar, Clock, History, Compass, CreditCard
 } from 'lucide-react';
+import { useTheme } from './context/ThemeContext';
+import { useLanguage } from './context/LanguageContext';
+import gsap from 'gsap';
+
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const PartnershipForm = ({ isOpen, onClose, type, lang, t, onComplete }) => {
+    const { isDark, toggleTheme } = useTheme();
+    const { language } = useLanguage();
+    
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState({});
     const [mounted, setMounted] = useState(false);
     const [direction, setDirection] = useState('forward');
     const [isCompleted, setIsCompleted] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    const leftPanelRef = useRef(null);
+    const rightPanelRef = useRef(null);
 
     const formConfig = type === 'partner' ? t.partnersPage.partnerForm : t.partnersPage.sponsorForm;
     const steps = formConfig.steps;
     const currentQuestion = steps[currentStep];
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 960);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         if (isOpen) {
@@ -36,6 +55,30 @@ const PartnershipForm = ({ isOpen, onClose, type, lang, t, onComplete }) => {
             document.body.style.overflow = 'unset';
         }
     }, [isOpen]);
+
+    // ─── Step Transition GSAP Animation ─────────────────────────────────────
+    useEffect(() => {
+        if (!isOpen) return;
+        const ctx = gsap.context(() => {
+            // Animate left side
+            if (leftPanelRef.current) {
+                const elements = leftPanelRef.current.querySelectorAll('.animate-left');
+                gsap.fromTo(elements,
+                    { opacity: 0, y: 15, filter: 'blur(3px)' },
+                    { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.5, stagger: 0.08, ease: 'power2.out' }
+                );
+            }
+            // Animate right side
+            if (rightPanelRef.current) {
+                const elements = rightPanelRef.current.children;
+                gsap.fromTo(elements,
+                    { opacity: 0, y: 25, filter: 'blur(5px)' },
+                    { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, stagger: 0.06, ease: 'power3.out' }
+                );
+            }
+        });
+        return () => ctx.revert();
+    }, [currentStep, isOpen, isCompleted]);
 
     const getIcon = (id, option) => {
         const iconMap = {
@@ -86,7 +129,7 @@ const PartnershipForm = ({ isOpen, onClose, type, lang, t, onComplete }) => {
         return iconMap[option] || <Sparkles />;
     };
 
-    const colors = ['cyan', 'purple', 'pink', 'blue', 'orange', 'green', 'indigo', 'rose', 'amber'];
+    const colors = ['#06b6d4', '#a855f7', '#ec4899', '#3b82f6', '#f97316', '#22c55e', '#6366f1', '#f43f5e', '#f59e0b'];
 
     if (!isOpen) return null;
 
@@ -175,282 +218,633 @@ const PartnershipForm = ({ isOpen, onClose, type, lang, t, onComplete }) => {
         onComplete(generateSummaryText());
     };
 
-    const progress = isCompleted ? 100 : ((currentStep + 1) / steps.length) * 100;
+    const bg = isDark ? '#0a0a0a' : '#f5f4f2';
+    const textCol = isDark ? '#f0f0f0' : '#111';
+    const mutedCol = isDark ? '#666' : '#888';
+    const borderCol = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+    const cardBg = isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.9)';
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden">
-            {/* Backdrop */}
-            <div
-                className={`absolute inset-0 bg-black/95 backdrop-blur-3xl transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}
-                onClick={onClose}
-            />
-
-            {/* Modal Container */}
-            <div className={`relative w-full h-full flex flex-col transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${mounted ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-40 scale-95'}`}>
-
-                {/* Nav Header */}
-                <div className="px-6 py-6 flex justify-between items-center max-w-5xl mx-auto w-full">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/20 shadow-lg shadow-cyan-500/10">
-                            {type === 'partner' ? <Handshake size={24} /> : <Trophy size={24} />}
+        <div style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: bg,
+            color: textCol,
+            fontFamily: FONT,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden'
+        }}>
+            {/* Header */}
+            <div style={{
+                padding: '16px 24px',
+                borderBottom: `1px solid ${borderCol}`,
+                background: isDark ? 'rgba(10,10,10,0.85)' : 'rgba(245,244,242,0.85)',
+                backdropFilter: 'blur(20px)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                zIndex: 50
+            }}>
+                <div style={{ maxWidth: 1200, width: '100%', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <div style={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: 8,
+                            backgroundColor: isDark ? 'rgba(6,182,212,0.15)' : 'rgba(6,182,212,0.08)',
+                            color: '#06b6d4',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: `1px solid ${borderCol}`
+                        }}>
+                            {type === 'partner' ? <Handshake size={18} /> : <Trophy size={18} />}
                         </div>
                         <div>
-                            <h3 className="text-white font-black text-xl tracking-tight leading-none mb-1">{formConfig.title}</h3>
-                            <p className="text-cyan-500/60 text-[10px] font-black uppercase tracking-[0.2em]">{type} program</p>
+                            <span style={{ fontSize: '1.05rem', fontWeight: 900, color: textCol, tracking: '-0.02em', display: 'block', lineHeight: 1.1 }}>
+                                {formConfig.title}
+                            </span>
+                            <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#06b6d4', textTransform: 'uppercase', letterSpacing: '0.14em' }}>
+                                {type} program
+                            </span>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
-                        className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all active:scale-90 border border-white/5 hover:border-white/10"
+                        style={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: 8,
+                            background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+                            color: textCol,
+                            border: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'transform 0.2s'
+                        }}
                     >
-                        <X size={24} />
+                        <X size={16} />
                     </button>
                 </div>
+            </div>
 
-                {/* Progress Bar Container */}
-                <div className="px-6 max-w-4xl mx-auto w-full mb-12">
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                        <div
-                            className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 rounded-full transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_15px_rgba(34,211,238,0.3)]"
-                            style={{ width: `${progress}%` }}
-                        />
-                    </div>
-                </div>
-
-                {/* Main Content Area */}
-                <div className="flex-1 overflow-y-auto px-6 pb-24">
-                    <div className="max-w-2xl mx-auto">
+            {/* Split Editorial Panel Layout */}
+            <div style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                minHeight: 'calc(100vh - 69px)',
+                overflow: 'hidden'
+            }}>
+                {/* LEFT PANEL: Progress & Info */}
+                <div 
+                    ref={leftPanelRef}
+                    style={{
+                        width: isMobile ? '100%' : '42%',
+                        borderRight: isMobile ? 'none' : `1px solid ${borderCol}`,
+                        borderBottom: isMobile ? `1px solid ${borderCol}` : 'none',
+                        background: isDark ? '#070707' : '#fafafa',
+                        padding: isMobile ? '32px 24px' : '64px 48px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        position: 'relative'
+                    }}
+                >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
                         {!isCompleted ? (
-                            <div key={currentStep} className={`${direction === 'forward' ? 'animate-slide-up' : 'animate-slide-down'}`}>
-
-                                <p className="text-center text-[11px] font-black uppercase tracking-[0.3em] text-cyan-500 mb-8">
+                            <>
+                                <p className="animate-left text-[#06b6d4]" style={{
+                                    fontSize: '0.65rem',
+                                    fontWeight: 800,
+                                    letterSpacing: '0.2em',
+                                    textTransform: 'uppercase',
+                                    margin: 0
+                                }}>
                                     {t.form.step} {currentStep + 1} {t.form.of} {steps.length}
                                 </p>
+                                <h1 className="animate-left" style={{
+                                    fontWeight: 300,
+                                    fontSize: 'clamp(1.8rem, 3vw, 2.8rem)',
+                                    lineHeight: 1.1,
+                                    letterSpacing: '-0.03em',
+                                    color: textCol,
+                                    margin: 0
+                                }}>
+                                    {currentQuestion.question}
+                                </h1>
+                                <p className="animate-left" style={{
+                                    fontSize: '0.85rem',
+                                    fontWeight: 300,
+                                    lineHeight: 1.6,
+                                    color: mutedCol,
+                                    maxWidth: 320,
+                                    margin: 0
+                                }}>
+                                    {type === 'partner' 
+                                        ? 'Help us understand how we can collaborate to build meaningful ecosystems in technology and training.'
+                                        : 'Sponsor our events and community initiatives to maximize brand awareness and reach local builders.'}
+                                </p>
+                            </>
+                        ) : (
+                            <>
+                                <p className="animate-left text-[#06b6d4]" style={{
+                                    fontSize: '0.65rem',
+                                    fontWeight: 800,
+                                    letterSpacing: '0.2em',
+                                    textTransform: 'uppercase',
+                                    margin: 0
+                                }}>
+                                    Review Stage
+                                </p>
+                                <h1 className="animate-left" style={{
+                                    fontWeight: 300,
+                                    fontSize: 'clamp(1.8rem, 3vw, 2.8rem)',
+                                    lineHeight: 1.1,
+                                    letterSpacing: '-0.03em',
+                                    color: textCol,
+                                    margin: 0
+                                }}>
+                                    {t.form.summaryTitle}
+                                </h1>
+                                <p className="animate-left" style={{
+                                    fontSize: '0.85rem',
+                                    fontWeight: 300,
+                                    lineHeight: 1.6,
+                                    color: mutedCol,
+                                    maxWidth: 320,
+                                    margin: 0
+                                }}>
+                                    {t.form.summaryDesc}
+                                </p>
+                            </>
+                        )}
+                    </div>
 
-                                <div className="text-center mb-16">
-                                    <h2 className="text-4xl md:text-6xl text-white font-black tracking-tighter leading-[1.1] mb-6">
-                                        {currentQuestion.question}
-                                    </h2>
-                                </div>
+                    {/* Timeline Tracker */}
+                    {!isMobile && (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 48, borderTop: `1px solid ${borderCol}`, paddingTop: 28 }}>
+                            {steps.map((step, idx) => {
+                                const isActive = idx === currentStep;
+                                const isPassed = idx < currentStep;
+                                return (
+                                    <div key={step.id} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 12,
+                                        opacity: isActive ? 1 : isPassed ? 0.6 : 0.25,
+                                        transition: 'all 0.4s ease'
+                                    }}>
+                                        <span style={{
+                                            fontSize: '0.6rem',
+                                            fontWeight: 800,
+                                            fontFamily: 'monospace',
+                                            color: isActive ? '#06b6d4' : textCol
+                                        }}>{String(idx + 1).padStart(2, '0')}</span>
+                                        <span style={{
+                                            fontSize: '0.65rem',
+                                            fontWeight: 700,
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.14em',
+                                            color: isActive ? '#06b6d4' : textCol
+                                        }}>
+                                            {step.id.includes('type') ? 'Classification' :
+                                             step.id.includes('contri') ? 'Contribution' :
+                                             step.id.includes('name') ? 'Identity' :
+                                             step.id.includes('time') ? 'Timeline' :
+                                             step.id.includes('contact') ? 'Contact' : 'Details'}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
 
-                                {/* Choice Options */}
+                    {/* Branding Dot */}
+                    <div style={{
+                        position: 'absolute',
+                        bottom: 24,
+                        left: 24,
+                        width: 6,
+                        height: 6,
+                        borderRadius: '50%',
+                        background: '#dc2626',
+                        boxShadow: '0 0 8px rgba(220,38,38,0.5)',
+                        display: isMobile ? 'none' : 'block'
+                    }} />
+                </div>
+
+                {/* RIGHT PANEL: Input interaction */}
+                <div 
+                    style={{
+                        flex: 1,
+                        background: isDark ? '#0d0d0d' : '#ffffff',
+                        padding: isMobile ? '32px 24px 80px 24px' : '64px 48px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        overflowY: 'auto'
+                    }}
+                >
+                    <div ref={rightPanelRef} style={{ width: '100%', maxWidth: 640, margin: '0 auto', flex: 1 }}>
+                        {!isCompleted ? (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                                {/* Choice grid */}
                                 {currentQuestion.options && (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                                        gap: 16
+                                    }}>
                                         {currentQuestion.options.map((opt, i) => {
                                             const isSelected = answers[currentQuestion.id] === opt;
-                                            const color = colors[i % colors.length];
 
                                             return (
                                                 <button
                                                     key={i}
                                                     onClick={() => handleChoice(currentQuestion.id, opt)}
-                                                    className={`group relative p-8 rounded-[2.5rem] border-[2.5px] transition-all duration-500 text-left hover:scale-[1.02] active:scale-[0.98] overflow-hidden ${isSelected
-                                                        ? 'border-cyan-500 bg-cyan-500/10 shadow-2xl shadow-cyan-500/10'
-                                                        : 'border-white/5 bg-white/[0.03] hover:border-white/20'}`}
+                                                    style={{
+                                                        background: isSelected ? (isDark ? 'rgba(6, 182, 212, 0.08)' : 'rgba(6, 182, 212, 0.04)') : 'transparent',
+                                                        border: `1px solid ${isSelected ? '#06b6d4' : borderCol}`,
+                                                        borderRadius: 8,
+                                                        padding: 24,
+                                                        textAlign: 'left',
+                                                        cursor: 'pointer',
+                                                        color: textCol,
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        gap: 16,
+                                                        position: 'relative',
+                                                        transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+                                                    }}
+                                                    onMouseEnter={e => {
+                                                        if (!isSelected) e.currentTarget.style.borderColor = '#06b6d4';
+                                                    }}
+                                                    onMouseLeave={e => {
+                                                        if (!isSelected) e.currentTarget.style.borderColor = borderCol;
+                                                    }}
                                                 >
                                                     {isSelected && (
-                                                        <div className="absolute top-6 right-6 animate-scale-in">
-                                                            <div className="bg-cyan-500 text-white p-1 rounded-full">
-                                                                <Check size={14} strokeWidth={4} />
-                                                            </div>
+                                                        <div style={{
+                                                            position: 'absolute',
+                                                            top: 16,
+                                                            right: 16,
+                                                            background: '#06b6d4',
+                                                            color: '#fff',
+                                                            width: 18,
+                                                            height: 18,
+                                                            borderRadius: '50%',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center'
+                                                        }}>
+                                                            <Check size={11} strokeWidth={4} />
                                                         </div>
                                                     )}
-
-                                                    <div className={`mb-8 p-5 rounded-2xl inline-block transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 ${color === 'cyan' ? 'bg-cyan-500/10 text-cyan-500' :
-                                                        color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
-                                                            color === 'pink' ? 'bg-pink-500/10 text-pink-500' :
-                                                                color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
-                                                                    color === 'orange' ? 'bg-orange-500/10 text-orange-500' :
-                                                                        color === 'green' ? 'bg-green-500/10 text-green-500' :
-                                                                            color === 'indigo' ? 'bg-indigo-500/10 text-indigo-500' :
-                                                                                color === 'rose' ? 'bg-rose-500/10 text-rose-500' :
-                                                                                    'bg-amber-500/10 text-amber-500'
-                                                        }`}>
-                                                        {React.cloneElement(getIcon(currentQuestion.id, opt), { size: 32 })}
+                                                    <div style={{
+                                                        color: isSelected ? '#06b6d4' : textCol,
+                                                        opacity: isSelected ? 1 : 0.6
+                                                    }}>
+                                                        {getIcon(currentQuestion.id, opt)}
                                                     </div>
-                                                    <h3 className="text-xl font-black text-white tracking-tight leading-tight">{opt}</h3>
+                                                    <span style={{ fontSize: '0.9rem', fontWeight: 600, letterSpacing: '-0.01em' }}>
+                                                        {opt}
+                                                    </span>
                                                 </button>
                                             );
                                         })}
                                     </div>
                                 )}
 
-                                {/* Text / Input Placeholder */}
+                                {/* Single line text input */}
                                 {currentQuestion.placeholder && !currentQuestion.fields && (
-                                    <div className="relative group max-w-xl mx-auto">
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                                         {currentQuestion.id.toLowerCase().includes('name') ? (
-                                            <div className="relative">
-                                                <div className="absolute left-6 top-1/2 -translate-y-1/2 text-cyan-500">
-                                                    <Hash size={28} />
-                                                </div>
-                                                <input
-                                                    autoFocus
-                                                    type="text"
-                                                    value={answers[currentQuestion.id] || ''}
-                                                    onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
-                                                    placeholder={currentQuestion.placeholder}
-                                                    className="w-full bg-white/[0.03] border-[2.5px] border-white/5 focus:border-cyan-500 focus:bg-white/[0.06] rounded-3xl py-8 pl-20 pr-8 text-2xl font-bold text-white outline-none transition-all placeholder:text-white/10 shadow-2xl"
-                                                />
-                                            </div>
+                                            <input
+                                                autoFocus
+                                                type="text"
+                                                value={answers[currentQuestion.id] || ''}
+                                                onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
+                                                placeholder={currentQuestion.placeholder}
+                                                style={{
+                                                    width: '100%',
+                                                    background: 'none',
+                                                    border: 'none',
+                                                    borderBottom: `2px solid ${borderCol}`,
+                                                    padding: '16px 0',
+                                                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                                                    fontWeight: 800,
+                                                    color: textCol,
+                                                    outline: 'none',
+                                                    letterSpacing: '-0.02em',
+                                                    transition: 'border-color 0.3s'
+                                                }}
+                                                onFocus={e => e.currentTarget.style.borderColor = '#06b6d4'}
+                                                onBlur={e => e.currentTarget.style.borderColor = borderCol}
+                                            />
                                         ) : (
-                                            <div className="relative">
-                                                <textarea
-                                                    autoFocus
-                                                    rows={5}
-                                                    value={answers[currentQuestion.id] || ''}
-                                                    onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
-                                                    placeholder={currentQuestion.placeholder}
-                                                    className="w-full bg-white/[0.03] border-[2.5px] border-white/5 focus:border-cyan-500 focus:bg-white/[0.06] rounded-[2.5rem] p-8 text-xl font-medium text-white outline-none transition-all placeholder:text-white/10 resize-none shadow-2xl"
-                                                />
-                                            </div>
+                                            <textarea
+                                                autoFocus
+                                                rows={5}
+                                                value={answers[currentQuestion.id] || ''}
+                                                onChange={(e) => handleInputChange(currentQuestion.id, e.target.value)}
+                                                placeholder={currentQuestion.placeholder}
+                                                style={{
+                                                    width: '100%',
+                                                    background: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)',
+                                                    border: `1px solid ${borderCol}`,
+                                                    borderRadius: 8,
+                                                    padding: 20,
+                                                    fontSize: '1rem',
+                                                    lineHeight: 1.6,
+                                                    color: textCol,
+                                                    outline: 'none',
+                                                    resize: 'none',
+                                                    transition: 'all 0.3s'
+                                                }}
+                                                onFocus={e => {
+                                                    e.currentTarget.style.borderColor = '#06b6d4';
+                                                    e.currentTarget.style.boxShadow = '0 0 0 1px rgba(6,182,212,0.2)';
+                                                }}
+                                                onBlur={e => {
+                                                    e.currentTarget.style.borderColor = borderCol;
+                                                    e.currentTarget.style.boxShadow = 'none';
+                                                }}
+                                            />
                                         )}
                                     </div>
                                 )}
 
                                 {/* Multi-field Contact */}
                                 {currentQuestion.fields && (
-                                    <div className="max-w-xl mx-auto bg-white/[0.02] border border-white/5 rounded-[3rem] p-10 space-y-10 shadow-2xl relative overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: 24,
+                                        border: `1px solid ${borderCol}`,
+                                        borderRadius: 12,
+                                        padding: isMobile ? 24 : 36,
+                                        background: cardBg
+                                    }}>
                                         {currentQuestion.fields.map((field, i) => (
-                                            <div key={i} className="relative group">
-                                                <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-white/30 mb-4 ml-1 italic">{field}</label>
-                                                <div className="relative">
-                                                    <div className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-cyan-500 transition-all duration-500">
-                                                        {i === 0 ? <User size={20} /> : i === 1 ? <Phone size={20} /> : <Mail size={20} />}
+                                            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                                <label style={{
+                                                    fontSize: '0.65rem',
+                                                    fontWeight: 800,
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.14em',
+                                                    color: mutedCol
+                                                }}>{field}</label>
+                                                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                                                    <div style={{
+                                                        position: 'absolute',
+                                                        left: 14,
+                                                        color: mutedCol,
+                                                        display: 'flex',
+                                                        alignItems: 'center'
+                                                    }}>
+                                                        {i === 0 ? <User size={18} /> : i === 1 ? <Phone size={18} /> : <Mail size={18} />}
                                                     </div>
                                                     <input
                                                         type={i === 2 ? 'email' : i === 1 ? 'tel' : 'text'}
                                                         value={answers[`${currentQuestion.id}_field_${i}`] || ''}
                                                         onChange={(e) => handleInputChange(`${currentQuestion.id}_field_${i}`, e.target.value)}
                                                         placeholder={field}
-                                                        className="w-full bg-black/20 border-2 border-white/5 focus:border-cyan-500/50 rounded-2xl py-5 pl-14 pr-6 text-white outline-none transition-all focus:ring-4 focus:ring-cyan-500/5"
+                                                        style={{
+                                                            width: '100%',
+                                                            padding: '12px 16px 12px 42px',
+                                                            borderRadius: 8,
+                                                            border: `1px solid ${borderCol}`,
+                                                            background: isDark ? '#111' : '#fff',
+                                                            color: textCol,
+                                                            fontSize: '0.9rem',
+                                                            outline: 'none',
+                                                            transition: 'all 0.3s'
+                                                        }}
+                                                        onFocus={e => {
+                                                            e.currentTarget.style.borderColor = '#06b6d4';
+                                                            e.currentTarget.style.boxShadow = '0 0 0 1px rgba(6,182,212,0.2)';
+                                                        }}
+                                                        onBlur={e => {
+                                                            e.currentTarget.style.borderColor = borderCol;
+                                                            e.currentTarget.style.boxShadow = 'none';
+                                                        }}
                                                     />
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 )}
-
-                                {/* Nav Buttons */}
-                                <div className="mt-16 flex items-center justify-between max-w-2xl mx-auto">
-                                    <button
-                                        onClick={handlePrev}
-                                        className={`group flex items-center gap-2 px-8 py-4 rounded-xl font-black text-sm uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/5 transition-all ${currentStep === 0 ? 'opacity-0 pointer-events-none' : ''}`}
-                                    >
-                                        <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> {t.form.previous}
-                                    </button>
-
-                                    {(currentQuestion.placeholder || currentQuestion.fields) && (
-                                        <button
-                                            onClick={handleNext}
-                                            disabled={!isStepValid()}
-                                            className={`group flex items-center gap-4 px-12 py-6 rounded-[2rem] font-black text-sm uppercase tracking-widest transition-all duration-500 ${isStepValid()
-                                                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-2xl shadow-cyan-500/30 hover:scale-[1.05] hover:shadow-cyan-500/50 active:scale-95'
-                                                : 'bg-white/5 text-white/20 cursor-not-allowed'}`}
-                                        >
-                                            {currentStep === steps.length - 1 ? t.form.submit : t.form.next}
-                                            {currentStep === steps.length - 1 ? <Rocket size={20} /> : <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
-                                        </button>
-                                    )}
-                                </div>
                             </div>
                         ) : (
-                            <div className="animate-scale-in flex flex-col items-center max-w-2xl mx-auto">
-                                <div className="relative mb-8">
-                                    <div className="absolute inset-0 bg-green-500/20 blur-3xl rounded-full animate-pulse" />
-                                    <div className="relative w-20 h-20 rounded-[2rem] bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-2xl shadow-green-500/30">
-                                        <Check className="w-10 h-10 text-white stroke-[4px]" />
-                                    </div>
-                                </div>
-
-                                <h2 className="text-3xl md:text-5xl text-white font-black tracking-tighter text-center mb-3 leading-none">
-                                    {t.form.summaryTitle}
-                                </h2>
-                                <p className="text-white/40 text-lg font-medium text-center mb-10 max-w-md mx-auto">
-                                    {t.form.summaryDesc}
-                                </p>
-
-                                {/* Structured Summary List */}
-                                <div className="w-full space-y-4 mb-10">
+                            /* Summary review screen */
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+                                <div style={{ borderTop: `1px solid ${borderCol}` }}>
                                     {steps.map((step, idx) => {
                                         if (step.fields) return null;
+                                        const val = answers[step.id];
                                         return (
-                                            <div key={idx} className="group relative bg-white/[0.03] border border-white/5 rounded-3xl p-6 transition-all hover:bg-white/[0.05] hover:border-cyan-500/30">
-                                                <div className="flex items-start gap-4">
-                                                    <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 shrink-0">
-                                                        {idx === 0 ? <Briefcase size={20} /> : <Info size={20} />}
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500/60 mb-1">{step.question}</p>
-                                                        <p className="text-lg font-bold text-white">{answers[step.id] || 'N/A'}</p>
-                                                    </div>
-                                                </div>
+                                            <div
+                                                key={idx}
+                                                style={{
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'flex-start',
+                                                    padding: '16px 0',
+                                                    borderBottom: `1px solid ${borderCol}`,
+                                                    gap: 16
+                                                }}
+                                            >
+                                                <span style={{
+                                                    fontSize: '0.65rem',
+                                                    fontWeight: 700,
+                                                    letterSpacing: '0.14em',
+                                                    textTransform: 'uppercase',
+                                                    color: mutedCol,
+                                                    paddingTop: 2
+                                                }}>{step.question.replace(/\?$/, '')}</span>
+                                                <span style={{
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: 500,
+                                                    color: textCol,
+                                                    textAlign: 'right',
+                                                    maxWidth: '70%'
+                                                }}>{val || 'N/A'}</span>
                                             </div>
                                         );
                                     })}
-
-                                    {/* Contact Representative Card */}
-                                    <div className="bg-gradient-to-br from-indigo-600/20 via-blue-600/10 to-transparent border border-white/10 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
-                                        <div className="absolute top-0 right-0 p-8 opacity-10">
-                                            <User size={80} />
-                                        </div>
-                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400 mb-6">Contact Representative</p>
-                                        <div className="space-y-4">
-                                            {[
-                                                { icon: <User size={18} />, label: 'Name', value: answers[steps.find(s => s.fields)?.id + '_field_0'] },
-                                                { icon: <Phone size={18} />, label: 'Phone', value: answers[steps.find(s => s.fields)?.id + '_field_1'] },
-                                                { icon: <Mail size={18} />, label: 'Email', value: answers[steps.find(s => s.fields)?.id + '_field_2'] }
-                                            ].map((contact, i) => (
-                                                <div key={i} className="flex items-center gap-4 text-white/80">
-                                                    <div className="text-indigo-400">{contact.icon}</div>
-                                                    <span className="font-bold">{contact.value || 'N/A'}</span>
-                                                </div>
-                                            ))}
-                                        </div>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'flex-start',
+                                            padding: '16px 0',
+                                            borderBottom: `1px solid ${borderCol}`,
+                                            gap: 16
+                                        }}
+                                    >
+                                        <span style={{
+                                            fontSize: '0.65rem',
+                                            fontWeight: 700,
+                                            letterSpacing: '0.14em',
+                                            textTransform: 'uppercase',
+                                            color: mutedCol
+                                        }}>Representative</span>
+                                        <span style={{
+                                            fontSize: '0.85rem',
+                                            fontWeight: 500,
+                                            color: textCol,
+                                            textAlign: 'right'
+                                        }}>
+                                            {answers[steps.find(s => s.fields)?.id + '_field_0']} ({answers[steps.find(s => s.fields)?.id + '_field_1']})
+                                        </span>
                                     </div>
                                 </div>
 
-                                <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <button onClick={handleWhatsAppSend} className="group flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-6 rounded-3xl font-black text-lg transition-all hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#25D366]/30 active:scale-95 shadow-xl shadow-[#25D366]/10">
-                                        <MessageCircle className="w-6 h-6" /> {t.form.sendWhatsApp}
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+                                    gap: 16
+                                }}>
+                                    <button
+                                        onClick={handleWhatsAppSend}
+                                        style={{
+                                            background: '#25D366',
+                                            color: '#fff',
+                                            border: 'none',
+                                            borderRadius: 8,
+                                            padding: '16px 24px',
+                                            fontSize: '0.9rem',
+                                            fontWeight: 700,
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: 8,
+                                            transition: 'transform 0.2s'
+                                        }}
+                                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
+                                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                    >
+                                        <MessageCircle size={18} /> {t.form.sendWhatsApp}
                                     </button>
-                                    <button onClick={handleEmailSend} className="group flex items-center justify-center gap-3 bg-white text-black px-8 py-6 rounded-3xl font-black text-lg transition-all hover:scale-[1.03] hover:shadow-2xl hover:shadow-white/20 active:scale-95 shadow-xl">
-                                        <Mail className="w-6 h-6" /> {t.form.sendEmail}
+                                    <button
+                                        onClick={handleEmailSend}
+                                        style={{
+                                            background: textCol,
+                                            color: bg,
+                                            border: 'none',
+                                            borderRadius: 8,
+                                            padding: '16px 24px',
+                                            fontSize: '0.9rem',
+                                            fontWeight: 700,
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: 8,
+                                            transition: 'transform 0.2s'
+                                        }}
+                                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
+                                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                    >
+                                        <Mail size={18} /> {t.form.sendEmail}
                                     </button>
                                 </div>
 
-                                <button onClick={() => setIsCompleted(false)} className="mt-12 flex items-center gap-2 text-white/40 hover:text-white transition-colors font-black text-[10px] uppercase tracking-widest">
-                                    <ChevronLeft size={16} /> {t.form.backToEdit}
+                                <button
+                                    onClick={() => setIsCompleted(false)}
+                                    style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: 6,
+                                        fontSize: '0.75rem',
+                                        fontWeight: 700,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.12em',
+                                        color: mutedCol,
+                                        alignSelf: 'center'
+                                    }}
+                                >
+                                    <ChevronLeft size={14} /> {t.form.backToEdit}
                                 </button>
                             </div>
                         )}
                     </div>
-                </div>
 
-                {/* Background Decor */}
-                <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                    <div className="absolute top-1/4 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] animate-pulse" />
-                    <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-[100px] animate-pulse delay-1000" />
+                    {/* Navigation Buttons footer */}
+                    {!isCompleted && (
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '100%',
+                            maxWidth: 640,
+                            margin: '40px auto 0 auto',
+                            borderTop: `1px solid ${borderCol}`,
+                            paddingTop: 24
+                        }}>
+                            <button
+                                onClick={handlePrev}
+                                style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: textCol,
+                                    fontSize: '0.75rem',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.12em',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 6,
+                                    opacity: currentStep === 0 ? 0 : 0.6,
+                                    pointerEvents: currentStep === 0 ? 'none' : 'auto',
+                                    transition: 'opacity 0.2s'
+                                }}
+                                onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                                onMouseLeave={e => e.currentTarget.style.opacity = currentStep === 0 ? '0' : '0.6'}
+                            >
+                                <ChevronLeft size={14} /> {t.form.previous}
+                            </button>
+
+                            {(currentQuestion.placeholder || currentQuestion.fields) && (
+                                <button
+                                    onClick={handleNext}
+                                    disabled={!isStepValid()}
+                                    style={{
+                                        background: isStepValid() ? '#06b6d4' : (isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'),
+                                        color: isStepValid() ? '#fff' : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.3)'),
+                                        border: 'none',
+                                        borderRadius: 6,
+                                        padding: '12px 24px',
+                                        fontSize: '0.7rem',
+                                        fontWeight: 800,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.14em',
+                                        cursor: isStepValid() ? 'pointer' : 'not-allowed',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 8,
+                                        transition: 'all 0.3s'
+                                    }}
+                                >
+                                    {currentStep === steps.length - 1 ? t.form.submit : t.form.next}
+                                    {currentStep === steps.length - 1 ? <Rocket size={12} /> : <ArrowRight size={12} />}
+                                </button>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
-
-            <style>{`
-                @keyframes slide-up {
-                    from { opacity: 0; transform: translateY(40px) scale(0.95); }
-                    to { opacity: 1; transform: translateY(0) scale(1); }
-                }
-                @keyframes slide-down {
-                    from { opacity: 0; transform: translateY(-40px) scale(0.95); }
-                    to { opacity: 1; transform: translateY(0) scale(1); }
-                }
-                @keyframes scale-in {
-                    from { opacity: 0; transform: scale(0.8); }
-                    to { opacity: 1; transform: scale(1); }
-                }
-                .animate-slide-up { animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-                .animate-slide-down { animation: slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-                .animate-scale-in { animation: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
-            `}</style>
         </div>
     );
 };

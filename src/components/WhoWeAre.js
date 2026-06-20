@@ -1,126 +1,167 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Leaf } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import useScrollAnimation from '../hooks/useScrollAnimation';
-import { Terminal, BarChart3 } from 'lucide-react';
 import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 
+gsap.registerPlugin(ScrollTrigger);
+
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
+
 const WhoWeAre = () => {
     const { isDark } = useTheme();
-    const [lang] = React.useState('en'); // This should ideally be passed as a prop
-    const t = translations[lang];
-    const [ref, visible] = useScrollAnimation();
+    const sectionRef = useRef(null);
+    const labelRef = useRef(null);
+    const line1Ref = useRef(null);
+    const line2Ref = useRef(null);
+    const bodyRef = useRef(null);
+    const pillarsRef = useRef([]);
+    const leafTopLeftRef = useRef(null);
+    const leafBottomRightRef = useRef(null);
 
-    const partners = [
-        "React", "Next.js", "Hult Prize", "XyberShield", "Node.js", "Python", "AWS", "Vanguard", "Figma", "Tailwind", "Firebase"
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Section label
+            gsap.fromTo(labelRef.current,
+                { opacity: 0, y: 16 },
+                { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+                  scrollTrigger: { trigger: labelRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            // Headline lines
+            gsap.fromTo([line1Ref.current, line2Ref.current],
+                { opacity: 0, y: 50 },
+                { opacity: 1, y: 0, duration: 1, stagger: 0.14, ease: 'power3.out',
+                  scrollTrigger: { trigger: line1Ref.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+            );
+            // Body text
+            gsap.fromTo(bodyRef.current,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+                  scrollTrigger: { trigger: bodyRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            // Pillars stagger
+            gsap.fromTo(pillarsRef.current,
+                { opacity: 0, y: 32, scale: 0.98 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+                  scrollTrigger: { trigger: pillarsRef.current[0], start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            // Leaf animations
+            gsap.fromTo(leafTopLeftRef.current,
+                { opacity: 0, scale: 0, rotation: -45 },
+                { opacity: 0.4, scale: 1, rotation: 0, duration: 1.2, ease: 'back.out(1.7)',
+                  scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(leafBottomRightRef.current,
+                { opacity: 0, scale: 0, rotation: 45 },
+                { opacity: 0.4, scale: 1, rotation: 0, duration: 1.2, ease: 'back.out(1.7)',
+                  scrollTrigger: { trigger: sectionRef.current, start: 'center 80%', toggleActions: 'play reverse play reverse' } }
+            );
+        }, sectionRef);
+        return () => ctx.revert();
+    }, []);
+
+    const pillars = [
+        { num: '01', title: 'Rapid Innovation', body: 'Concept to deployed product in days, not months. We engineer speed without cutting corners.' },
+        { num: '02', title: 'Scalable Architecture', body: 'Systems built to handle millions of users from day one, designed for the long game.' },
+        { num: '03', title: 'Revenue Enablement', body: 'Every line of code and pixel is intentional — built to convert, retain, and grow.' },
     ];
 
+    const bg = 'transparent';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#666' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
+
     return (
-        <section id="about" ref={ref} className={`py-20 px-4 overflow-hidden ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
-            <style>{`
-                @keyframes scroll {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
-                }
-                .animate-infinite-scroll {
-                    animation: scroll 30s linear infinite;
-                }
-                .group:hover .animate-infinite-scroll {
-                    animation-play-state: paused;
-                }
-            `}</style>
+        <section
+            id="about"
+            ref={sectionRef}
+            style={{ background: bg, color: text, fontFamily: FONT }}
+            className="relative z-10 overflow-hidden"
+        >
+            {/* Corner Leaves */}
+            <div ref={leafTopLeftRef} className="absolute top-12 left-12 md:top-20 md:left-20 opacity-0 pointer-events-none">
+                <Leaf size={32} color="#06b6d4" strokeWidth={1} />
+            </div>
+            <div ref={leafBottomRightRef} className="absolute bottom-12 right-12 md:bottom-20 md:right-20 opacity-0 pointer-events-none">
+                <Leaf size={32} color="#06b6d4" strokeWidth={1} />
+            </div>
 
-            <div className="max-w-7xl mx-auto">
+            {/* ── Main content ── */}
+            <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 py-28 md:py-36 relative z-10">
 
-                {/* Logo Strip - Animated Carousel */}
-                <div className="relative w-full mb-24 overflow-hidden group">
-                    <div className={`absolute inset-y-0 left-0 w-24 bg-gradient-to-r ${isDark ? 'from-black' : 'from-white'} to-transparent z-10`}></div>
-                    <div className={`absolute inset-y-0 right-0 w-24 bg-gradient-to-l ${isDark ? 'from-black' : 'from-white'} to-transparent z-10`}></div>
+                <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-                    <div className="flex w-max animate-infinite-scroll">
-                        {/* Quadruple the list for extremely smooth seamless loop on wide screens */}
-                        {[...partners, ...partners, ...partners, ...partners].map((partner, idx) => {
-                            const originalIdx = idx % partners.length;
-                            return (
-                                <div key={idx} className="mx-12 flex items-center justify-center opacity-50 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                                    <span className="text-xl md:text-2xl font-bold font-serif italic whitespace-nowrap">
-                                        <EditableText contentKey={`en.whoWeAre.partners.${originalIdx}`} fallback={partner} />
-                                    </span>
-                                </div>
-                            );
-                        })}
+                    {/* Left: Headline block */}
+                    <div>
+                        <p
+                            ref={labelRef}
+                            className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-8"
+                            style={{ color: '#06b6d4', opacity: 0 }}
+                        >
+                            <EditableText contentKey="en.seo.h2_why" fallback="Who We Are" />
+                        </p>
+
+                        <h2
+                            className="leading-[0.9] tracking-[-0.03em] mb-8"
+                            style={{ fontWeight: 900, fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}
+                        >
+                            <span ref={line1Ref} className="block" style={{ opacity: 0 }}>
+                                <EditableText contentKey="en.seo.h2_standards" fallback="Digital" />
+                            </span>
+                            <span ref={line2Ref} className="block pl-[0.12em]" style={{ opacity: 0 }}>
+                                excellence.
+                            </span>
+                        </h2>
+
+                        <p
+                            ref={bodyRef}
+                            className="text-base leading-relaxed max-w-sm"
+                            style={{ color: muted, fontWeight: 300, opacity: 0 }}
+                        >
+                            <EditableText
+                                contentKey="en.about.subtitle"
+                                fallback="University-trained engineers delivering enterprise-grade solutions at startup speed. Based in Cameroon, serving the world."
+                            />
+                        </p>
                     </div>
-                </div>
 
-                {/* Header */}
-                <div className={`text-center mb-16 ${visible ? 'animate-fade-in-up delay-100' : 'opacity-0'}`}>
-                    <span className="px-3 py-1 rounded-full border border-gray-200 dark:border-gray-800 text-xs font-bold tracking-widest uppercase mb-6 inline-block">
-                        <EditableText contentKey="en.seo.h2_why" tag="span" fallback={t.seo.h2_why} />
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-medium tracking-tight">
-                        <EditableText contentKey="en.seo.h2_standards" tag="span" fallback={t.seo.h2_standards} />
-                    </h2>
-                </div>
-
-                {/* Cards Grid */}
-                <div className="grid md:grid-cols-3 gap-8">
-                    {/* Card 1 */}
-                    <div className={`group p-6 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 ${isDark ? 'bg-neutral-900 hover:bg-neutral-800' : 'bg-gray-50 hover:bg-white hover:shadow-xl hover:shadow-cyan-500/5'}`}>
-                        <div className="mb-6 transform transition-transform duration-300 group-hover:scale-105">
-                            <div className="relative w-full h-32 bg-cyan-100/50 dark:bg-cyan-900/20 rounded-xl overflow-hidden p-4 flex flex-col gap-2">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-red-400"></div>
-                                    <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
-                                    <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                                </div>
-                                <div className="w-full h-2 bg-white/50 dark:bg-white/10 rounded-full"></div>
-                                <div className="w-2/3 h-2 bg-white/50 dark:bg-white/10 rounded-full"></div>
-                                <div className="absolute right-4 bottom-4 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg animate-bounce">
-                                    <Terminal size={20} className="text-cyan-500" />
+                    {/* Right: Pillars / Cards */}
+                    <div className="flex flex-col gap-6">
+                        {pillars.map((p, i) => (
+                            <div
+                                key={i}
+                                ref={el => pillarsRef.current[i] = el}
+                                className="group p-8 rounded-2xl border flex gap-6 items-start cursor-default transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                                style={{ 
+                                    opacity: 0,
+                                    borderColor: border,
+                                    backgroundColor: isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)',
+                                    boxShadow: isDark ? '0 10px 40px -10px rgba(0,0,0,0.5)' : '0 10px 40px -10px rgba(0,0,0,0.05)'
+                                }}
+                            >
+                                <span
+                                    className="text-[11px] font-mono tracking-widest shrink-0 mt-1.5"
+                                    style={{ color: '#06b6d4' }}
+                                >
+                                    {p.num}
+                                </span>
+                                <div>
+                                    <h3
+                                        className="text-xl font-bold tracking-tight mb-3 group-hover:text-cyan-500 transition-colors duration-200"
+                                        style={{ color: text }}
+                                    >
+                                        <EditableText contentKey={`en.whoWeAre.card${i+1}Title`} fallback={p.title} />
+                                    </h3>
+                                    <p className="text-[14.5px] leading-relaxed" style={{ color: muted, fontWeight: 300 }}>
+                                        <EditableText contentKey={`en.whoWeAre.card${i+1}Desc`} fallback={p.body} />
+                                    </p>
                                 </div>
                             </div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors"><EditableText contentKey="en.whoWeAre.card1Title" fallback="Rapid Innovation" /></h3>
-                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}><EditableText contentKey="en.whoWeAre.card1Desc" fallback="Concept to prototype in days. We engineer speed." /></p>
-                    </div>
-
-                    {/* Card 2 */}
-                    <div className={`group p-6 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 ${isDark ? 'bg-neutral-900 hover:bg-neutral-800' : 'bg-gray-50 hover:bg-white hover:shadow-xl hover:shadow-cyan-500/5'}`}>
-                        <div className="mb-6 transform transition-transform duration-300 group-hover:scale-105">
-                            <div className="relative w-full h-32 bg-blue-100/50 dark:bg-blue-900/20 rounded-xl overflow-hidden p-4 flex items-center justify-center">
-                                <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
-                                <div className="flex gap-2 items-end">
-                                    <div className="w-4 h-8 bg-blue-300 dark:bg-blue-600 rounded-t-sm"></div>
-                                    <div className="w-4 h-12 bg-blue-400 dark:bg-blue-500 rounded-t-sm"></div>
-                                    <div className="w-4 h-16 bg-blue-500 dark:bg-blue-400 rounded-t-sm"></div>
-                                </div>
-                                <div className="absolute top-2 left-4 text-xs font-mono text-blue-600 dark:text-blue-300 bg-white/50 dark:bg-black/20 px-2 py-0.5 rounded">CPU 99%</div>
-                            </div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors"><EditableText contentKey="en.whoWeAre.card2Title" fallback="Scalable Architecture" /></h3>
-                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}><EditableText contentKey="en.whoWeAre.card2Desc" fallback="Systems designed to handle millions." /></p>
-                    </div>
-
-                    {/* Card 3 */}
-                    <div className={`group p-6 rounded-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1 ${isDark ? 'bg-neutral-900 hover:bg-neutral-800' : 'bg-gray-50 hover:bg-white hover:shadow-xl hover:shadow-cyan-500/5'}`}>
-                        <div className="mb-6 transform transition-transform duration-300 group-hover:scale-105">
-                            <div className="relative w-full h-32 bg-purple-100/50 dark:bg-purple-900/20 rounded-xl overflow-hidden p-4 flex items-center">
-                                <div className="w-3/4 h-20 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-black/5 dark:border-white/5 p-3 flex flex-col justify-between">
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-xs font-bold">$28K</span>
-                                        <BarChart3 size={12} className="text-green-500" />
-                                    </div>
-                                    <div className="w-full h-1 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
-                                        <div className="w-2/3 h-full bg-green-500"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-500 transition-colors"><EditableText contentKey="en.whoWeAre.card3Title" fallback="Revenue Enablement" /></h3>
-                        <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}><EditableText contentKey="en.whoWeAre.card3Desc" fallback="Tools that actually convert." /></p>
+                        ))}
                     </div>
                 </div>
-
             </div>
         </section>
     );

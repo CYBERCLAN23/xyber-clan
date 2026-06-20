@@ -8,6 +8,7 @@ export const translations = {
             partners: 'Partners',
             journey: 'Journey',
             events: 'Events',
+            portfolio: 'Portfolio',
             contact: 'Contact',
             getStarted: 'Get Started',
             toggleTheme: 'Toggle Theme'
@@ -394,6 +395,22 @@ export const translations = {
                 }
             ]
         },
+        portfolioPage: {
+            title: 'Our Portfolio',
+            subtitle: 'A showcase of projects we have built, designed, and delivered with passion.',
+            badge: 'Our Work',
+            ctaTitle: 'Have a Project in Mind?',
+            ctaDesc: 'Let us bring your vision to life. Start your project today.',
+            ctaButton: 'Start Your Project',
+            viewAll: 'View All Projects',
+            categories: {
+                all: 'All',
+                web: 'Web Development',
+                mobile: 'Mobile Apps',
+                design: 'Design & UI/UX',
+                security: 'Cybersecurity'
+            }
+        },
         footer: {
             tagline: 'Building Digital Dreams in Yaoundé',
             columns: {
@@ -406,7 +423,7 @@ export const translations = {
                         { label: 'Our Partners', url: '/partners' },
                         { label: 'Our Journey', url: '/journey' },
                         { label: 'Events & Blog', url: '/events' },
-                        { label: 'Portfolio', url: '/#portfolio' }
+                        { label: 'Portfolio', url: '/portfolio' }
                     ]
                 },
                 expertise: {
@@ -727,6 +744,7 @@ export const translations = {
             partners: 'Partenaires',
             journey: 'Parcours',
             events: 'Événements',
+            portfolio: 'Portfolio',
             contact: 'Contact',
             getStarted: 'Commencer',
             toggleTheme: 'Changer de thème'
@@ -1112,6 +1130,22 @@ export const translations = {
                 }
             ]
         },
+        portfolioPage: {
+            title: 'Notre Portfolio',
+            subtitle: 'Une vitrine des projets que nous avons construits, conçus et livrés avec passion.',
+            badge: 'Notre Travail',
+            ctaTitle: 'Vous avez un projet en tête ?',
+            ctaDesc: 'Laissez-nous donner vie à votre vision. Commencez votre projet dès aujourd\'hui.',
+            ctaButton: 'Commencer Votre Projet',
+            viewAll: 'Voir Tous les Projets',
+            categories: {
+                all: 'Tout',
+                web: 'Développement Web',
+                mobile: 'Applications Mobiles',
+                design: 'Design & UI/UX',
+                security: 'Cybersécurité'
+            }
+        },
         footer: {
             tagline: 'Construire des Rêves Numériques à Yaoundé',
             columns: {
@@ -1124,7 +1158,7 @@ export const translations = {
                         { label: 'Nos Partenaires', url: '/partners' },
                         { label: 'Notre Parcours', url: '/journey' },
                         { label: 'Événements & Blog', url: '/events' },
-                        { label: 'Portfolio', url: '/#portfolio' }
+                        { label: 'Portfolio', url: '/portfolio' }
                     ]
                 },
                 expertise: {

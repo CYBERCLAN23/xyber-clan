@@ -1,92 +1,174 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
-import useScrollAnimation from '../hooks/useScrollAnimation';
-import { Terminal, Shield, Smartphone, Globe } from 'lucide-react';
 import { translations } from '../translations';
 import EditableText from './cms/EditableText';
+import { Terminal, Shield, Smartphone, Globe } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const FeaturesGrid = () => {
     const { isDark } = useTheme();
-    const [lang] = React.useState('en');
-    const t = translations[lang];
-    const [ref, visible] = useScrollAnimation();
+    const t = translations['en'];
+    const sectionRef = useRef(null);
+    const labelRef = useRef(null);
+    const headRef = useRef(null);
+    const itemsRef = useRef([]);
 
-    // Default features with SEO titles
-    const defaultFeatures = [
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(labelRef.current,
+                { opacity: 0, y: 14 },
+                { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+                  scrollTrigger: { trigger: labelRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(headRef.current,
+                { opacity: 0, y: 40 },
+                { opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+                  scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+            );
+            gsap.fromTo(itemsRef.current,
+                { opacity: 0, y: 40 },
+                { opacity: 1, y: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out',
+                  scrollTrigger: { trigger: itemsRef.current[0], start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+            );
+        }, sectionRef);
+        return () => ctx.revert();
+    }, []);
+
+    const services = [
         {
-            icon: <Terminal className="w-6 h-6 text-yellow-400" />,
+            num: '01',
+            icon: <Terminal className="w-5 h-5" />,
             title: t.seo.h3_web,
-            description: "Built for speed and performance with clean architecture."
+            body: 'Performant, scalable web applications built with modern frameworks. Clean code, clean architecture.',
+            tag: 'Web & Apps',
         },
         {
-            icon: <Shield className="w-6 h-6 text-cyan-400" />,
+            num: '02',
+            icon: <Shield className="w-5 h-5" />,
             title: t.seo.h3_cyber,
-            description: "Enterprise-grade security protections built-in."
+            body: 'Enterprise-grade security audits, pen testing, and hardening. Your data, defended.',
+            tag: 'Security',
         },
         {
-            icon: <Smartphone className="w-6 h-6 text-purple-400" />,
+            num: '03',
+            icon: <Smartphone className="w-5 h-5" />,
             title: t.seo.h3_mobile,
-            description: "Responsive design that works perfectly on all devices."
+            body: 'Cross-platform mobile experiences that feel native on iOS and Android.',
+            tag: 'Mobile',
         },
         {
-            icon: <Globe className="w-6 h-6 text-blue-400" />,
+            num: '04',
+            icon: <Globe className="w-5 h-5" />,
             title: t.seo.h3_design,
-            description: "Deploy anywhere and reach users globally."
-        }
+            body: 'UI/UX design that converts. Pixel-perfect, accessibility-first, and human-centered.',
+            tag: 'Design',
+        },
     ];
 
-    const displayFeatures = defaultFeatures;
+    const bg = isDark ? '#0a0a0a' : '#fff';
+    const text = isDark ? '#f0f0f0' : '#111';
+    const muted = isDark ? '#666' : '#888';
+    const border = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
+    const cardBg = isDark ? 'rgba(255,255,255,0.02)' : '#f5f4f2';
 
     return (
-        <section ref={ref} className={`py-32 px-4 relative overflow-hidden ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
-            {/* Background elements for depth */}
-            <div className={`absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none ${visible ? 'animate-pulse' : ''}`} />
-            <div className={`absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none ${visible ? 'animate-pulse' : ''}`} />
+        <section
+            ref={sectionRef}
+            id="services"
+            style={{ background: bg, color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}
+            className="relative overflow-hidden"
+        >
+            <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 py-28 md:py-36">
 
-            <div className="max-w-7xl mx-auto relative z-10">
-                {/* Header */}
-                <div className={`text-center mb-24 transition-all duration-1000 ${visible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}>
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] bg-cyan-500/10 text-cyan-500 border border-cyan-500/20 mb-6 focus-visible:outline-none">
-                        <EditableText contentKey="en.features.badge" tag="span" fallback="Features" />
-                    </span>
-                    <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-[0.9]">
-                        <EditableText contentKey="en.features.title" tag="span" fallback={
-                          <>Experience our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600">features</span></>
-                        } />
-                    </h2>
-                    <p className={`text-xl md:text-2xl max-w-2xl mx-auto font-light leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                        <EditableText contentKey="en.features.subtitle" tag="span" fallback="Dive into our features and experience the difference we can make in your work and daily life." />
+                {/* ── Header ── */}
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-6">
+                    <div>
+                        <p
+                            ref={labelRef}
+                            className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
+                            style={{ color: '#06b6d4', opacity: 0 }}
+                        >
+                            <EditableText contentKey="en.features.badge" fallback="Services" />
+                        </p>
+                        <h2
+                            ref={headRef}
+                            className="leading-[0.9] tracking-[-0.03em]"
+                            style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
+                        >
+                            <EditableText contentKey="en.features.title" fallback={<>What we<br />build for you.</>} />
+                        </h2>
+                    </div>
+                    <p
+                        className="text-sm leading-relaxed max-w-xs"
+                        style={{ color: muted, fontWeight: 300 }}
+                    >
+                        <EditableText
+                            contentKey="en.features.subtitle"
+                            fallback="Four core disciplines. One unified team. Infinite possibilities."
+                        />
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                    {displayFeatures.map((feature, index) => (
+                {/* ── Services grid ── */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: border }}>
+                    {services.map((s, i) => (
                         <div
-                            key={index}
-                            className={`group p-10 rounded-[2.5rem] border transition-all duration-700 hover:-translate-y-3 ${isDark
-                                ? 'bg-white/[0.03] border-white/5 hover:bg-white/[0.05] hover:border-cyan-500/30'
-                                : 'bg-gray-50/50 border-gray-100 hover:bg-white hover:border-cyan-500/20 hover:shadow-2xl hover:shadow-cyan-500/10'
-                                }`}
-                            style={{ transitionDelay: `${index * 100}ms` }}
+                            key={i}
+                            ref={el => itemsRef.current[i] = el}
+                            className="group relative p-10 flex flex-col gap-8 cursor-default transition-colors duration-300"
+                            style={{ background: cardBg, opacity: 0 }}
+                            onMouseEnter={e => e.currentTarget.style.background = isDark ? 'rgba(6,182,212,0.04)' : '#fff'}
+                            onMouseLeave={e => e.currentTarget.style.background = cardBg}
                         >
-                            <div className="relative mb-8">
-                                <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700" />
-                                <div className="relative z-10 w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-900 to-black flex items-center justify-center text-white shadow-xl shadow-black/20 group-hover:scale-110 transition-transform duration-500">
-                                    {React.cloneElement(feature.icon, { className: "w-7 h-7" })}
-                                </div>
+                            {/* Top: number + icon */}
+                            <div className="flex items-start justify-between">
+                                <span
+                                    className="text-[11px] font-mono tracking-widest"
+                                    style={{ color: '#06b6d4' }}
+                                >
+                                    {s.num}
+                                </span>
+                                <span
+                                    className="opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+                                    style={{ color: text }}
+                                >
+                                    {s.icon}
+                                </span>
                             </div>
 
-                            <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-cyan-500 transition-colors duration-300">
-                                <EditableText contentKey={`en.features.items.${index}.title`} tag="span" fallback={feature.title} />
-                            </h3>
-                            <p className={`text-[15px] leading-relaxed font-medium transition-colors duration-300 ${isDark ? 'text-gray-500 group-hover:text-gray-400' : 'text-gray-500 group-hover:text-gray-600'}`}>
-                                <EditableText contentKey={`en.features.items.${index}.description`} tag="span" fallback={feature.description} />
-                            </p>
-
-                            <div className="mt-8 flex items-center gap-2 text-[11px] font-bold tracking-widest text-cyan-500 opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-500 uppercase">
-                                Learn More
-                                <span className="w-6 h-px bg-cyan-500/30"></span>
+                            {/* Body */}
+                            <div className="flex-1 flex flex-col justify-end gap-3">
+                                <h3
+                                    className="text-xl font-bold tracking-tight leading-tight group-hover:text-cyan-500 transition-colors duration-200"
+                                    style={{ color: text }}
+                                >
+                                    <EditableText contentKey={`en.features.items.${i}.title`} fallback={s.title} />
+                                </h3>
+                                <p
+                                    className="text-[13px] leading-relaxed"
+                                    style={{ color: muted, fontWeight: 300 }}
+                                >
+                                    <EditableText contentKey={`en.features.items.${i}.description`} fallback={s.body} />
+                                </p>
                             </div>
+
+                            {/* Bottom tag */}
+                            <span
+                                className="text-[10px] font-semibold tracking-[0.18em] uppercase"
+                                style={{ color: muted }}
+                            >
+                                {s.tag}
+                            </span>
+
+                            {/* Hover cyan bottom line */}
+                            <div
+                                className="absolute bottom-0 left-0 right-0 h-px bg-cyan-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-400"
+                            />
                         </div>
                     ))}
                 </div>
