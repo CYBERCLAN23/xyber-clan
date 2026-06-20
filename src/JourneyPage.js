@@ -412,7 +412,7 @@ const JourneyPage = () => {
                         {/* Sliding Rail track containing all milestones */}
                         <div 
                             ref={trackRef}
-                            className="flex items-center gap-[150px] px-[50vw] relative z-10"
+                            className="flex items-center gap-[100px] px-[50vw] relative z-10"
                             style={{ willChange: 'transform' }}
                         >
                             {events.map((event, idx) => {
@@ -444,18 +444,18 @@ const JourneyPage = () => {
                                         {/* Event Card positioned above/below the axis alternatively */}
                                         <div
                                             ref={el => cardsRef.current[idx] = el}
-                                            className="rounded-2xl border overflow-hidden flex absolute"
+                                            className="rounded-2xl border overflow-hidden flex absolute journey-card"
                                             style={{
                                                 borderColor: border,
                                                 background: isDark ? '#111' : '#fff',
                                                 boxShadow: isDark ? '0 20px 50px rgba(0,0,0,0.6)' : '0 20px 50px rgba(0,0,0,0.06)',
-                                                width: 700,
+                                                width: 'min(700px, 80vw)',
                                                 height: 340,
                                                 willChange: 'transform, opacity, filter',
                                             }}
                                         >
                                             {/* Left Side: Photo */}
-                                            <div className="w-[45%] h-full relative shrink-0 overflow-hidden">
+                                            <div className="w-[45%] h-full relative shrink-0 overflow-hidden journey-card-image">
                                                 <EditableImage
                                                     contentKey={`${language}.journeyPage.event${idx}.image`}
                                                     src={event.image}
@@ -497,10 +497,17 @@ const JourneyPage = () => {
                         </div>
 
                     </div>
-                </section>
-            )}
-
-            {/* ─── CTA SECTION ─── */}
+                            </section>
+                        )}
+            
+                        <style>{`
+                            @media (max-width: 900px) {
+                                .journey-card { flex-direction: column !important; height: auto !important; }
+                                .journey-card-image { width: 100% !important; height: 200px !important; }
+                            }
+                        `}</style>
+            
+                        {/* ─── CTA SECTION ─── */}
             <section className="relative overflow-hidden" style={{ background: bg, color: text, fontFamily: FONT, borderTop: `1px solid ${border}` }}>
                 <div className="max-w-[1400px] mx-auto px-8 md:px-14 lg:px-20 py-28 md:py-36 text-center">
                     <p className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6" style={{ color: '#06b6d4' }}>

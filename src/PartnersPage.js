@@ -136,15 +136,11 @@ const PartnersPage = () => {
             <SharedNavbar transparentHero={false} />
 
             {/* ─── Hero ─────────────────────────────────────────────────── */}
-            <header style={{
-                padding: 'clamp(100px, 14vh, 140px) clamp(24px, 5vw, 80px) 0',
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gridTemplateRows: 'auto auto',
-                gap: '0 40px',
+            <header className="partners-hero" style={{
+                padding: 'clamp(80px, 14vh, 140px) clamp(24px, 5vw, 80px) 0',
                 position: 'relative',
             }}>
-                <div ref={dotRef} style={{
+                <div ref={dotRef} className="partners-hero-dot" style={{
                     position: 'absolute',
                     left: '48%',
                     top: 'clamp(110px, 15vh, 155px)',
@@ -156,40 +152,53 @@ const PartnersPage = () => {
                     opacity: 0,
                 }} />
 
-                <div />
+                <div className="partners-hero-grid" style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr',
+                    gap: '0',
+                    position: 'relative',
+                }}>
+                    <div>
+                        <h1
+                            ref={titleRef}
+                            style={{
+                                fontWeight: 300,
+                                fontSize: 'clamp(2.8rem, 9vw, 9rem)',
+                                letterSpacing: '-0.04em',
+                                lineHeight: 0.92,
+                                color: text,
+                                margin: 0,
+                                opacity: 0,
+                            }}
+                        >
+                            Our Strategic<br />
+                            <span style={{ fontWeight: 800 }}>Partners</span>
+                        </h1>
+                    </div>
 
-                <div>
-                    <h1
-                        ref={titleRef}
-                        style={{
+                    <div ref={descRef} style={{ paddingTop: 20, paddingBottom: 32, opacity: 0 }}>
+                        <p style={{
+                            fontSize: '0.85rem',
                             fontWeight: 300,
-                            fontSize: 'clamp(3.8rem, 9vw, 9rem)',
-                            letterSpacing: '-0.04em',
-                            lineHeight: 0.92,
-                            color: text,
+                            lineHeight: 1.7,
+                            color: muted,
+                            maxWidth: 400,
                             margin: 0,
-                            opacity: 0,
-                        }}
-                    >
-                        Our Strategic<br />
-                        <span style={{ fontWeight: 800 }}>Partners</span>
-                    </h1>
+                        }}>
+                            <EditableText contentKey={`${language}.partnersPage.hero.description`} fallback="Collaborating for a greater impact — powering innovation through strategic alliances and shared vision." />
+                        </p>
+                    </div>
                 </div>
 
-                <div ref={descRef} style={{ paddingTop: 40, paddingBottom: 48, opacity: 0 }}>
-                    <p style={{
-                        fontSize: '0.9rem',
-                        fontWeight: 300,
-                        lineHeight: 1.7,
-                        color: muted,
-                        maxWidth: 260,
-                        margin: 0,
-                    }}>
-                        <EditableText contentKey={`${language}.partnersPage.hero.description`} fallback="Collaborating for a greater impact — powering innovation through strategic alliances and shared vision." />
-                    </p>
-                </div>
-
-                <div />
+                <style>{`
+                    @media (min-width: 768px) {
+                        .partners-hero-grid { grid-template-columns: 1fr 1fr !important; gap: 0 40px !important; }
+                        .partners-hero-dot { display: block !important; }
+                    }
+                    @media (max-width: 767px) {
+                        .partners-hero-dot { display: none !important; }
+                    }
+                `}</style>
             </header>
 
             {/* Separator */}
@@ -222,12 +231,11 @@ const PartnersPage = () => {
                 }}>
                     <div style={{
                         display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'flex-end',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
                         justifyContent: 'space-between',
-                        marginBottom: 80,
-                        gap: 24,
-                        flexWrap: 'wrap',
+                        marginBottom: 48,
+                        gap: 20,
                     }}>
                         <div>
                             <p ref={labelRef} style={{

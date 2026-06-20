@@ -227,7 +227,7 @@ const TrustBadges = () => {
                         </p>
                         <h2
                             ref={transTitleRef}
-                            className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-[-0.03em] leading-[1.05]"
+                            className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold tracking-[-0.03em] leading-[1.1]"
                             style={{
                                 color: text,
                                 fontFamily: "'Inter', 'Helvetica Neue', sans-serif",

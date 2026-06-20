@@ -79,18 +79,13 @@ const PortfolioPage = () => {
             <SharedNavbar transparentHero={false} />
 
             {/* ─── Hero ─────────────────────────────────────────────────── */}
-            <header style={{
-                padding: 'clamp(100px, 14vh, 140px) clamp(24px, 5vw, 80px) 0',
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gridTemplateRows: 'auto auto',
-                gap: '0 40px',
+            <header className="portfolio-hero" style={{
+                padding: 'clamp(80px, 14vh, 140px) clamp(24px, 5vw, 80px) 0',
                 position: 'relative',
             }}>
-                {/* Red dot — sits between columns near the middle */}
-                <div ref={dotRef} style={{
+                {/* Red dot — hidden on mobile */}
+                <div ref={dotRef} className="portfolio-hero-dot" style={{
                     position: 'absolute',
-                    /* roughly where the gap between columns lands */
                     left: '48%',
                     top: 'clamp(110px, 15vh, 155px)',
                     width: 8,
@@ -101,84 +96,95 @@ const PortfolioPage = () => {
                     opacity: 0,
                 }} />
 
-                {/* Left col top — empty on purpose (matching reference layout) */}
-                <div />
+                <div className="portfolio-hero-grid" style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr',
+                    gap: '0',
+                    position: 'relative',
+                }}>
+                    {/* Title — full width on mobile */}
+                    <div>
+                        <h1
+                            ref={titleRef}
+                            style={{
+                                fontWeight: 300,
+                                fontSize: 'clamp(2.8rem, 9vw, 9rem)',
+                                letterSpacing: '-0.04em',
+                                lineHeight: 0.92,
+                                color: text,
+                                margin: 0,
+                                opacity: 0,
+                            }}
+                        >
+                            <EditableText contentKey={`${language}.portfolioPage.title`} fallback={t.portfolioPage.title} />
+                        </h1>
+                    </div>
 
-                {/* Right col — large title */}
-                <div>
-                    <h1
-                        ref={titleRef}
-                        style={{
-                            fontWeight: 300,
-                            fontSize: 'clamp(3.8rem, 9vw, 9rem)',
-                            letterSpacing: '-0.04em',
-                            lineHeight: 0.92,
-                            color: text,
-                            margin: 0,
-                            opacity: 0,
-                        }}
-                    >
-                        <EditableText contentKey={`${language}.portfolioPage.title`} fallback={t.portfolioPage.title} />
-                    </h1>
-                </div>
-
-                {/* Left col bottom — description */}
-                <div ref={descRef} style={{ paddingTop: 40, paddingBottom: 48, opacity: 0 }}>
-                    <p style={{
-                        fontSize: '0.9rem',
-                        fontWeight: 300,
-                        lineHeight: 1.7,
-                        color: muted,
-                        maxWidth: 240,
-                        margin: '0 0 36px 0',
-                    }}>
-                        <EditableText contentKey={`${language}.portfolioPage.subtitle`} fallback={t.portfolioPage.subtitle} />
-                    </p>
-
-                    {/* Filter label + dropdowns */}
-                    <div ref={filterRef} style={{ opacity: 1 }}>
+                    {/* Description + Filters */}
+                    <div ref={descRef} style={{ paddingTop: 20, paddingBottom: 32, opacity: 0 }}>
                         <p style={{
-                            fontSize: '0.58rem',
-                            fontWeight: 600,
-                            letterSpacing: '0.18em',
-                            textTransform: 'uppercase',
+                            fontSize: '0.85rem',
+                            fontWeight: 300,
+                            lineHeight: 1.7,
                             color: muted,
-                            margin: '0 0 10px 0',
+                            maxWidth: 400,
+                            margin: '0 0 24px 0',
                         }}>
-                            <EditableText contentKey={`${language}.portfolioPage.filterLabel`} fallback={t.portfolioPage.filterLabel} />
+                            <EditableText contentKey={`${language}.portfolioPage.subtitle`} fallback={t.portfolioPage.subtitle} />
                         </p>
-                        <div style={{ display: 'flex', gap: 0, flexWrap: 'wrap' }}>
-                            {CATEGORIES.map((cat) => (
-                                <button
-                                    key={cat}
-                                    onClick={() => setActiveFilter(cat)}
-                                    style={{
-                                        background: 'none',
-                                        border: 'none',
-                                        borderRight: `1px solid ${border}`,
-                                        cursor: 'pointer',
-                                        fontFamily: FONT,
-                                        fontSize: '0.75rem',
-                                        fontWeight: activeFilter === cat ? 700 : 400,
-                                        color: activeFilter === cat ? text : muted,
-                                        padding: '8px 18px 8px 0',
-                                        marginRight: 18,
-                                        transition: 'color 0.2s',
-                                        letterSpacing: '0.02em',
-                                        whiteSpace: 'nowrap',
-                                    }}
-                                >
-                                    {cat}
-                                    {/* sort icon — matches reference */}
-                                    <span style={{ marginLeft: 6, fontSize: '0.65rem', opacity: 0.4 }}>⇅</span>
-                                </button>
-                            ))}
+
+                        {/* Filter label + buttons */}
+                        <div ref={filterRef} style={{ opacity: 1 }}>
+                            <p style={{
+                                fontSize: '0.58rem',
+                                fontWeight: 600,
+                                letterSpacing: '0.18em',
+                                textTransform: 'uppercase',
+                                color: muted,
+                                margin: '0 0 10px 0',
+                            }}>
+                                <EditableText contentKey={`${language}.portfolioPage.filterLabel`} fallback={t.portfolioPage.filterLabel} />
+                            </p>
+                            <div style={{ display: 'flex', gap: 0, flexWrap: 'wrap' }}>
+                                {CATEGORIES.map((cat) => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setActiveFilter(cat)}
+                                        style={{
+                                            background: 'none',
+                                            border: 'none',
+                                            borderRight: `1px solid ${border}`,
+                                            cursor: 'pointer',
+                                            fontFamily: FONT,
+                                            fontSize: '0.7rem',
+                                            fontWeight: activeFilter === cat ? 700 : 400,
+                                            color: activeFilter === cat ? text : muted,
+                                            padding: '6px 12px 6px 0',
+                                            marginRight: 12,
+                                            marginBottom: 4,
+                                            transition: 'color 0.2s',
+                                            letterSpacing: '0.02em',
+                                            whiteSpace: 'nowrap',
+                                        }}
+                                    >
+                                        {cat}
+                                        <span style={{ marginLeft: 4, fontSize: '0.6rem', opacity: 0.4 }}>⇅</span>
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Right col bottom — empty (title already above) */}
-                <div />
+                <style>{`
+                    @media (min-width: 768px) {
+                        .portfolio-hero-grid { grid-template-columns: 1fr 1fr !important; gap: 0 40px !important; }
+                        .portfolio-hero-dot { display: block !important; }
+                    }
+                    @media (max-width: 767px) {
+                        .portfolio-hero-dot { display: none !important; }
+                    }
+                `}</style>
             </header>
 
             {/* Thin separator */}

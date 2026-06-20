@@ -81,7 +81,7 @@ const FAQItem = ({ faq, index, isOpen, onToggle, onScrollOpen, text, muted, bord
                 onClick={onToggle}
                 className="w-full py-7 md:py-8 flex items-center justify-between text-left gap-6 group"
             >
-                <div className="flex items-center gap-5 md:gap-8">
+                <div className="flex items-center gap-3 sm:gap-5 md:gap-8">
                     <span
                         className="text-[11px] font-mono tracking-widest shrink-0"
                         style={{ color: '#06b6d4' }}

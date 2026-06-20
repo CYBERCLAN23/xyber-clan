@@ -221,12 +221,12 @@ const PageHero = ({
             {/* ─── Main Content Wrapper ─── */}
             <div className="absolute top-0 left-0 w-full">
                 {/* ─── Hero Phase (100vh) ─── */}
-                <div className="flex flex-col justify-between h-screen px-8 md:px-14 lg:px-20 pt-36 pb-12 relative z-10">
+                <div className="flex flex-col justify-between h-screen px-8 md:px-14 lg:px-20 pt-32 sm:pt-36 pb-12 relative z-10">
                     <div className="flex-1 flex flex-col justify-center">
                         {badgeText && (
                             <p
                                 ref={badgeRef}
-                                className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-8"
+                                className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6 sm:mb-8"
                                 style={{ color: '#06b6d4', opacity: 0 }}
                             >
                                 {contentKeyPrefix ? (
@@ -240,7 +240,7 @@ const PageHero = ({
                             style={{
                                 color: text,
                                 fontWeight: 900,
-                                fontSize: 'clamp(3.5rem, 10vw, 10rem)',
+                                fontSize: 'clamp(2.8rem, 10vw, 10rem)',
                             }}
                         >
                             <span ref={line1Ref} className="block" style={{ opacity: 0 }}>
@@ -253,7 +253,7 @@ const PageHero = ({
                         {subtitle && (
                             <p
                                 ref={subtitleRef}
-                                className="mt-8 text-base leading-relaxed max-w-md"
+                                className="mt-6 sm:mt-8 text-sm sm:text-base leading-relaxed max-w-md"
                                 style={{ color: muted, fontWeight: 300, opacity: 0 }}
                             >
                                 {contentKeyPrefix ? (
@@ -263,7 +263,7 @@ const PageHero = ({
                         )}
                     </div>
 
-                    <div className="flex items-end justify-between mt-12">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mt-8 sm:mt-12 gap-6">
                         {stats.length > 0 && (
                             <div
                                 ref={statsRef}
@@ -276,7 +276,7 @@ const PageHero = ({
                                             <div className="w-px h-10" style={{ background: border }} />
                                         )}
                                         <div className="text-left">
-                                            <p className="text-2xl sm:text-3xl font-black tracking-tight leading-none" style={{ color: text }}>
+                                            <p className="text-xl sm:text-3xl font-black tracking-tight leading-none" style={{ color: text }}>
                                                 {contentKeyPrefix ? (
                                                     <EditableText contentKey={`${contentKeyPrefix}.stats.${i}.value`} fallback={s.value} />
                                                 ) : s.value}
@@ -320,7 +320,7 @@ const PageHero = ({
                         </p>
                         <h2
                             ref={transTitleRef}
-                            className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-[-0.03em] leading-[1.05]"
+                            className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold tracking-[-0.03em] leading-[1.1]"
                             style={{ color: text, fontFamily: FONT }}
                         >
                             {transitionText.split('').map((char, i) => (

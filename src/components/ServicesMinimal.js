@@ -62,19 +62,19 @@ const ServicesMinimal = () => {
                             key={index}
                             className={`group relative py-12 border-t ${isDark ? 'border-white/10' : 'border-black/5'} transition-colors duration-500 hover:bg-neutral-900/5 dark:hover:bg-white/5`}
                         >
-                            <div className="grid md:grid-cols-12 gap-8 items-center">
-                                <span className={`col-span-1 text-sm font-mono opacity-50 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                            <div className="flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-8 items-start">
+                                <span className={`text-sm font-mono opacity-50 ${isDark ? 'text-gray-500' : 'text-gray-400'} md:col-span-1`}>
                                     {service.id}
                                 </span>
 
-                                <div className="col-span-11 md:col-span-5">
-                                    <h3 className="text-3xl md:text-4xl font-bold group-hover:text-cyan-500 transition-colors duration-300 flex items-center gap-4">
+                                <div className="md:col-span-5">
+                                    <h3 className="text-2xl md:text-4xl font-bold group-hover:text-cyan-500 transition-colors duration-300 flex items-center gap-4">
                                         <EditableText contentKey={`en.services.items.${index}.title`} tag="span" fallback={service.title} />
                                     </h3>
                                 </div>
 
-                                <div className="col-span-11 md:col-span-5 md:col-start-8">
-                                    <p className={`text-lg mb-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <div className="md:col-span-5 md:col-start-8">
+                                    <p className={`text-base md:text-lg mb-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                                         <EditableText contentKey={`en.services.items.${index}.desc`} tag="span" fallback={service.desc} />
                                     </p>
                                     <div className="flex flex-wrap gap-2">
@@ -86,7 +86,7 @@ const ServicesMinimal = () => {
                                     </div>
                                 </div>
 
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300 text-cyan-500">
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300 text-cyan-500 hidden md:block">
                                     <ArrowUpRight size={48} />
                                 </div>
                             </div>

@@ -467,7 +467,7 @@ const EventsPage = () => {
                                     className="group rounded-2xl border overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl cursor-pointer"
                                     style={{ opacity: 0, borderColor: border, background: isDark ? '#111' : '#fff' }}
                                 >
-                                    <div className="relative h-48 overflow-hidden">
+                                    <div className="relative h-40 sm:h-48 overflow-hidden">
                                         <EditableImage
                                             contentKey={`${language}.eventsPage.article${idx}.image`}
                                             src={displayImage}

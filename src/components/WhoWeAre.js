@@ -127,12 +127,12 @@ const WhoWeAre = () => {
                     </div>
 
                     {/* Right: Pillars / Cards */}
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-4 sm:gap-6">
                         {pillars.map((p, i) => (
                             <div
                                 key={i}
                                 ref={el => pillarsRef.current[i] = el}
-                                className="group p-8 rounded-2xl border flex gap-6 items-start cursor-default transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+                                className="group p-5 sm:p-8 rounded-2xl border flex gap-4 sm:gap-6 items-start cursor-default transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
                                 style={{ 
                                     opacity: 0,
                                     borderColor: border,

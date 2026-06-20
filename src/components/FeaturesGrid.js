@@ -120,7 +120,7 @@ const FeaturesGrid = () => {
                         <div
                             key={i}
                             ref={el => itemsRef.current[i] = el}
-                            className="group relative p-10 flex flex-col gap-8 cursor-default transition-colors duration-300"
+                            className="group relative p-6 sm:p-8 lg:p-10 flex flex-col gap-5 sm:gap-8 cursor-default transition-colors duration-300"
                             style={{ background: cardBg, opacity: 0 }}
                             onMouseEnter={e => e.currentTarget.style.background = isDark ? 'rgba(6,182,212,0.04)' : '#fff'}
                             onMouseLeave={e => e.currentTarget.style.background = cardBg}

@@ -31,6 +31,17 @@
 html,
 body {
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Improve touch targets on mobile */
+@media (max-width: 640px) {
+  button, a, input, textarea, select {
+    cursor: default;
+  }
+  input, textarea, select {
+    font-size: 16px !important;
+  }
 }
 
 @layer base {

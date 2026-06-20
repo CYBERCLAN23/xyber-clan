@@ -101,7 +101,7 @@ const Newsletter = () => {
                     </div>
 
                     {/* Right side: Form */}
-                    <div ref={formRef} style={{ opacity: 0 }}>
+                    <div ref={formRef} className="w-full" style={{ opacity: 0 }}>
                         <form onSubmit={handleSubmit} className="relative max-w-md w-full">
                             <input
                                 type="email"

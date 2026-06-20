@@ -122,7 +122,7 @@ const StatsCounter = () => {
                         <div
                             key={i}
                             ref={el => statsRef.current[i] = el}
-                            className="group px-8 py-10 flex flex-col gap-3 cursor-default"
+                            className="group px-4 sm:px-8 py-6 sm:py-10 flex flex-col gap-2 sm:gap-3 cursor-default"
                             style={{ opacity: 0 }}
                         >
                             <span

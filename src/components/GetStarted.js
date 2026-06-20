@@ -237,7 +237,7 @@ const GetStarted = () => {
                                 </div>
                             </div>
                             <span
-                                className={`font-semibold uppercase tracking-[0.18em] transition-opacity whitespace-nowrap ${isMobile ? 'text-[7px] opacity-60 mt-1.5' : 'text-[10px] opacity-40 mt-3 group-hover:opacity-100'}`}
+                                className={`font-semibold uppercase tracking-[0.18em] transition-opacity whitespace-nowrap ${isMobile ? 'text-[8px] opacity-60 mt-1.5' : 'text-[10px] opacity-40 mt-3 group-hover:opacity-100'}`}
                                 style={{ color: text }}
                             >
                                 {node.label}

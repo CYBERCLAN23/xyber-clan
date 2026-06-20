@@ -101,7 +101,7 @@ const TeamMinimal = () => {
                         <div
                             key={i}
                             ref={el => membersRef.current[i] = el}
-                            className="group relative w-[260px] md:w-[320px] h-[350px] md:h-[420px] overflow-hidden flex-shrink-0"
+                            className="group relative w-[220px] sm:w-[260px] md:w-[320px] h-[280px] sm:h-[350px] md:h-[420px] overflow-hidden flex-shrink-0"
                             style={{ 
                                 opacity: 0,
                                 backgroundColor: cardBg,

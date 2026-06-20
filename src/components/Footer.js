@@ -36,27 +36,27 @@ const Footer = ({ translations: t }) => {
         >
             {/* CTA SECTION - Ready to start a project */}
             <div className="max-w-7xl mx-auto px-6 mb-32">
-                <div className={`relative overflow-hidden rounded-[3rem] border p-12 md:p-20 group transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/10 ${isDark ? 'bg-white/[0.02] border-white/[0.05]' : 'bg-gray-50 border-gray-100'}`}>
+                <div className={`relative overflow-hidden rounded-[2rem] sm:rounded-[3rem] border p-8 sm:p-12 md:p-20 group transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/10 ${isDark ? 'bg-white/[0.02] border-white/[0.05]' : 'bg-gray-50 border-gray-100'}`}>
                     {/* Background decoration */}
                     <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-cyan-500/10 to-transparent pointer-events-none" />
                     <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-400/30 transition-colors duration-700" />
 
-                    <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-12">
-                        <div className="text-center md:text-left">
-                            <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4" style={{ color: text }}>
+                    <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-12">
+                        <div className="text-center md:text-left max-w-full">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3 sm:mb-4" style={{ color: text }}>
                                 <EditableText contentKey="footer.cta.title" fallback={cta.title} />
                             </h2>
-                            <p className="text-xl font-light" style={{ color: muted }}>
+                            <p className="text-base sm:text-xl font-light" style={{ color: muted }}>
                                 <EditableText contentKey="footer.cta.subtitle" fallback={cta.subtitle} />
                             </p>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
+                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 md:gap-16">
                             <div className="text-center md:text-left">
                                 <p className="text-[10px] font-bold tracking-widest mb-2 uppercase" style={{ color: muted }}>
                                     <EditableText contentKey="en.footer.emailLabel" tag="span" fallback={cta.emailLabel} />
                                 </p>
-                                <a href={`mailto:${cta.email}`} className="text-lg md:text-xl font-black hover:text-cyan-500 transition-colors duration-300" style={{ color: text }}>
+                                <a href={`mailto:${cta.email}`} className="text-base sm:text-lg md:text-xl font-black hover:text-cyan-500 transition-colors duration-300 break-all" style={{ color: text }}>
                                     <EditableText contentKey="en.footer.email" tag="span" fallback={cta.email} />
                                 </a>
                             </div>
@@ -66,7 +66,7 @@ const Footer = ({ translations: t }) => {
                                 </p>
                                 <div className="flex flex-col gap-1 items-center md:items-start">
                                     {cta.phone.split('/').map((p, idx) => (
-                                        <a key={idx} href={`tel:${p.replace(/\\s/g, '')}`} className="text-lg md:text-xl font-black hover:text-cyan-500 transition-colors duration-300" style={{ color: text }}>
+                                        <a key={idx} href={`tel:${p.replace(/\\s/g, '')}`} className="text-base sm:text-lg md:text-xl font-black hover:text-cyan-500 transition-colors duration-300" style={{ color: text }}>
                                             {p.trim()}
                                         </a>
                                     ))}

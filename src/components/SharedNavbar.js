@@ -351,7 +351,7 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                             style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}
                                         >
                                             <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
-                                            <span className="text-[2rem] font-black tracking-tight leading-none">
+                                            <span className="text-[1.6rem] sm:text-[2rem] font-black tracking-tight leading-none">
                                                 <EditableText contentKey={`${lang}.nav.${item}`} fallback={t.nav[item]} />
                                             </span>
                                             <ChevronRight size={18} className={`ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
@@ -375,9 +375,9 @@ const SharedNavbar = ({ transparentHero = false }) => {
                                         style={{ animation: mobileMenuOpen ? `heroFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${idx * 0.07}s both` : 'none' }}
                                     >
                                         <span className={`text-xs font-mono tabular-nums ${isDark ? 'text-cyan-500/50' : 'text-cyan-600/50'}`}>0{idx + 1}</span>
-                                        <span className="text-[2rem] font-black tracking-tight leading-none">
-                                            <EditableText contentKey={`${lang}.nav.${item}`} fallback={t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)} />
-                                        </span>
+<span className="text-[1.6rem] sm:text-[2rem] font-black tracking-tight leading-none">
+                                                <EditableText contentKey={`${lang}.nav.${item}`} fallback={t.nav[item] || item.charAt(0).toUpperCase() + item.slice(1)} />
+                                            </span>
                                         <ChevronRight size={18} className={`ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`} />
                                     </a>
                                 );

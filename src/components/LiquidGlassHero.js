@@ -210,7 +210,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             <div className="absolute top-0 left-0 w-full">
                 
                 {/* ─── Hero Phase (100vh) ─── */}
-                <div className="flex flex-col justify-between h-screen px-8 md:px-14 lg:px-20 pt-36 pb-12 relative z-10">
+                <div className="flex flex-col justify-between h-screen px-6 sm:px-8 md:px-14 lg:px-20 pt-28 sm:pt-36 pb-8 sm:pb-12 relative z-10">
                     <div className="flex-1 flex flex-col justify-center">
                         <h1
                             className="leading-[0.88] tracking-[-0.03em] select-none"
@@ -218,7 +218,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                                 color: text,
                                 fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
                                 fontWeight: 900,
-                                fontSize: 'clamp(5rem, 14vw, 13rem)',
+                                fontSize: 'clamp(3.5rem, 14vw, 13rem)',
                             }}
                         >
                             <span ref={line1Ref} className="block" style={{ opacity: 0 }}>
@@ -227,13 +227,13 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                                     fallback={lang === 'en' ? 'Build' : 'Construire'}
                                 />
                             </span>
-                            <span ref={line2Ref} className="block pl-[0.15em]" style={{ opacity: 0 }}>
+                            <span ref={line2Ref} className="block pl-[0.1em] sm:pl-[0.15em]" style={{ opacity: 0 }}>
                                 <EditableText
                                     contentKey={`${lang}.hero.titleLine2a`}
                                     fallback={lang === 'en' ? 'to' : 'pour'}
                                 />
                             </span>
-                            <span ref={line3Ref} className="block pl-[0.35em]" style={{ opacity: 0 }}>
+                            <span ref={line3Ref} className="block pl-[0.2em] sm:pl-[0.35em]" style={{ opacity: 0 }}>
                                 <span style={{ color: text }}>
                                     <EditableText
                                         contentKey={`${lang}.hero.titleLine2b`}
@@ -244,14 +244,14 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                         </h1>
                     </div>
 
-                    <div className="flex items-end justify-between mt-16">
-                        <span ref={scrollRef} className="text-[10px] font-bold tracking-[0.2em] uppercase origin-left transform -rotate-90 translate-y-8 select-none" style={{ color: isDark ? '#666' : '#888' }}>
+                    <div className="flex items-end justify-between mt-12 sm:mt-16 gap-4">
+                        <span ref={scrollRef} className="text-[10px] font-bold tracking-[0.2em] uppercase origin-left transform -rotate-90 translate-y-8 select-none hidden sm:block" style={{ color: isDark ? '#666' : '#888' }}>
                             <EditableText contentKey={`${lang}.hero.scroll`} fallback="Scroll" />
                         </span>
 
                         <div
                             ref={descRef}
-                            className="flex flex-col items-start gap-4 max-w-[240px] md:max-w-[280px]"
+                            className="flex flex-col items-start gap-4 max-w-[220px] sm:max-w-[240px] md:max-w-[280px]"
                         >
                             <span
                                 ref={dotRef}
@@ -265,7 +265,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                                     color: isDark ? '#a0a0a0' : '#444',
                                     fontFamily: "'Inter', sans-serif",
                                     fontWeight: 300,
-                                    fontSize: '0.9rem',
+                                    fontSize: '0.8rem',
                                     lineHeight: 1.65,
                                 }}
                             >
@@ -302,7 +302,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                         </p>
                         <h2 
                             ref={transTitleRef}
-                            className="text-4xl sm:text-5xl md:text-7xl font-semibold tracking-[-0.03em] leading-[1.05]" 
+                            className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold tracking-[-0.03em] leading-[1.1]" 
                             style={{ 
                                 color: text,
                                 fontFamily: "'Inter', 'Helvetica Neue', sans-serif", 

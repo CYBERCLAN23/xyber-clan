@@ -100,7 +100,7 @@ const Pricing = () => {
                 </div>
 
                 {/* Plans Grid */}
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-3 gap-6 md:gap-8">
                     {plans.map((plan, index) => {
                         const colors = getColorClasses(plan.color, plan.popular);
                         return (

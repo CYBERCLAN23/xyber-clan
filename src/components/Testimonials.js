@@ -97,7 +97,7 @@ const Testimonials = () => {
                             return (
                                 <div
                                     key={i}
-                                    className="w-[340px] shrink-0 flex flex-col justify-between p-8 gap-8"
+                                    className="w-[300px] sm:w-[340px] shrink-0 flex flex-col justify-between p-6 sm:p-8 gap-5 sm:gap-8"
                                     style={{ background: cardBg, border: `1px solid ${border}` }}
                                 >
                                     <p className="text-[15px] leading-relaxed font-light" style={{ color: muted }}>
