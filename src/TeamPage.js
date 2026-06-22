@@ -113,7 +113,7 @@ const detailedTeam = [
     },
     {
         id: 7,
-        image: '/team/theresa-tcheme.png',
+        image: '/team/theresa-tcheme.jpg',
         name: 'Theresa Tcheme',
         role: 'Media & Communication Manager',
         icon: <FiZap size={20} />,
@@ -129,8 +129,8 @@ const detailedTeam = [
     },
     {
         id: 8,
-        image: '/team/frontend-designer.jpg',
-        name: 'Zealda Junior',
+        image: '/team/frontend-designer.png',
+        name: 'ADJIA MVOA DJI GABRIEL MONFILS',
         role: 'Web Developer & Network Associate',
         icon: <FiCode size={20} />,
         description: 'A multidisciplinary technician blending the worlds of network engineering and modern web development. Zealda specializes in building responsive interfaces and designing intuitive user journeys in Figma, while maintaining a strong focus on the underlying network infrastructure.',

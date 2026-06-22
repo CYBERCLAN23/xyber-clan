@@ -17,9 +17,9 @@ const teamMembers = [
     { key: 'william', name: 'William Chandler', role: 'Visual Content Designer', image: '/team/william-chandler.png' },
     { key: 'yann', name: 'Wandji Tchaleu Yann Félix', role: 'Network Eng & Python', image: '/team/yann-felix-wandji.png' },
     { key: 'yvana', name: 'Yvana Emilia Lalane Larcier', role: 'Frontend Developer', image: '/team/dev-member.jpg' },
-    { key: 'zealda', name: 'Zealda Junior', role: 'Web Dev & Network', image: '/team/frontend-designer.jpg' },
+    { key: 'zealda', name: 'ADJIA MVOA DJI GABRIEL MONFILS', role: 'Web Dev & Network', image: '/team/frontend-designer.png' },
     { key: 'lembou', name: 'Lembou Pharel', role: 'Cybersecurity & Systems', image: '/team/cybersecurity-chief.jpg' },
-    { key: 'theresa', name: 'Theresa Tcheme', role: 'Media & Comm Manager', image: '/team/theresa-tcheme.png' }
+    { key: 'theresa', name: 'Theresa Tcheme', role: 'Media & Comm Manager', image: '/team/theresa-tcheme.jpg' }
 ];
 
 const TeamMinimal = () => {
@@ -33,18 +33,24 @@ const TeamMinimal = () => {
         const ctx = gsap.context(() => {
             gsap.fromTo(labelRef.current,
                 { opacity: 0, y: 14 },
-                { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
-                  scrollTrigger: { trigger: labelRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' } }
+                {
+                    opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+                    scrollTrigger: { trigger: labelRef.current, start: 'top 88%', toggleActions: 'play reverse play reverse' }
+                }
             );
             gsap.fromTo(headRef.current,
                 { opacity: 0, y: 40 },
-                { opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-                  scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+                {
+                    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+                    scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' }
+                }
             );
             gsap.fromTo(membersRef.current,
                 { opacity: 0, y: 32 },
-                { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: 'power3.out',
-                  scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' } }
+                {
+                    opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: 'power3.out',
+                    scrollTrigger: { trigger: headRef.current, start: 'top 85%', toggleActions: 'play reverse play reverse' }
+                }
             );
         }, sectionRef);
         return () => ctx.revert();
@@ -102,7 +108,7 @@ const TeamMinimal = () => {
                             key={i}
                             ref={el => membersRef.current[i] = el}
                             className="group relative w-[220px] sm:w-[260px] md:w-[320px] h-[280px] sm:h-[350px] md:h-[420px] overflow-hidden flex-shrink-0"
-                            style={{ 
+                            style={{
                                 opacity: 0,
                                 backgroundColor: cardBg,
                                 borderRight: i < teamMembers.length - 1 ? `1px solid ${border}` : 'none'
@@ -115,7 +121,7 @@ const TeamMinimal = () => {
                                 alt={member.name}
                                 className="w-full h-full object-cover object-center grayscale opacity-80 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
                             />
-                            
+
                             {/* Hover overlay for name */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 text-white">
                                 <h3 className="text-xl font-bold tracking-tight mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">

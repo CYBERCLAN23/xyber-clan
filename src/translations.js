@@ -221,6 +221,15 @@ export const translations = {
             readMore: 'Read More',
             articles: [
                 {
+                    id: 11,
+                    type: 'Hackathon',
+                    date: 'June 2026',
+                    title: 'PawaPay Builders Cameroon — 1st Edition',
+                    description: 'We proudly participated in the PawaPay Builders Cameroon 1st Edition, organised by Mountain Hub and PawaPay. A remarkable fintech builder event that brought together Cameroon\'s brightest tech talent. One of our members secured 3rd place, demonstrating XyberClan\'s ability to innovate in the rapidly growing African fintech ecosystem.',
+                    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+                    objectPosition: 'center 30%'
+                },
+                {
                     id: 7,
                     type: 'Hackathon',
                     date: 'Recent',
@@ -966,6 +975,15 @@ export const translations = {
             readMore: 'Lire la Suite',
             articles: [
                 {
+                    id: 11,
+                    type: 'Hackathon',
+                    date: 'Juin 2026',
+                    title: 'PawaPay Builders Cameroun — 1ère Édition',
+                    description: 'Nous avons fièrement participé à la 1ère édition de PawaPay Builders Cameroun, organisée par Mountain Hub et PawaPay. Un événement fintech exceptionnel qui a réuni les meilleurs talents tech du Cameroun. L\'un de nos membres a décroché la 3ème place, démontrant la capacité d\'XyberClan à innover dans l\'écosystème fintech africain en pleine expansion.',
+                    image: '/images/events/pawapay.jpg',
+                    objectPosition: 'center 30%'
+                },
+                {
                     id: 7,
                     type: 'Hackathon',
                     date: 'Récent',
@@ -1038,7 +1056,7 @@ export const translations = {
                     date: 'Fév 2026',
                     title: 'Alliance Stratégique : Sponsors Techniques Officiels du Hult Prize UY1',
                     description: 'XyberClan est fier d\'annoncer son rôle de Sponsor Technique officiel pour le Hult Prize à l\'Université de Yaoundé 1. Nous fournissons le mentorat, l\'infrastructure technique et la force digitale nécessaire pour aider les étudiants entrepreneurs à concrétiser leurs idées d\'impact social.',
-                    image: '/images/events/hult-prize-sponsor.png'
+                    image: '/images/events/hult-prize-sponsor.jpeg'
                 },
                 {
                     id: 8,
@@ -1046,7 +1064,7 @@ export const translations = {
                     date: '25 Fév 2026',
                     title: 'XyberClan à la Une : Publié dans le Journal l\'Etudiant',
                     description: 'Nous sommes parus dans l\'édition du mercredi 25 février du journal "Journal l\'Etudiant". L\'article souligne notre rôle de "Garant de la sécurité numérique" et notre engagement pour la cybersécurité au Cameroun.',
-                    image: '/images/events/journal-etudiant.png',
+                    image: '/images/events/journal-etudiant.jpeg',
                     objectPosition: 'center 30%'
                 }
             ]
@@ -1079,7 +1097,7 @@ export const translations = {
                     tag: 'Alliance',
                     title: 'Partenariat Stratégique avec Hult Prize UY1',
                     description: 'Nous sommes devenus le moteur technique des innovateurs sociaux. Ce partenariat a comblé le fossé entre l\'excellence académique et l\'ingénierie professionnelle.',
-                    image: '/images/journey/hult-prize.png',
+                    image: '/images/journey/hult-prize.jpg',
                     objectPosition: 'center 20%'
                 },
                 {
@@ -1095,7 +1113,7 @@ export const translations = {
                     tag: 'Communauté',
                     title: 'Engagement au DevFest 2024',
                     description: 'Notre équipe a activement participé au GDG Yaoundé DevFest 2024, échangeant avec l\'écosystème tech et partageant ses connaissances sur les nouvelles technologies Google.',
-                    image: '/images/journey/devfest.png',
+                    image: '/images/journey/gdg.png',
                     objectPosition: 'center 20%'
                 },
                 {
@@ -1135,6 +1153,14 @@ export const translations = {
                     title: 'À la Une du Journal l\'Etudiant',
                     description: 'Notre vision pour la sécurité numérique a été mise en lumière dans une publication nationale majeure, consolidant notre réputation de protecteur de l\'écosystème digital.',
                     image: '/images/journey/media.jpeg',
+                    objectPosition: 'center 30%'
+                },
+                {
+
+                    date: 'Juin 2026',
+                    title: 'PawaPay Builders Cameroun — 1ère Édition',
+                    description: 'Nous avons fièrement participé à la 1ère édition de PawaPay Builders Cameroun, organisée par Mountain Hub et PawaPay. Un événement fintech exceptionnel qui a réuni les meilleurs talents tech du Cameroun. L\'un de nos membres a décroché la 3ème place, démontrant la capacité d\'XyberClan à innover dans l\'écosystème fintech africain en pleine expansion.',
+                    image: '/images/events/pawapay.jpg',
                     objectPosition: 'center 30%'
                 }
             ]
