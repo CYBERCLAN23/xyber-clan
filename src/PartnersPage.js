@@ -355,6 +355,95 @@ const PartnersPage = () => {
                 </div>
             </section>
 
+            {/* ─── PARTNER LOGOS ─── */}
+            <section style={{
+                background: bg,
+                borderTop: `1px solid ${border}`,
+                position: 'relative',
+                overflow: 'hidden',
+            }}>
+                <div style={{
+                    maxWidth: 1400,
+                    margin: '0 auto',
+                    padding: 'clamp(60px, 12vh, 100px) clamp(24px, 5vw, 80px)',
+                    textAlign: 'center',
+                }}>
+                    <p style={{
+                        fontSize: '0.65rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.22em',
+                        textTransform: 'uppercase',
+                        color: '#06b6d4',
+                        margin: '0 0 12px 0',
+                    }}>
+                        Our Partners
+                    </p>
+                    <h2 style={{
+                        fontWeight: 900,
+                        fontSize: 'clamp(2rem, 4vw, 3rem)',
+                        lineHeight: 1.1,
+                        letterSpacing: '-0.03em',
+                        color: text,
+                        margin: '0 0 48px 0',
+                    }}>
+                        Trusted by Industry Leaders
+                    </h2>
+                    <div style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        gap: 32,
+                    }}>
+                        <a href="https://gehmit.org/" target="_blank" rel="noopener noreferrer" style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 16,
+                            padding: '32px 48px',
+                            borderRadius: 20,
+                            border: `1px solid ${border}`,
+                            background: isDark ? '#111' : '#fff',
+                            textDecoration: 'none',
+                            transition: 'transform 0.3s, box-shadow 0.3s',
+                            minWidth: 200,
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.12)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                        >
+                            <span style={{ fontWeight: 900, fontSize: '1.6rem', letterSpacing: '-0.03em', color: text }}>
+                                Gehmit
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: muted, fontWeight: 400 }}>
+                                gehmit.org
+                            </span>
+                        </a>
+                        <a href="https://divlabs-tech.com/" target="_blank" rel="noopener noreferrer" style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 16,
+                            padding: '32px 48px',
+                            borderRadius: 20,
+                            border: `1px solid ${border}`,
+                            background: isDark ? '#111' : '#fff',
+                            textDecoration: 'none',
+                            transition: 'transform 0.3s, box-shadow 0.3s',
+                            minWidth: 200,
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.12)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                        >
+                            <span style={{ fontWeight: 900, fontSize: '1.6rem', letterSpacing: '-0.03em', color: text }}>
+                                DivLabs
+                            </span>
+                            <span style={{ fontSize: '0.75rem', color: muted, fontWeight: 400 }}>
+                                divlabs-tech.com
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             {/* ─── CTA SECTION ─── */}
             <section ref={ctaSectionRef} style={{
                 background: bg,
