@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getLogo } from '../utils/festive';
 
 const Preloader = ({ onComplete }) => {
-  const [phase, setPhase] = useState('entering');
+  const [phase, setPhase] = useState('entrance');
 
   useEffect(() => {
     if (sessionStorage.getItem('xc_visited')) {
@@ -10,113 +10,139 @@ const Preloader = ({ onComplete }) => {
       return;
     }
 
-    const enterTimer = setTimeout(() => setPhase('loading'), 50);
-    const loadTimer = setTimeout(() => setPhase('exiting'), 1800);
-    const doneTimer = setTimeout(() => {
+    const t1 = setTimeout(() => setPhase('hold'), 80);
+    const t2 = setTimeout(() => setPhase('exit'), 2200);
+    const t3 = setTimeout(() => {
       sessionStorage.setItem('xc_visited', 'true');
       onComplete?.();
-    }, 2400);
+    }, 3600);
 
-    return () => {
-      clearTimeout(enterTimer);
-      clearTimeout(loadTimer);
-      clearTimeout(doneTimer);
-    };
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [onComplete]);
 
   if (phase === 'done') return null;
 
+  const isExit = phase === 'exit';
+
   return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      zIndex: 99999,
-      background: '#000',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transition: 'opacity 0.4s ease, transform 0.5s ease',
-      opacity: phase === 'exiting' ? 0 : 1,
-      transform: phase === 'exiting' ? 'scale(1.05)' : 'scale(1)',
-      pointerEvents: phase === 'exiting' ? 'none' : 'all',
-    }}>
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 99999,
+        background: '#000',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        pointerEvents: isExit ? 'none' : 'all',
+      }}
+    >
       <style>{`
-        @keyframes xcPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
-        @keyframes xcProgress { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }
+        @keyframes logoEntrance {
+          0% { opacity: 0; transform: scale(0.92) translateY(12px); filter: blur(6px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+        @keyframes logoPulse {
+          0%, 100% { opacity: 0.7; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.03); }
+        }
+        @keyframes logoExit {
+          0% { opacity: 1; transform: scale(1); filter: blur(0); }
+          100% { opacity: 0; transform: scale(1.35); filter: blur(4px); }
+        }
+        @keyframes barsExit {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(var(--dir, -100%)); }
+        }
+        @keyframes grain {
+          0%, 100% { transform: translate(0, 0); }
+          10% { transform: translate(-3%, -2%); }
+          20% { transform: translate(2%, -4%); }
+          30% { transform: translate(-4%, 3%); }
+          40% { transform: translate(3%, 2%); }
+          50% { transform: translate(-2%, -3%); }
+          60% { transform: translate(4%, 1%); }
+          70% { transform: translate(-3%, 4%); }
+          80% { transform: translate(1%, -3%); }
+          90% { transform: translate(-2%, 2%); }
+        }
       `}</style>
 
-      <div style={{
-        position: 'relative',
-        marginBottom: 20,
-        width: 72,
-        height: 72,
-        opacity: phase === 'entering' ? 0 : 1,
-        transition: 'opacity 0.4s ease',
-      }}>
-        <div style={{
+      {/* Film grain overlay */}
+      <div
+        style={{
           position: 'absolute',
-          inset: -16,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(6,182,212,0.35) 0%, transparent 70%)',
-          animation: 'xcPulse 2.4s ease-in-out infinite',
-        }} />
-        <img
-          src={getLogo()}
-          alt=""
+          inset: 0,
+          opacity: isExit ? 0 : 0.35,
+          transition: 'opacity 1s ease',
+          pointerEvents: 'none',
+          mixBlendMode: 'overlay',
+        }}
+      >
+        <div
           style={{
-            width: '100%', height: '100%', objectFit: 'contain',
-            position: 'relative', zIndex: 1,
-            filter: 'drop-shadow(0 0 16px rgba(6,182,212,0.6))',
+            width: '200%',
+            height: '200%',
+            position: 'absolute',
+            top: '-50%',
+            left: '-50%',
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.5\'/%3E%3C/svg%3E")',
+            backgroundSize: '256px 256px',
+            animation: 'grain 0.3s steps(4) infinite',
+            opacity: 0.4,
           }}
         />
       </div>
 
-      <h1 style={{
-        fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
-        fontWeight: 900,
-        fontSize: 'clamp(2rem, 5vw, 3.2rem)',
-        letterSpacing: '-0.04em',
-        color: '#fff',
-        lineHeight: 1,
-        margin: 0,
-        marginBottom: 32,
-        opacity: phase === 'entering' ? 0 : 1,
-        transition: 'opacity 0.5s ease 0.2s',
-      }}>
-        Xyber<span style={{ color: '#06b6d4' }}>Clan</span>
-      </h1>
+      {/* Letterbox bars */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0,
+          height: '12vh',
+          background: '#000',
+          zIndex: 2,
+          animation: isExit ? 'barsExit 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards' : 'none',
+          '--dir': '-100%',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          height: '12vh',
+          background: '#000',
+          zIndex: 2,
+          animation: isExit ? 'barsExit 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards' : 'none',
+          '--dir': '100%',
+        }}
+      />
 
-      <div style={{ width: 'min(280px, 55vw)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div style={{
-          width: '100%', height: 1,
-          background: 'rgba(255,255,255,0.1)',
-          position: 'relative', overflow: 'hidden',
-          opacity: phase === 'entering' ? 0 : 1,
-          transition: 'opacity 0.3s ease 0.4s',
-        }}>
-          <div style={{
-            position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-            background: 'linear-gradient(90deg, #06b6d4, #3b82f6)',
-            boxShadow: '0 0 8px rgba(6,182,212,0.8)',
-            transformOrigin: 'left center',
-            transform: phase === 'loading' ? 'scaleX(1)' : 'scaleX(0)',
-            transition: 'transform 1.6s ease-in-out',
-          }} />
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{
-            fontFamily: "'Inter', monospace", fontSize: '0.6rem', fontWeight: 500,
-            letterSpacing: '0.15em', textTransform: 'uppercase', color: '#333',
-          }}>Loading</span>
-          <span style={{
-            fontFamily: "'Inter', monospace", fontSize: '0.65rem', fontWeight: 700,
-            letterSpacing: '0.1em', color: '#06b6d4', fontVariantNumeric: 'tabular-nums',
-          }}>
-            {phase === 'entering' ? '0%' : '100%'}
-          </span>
-        </div>
+      {/* Logo */}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 0,
+          animation:
+            phase === 'entrance' ? 'logoEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards' :
+            phase === 'hold' ? 'logoPulse 3s ease-in-out infinite' :
+            'logoExit 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards',
+        }}
+      >
+        <img
+          src={getLogo()}
+          alt="XyberClan"
+          style={{
+            width: 96,
+            height: 96,
+            objectFit: 'contain',
+          }}
+        />
       </div>
     </div>
   );
