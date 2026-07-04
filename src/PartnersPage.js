@@ -355,7 +355,7 @@ const PartnersPage = () => {
                 </div>
             </section>
 
-            {/* ─── PARTNER LOGOS ─── */}
+            {/* ─── GEHMIT SECTION ─── */}
             <section style={{
                 background: bg,
                 borderTop: `1px solid ${border}`,
@@ -363,84 +363,167 @@ const PartnersPage = () => {
                 overflow: 'hidden',
             }}>
                 <div style={{
+                    position: 'absolute', inset: 0, opacity: 0.04,
+                    pointerEvents: 'none',
+                    background: 'radial-gradient(ellipse at 30% 50%, #06b6d4 0%, transparent 70%)',
+                }} />
+                <div style={{
                     maxWidth: 1400,
                     margin: '0 auto',
-                    padding: 'clamp(60px, 12vh, 100px) clamp(24px, 5vw, 80px)',
-                    textAlign: 'center',
+                    padding: 'clamp(80px, 18vh, 140px) clamp(24px, 5vw, 80px)',
+                    position: 'relative', zIndex: 10,
                 }}>
-                    <p style={{
-                        fontSize: '0.65rem',
-                        fontWeight: 700,
-                        letterSpacing: '0.22em',
-                        textTransform: 'uppercase',
-                        color: '#06b6d4',
-                        margin: '0 0 12px 0',
-                    }}>
-                        Our Partners
-                    </p>
-                    <h2 style={{
-                        fontWeight: 900,
-                        fontSize: 'clamp(2rem, 4vw, 3rem)',
-                        lineHeight: 1.1,
-                        letterSpacing: '-0.03em',
-                        color: text,
-                        margin: '0 0 48px 0',
-                    }}>
-                        Trusted by Industry Leaders
-                    </h2>
                     <div style={{
                         display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                        gap: 32,
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        justifyContent: 'space-between',
+                        marginBottom: 32, gap: 20,
                     }}>
-                        <a href="https://gehmit.org/" target="_blank" rel="noopener noreferrer" style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: 16,
-                            padding: '32px 48px',
-                            borderRadius: 20,
-                            border: `1px solid ${border}`,
-                            background: isDark ? '#111' : '#fff',
-                            textDecoration: 'none',
-                            transition: 'transform 0.3s, box-shadow 0.3s',
-                            minWidth: 200,
-                        }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.12)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
-                        >
-                            <span style={{ fontWeight: 900, fontSize: '1.6rem', letterSpacing: '-0.03em', color: text }}>
+                        <div>
+                            <p style={{
+                                fontSize: '0.65rem', fontWeight: 700,
+                                letterSpacing: '0.22em', textTransform: 'uppercase',
+                                color: '#06b6d4', margin: '0 0 24px 0',
+                            }}>
+                                Strategic Partnership
+                            </p>
+                            <h2 style={{
+                                fontWeight: 900,
+                                fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
+                                lineHeight: 0.9, letterSpacing: '-0.03em',
+                                color: text, margin: 0,
+                            }}>
                                 Gehmit
-                            </span>
-                            <span style={{ fontSize: '0.75rem', color: muted, fontWeight: 400 }}>
-                                gehmit.org
-                            </span>
-                        </a>
-                        <a href="https://divlabs-tech.com/" target="_blank" rel="noopener noreferrer" style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: 16,
-                            padding: '32px 48px',
-                            borderRadius: 20,
-                            border: `1px solid ${border}`,
-                            background: isDark ? '#111' : '#fff',
-                            textDecoration: 'none',
-                            transition: 'transform 0.3s, box-shadow 0.3s',
-                            minWidth: 200,
-                        }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.12)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
-                        >
-                            <span style={{ fontWeight: 900, fontSize: '1.6rem', letterSpacing: '-0.03em', color: text }}>
-                                DivLabs
-                            </span>
-                            <span style={{ fontSize: '0.75rem', color: muted, fontWeight: 400 }}>
-                                divlabs-tech.com
-                            </span>
-                        </a>
+                            </h2>
+                        </div>
+                        <p style={{
+                            fontSize: '0.85rem', fontWeight: 300,
+                            lineHeight: 1.7, color: muted,
+                            maxWidth: 300, margin: 0,
+                        }}>
+                            Collaboration powering the PAEI event — advancing educational innovation together.
+                        </p>
                     </div>
+
+                    <div style={{ maxWidth: 700, marginBottom: 48 }}>
+                        <p style={{ fontSize: '0.9rem', fontWeight: 300, lineHeight: 1.7, color: muted, margin: '0 0 16px 0' }}>
+                            We partnered with <strong style={{ color: text }}>Gehmit</strong> to support the <strong style={{ color: text }}>PAEI event</strong> — a dynamic gathering focused on educational innovation, leadership development, and youth empowerment. Together, we provided technical infrastructure, digital strategy, and on-ground support to make the event a resounding success.
+                        </p>
+                        <p style={{ fontSize: '0.9rem', fontWeight: 300, lineHeight: 1.7, color: muted, margin: 0 }}>
+                            Gehmit's mission to transform education through technology aligns perfectly with XyberClan's vision of making cutting-edge technology accessible to everyone. This collaboration marked an important milestone in our commitment to supporting educational initiatives across Cameroon.
+                        </p>
+                    </div>
+
+                    <a
+                        href="https://gehmit.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 10,
+                            padding: '14px 32px',
+                            borderRadius: 9999,
+                            fontWeight: 700,
+                            fontSize: '0.85rem',
+                            background: 'linear-gradient(135deg, #06b6d4, #2563eb)',
+                            color: '#fff',
+                            textDecoration: 'none',
+                            transition: 'transform 0.2s, box-shadow 0.2s',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.04)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(6,182,212,0.35)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = 'none'; }}
+                    >
+                        Visit Gehmit
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    </a>
+                </div>
+            </section>
+
+            {/* ─── DIVLABS SECTION ─── */}
+            <section style={{
+                background: bg,
+                borderTop: `1px solid ${border}`,
+                position: 'relative',
+                overflow: 'hidden',
+            }}>
+                <div style={{
+                    position: 'absolute', inset: 0, opacity: 0.04,
+                    pointerEvents: 'none',
+                    background: 'radial-gradient(ellipse at 70% 50%, #2563eb 0%, transparent 70%)',
+                }} />
+                <div style={{
+                    maxWidth: 1400,
+                    margin: '0 auto',
+                    padding: 'clamp(80px, 18vh, 140px) clamp(24px, 5vw, 80px)',
+                    position: 'relative', zIndex: 10,
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'flex-start',
+                        justifyContent: 'space-between',
+                        marginBottom: 32, gap: 20,
+                    }}>
+                        <div>
+                            <p style={{
+                                fontSize: '0.65rem', fontWeight: 700,
+                                letterSpacing: '0.22em', textTransform: 'uppercase',
+                                color: '#06b6d4', margin: '0 0 24px 0',
+                            }}>
+                                Strategic Partnership
+                            </p>
+                            <h2 style={{
+                                fontWeight: 900,
+                                fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
+                                lineHeight: 0.9, letterSpacing: '-0.03em',
+                                color: text, margin: 0,
+                            }}>
+                                DivLabs
+                            </h2>
+                        </div>
+                        <p style={{
+                            fontSize: '0.85rem', fontWeight: 300,
+                            lineHeight: 1.7, color: muted,
+                            maxWidth: 300, margin: 0,
+                        }}>
+                            Co-hosting the webinar "How I Started in Tech and Entrepreneurship" — inspiring the next generation.
+                        </p>
+                    </div>
+
+                    <div style={{ maxWidth: 700, marginBottom: 48 }}>
+                        <p style={{ fontSize: '0.9rem', fontWeight: 300, lineHeight: 1.7, color: muted, margin: '0 0 16px 0' }}>
+                            We joined forces with <strong style={{ color: text }}>DivLabs</strong> to co-organize the webinar <strong style={{ color: text }}>"How I Started in Tech and Entrepreneurship"</strong> — an inspiring session where industry leaders shared their personal journeys, challenges, and lessons learned in building tech careers and startups.
+                        </p>
+                        <p style={{ fontSize: '0.9rem', fontWeight: 300, lineHeight: 1.7, color: muted, margin: 0 }}>
+                            DivLabs brings deep expertise in technology innovation and startup incubation. Together, we are creating platforms that empower aspiring entrepreneurs and developers with the knowledge, networks, and resources they need to succeed in the digital economy.
+                        </p>
+                    </div>
+
+                    <a
+                        href="https://divlabs-tech.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 10,
+                            padding: '14px 32px',
+                            borderRadius: 9999,
+                            fontWeight: 700,
+                            fontSize: '0.85rem',
+                            background: 'linear-gradient(135deg, #06b6d4, #2563eb)',
+                            color: '#fff',
+                            textDecoration: 'none',
+                            transition: 'transform 0.2s, box-shadow 0.2s',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.04)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(6,182,212,0.35)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = 'none'; }}
+                    >
+                        Visit DivLabs
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    </a>
                 </div>
             </section>
 
