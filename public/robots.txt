@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
+Disallow: /xypanel-
 Disallow: /private/
+
 Sitemap: https://www.xyberclan.dev/sitemap.xml
-Sitemap: https://www.xyberclan.dev/sitemap-images.xml

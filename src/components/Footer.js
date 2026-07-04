@@ -137,10 +137,10 @@ const Footer = ({ translations: t }) => {
                     </p>
                     <div className="flex items-center gap-8">
                         <Link to="/privacy" className="text-[11px] font-bold tracking-widest hover:text-cyan-500 transition-colors uppercase" style={{ color: muted }}>
-                            <EditableText contentKey="en.footer.bottomLinks.privacy" tag="span" fallback={bottomLinks.privacy} />
+                            Privacy Policy
                         </Link>
                         <Link to="/terms" className="text-[11px] font-bold tracking-widest hover:text-cyan-500 transition-colors uppercase" style={{ color: muted }}>
-                            <EditableText contentKey="en.footer.bottomLinks.terms" tag="span" fallback={bottomLinks.terms} />
+                            Terms of Service
                         </Link>
                     </div>
                 </div>

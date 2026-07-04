@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- Resource Hints: DNS prefetch & preconnect for third-party origins -->
+  <!-- Resource Hints: DNS prefetch & preconnect -->
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link rel="dns-prefetch" href="//firestore.googleapis.com">
@@ -17,24 +17,40 @@
   <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
-  <title>XyberClan — Digital Agency | Web, Design & Cybersecurity | Africa & Worldwide</title>
-  <meta name="description"
-    content="XyberClan, African digital agency serving clients worldwide. Web development, design, cybersecurity. Competitive rates. Free quote." />
-  <meta name="keywords"
-    content="XyberClan, web development, digital agency Africa, affordable web design, cybersecurity consulting, UI UX design agency, mobile app development, remote web developer Africa, offshore web agency" />
+  <!-- Title & Meta -->
+  <title>XyberClan — Digital Agency | Web Development, Cybersecurity & Design</title>
+  <meta name="description" content="XyberClan is a premium African digital agency specializing in web development, cybersecurity, UI/UX design, and mobile apps. Serving global clients from Cameroon. Get a free quote." />
+  <meta name="keywords" content="XyberClan, web development, digital agency Africa, affordable web design, cybersecurity consulting, UI UX design agency, mobile app development, remote web developer Africa, offshore web agency" />
   <meta name="author" content="XyberClan" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="https://www.xyberclan.dev/" />
 
-  <!-- HREFLANG — For targeting multiple languages -->
-  <link rel="alternate" hreflang="fr" href="https://www.xyberclan.dev/fr/" />
-  <link rel="alternate" hreflang="en" href="https://www.xyberclan.dev/en/" />
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="en" href="https://www.xyberclan.dev/" />
   <link rel="alternate" hreflang="x-default" href="https://www.xyberclan.dev/" />
 
   <!-- Google Site Verification -->
   <meta name="google-site-verification" content="T9gNRa6AunqtE10YM_eXms2E8edTX7KAe-jAoRORYbc" />
 
-  <!-- Structured Data (JSON-LD) for SEO -->
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.xyberclan.dev/" />
+  <meta property="og:title" content="XyberClan — Digital Agency | Web Development, Cybersecurity & Design" />
+  <meta property="og:description" content="Premium African digital agency specializing in web development, cybersecurity, UI/UX design, and mobile apps. Global clients, elite engineering." />
+  <meta property="og:image" content="https://www.xyberclan.dev/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="XyberClan" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="XyberClan — Digital Agency | Web Development, Cybersecurity & Design" />
+  <meta name="twitter:description" content="Premium African digital agency specializing in web development, cybersecurity, UI/UX design, and mobile apps." />
+  <meta name="twitter:image" content="https://www.xyberclan.dev/og-image.png" />
+  <meta name="twitter:creator" content="@xyberclan" />
+
+  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -49,17 +65,111 @@
         "addressLocality": "Yaounde",
         "addressCountry": "CM"
       },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+237654269488",
-        "contactType": "customer service",
-        "areaServed": "Worldwide",
-        "availableLanguage": ["English", "French"]
-      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+237654269488",
+          "contactType": "customer service",
+          "areaServed": "Worldwide",
+          "availableLanguage": ["English", "French"]
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+237654269488",
+          "contactType": "sales",
+          "areaServed": "Worldwide",
+          "availableLanguage": ["English", "French"]
+        }
+      ],
       "sameAs": [
         "https://linkedin.com/company/xyberclan",
         "https://github.com/xyberclan",
         "https://instagram.com/xyberclan"
+      ],
+      "foundingDate": "2023",
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "minValue": 10,
+        "maxValue": 20
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "XyberClan",
+      "url": "https://www.xyberclan.dev",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.xyberclan.dev/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "inLanguage": ["en", "fr"]
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.xyberclan.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "Team", "item": "https://www.xyberclan.dev/team" },
+        { "@type": "ListItem", "position": 3, "name": "Portfolio", "item": "https://www.xyberclan.dev/portfolio" },
+        { "@type": "ListItem", "position": 4, "name": "Events", "item": "https://www.xyberclan.dev/events" },
+        { "@type": "ListItem", "position": 5, "name": "Start Project", "item": "https://www.xyberclan.dev/start-project" }
+      ]
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "XyberClan Digital Services",
+      "description": "Web development, cybersecurity consulting, UI/UX design, mobile app development, and SEO services.",
+      "provider": { "@type": "Organization", "name": "XyberClan" },
+      "areaServed": "Worldwide",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Digital Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Development" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cybersecurity Consulting" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "UI/UX Design" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile App Development" } }
+        ]
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What services does XyberClan offer?",
+          "acceptedAnswer": { "@type": "Answer", "text": "XyberClan offers web development, cybersecurity consulting, UI/UX design, mobile app development, SEO services, and digital strategy consulting for businesses worldwide." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is XyberClan based?",
+          "acceptedAnswer": { "@type": "Answer", "text": "XyberClan is headquartered in Yaounde, Cameroon, serving clients globally across Africa, Europe, and North America." }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a website cost from XyberClan?",
+          "acceptedAnswer": { "@type": "Answer", "text": "XyberClan offers competitive rates starting from affordable packages. Contact us for a free quote tailored to your project requirements." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does XyberClan work with international clients?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, XyberClan serves clients worldwide including Europe, North America, and across Africa. We offer remote collaboration and flexible communication across time zones." }
+        }
       ]
     }
   </script>

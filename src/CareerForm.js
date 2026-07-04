@@ -332,9 +332,9 @@ const CareerForm = () => {
                                             <Users className="w-10 h-10 text-white" />
                                         </div>
 
-                                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-4">
+                                        <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-4">
                                             <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.question`} fallback={currentQuestion.question} />
-                                        </h2>
+                                        </h1>
                                         <p className={`text-lg max-w-lg mx-auto leading-relaxed mb-12 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
                                             <EditableText contentKey={`${language}.careerForm.steps.${currentQuestion.id}.subtitle`} fallback={currentQuestion.subtitle} />
                                         </p>
