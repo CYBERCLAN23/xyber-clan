@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { getLogo } from '../utils/festive';
 
 const Preloader = ({ onComplete }) => {
   const [phase, setPhase] = useState('entrance');
+  const onDone = useRef(onComplete);
+  onDone.current = onComplete;
 
   useEffect(() => {
     if (sessionStorage.getItem('xc_visited')) {
-      onComplete?.();
+      onDone.current?.();
       return;
     }
 
@@ -14,11 +16,12 @@ const Preloader = ({ onComplete }) => {
     const t2 = setTimeout(() => setPhase('exit'), 1300);
     const t3 = setTimeout(() => {
       sessionStorage.setItem('xc_visited', 'true');
-      onComplete?.();
+      setPhase('done');
+      onDone.current?.();
     }, 2000);
 
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-  }, [onComplete]);
+  }, []);
 
   if (phase === 'done') return null;
 
