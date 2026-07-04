@@ -13,7 +13,7 @@ const Footer = ({ translations: t }) => {
 
     if (!t || !t.footer) return null;
 
-    const { columns, cta, tagline, copyright, bottomLinks } = t.footer;
+    const { columns, cta, tagline, copyright } = t.footer;
 
     const text = isDark ? '#f0f0f0' : '#111';
     const muted = isDark ? '#666' : '#888';
