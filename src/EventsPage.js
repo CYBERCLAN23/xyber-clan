@@ -451,6 +451,7 @@ const EventsPage = () => {
                         </h2>
                         <p className="text-sm max-w-lg mx-auto mb-8" style={{ color: muted }}>
                             Join our free webinar on web development, cybersecurity, and digital innovation. 
+                            <strong>Date: July 10, 2026 at 8:00 PM (WAT).</strong> 
                             Reserve your spot now — add it to your Google Calendar.
                         </p>
                         <a
