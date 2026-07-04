@@ -52,6 +52,8 @@ const EditableImage = ({
       <img
         src={currentSrc}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className={`${className} ${imageClassName}`}
         style={{ ...style, objectPosition }}
         {...rest}

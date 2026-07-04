@@ -16,7 +16,6 @@ import FAQSection from './components/FAQSection';
 import TrustBadges from './components/TrustBadges';
 import Newsletter from './components/Newsletter';
 import ExitPopup from './components/ExitPopup';
-import CareerPopup from './components/CareerPopup';
 import ThemeSuggestionPopup from './components/ThemeSuggestionPopup';
 import { ScrollToTop, ScrollIndicator } from './components/ScrollReveal';
 import Meta from './components/Meta';
@@ -82,7 +81,6 @@ const XyberClanWebsite = () => {
       <WhatsAppButton />
       <ScrollToTop />
       <ExitPopup />
-      <CareerPopup />
       <ThemeSuggestionPopup />
     </div>
   );
