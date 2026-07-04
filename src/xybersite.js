@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { translations } from './translations';
 import { useTheme } from './context/ThemeContext';
 import { useLanguage } from './context/LanguageContext';
@@ -28,15 +28,10 @@ const XyberClanWebsite = () => {
   const { language } = useLanguage();
   const t = translations[language];
 
-  // Track when the preloader finishes (used to trigger post-load effects if needed)
-  const [, setPreloaderDone] = useState(
-    () => !!sessionStorage.getItem('xc_visited')
-  );
-
   return (
     <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-white text-gray-900'} transition-colors duration-300`}>
       {/* ─── First-visit loading animation ─── */}
-      <Preloader onComplete={() => setPreloaderDone(true)} />
+      <Preloader />
       <Meta
         title="Digital Agency | Web, Design & Cybersecurity"
         description="XyberClan is a premium digital agency specializing in web development, cybersecurity, and UI/UX design. Serving global clients from Africa."
