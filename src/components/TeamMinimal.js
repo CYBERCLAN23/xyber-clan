@@ -37,7 +37,7 @@ const ROLES_FR = {
 const teamMembers = [
     { key: 'cedrik', name: 'Cedrik Darel Yepmo', image: '/team/ceo-member.jpg' },
     { key: 'josias', name: 'Akana Signing Josias Aaron', image: '/team/cto-redteamer.jpg' },
-    { key: 'onana', name: 'Onana Gregoire Legrand', image: '/team/communications-manager.jpeg' },
+    { key: 'onana', name: 'Onana Gregoire Legrand', image: '/team/communications-manager.jpeg?v=2' },
     { key: 'ange', name: 'Ange Demanou', image: '/team/ange-demanou.png' },
     { key: 'william', name: 'William Chandler', image: '/team/william-chandler.png' },
     { key: 'yann', name: 'Wandji Tchaleu Yann Félix', image: '/team/yann-felix-wandji.png' },

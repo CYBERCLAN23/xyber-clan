@@ -66,7 +66,7 @@ const detailedTeam = [
     },
     {
         id: 5,
-        image: '/team/communications-manager.jpeg',
+        image: '/team/communications-manager.jpeg?v=2',
         name: 'ONANA GREGOIRE LEGRAND',
         role: 'Co-Founder, COO, IT & Cybersecurity Engineer',
         icon: <FiShield size={20} />,
