@@ -16,10 +16,14 @@ gsap.registerPlugin(ScrollTrigger);
 const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const HULT_STATS = [
-    { icon: <Zap size={16} />, label: 'Technical Mentorship', value: '100%' },
-    { icon: <Users size={16} />, label: 'Innovation Boost', value: '24/7' },
-    { icon: <Globe size={16} />, label: 'Social Impact', value: 'Global' },
+    { icon: <Zap size={16} />, value: '100%' },
+    { icon: <Users size={16} />, value: '24/7' },
+    { icon: <Globe size={16} />, value: 'Global' },
 ];
+const HULT_LABELS = {
+    en: ['Technical Mentorship', 'Innovation Boost', 'Social Impact'],
+    fr: ['Mentorat Technique', "Boost d'Innovation", 'Impact Social']
+};
 
 const PartnersPage = () => {
     const { isDark } = useTheme();
@@ -347,7 +351,7 @@ const PartnersPage = () => {
                                     textTransform: 'uppercase',
                                     color: muted,
                                 }}>
-                                    {stat.label}
+                                    {(HULT_LABELS[language] || HULT_LABELS.en)[idx]}
                                 </span>
                             </div>
                         ))}

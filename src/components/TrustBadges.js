@@ -13,23 +13,33 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 const partners = [
     {
         name: 'Hult Prize',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Hult_Prize_Logo.png/320px-Hult_Prize_Logo.png',
+        logo: '/images/partners/hult-prize.png',
         url: 'https://www.hultprize.org',
     },
     {
         name: 'GEHMIT',
-        logo: 'https://ui-avatars.com/api/?name=GEHMIT&background=059669&color=fff&size=128&bold=true&font-size=0.38',
+        logo: '/images/partners/gehmit.png',
         url: 'https://gehmit.org',
     },
     {
         name: 'Divlab',
-        logo: 'https://ui-avatars.com/api/?name=DL&background=6366f1&color=fff&size=128&bold=true&font-size=0.45',
+        logo: '/images/partners/divlab.png',
         url: 'https://divlabs-tech.com',
     },
     {
         name: 'UY1',
-        logo: 'https://ui-avatars.com/api/?name=UY1&background=007a5e&color=fff&size=128&bold=true&font-size=0.45',
+        logo: '/images/partners/uy1.png',
         url: 'https://www.univ-yaounde1.cm',
+    },
+    {
+        name: 'AllBot',
+        logo: '/images/partners/allbot.png',
+        url: 'https://www.allbot.xyberclan.dev',
+    },
+    {
+        name: 'NB Company',
+        logo: '/images/partners/nb-company.png',
+        url: 'https://nb-dance-award.vercel.app/',
     },
 ];
 
@@ -172,7 +182,6 @@ const TrustBadges = () => {
 
                             <div className="flex animate-trust-marquee">
                                 {allPartners.map((partner, index) => {
-                                    const originalIdx = index % partners.length;
                                     return (
                                         <div key={index} className="flex-shrink-0 mx-3 md:mx-4">
                                             <a

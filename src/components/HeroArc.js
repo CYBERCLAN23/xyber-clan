@@ -107,7 +107,7 @@ const HeroArc = () => {
 
                             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
                                 <p className="text-white font-bold text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                    <EditableText contentKey={`${lang}.hero.cards.${idx}.title`} tag="span" fallback={card.title} />
+                                    <EditableText contentKey={`${lang}.heroArc.cards.${idx}.title`} tag="span" fallback={card.title} />
                                 </p>
                             </div>
                         </div>

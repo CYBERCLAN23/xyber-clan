@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
@@ -10,17 +10,40 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
-const teamMembers = [
-    { key: 'cedrik', name: 'Cedrik Darel Yepmo', role: 'Co-Founder, CEO & Cybersecurity Analyst', image: '/team/ceo-member.jpg' },
-    { key: 'josias', name: 'Akana Signing Josias Aaron', role: 'Co-Founder & CTO / AI Security Architect', image: '/team/cto-redteamer.jpg' },
-    { key: 'onana', name: 'Onana Gregoire Legrand', role: 'COO, IT & Cybersecurity Eng.', image: '/team/communications-manager.jpeg' },
-    { key: 'ange', name: 'Ange Demanou', role: 'Data Analyst & UI/UX Designer', image: '/team/ange-demanou.png' },
-    { key: 'william', name: 'William Chandler', role: 'Visual Content Designer', image: '/team/william-chandler.png' },
-    { key: 'yann', name: 'Wandji Tchaleu Yann Félix', role: 'Network Eng & Python', image: '/team/yann-felix-wandji.png' },
+const ROLES_EN = {
+    cedrik: 'Co-Founder, CEO & Cybersecurity Analyst',
+    josias: 'Co-Founder & CTO / AI Security Architect',
+    onana: 'COO, IT & Cybersecurity Eng.',
+    ange: 'Data Analyst & UI/UX Designer',
+    william: 'Visual Content Designer',
+    yann: 'Network Eng & Python',
+    zealda: 'Fullstack Dev & Systems Eng.',
+    lembou: 'Cybersecurity, DevOps & AI',
+    theresa: 'CEO of Greenfarmers · GDG Yaoundé Volunteer · Hult Prize Organiser'
+};
 
-    { key: 'zealda', name: 'ADJIA MVOA NDJI GABRIEL MONFILS', role: 'Fullstack Dev & Systems Eng.', image: '/team/frontend-designer.png' },
-    { key: 'lembou', name: 'Lembou Pharel', role: 'Cybersecurity, DevOps & AI', image: '/team/cybersecurity-chief.jpg' },
-    { key: 'theresa', name: 'Theresa Tcheme', role: 'CEO of Greenfarmers · GDG Yaoundé Volunteer · Hult Prize Organiser', image: '/team/theresa-tcheme.jpg' }
+const ROLES_FR = {
+    cedrik: 'Co-Fondateur, CEO & Analyste Cybersécurité',
+    josias: 'Co-Fondateur & CTO / Architecte IA Sécurité',
+    onana: 'COO, Ing. IT & Cybersécurité',
+    ange: 'Analyste Données & Designer UI/UX',
+    william: 'Designer de Contenu Visuel',
+    yann: 'Ing. Réseau & Python',
+    zeal: 'Dév Fullstack & Ing. Systèmes',
+    lembou: 'Cybersécurité, DevOps & IA',
+    theresa: 'CEO de Greenfarmers · Bénévole GDG Yaoundé · Organisatrice Hult Prize'
+};
+
+const teamMembers = [
+    { key: 'cedrik', name: 'Cedrik Darel Yepmo', image: '/team/ceo-member.jpg' },
+    { key: 'josias', name: 'Akana Signing Josias Aaron', image: '/team/cto-redteamer.jpg' },
+    { key: 'onana', name: 'Onana Gregoire Legrand', image: '/team/communications-manager.jpeg' },
+    { key: 'ange', name: 'Ange Demanou', image: '/team/ange-demanou.png' },
+    { key: 'william', name: 'William Chandler', image: '/team/william-chandler.png' },
+    { key: 'yann', name: 'Wandji Tchaleu Yann Félix', image: '/team/yann-felix-wandji.png' },
+    { key: 'zealda', name: 'ADJIA MVOA NDJI GABRIEL MONFILS', image: '/team/frontend-designer.png' },
+    { key: 'lembou', name: 'Lembou Pharel', image: '/team/cybersecurity-chief.jpg' },
+    { key: 'theresa', name: 'Theresa Tcheme', image: '/team/theresa-tcheme.jpg' }
 ];
 
 const TeamMinimal = () => {
@@ -127,10 +150,10 @@ const TeamMinimal = () => {
                             {/* Hover overlay for name */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 text-white">
                                 <h3 className="text-xl font-bold tracking-tight mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                                    <EditableText contentKey={`en.team.${member.key}.name`} fallback={member.name} />
+                                    {member.name}
                                 </h3>
                                 <p className="text-[11px] uppercase font-mono tracking-[0.1em] text-cyan-400 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out delay-75">
-                                    <EditableText contentKey={`en.team.${member.key}.role`} fallback={member.role} />
+                                    {lang === 'fr' ? ROLES_FR[member.key] : ROLES_EN[member.key]}
                                 </p>
                             </div>
                         </div>

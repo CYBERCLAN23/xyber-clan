@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { X, ArrowUpRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import EditableText from './cms/EditableText';
 
 const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
@@ -152,6 +154,7 @@ const FloatingPreview = ({ src, visible }) => {
 
 /* ─── Detail Panel ────────────────────────────────────────────────── */
 const DetailPanel = ({ project, onClose, isDark }) => {
+    const { language: lang } = useLanguage();
     const panelRef = useRef(null);
     const contentRef = useRef(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -190,11 +193,17 @@ const DetailPanel = ({ project, onClose, isDark }) => {
         return () => window.removeEventListener('keydown', handleKey);
     }, [handleClose]);
 
+    const metaLabels = {
+        Category: { en: 'Category', fr: 'Catégorie' },
+        Status: { en: 'Status', fr: 'Statut' },
+        Geography: { en: 'Geography', fr: 'Géographie' },
+        Industry: { en: 'Industry', fr: 'Secteur' },
+    };
     const metaRows = [
-        { label: 'Category', value: project.category },
-        { label: 'Status', value: project.status },
-        { label: 'Geography', value: project.geography },
-        { label: 'Industry', value: project.industry },
+        { label: metaLabels.Category[lang], value: project.category },
+        { label: metaLabels.Status[lang], value: project.status },
+        { label: metaLabels.Geography[lang], value: project.geography },
+        { label: metaLabels.Industry[lang], value: project.industry },
     ];
 
     return (
@@ -379,7 +388,7 @@ const DetailPanel = ({ project, onClose, isDark }) => {
                         onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
                         onMouseLeave={e => e.currentTarget.style.opacity = '1'}
                     >
-                        Visit the site
+                        <EditableText contentKey={`${lang}.portfolioPage.visitSite`} fallback="Visit the site" />
                         <ArrowUpRight size={14} />
                     </a>
                 )}

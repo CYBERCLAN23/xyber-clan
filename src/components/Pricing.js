@@ -167,7 +167,7 @@ const Pricing = () => {
 
                 {/* Note */}
                 <p className={`text-center mt-12 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                    All prices are starting points. Final quote depends on specific requirements.
+                    <EditableText contentKey={`${language}.pricing.note`} tag="span" fallback="All prices are starting points. Final quote depends on specific requirements." />
                 </p>
             </div>
         </section>

@@ -316,7 +316,7 @@ const PageHero = ({
                     <div ref={transTextRef} className="flex flex-col items-center max-w-5xl mx-auto drop-shadow-xl" style={{ textShadow: isDark ? '0 4px 24px rgba(0,0,0,0.8)' : '0 4px 24px rgba(255,255,255,0.8)' }}>
                         <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 mb-6 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
                         <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase font-semibold mb-6" style={{ color: muted }}>
-                            {transitionLabel}
+                            {contentKeyPrefix ? <EditableText contentKey={`${contentKeyPrefix}.transitionLabel`} fallback={transitionLabel} /> : transitionLabel}
                         </p>
                         <h2
                             ref={transTitleRef}

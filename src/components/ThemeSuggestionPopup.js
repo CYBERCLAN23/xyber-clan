@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Moon, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import EditableText from './cms/EditableText';
 
 const ThemeSuggestionPopup = () => {
     const { isDark, toggleTheme } = useTheme();
+    const { language: lang } = useLanguage();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -50,8 +53,8 @@ const ThemeSuggestionPopup = () => {
                         <Moon size={20} />
                     </div>
                     <div>
-                        <h4 className="font-bold text-sm">Better in Dark Mode?</h4>
-                        <p className="text-xs text-gray-400 mt-0.5">Switch for the full neon liquid experience.</p>
+                        <h4 className="font-bold text-sm"><EditableText contentKey={`${lang}.themeSuggestion.title`} fallback="Better in Dark Mode?" /></h4>
+                        <p className="text-xs text-gray-400 mt-0.5"><EditableText contentKey={`${lang}.themeSuggestion.description`} fallback="Switch for the full neon liquid experience." /></p>
                     </div>
                 </div>
 
@@ -60,13 +63,13 @@ const ThemeSuggestionPopup = () => {
                         onClick={handleDismiss}
                         className="px-3 py-2 text-xs font-bold text-gray-400 hover:bg-white/5 rounded-lg transition-colors"
                     >
-                        No Thanks
+                        <EditableText contentKey={`${lang}.themeSuggestion.dismiss`} fallback="No Thanks" />
                     </button>
                     <button
                         onClick={handleSwitch}
                         className="px-3 py-2 text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors shadow-lg shadow-indigo-500/20"
                     >
-                        Switch Now
+                        <EditableText contentKey={`${lang}.themeSuggestion.cta`} fallback="Switch Now" />
                     </button>
                 </div>
             </div>

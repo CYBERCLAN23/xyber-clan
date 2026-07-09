@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { X, ArrowUpRight } from 'lucide-react';
-import { FiShield, FiCode, FiMonitor, FiBriefcase, FiFeather, FiZap, FiWifi } from 'react-icons/fi';
+import { FiShield, FiCode, FiFeather, FiZap, FiWifi } from 'react-icons/fi';
 import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { gsap } from 'gsap';
 import { translations } from './translations';

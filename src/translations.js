@@ -23,7 +23,15 @@ export const translations = {
             provenResults: 'Proven Results',
             startProject: 'Start Your Project',
             exploreServices: 'Explore Services',
-            typing: ['Web Dev', 'Design', 'CyberSec', 'Networks', 'Education', 'XyberClan']
+            typing: ['Web Dev', 'Design', 'CyberSec', 'Networks', 'Education', 'XyberClan'],
+            titleHighlight: 'Digital',
+            titleSuffix: 'Empires',
+            titleLine1: 'Build',
+            titleLine2a: 'to',
+            titleLine2b: 'dominate',
+            scroll: 'Scroll',
+            aboutXyberclan: 'About XyberClan',
+            transitionText: 'A premium digital agency focused on driving technological growth'
         },
         about: {
             title: 'About',
@@ -422,6 +430,7 @@ export const translations = {
             ctaDesc: 'Let us bring your vision to life. Start your project today.',
             ctaButton: 'Start Your Project',
             viewAll: 'View All Projects',
+            visitSite: 'Visit the site',
             categories: {
                 all: 'All',
                 web: 'Web Development',
@@ -691,7 +700,8 @@ export const translations = {
                     ],
                     cta: "Contact Us"
                 }
-            ]
+            ],
+            note: "All prices are starting points. Final quote depends on specific requirements."
         },
         team_minimal: {
             badge: "The XyberClan",
@@ -788,6 +798,48 @@ export const translations = {
             subtitle: "No demos, no lengthy calls. Tell us what you need — we'll build it.",
             primaryButton: "Start your project",
             secondaryButton: "Or contact us →"
+        },
+        heroArc: {
+            cards: [
+                { title: 'XyberShield App' },
+                { title: 'NB Dance' },
+                { title: 'Vanguard' },
+                { title: 'Marketplace' },
+                { title: 'Creative' }
+            ]
+        },
+        testimonials: {
+            badge: 'Testimonials',
+            title: 'What our clients say.',
+            subtitle: 'Real words from real clients who\'ve shipped with us.',
+            list: [
+                { quote: 'Concept to launched product in record time. XyberClan delivered exactly what we needed.', author: 'Paul Smith', role: 'Software Tester', company: 'Monaco' },
+                { quote: 'Their attention to UX detail is unmatched. Our conversion rate jumped 40% after the redesign.', author: 'Tim Williams', role: 'Business Owner', company: 'Proline' },
+                { quote: 'The security audit they performed found critical vulnerabilities we didn\'t know existed. Outstanding work.', author: 'Katie Adams', role: 'Entrepreneur', company: 'Delaware' },
+                { quote: 'From design to deploy in two weeks. Responsive, fast, and exactly on brand. Highly recommend.', author: 'Alex Schiller', role: 'Senior Engineer', company: 'Luminous' }
+            ]
+        },
+        whatsapp: {
+            tooltip: 'Chat with us! 👋',
+            contacts: [
+                { label: 'Contact 1', number: '+237 654 269 488' },
+                { label: 'Contact 2', number: '+237 696 814 391' }
+            ]
+        },
+        careerPopup: {
+            heading: "We're Hiring!",
+            badge: 'Community Manager Position',
+            tag: 'Join the XyberClan Team',
+            title: 'Shape Our Community',
+            description: 'We\'re looking for a passionate Community Manager to grow and nurture our digital community. Help us connect, engage, and build meaningful relationships with our audience.',
+            cta: 'Apply Now',
+            dismiss: 'Not right now'
+        },
+        themeSuggestion: {
+            title: 'Better in Dark Mode?',
+            description: 'Switch for the full neon liquid experience.',
+            dismiss: 'No Thanks',
+            cta: 'Switch Now'
         }
     },
     fr: {
@@ -814,7 +866,15 @@ export const translations = {
             provenResults: 'Résultats Prouvés',
             startProject: 'Lancer Votre Projet',
             exploreServices: 'Explorer les Services',
-            typing: ['Dév Web', 'Design', 'CyberSécu', 'Réseaux', 'Formation', 'XyberClan']
+            typing: ['Dév Web', 'Design', 'CyberSécu', 'Réseaux', 'Formation', 'XyberClan'],
+            titleHighlight: 'Highlight',
+            titleSuffix: 'Empires',
+            titleLine1: 'Construire',
+            titleLine2a: 'pour',
+            titleLine2b: 'dominer',
+            scroll: 'Défiler',
+            aboutXyberclan: 'À propos de XyberClan',
+            transitionText: 'Une agence numérique premium axée sur le développement technologique'
         },
         about: {
             title: 'À propos de',
@@ -1220,6 +1280,7 @@ export const translations = {
             ctaDesc: 'Laissez-nous donner vie à votre vision. Commencez votre projet dès aujourd\'hui.',
             ctaButton: 'Commencer Votre Projet',
             viewAll: 'Voir Tous les Projets',
+            visitSite: 'Visiter le site',
             categories: {
                 all: 'Tout',
                 web: 'Développement Web',
@@ -1486,7 +1547,8 @@ export const translations = {
                     ],
                     cta: "Nous Contacter"
                 }
-            ]
+            ],
+            note: "Tous les prix sont des points de départ. Le devis final dépend des exigences spécifiques."
         },
         team_minimal: {
             badge: "Le XyberClan",
@@ -1583,6 +1645,48 @@ export const translations = {
             subtitle: "Pas de démos, pas de longs appels. Dites-nous ce dont vous avez besoin — nous le construirons.",
             primaryButton: "Lancer votre projet",
             secondaryButton: "Ou contactez-nous →"
+        },
+        heroArc: {
+            cards: [
+                { title: 'XyberShield App' },
+                { title: 'NB Dance' },
+                { title: 'Vanguard' },
+                { title: 'Marketplace' },
+                { title: 'Créatif' }
+            ]
+        },
+        testimonials: {
+            badge: 'Témoignages',
+            title: 'Ce que disent nos clients.',
+            subtitle: 'Des mots réels de clients qui ont livré avec nous.',
+            list: [
+                { quote: 'Du concept au produit lancé en un temps record. XyberClan a livré exactement ce dont nous avions besoin.', author: 'Paul Smith', role: 'Testeur Logiciel', company: 'Monaco' },
+                { quote: 'Leur attention aux détails UX est inégalée. Notre taux de conversion a bondi de 40 % après la refonte.', author: 'Tim Williams', role: 'Chef d\'Entreprise', company: 'Proline' },
+                { quote: 'L\'audit de sécurité qu\'ils ont effectué a trouvé des vulnérabilités critiques que nous ignorions. Travail exceptionnel.', author: 'Katie Adams', role: 'Entrepreneuse', company: 'Delaware' },
+                { quote: 'De la conception au déploiement en deux semaines. Rapide, réactif et parfaitement aligné sur la marque. Je recommande vivement.', author: 'Alex Schiller', role: 'Ingénieur Senior', company: 'Luminous' }
+            ]
+        },
+        whatsapp: {
+            tooltip: 'Parlez avec nous ! 👋',
+            contacts: [
+                { label: 'Contact 1', number: '+237 654 269 488' },
+                { label: 'Contact 2', number: '+237 696 814 391' }
+            ]
+        },
+        careerPopup: {
+            heading: "Nous Recrutons !",
+            badge: 'Poste Community Manager',
+            tag: 'Rejoignez l\'Équipe XyberClan',
+            title: 'Façonnez Notre Communauté',
+            description: 'Nous recherchons un Community Manager passionné pour développer notre communauté numérique. Aidez-nous à connecter, engager et bâtir des relations durables avec notre public.',
+            cta: 'Postuler',
+            dismiss: 'Pas maintenant'
+        },
+        themeSuggestion: {
+            title: 'Mieux en Mode Sombre ?',
+            description: 'Basculez pour l\'expérience néon complète.',
+            dismiss: 'Non Merci',
+            cta: 'Activer'
         }
     }
 };

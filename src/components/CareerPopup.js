@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { X, ArrowRight, Briefcase, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import EditableText from './cms/EditableText';
 
 const CareerPopup = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -44,25 +47,25 @@ const CareerPopup = () => {
                             <Briefcase className="w-8 h-8 text-white" />
                         </div>
                         <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
-                            We're Hiring!
+                            <EditableText contentKey={`${lang}.careerPopup.heading`} fallback="We're Hiring!" />
                         </h3>
                         <p className="text-white/80">
-                            Community Manager Position
+                            <EditableText contentKey={`${lang}.careerPopup.badge`} fallback="Community Manager Position" />
                         </p>
                     </div>
 
                     <div className="p-8 text-center">
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-4">
                             <Sparkles className="w-4 h-4 text-cyan-500" />
-                            <span className="text-sm font-bold text-cyan-500">Join the XyberClan Team</span>
+                            <span className="text-sm font-bold text-cyan-500"><EditableText contentKey={`${lang}.careerPopup.tag`} fallback="Join the XyberClan Team" /></span>
                         </div>
 
                         <h4 className={`text-xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                            Shape Our Community
+                            <EditableText contentKey={`${lang}.careerPopup.title`} fallback="Shape Our Community" />
                         </h4>
 
                         <p className={`mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                            We're looking for a passionate Community Manager to grow and nurture our digital community. Help us connect, engage, and build meaningful relationships with our audience.
+                            <EditableText contentKey={`${lang}.careerPopup.description`} fallback="We're looking for a passionate Community Manager to grow and nurture our digital community. Help us connect, engage, and build meaningful relationships with our audience." />
                         </p>
 
                         <div className="space-y-3">
@@ -71,7 +74,7 @@ const CareerPopup = () => {
                                 onClick={handleClose}
                                 className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-4 px-6 rounded-xl font-bold text-lg hover:scale-[1.02] transition-transform shadow-lg shadow-cyan-500/30"
                             >
-                                Apply Now
+                                <EditableText contentKey={`${lang}.careerPopup.cta`} fallback="Apply Now" />
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
 
@@ -79,7 +82,7 @@ const CareerPopup = () => {
                                 onClick={handleClose}
                                 className={`w-full py-3 px-6 rounded-xl font-medium transition-colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-700'}`}
                             >
-                                Not right now
+                                <EditableText contentKey={`${lang}.careerPopup.dismiss`} fallback="Not right now" />
                             </button>
                         </div>
                     </div>
