@@ -2,6 +2,8 @@ import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 import { Github, Figma, Slack, Globe, Mail, MessageSquare, Code } from 'lucide-react';
 
@@ -11,6 +13,9 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const GetStarted = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
+    const t = translations[lang] || translations.en;
+
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
     const headRef = useRef(null);
@@ -58,25 +63,26 @@ const GetStarted = () => {
     }, []);
 
     const nodes = useMemo(() => {
+        const labels = t.get_started?.labels || {};
         if (isMobile) {
             return [
-                { icon: <Figma size={20} />, label: 'Design', x: -90, y: -80, color: '#FF7262' },
-                { icon: <Github size={20} />, label: 'Code', x: -110, y: 10, color: isDark ? '#ffffff' : '#000000' },
-                { icon: <Slack size={20} />, label: 'Comm', x: -90, y: 100, color: '#4A154B' },
-                { icon: <Globe size={20} />, label: 'Deploy', x: 90, y: -80, color: '#06b6d4' },
-                { icon: <Mail size={20} />, label: 'Contact', x: 110, y: 10, color: '#3B82F6' },
-                { icon: <MessageSquare size={20} />, label: 'Support', x: 90, y: 100, color: '#FCD34D' },
+                { icon: <Figma size={20} />, label: labels.design || 'Design', x: -90, y: -80, color: '#FF7262' },
+                { icon: <Github size={20} />, label: labels.code || 'Code', x: -110, y: 10, color: isDark ? '#ffffff' : '#000000' },
+                { icon: <Slack size={20} />, label: labels.comm || 'Comm', x: -90, y: 100, color: '#4A154B' },
+                { icon: <Globe size={20} />, label: labels.deploy || 'Deploy', x: 90, y: -80, color: '#06b6d4' },
+                { icon: <Mail size={20} />, label: labels.contact || 'Contact', x: 110, y: 10, color: '#3B82F6' },
+                { icon: <MessageSquare size={20} />, label: labels.support || 'Support', x: 90, y: 100, color: '#FCD34D' },
             ];
         }
         return [
-            { icon: <Figma size={28} />, label: 'Design', x: -220, y: -100, color: '#FF7262' },
-            { icon: <Github size={28} />, label: 'Code', x: -250, y: 10, color: isDark ? '#ffffff' : '#000000' },
-            { icon: <Slack size={28} />, label: 'Comm', x: -220, y: 120, color: '#4A154B' },
-            { icon: <Globe size={28} />, label: 'Deploy', x: 220, y: -100, color: '#06b6d4' },
-            { icon: <Mail size={28} />, label: 'Contact', x: 250, y: 10, color: '#3B82F6' },
-            { icon: <MessageSquare size={28} />, label: 'Support', x: 220, y: 120, color: '#FCD34D' },
+            { icon: <Figma size={28} />, label: labels.design || 'Design', x: -220, y: -100, color: '#FF7262' },
+            { icon: <Github size={28} />, label: labels.code || 'Code', x: -250, y: 10, color: isDark ? '#ffffff' : '#000000' },
+            { icon: <Slack size={28} />, label: labels.comm || 'Comm', x: -220, y: 120, color: '#4A154B' },
+            { icon: <Globe size={28} />, label: labels.deploy || 'Deploy', x: 220, y: -100, color: '#06b6d4' },
+            { icon: <Mail size={28} />, label: labels.contact || 'Contact', x: 250, y: 10, color: '#3B82F6' },
+            { icon: <MessageSquare size={28} />, label: labels.support || 'Support', x: 220, y: 120, color: '#FCD34D' },
         ];
-    }, [isMobile, isDark]);
+    }, [isMobile, isDark, t]);
 
     const lines = useMemo(() => {
         return nodes.map((node, i) => {
@@ -127,14 +133,14 @@ const GetStarted = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.get_started.badge" tag="span" fallback="Integrations" />
+                            <EditableText contentKey={`${lang}.get_started.badge`} tag="span" fallback="Integrations" />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.get_started.title" tag="span" fallback={<>Get started in<br />simple steps.</>} />
+                            <EditableText contentKey={`${lang}.get_started.title`} tag="span" fallback={<>Get started in<br />simple steps.</>} />
                         </h2>
                     </div>
                     <p
@@ -143,7 +149,7 @@ const GetStarted = () => {
                         style={{ color: muted, fontWeight: 300, opacity: 0 }}
                     >
                         <EditableText
-                            contentKey="en.get_started.subtitle"
+                            contentKey={`${lang}.get_started.subtitle`}
                             tag="span"
                             fallback="Whether you're a small business or a large enterprise, our process enhances productivity and simplifies your workflow."
                         />

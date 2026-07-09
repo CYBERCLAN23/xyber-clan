@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import EditableText from './cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -27,17 +28,20 @@ const AnimatedNumber = ({ value, suffix, trigger }) => {
 
 const StatsCounter = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
     const [triggered, setTriggered] = useState(false);
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
     const headRef = useRef(null);
     const statsRef = useRef([]);
 
+    const yearsExp = new Date().getFullYear() - 2022;
+
     const stats = [
         { value: 50, suffix: '+', label: 'Projects\nCompleted', key: 'projects' },
         { value: 30, suffix: '+', label: 'Happy\nClients',    key: 'clients'  },
         { value: 9,  suffix: '',  label: 'Team\nExperts',     key: 'experts'  },
-        { value: 3,  suffix: '+', label: 'Years\nExperience', key: 'years'    },
+        { value: yearsExp, suffix: '+', label: 'Years\nExperience', key: 'years' },
     ];
 
     useEffect(() => {
@@ -92,14 +96,14 @@ const StatsCounter = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            Impact
+                            <EditableText contentKey={`${lang}.stats.badge`} fallback="Impact" />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.stats.title" fallback={<>Numbers that<br />tell the story.</>} />
+                            <EditableText contentKey={`${lang}.stats.title`} fallback={<>Numbers that<br />tell the story.</>} />
                         </h2>
                     </div>
                     <p
@@ -107,7 +111,7 @@ const StatsCounter = () => {
                         style={{ color: muted, fontWeight: 300 }}
                     >
                         <EditableText
-                            contentKey="en.stats.subtitle"
+                            contentKey={`${lang}.stats.subtitle`}
                             fallback="Real results, real clients, real growth."
                         />
                     </p>
@@ -135,7 +139,7 @@ const StatsCounter = () => {
                                 className="text-[11px] font-semibold tracking-[0.15em] uppercase whitespace-pre-line leading-relaxed"
                                 style={{ color: muted }}
                             >
-                                <EditableText contentKey={`en.stats.items.${i}.label`} fallback={s.label} />
+                                <EditableText contentKey={`${lang}.stats.items.${i}.label`} fallback={s.label} />
                             </span>
                             {/* Cyan accent line on hover */}
                             <div

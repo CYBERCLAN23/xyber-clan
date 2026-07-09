@@ -73,8 +73,8 @@ const PortfolioPage = () => {
             overflowX: 'hidden',
         }}>
             <Meta
-                title="Portfolio | XyberClan"
-                description="Explore our portfolio of web development, mobile apps, design, and cybersecurity projects."
+                title="Our Portfolio | Innovative Digital Solutions & Tech"
+                description="Explore XyberClan's portfolio. See how our cybersecurity and tech innovation startup delivers high-performance web development, mobile apps, and secure digital solutions."
             />
             <SharedNavbar transparentHero={false} />
 

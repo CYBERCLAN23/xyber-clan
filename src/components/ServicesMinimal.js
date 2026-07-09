@@ -1,11 +1,13 @@
 import React from 'react';
 import { ArrowUpRight, Code2, Shield, Palette, LineChart } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import EditableText from './cms/EditableText';
 
 const ServicesMinimal = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
     const [headerRef, headerVisible] = useScrollAnimation();
 
     const services = [
@@ -45,14 +47,14 @@ const ServicesMinimal = () => {
                 <div ref={headerRef} className={`mb-20 flex flex-col md:flex-row items-end justify-between gap-8 slide-up ${headerVisible ? 'visible' : ''}`}>
                     <div>
                         <span className="text-cyan-500 font-bold tracking-wider uppercase text-sm mb-4 block">
-                            <EditableText contentKey="en.services.badge" tag="span" fallback="Our Expertise" />
+                            <EditableText contentKey={`${lang}.services.badge`} tag="span" fallback="Our Expertise" />
                         </span>
                         <h2 className="text-5xl md:text-7xl font-black tracking-tighter">
-                            <EditableText contentKey="en.services.title" tag="span" fallback="What We Do" />
+                            <EditableText contentKey={`${lang}.services.title`} tag="span" fallback="What We Do" />
                         </h2>
                     </div>
                     <p className={`max-w-md text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        <EditableText contentKey="en.services.subtitle" tag="span" fallback="We don't just write code. We engineer digital assets that drive real business growth." />
+                        <EditableText contentKey={`${lang}.services.subtitle`} tag="span" fallback="We don't just write code. We engineer digital assets that drive real business growth." />
                     </p>
                 </div>
 
@@ -69,18 +71,18 @@ const ServicesMinimal = () => {
 
                                 <div className="md:col-span-5">
                                     <h3 className="text-2xl md:text-4xl font-bold group-hover:text-cyan-500 transition-colors duration-300 flex items-center gap-4">
-                                        <EditableText contentKey={`en.services.items.${index}.title`} tag="span" fallback={service.title} />
+                                        <EditableText contentKey={`${lang}.services.items.${index}.title`} tag="span" fallback={service.title} />
                                     </h3>
                                 </div>
 
                                 <div className="md:col-span-5 md:col-start-8">
                                     <p className={`text-base md:text-lg mb-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                        <EditableText contentKey={`en.services.items.${index}.desc`} tag="span" fallback={service.desc} />
+                                        <EditableText contentKey={`${lang}.services.items.${index}.desc`} tag="span" fallback={service.desc} />
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {service.tags.map((tag, tagIdx) => (
                                             <span key={tag} className={`text-xs px-2 py-1 rounded-full border ${isDark ? 'border-white/10 text-gray-400' : 'border-black/10 text-gray-600'}`}>
-                                                <EditableText contentKey={`en.services.items.${index}.tags.${tagIdx}`} tag="span" fallback={tag} />
+                                                <EditableText contentKey={`${lang}.services.items.${index}.tags.${tagIdx}`} tag="span" fallback={tag} />
                                             </span>
                                         ))}
                                     </div>

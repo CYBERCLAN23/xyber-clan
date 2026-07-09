@@ -233,7 +233,7 @@ const JourneyPage = () => {
         <div style={{ background: bg, color: text, fontFamily: FONT }} className="min-h-screen transition-colors duration-300">
             <Meta
                 title="Our Journey | The XyberClan Story"
-                description="Explore the evolution of XyberClan from a campus vision to a global digital agency. Every milestone reflects our passion for innovation and community."
+                description="Explore the evolution of XyberClan from a campus vision to a leading cybersecurity and tech innovation startup delivering robust digital solutions globally."
             />
             <SharedNavbar transparentHero={true} />
 

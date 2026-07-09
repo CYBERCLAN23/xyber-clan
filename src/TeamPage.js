@@ -19,12 +19,12 @@ const detailedTeam = [
         id: 1,
         image: '/team/ceo-member.jpg',
         name: 'Cedrik Darel Yepmo',
-        role: 'CEO & Co-Founder',
-        icon: <FiBriefcase size={20} />,
-        description: "Visionary leader driving XyberClan's mission to deliver world-class digital solutions across Cameroon. Expert in strategic planning and business development.",
-        expertise: ['Strategic Leadership', 'Business Development', 'Vision & Planning'],
+        role: 'Co-Founder, CEO & Cybersecurity Analyst',
+        icon: <FiShield size={20} />,
+        description: "Founder and lead technologist of XyberClan. Cedrik architects and ships AI-powered fullstack web products while conducting cybersecurity analysis and maintaining high-quality data annotation pipelines — uniting executive vision with hands-on engineering.",
+        expertise: ['Fullstack AI Web Development', 'Data Annotation', 'Cybersecurity Analysis', 'Strategic Leadership'],
         geography: 'Cameroon',
-        industry: 'Executive / Strategy',
+        industry: 'Cybersecurity & AI Engineering',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/' },
             { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/cedarroyal21' }
@@ -35,9 +35,9 @@ const detailedTeam = [
         id: 2,
         image: '/team/cto-redteamer.jpg',
         name: 'AKANA SIGNING JOSIAS AARON',
-        role: 'CTO & AI Security Architect',
+        role: 'Co-Founder & CTO / AI Security Architect',
         icon: <FiShield size={20} />,
-        description: 'Strategic technology leader and elite Red Teamer specializing in the intersection of cybersecurity and AI. He is an expert in Web & Mobile development (Flutter), networking infrastructure, and computer maintenance, driving innovation through intelligent and secure engineering.',
+        description: 'Chief Technology Officer and elite Red Teamer at XyberClan. Josias designs AI security architectures, leads offensive security engagements, and engineers cross-platform mobile applications (Flutter) — ensuring every system XyberClan delivers is robust, intelligent, and breach-resilient.',
         expertise: ['Red Teaming', 'LLM Architect', 'Mobile Dev (Flutter)', 'Network Engineering', 'Computer Maintenance'],
         geography: 'Cameroon',
         industry: 'Cybersecurity & Engineering',
@@ -47,32 +47,17 @@ const detailedTeam = [
         ],
         portfolio: 'https://almightportfolio.vercel.app/'
     },
-    {
-        id: 3,
-        image: '/team/dev-member.jpg',
-        name: 'YVANA EMILIA LALANE LARCIER',
-        role: 'Frontend Developer',
-        icon: <FiMonitor size={20} />,
-        description: 'Expert in modern web technologies and creating seamless user experiences. Passionate about clean code and innovative solutions.',
-        expertise: ['React & Next.js', 'UI/UX Implementation', 'Responsive Design'],
-        geography: 'Global / Remote',
-        industry: 'Software Development',
-        socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/yvana-emilia-lalane-larcier-50761337b/' },
-            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/lalanelarcier-ai' }
-        ],
-        portfolio: 'https://www.linkedin.com/in/yvana-emilia-lalane-larcier-50761337b/'
-    },
+
     {
         id: 4,
         image: '/team/ange-demanou.png',
         name: 'Ange Demanou',
-        role: 'Digital Generalist & Data Analyst',
+        role: 'Data Analyst & UI/UX Designer',
         icon: <FiFeather size={20} />,
-        description: 'A versatile polymath bridging technology and business. Her multidisciplinary stack includes Web Development, Data & Business Analysis, Graphic Design, and Machine Learning research. She also manages social media strategy with a data-driven approach.',
-        expertise: ['Web Development', 'Data Analysis', 'Machine Learning', 'Graphic Design', 'Social Media Management', 'Business Analysis'],
+        description: 'UI/UX designer, web developer, and data professional at XyberClan. Ange designs intuitive user experiences, builds web interfaces, conducts data and junior business analysis, and manages social media strategy with a data-driven approach — all while actively advancing her expertise in machine learning research.',
+        expertise: ['UI/UX Design', 'Web Development', 'Data Analysis', 'Business Analysis (Junior)', 'Machine Learning', 'Social Media Management'],
         geography: 'Cameroon',
-        industry: 'Data & Analytics',
+        industry: 'UI/UX Design & Data Analytics',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/ange-demanou-367466340/' },
             { name: 'GitHub', icon: <FaGithub size={16} />, url: '#' }
@@ -81,12 +66,12 @@ const detailedTeam = [
     },
     {
         id: 5,
-        image: '/team/communications-manager.jpg',
+        image: '/team/communications-manager.jpeg',
         name: 'ONANA GREGOIRE LEGRAND',
-        role: 'Co-Founder & Business Strategist',
-        icon: <FiCode size={20} />,
-        description: "A strategic mastermind and technical architect, Onana Gregoire Legrand is the engine behind XyberClan's operational precision. He combines advanced Python data analysis with high-level business strategy to optimize growth, identify market opportunities, and ensures every project scales towards global standards.",
-        expertise: ['Business Strategy', 'Python Data Science', 'Operational Precision', 'Market Analysis'],
+        role: 'Co-Founder, COO, IT & Cybersecurity Engineer',
+        icon: <FiShield size={20} />,
+        description: "Co-Founder and operational backbone of XyberClan. Onana drives high-level business strategy, manages IT infrastructure, and applies cybersecurity engineering to protect systems and data — combining Python-driven data analysis with operational leadership to scale every project to a globally competitive standard.",
+        expertise: ['Business Strategy', 'IT Engineering', 'Cybersecurity', 'Python Data Science', 'Operational Precision', 'Market Analysis'],
         geography: 'Cameroon',
         industry: 'Business Intelligence',
         socials: [
@@ -101,7 +86,7 @@ const detailedTeam = [
         name: 'William Chandler',
         role: 'Visual Content & Canva Designer',
         icon: <FiFeather size={20} />,
-        description: 'A visual architect who masters the art of high-impact design through Canva. He brings ideas to life with stunning graphics, ensuring every piece of content tells a compelling story and maintains a pristine brand identity.',
+        description: 'Visual content specialist and brand designer at XyberClan. William produces high-impact graphics and branded assets that communicate complex ideas clearly — maintaining a consistent, premium visual identity across all platforms and campaigns.',
         expertise: ['Canva Pro Design', 'Visual Storytelling', 'Social Media Branding'],
         geography: 'Cameroon',
         industry: 'Branding & Design',
@@ -115,10 +100,10 @@ const detailedTeam = [
         id: 7,
         image: '/team/theresa-tcheme.jpg',
         name: 'Theresa Tcheme',
-        role: 'Media & Communication Manager',
+        role: 'Media Manager & UI/UX Designer',
         icon: <FiZap size={20} />,
-        description: 'Expert in media relations and strategic communications. Theresa leads the narrative at XyberClan, ensuring a consistent and impactful brand voice across all digital channels and media platforms.',
-        expertise: ['Media Relations', 'Strategic Communication', 'Digital Storytelling'],
+        description: '2nd-year Computer Science student at Université de Yaoundé I. Co-Founder & CEO of Greenfarmers. GDG Yaoundé Volunteer and Organiser of the Hult Prize OnCampus programme at the University of Yaoundé I — driving entrepreneurship, sustainability, and technology on campus.',
+        expertise: ['Entrepreneurship', 'UI/UX Design', 'Community Leadership', 'Event Organisation', 'Media & Communications', 'GDG Volunteering'],
         geography: 'Cameroon',
         industry: 'Communications & Media',
         socials: [
@@ -130,13 +115,13 @@ const detailedTeam = [
     {
         id: 8,
         image: '/team/frontend-designer.png',
-        name: 'ADJIA MVOA DJI GABRIEL MONFILS',
-        role: 'Web Developer & Network Associate',
+        name: 'ADJIA MVOA NDJI GABRIEL MONFILS',
+        role: 'Fullstack Dev & Systems Engineer',
         icon: <FiCode size={20} />,
-        description: 'A multidisciplinary technician blending the worlds of network engineering and modern web development. Zealda specializes in building responsive interfaces and designing intuitive user journeys in Figma, while maintaining a strong focus on the underlying network infrastructure.',
-        expertise: ['Web Development', 'Figma Design', 'Network Engineering'],
+        description: 'Computer science student at Université de Yaoundé I and a multidisciplinary engineer at XyberClan. Gabriel designs and builds fullstack web applications, writes low-level code in C and Assembly, administers Linux systems, develops games with Godot, conducts offensive and defensive cybersecurity operations, architects networks, orchestrates AI workflows via n8n, and applies financial market analysis — combining academic rigour with real-world engineering delivery.',
+        expertise: ['Fullstack Development', 'C & Assembly', 'Linux Sysadmin', 'Game Dev (Godot)', 'Cybersecurity', 'Network Architecture', 'AI Workflows (n8n)', 'Financial Analysis'],
         geography: 'Cameroon',
-        industry: 'Frontend & Networks',
+        industry: 'Software Engineering & Cybersecurity',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/zealda-junior-9352b1277/' },
             { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/zealdajunior' }
@@ -147,10 +132,10 @@ const detailedTeam = [
         id: 9,
         image: '/team/cybersecurity-chief.jpg',
         name: 'Lembou Pharel',
-        role: 'Cybersecurity, AI & Systems Engineer',
+        role: 'Cybersecurity, DevOps & AI Systems Engineer',
         icon: <FiShield size={20} />,
-        description: 'Expert in cybersecurity, web development, and mobile applications using Flutter. He bridges systems engineering with applied AI to build resilient, intelligent, and secure software solutions.',
-        expertise: ['Penetration Testing', 'Systems Engineering', 'Applied AI', 'Mobile Dev (Flutter)'],
+        description: 'Cybersecurity engineer, DevOps practitioner, and systems architect at XyberClan. Lembou conducts penetration testing, automates and manages CI/CD infrastructure, builds secure web and mobile applications (Flutter), and applies AI to harden systems — delivering solutions that are intelligent, resilient, and production-ready.',
+        expertise: ['Penetration Testing', 'DevOps & CI/CD', 'Systems Engineering', 'Applied AI', 'Mobile Dev (Flutter)'],
         geography: 'Cameroon',
         industry: 'Cybersecurity & AI',
         socials: [
@@ -165,7 +150,7 @@ const detailedTeam = [
         name: 'Wandji Tchaleu Yann Félix',
         role: 'Network Engineer, Python Dev & Designer',
         icon: <FiWifi size={20} />,
-        description: 'A versatile technician with a strong foundation in networking infrastructure (CCNA certified), Python development, and creative design. Yann Félix bridges the gap between robust network architecture and elegant visual communication, ensuring solutions are both technically sound and beautifully presented.',
+        description: 'Network engineer and Python developer at XyberClan. CCNA-certified, Yann Félix designs and maintains robust network infrastructures, develops automation and data tooling in Python, and contributes graphic design expertise — bridging technical depth with clear visual communication.',
         expertise: ['Réseau & CCNA', 'Python Development', 'Graphic Design', 'Network Infrastructure'],
         geography: 'Cameroon',
         industry: 'Networks & Development',
@@ -696,8 +681,8 @@ const TeamPage = () => {
             overflowX: 'hidden',
         }}>
             <Meta
-                title="Our Expert Team | Engineering the Future"
-                description="Meet the visionaries, developers, and cybersecurity experts at XyberClan. Our team is dedicated to building innovative digital solutions for Cameroon and the world."
+                title="Our Expert Team | XyberClan Engineers & Strategists"
+                description="Meet the visionaries, full-stack developers, and cybersecurity engineers at XyberClan. Our team is dedicated to building secure tech innovations and premium digital solutions."
             />
             <SharedNavbar transparentHero={false} />
 

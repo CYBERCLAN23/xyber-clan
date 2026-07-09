@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 import { Terminal, Shield, Smartphone, Globe } from 'lucide-react';
@@ -12,7 +13,8 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const FeaturesGrid = () => {
     const { isDark } = useTheme();
-    const t = translations['en'];
+    const { language: lang } = useLanguage();
+    const t = translations[lang] || translations['en'];
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
     const headRef = useRef(null);
@@ -93,14 +95,14 @@ const FeaturesGrid = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.features.badge" fallback="Services" />
+                            <EditableText contentKey={`${lang}.features.badge`} fallback="Services" />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.features.title" fallback={<>What we<br />build for you.</>} />
+                            <EditableText contentKey={`${lang}.features.title`} fallback={<>What we<br />build for you.</>} />
                         </h2>
                     </div>
                     <p
@@ -108,7 +110,7 @@ const FeaturesGrid = () => {
                         style={{ color: muted, fontWeight: 300 }}
                     >
                         <EditableText
-                            contentKey="en.features.subtitle"
+                            contentKey={`${lang}.features.subtitle`}
                             fallback="Four core disciplines. One unified team. Infinite possibilities."
                         />
                     </p>
@@ -147,13 +149,13 @@ const FeaturesGrid = () => {
                                     className="text-xl font-bold tracking-tight leading-tight group-hover:text-cyan-500 transition-colors duration-200"
                                     style={{ color: text }}
                                 >
-                                    <EditableText contentKey={`en.features.items.${i}.title`} fallback={s.title} />
+                                    <EditableText contentKey={`${lang}.features.items.${i}.title`} fallback={s.title} />
                                 </h3>
                                 <p
                                     className="text-[13px] leading-relaxed"
                                     style={{ color: muted, fontWeight: 300 }}
                                 >
-                                    <EditableText contentKey={`en.features.items.${i}.description`} fallback={s.body} />
+                                    <EditableText contentKey={`${lang}.features.items.${i}.description`} fallback={s.body} />
                                 </p>
                             </div>
 

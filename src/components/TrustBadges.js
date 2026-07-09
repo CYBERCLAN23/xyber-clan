@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import { useCMS } from '../context/CMSContext';
 import EditableText from './cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -9,18 +11,35 @@ gsap.registerPlugin(ScrollTrigger);
 const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const partners = [
-    { name: 'University of Yaoundé I', abbr: 'UY1' },
-    { name: 'Hult Prize', abbr: 'HULT' },
-    { name: 'INF Department', abbr: 'INF' },
-    { name: 'Tech Innovators', abbr: 'TI' },
-    { name: 'StartUp Hub', abbr: 'SH' },
-    { name: 'Digital Africa', abbr: 'DA' },
-    { name: 'Code Academy', abbr: 'CA' },
+    {
+        name: 'Hult Prize',
+        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Hult_Prize_Logo.png/320px-Hult_Prize_Logo.png',
+        url: 'https://www.hultprize.org',
+    },
+    {
+        name: 'GEHMIT',
+        logo: 'https://ui-avatars.com/api/?name=GEHMIT&background=059669&color=fff&size=128&bold=true&font-size=0.38',
+        url: 'https://gehmit.org',
+    },
+    {
+        name: 'Divlab',
+        logo: 'https://ui-avatars.com/api/?name=DL&background=6366f1&color=fff&size=128&bold=true&font-size=0.45',
+        url: 'https://divlabs-tech.com',
+    },
+    {
+        name: 'UY1',
+        logo: 'https://ui-avatars.com/api/?name=UY1&background=007a5e&color=fff&size=128&bold=true&font-size=0.45',
+        url: 'https://www.univ-yaounde1.cm',
+    },
 ];
 
 const TrustBadges = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
+    const { isEditing, getContent } = useCMS();
     const [mounted, setMounted] = useState(false);
+
+    const transitionText = getContent(`${lang}.trust.transitionText`, lang === 'en' ? 'Trusted by industry leaders and innovators worldwide' : "Reconnu par les leaders de l'industrie et les innovateurs du monde entier");
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
     const marqueeRef = useRef(null);
@@ -117,7 +136,7 @@ const TrustBadges = () => {
             zoomTrigger.kill();
             textTl.kill();
         };
-    }, [mounted]);
+    }, [mounted, lang, transitionText]);
 
     const bgRgb = isDark ? '10,10,10' : '245,244,242';
 
@@ -138,7 +157,7 @@ const TrustBadges = () => {
                             className="text-center text-[11px] font-semibold tracking-[0.22em] uppercase mb-12 md:mb-16"
                             style={{ color: muted, opacity: 0 }}
                         >
-                            <EditableText contentKey="en.trust.title" tag="span" fallback="Trusted by" />
+                            <EditableText contentKey={`${lang}.trust.title`} tag="span" fallback="Trusted by" />
                         </p>
 
                         <div ref={marqueeRef} className="relative" style={{ opacity: 0 }}>
@@ -156,28 +175,38 @@ const TrustBadges = () => {
                                     const originalIdx = index % partners.length;
                                     return (
                                         <div key={index} className="flex-shrink-0 mx-3 md:mx-4">
-                                            <div
-                                                className="flex items-center justify-center rounded-[20px] px-10 md:px-14 py-6 md:py-8 min-w-[200px] md:min-w-[260px] transition-all duration-500 hover:scale-[1.03]"
+                                            <a
+                                                href={partner.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex flex-col items-center justify-center rounded-[20px] px-10 md:px-14 py-6 md:py-8 min-w-[200px] md:min-w-[240px] transition-all duration-300 hover:scale-[1.05] hover:shadow-lg cursor-pointer"
                                                 style={{
                                                     backgroundColor: cardBg,
                                                     border: `1px solid ${cardBorder}`,
+                                                    textDecoration: 'none',
                                                 }}
                                             >
-                                                <div className="text-center">
-                                                    <div
-                                                        className="text-2xl md:text-3xl font-black tracking-tight"
-                                                        style={{ color: text }}
-                                                    >
-                                                        <EditableText contentKey={`en.trust.partners.${originalIdx}.abbr`} fallback={partner.abbr} />
-                                                    </div>
-                                                    <div
-                                                        className="text-[11px] md:text-xs font-medium mt-1.5 tracking-wide"
-                                                        style={{ color: muted }}
-                                                    >
-                                                        <EditableText contentKey={`en.trust.partners.${originalIdx}.name`} fallback={partner.name} />
+                                                <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden flex items-center justify-center mb-3" style={{ background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.04)' }}>
+                                                    <img
+                                                        src={partner.logo}
+                                                        alt={partner.name}
+                                                        className="w-full h-full object-contain p-1.5"
+                                                        onError={e => {
+                                                            e.target.style.display = 'none';
+                                                            e.target.nextSibling.style.display = 'flex';
+                                                        }}
+                                                    />
+                                                    <div className="hidden w-full h-full items-center justify-center text-lg font-black" style={{ color: text }}>
+                                                        {partner.name.charAt(0)}
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div
+                                                    className="text-[12px] md:text-[13px] font-semibold text-center tracking-wide"
+                                                    style={{ color: muted }}
+                                                >
+                                                    {partner.name}
+                                                </div>
+                                            </a>
                                         </div>
                                     );
                                 })}
@@ -186,9 +215,9 @@ const TrustBadges = () => {
 
                         <div className="flex flex-wrap justify-center gap-10 md:gap-14 mt-14 md:mt-20 max-w-[700px] mx-auto">
                             {[
-                                { valueKey: 'en.trust.stat1.value', labelKey: 'en.trust.stat1.label', value: '100%', label: 'Client Satisfaction' },
-                                { valueKey: 'en.trust.stat2.value', labelKey: 'en.trust.stat2.label', value: '24/7', label: 'Support Available' },
-                                { valueKey: 'en.trust.stat3.value', labelKey: 'en.trust.stat3.label', value: 'Fast', label: 'Delivery Time' },
+                                { valueKey: `${lang}.trust.stat1.value`, labelKey: `${lang}.trust.stat1.label`, value: '100%', label: 'Client Satisfaction' },
+                                { valueKey: `${lang}.trust.stat2.value`, labelKey: `${lang}.trust.stat2.label`, value: '24/7', label: 'Support Available' },
+                                { valueKey: `${lang}.trust.stat3.value`, labelKey: `${lang}.trust.stat3.label`, value: 'Fast', label: 'Delivery Time' },
                             ].map((stat, i) => (
                                 <React.Fragment key={i}>
                                     {i > 0 && (
@@ -223,7 +252,7 @@ const TrustBadges = () => {
                     <div ref={transTextRef} className="flex flex-col items-center max-w-5xl mx-auto drop-shadow-xl" style={{ textShadow: isDark ? '0 4px 24px rgba(0,0,0,0.8)' : '0 4px 24px rgba(255,255,255,0.8)' }}>
                         <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 mb-6 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
                         <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase font-semibold mb-6" style={{ color: muted }}>
-                            Our Network
+                            <EditableText contentKey={`${lang}.trust.network`} fallback="Our Network" />
                         </p>
                         <h2
                             ref={transTitleRef}
@@ -231,13 +260,24 @@ const TrustBadges = () => {
                             style={{
                                 color: text,
                                 fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+                                wordBreak: 'normal',
+                                overflowWrap: 'normal',
                             }}
                         >
-                            {"Trusted by industry leaders and innovators worldwide".split('').map((char, i) => (
-                                char === ' '
-                                    ? <span key={`s${i}`}>&nbsp;</span>
-                                    : <span key={`c${i}`} data-char style={{ display: 'inline-block', opacity: 0, filter: 'blur(8px)', transform: 'translateY(15px)' }}>{char}</span>
-                            ))}
+                            {isEditing ? (
+                                <EditableText contentKey={`${lang}.trust.transitionText`} fallback="Trusted by industry leaders and innovators worldwide" />
+                            ) : (
+                                transitionText.split(' ').map((word, wi, arr) => (
+                                    <React.Fragment key={`w${wi}`}>
+                                        <span style={{ display: 'inline', whiteSpace: 'nowrap' }}>
+                                            {word.split('').map((char, ci) => (
+                                                <span key={`c${wi}-${ci}`} data-char style={{ display: 'inline-block', opacity: 0, filter: 'blur(8px)', transform: 'translateY(15px)' }}>{char}</span>
+                                            ))}
+                                        </span>
+                                        {wi < arr.length - 1 && ' '}
+                                    </React.Fragment>
+                                ))
+                            )}
                         </h2>
                     </div>
                 </div>

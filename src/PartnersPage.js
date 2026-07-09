@@ -130,8 +130,8 @@ const PartnersPage = () => {
             overflowX: 'hidden',
         }}>
             <Meta
-                title="Our Strategic Partners | Collaborative Innovation"
-                description="Discover XyberClan's strategic alliances, including our technical sponsorship of Hult Prize UY1. We collaborate to drive social and technological impact."
+                title="Strategic Partners | XyberClan Tech Ecosystem"
+                description="Discover XyberClan's strategic alliances. We collaborate with partners to drive social impact and technological innovation in cybersecurity and digital solutions."
             />
             <SharedNavbar transparentHero={false} />
 

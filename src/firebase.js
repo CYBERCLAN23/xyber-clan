@@ -4,18 +4,18 @@ import { getAuth } from 'firebase/auth';
 
 // ──────────────────────────────────────────────
 // 🔥 FIREBASE CONFIGURATION
-// Replace these values with your Firebase project config.
-// Go to: Firebase Console → Project Settings → General → Your Apps → Config
-// The Spark (free) plan covers everything this CMS needs.
+// Credentials are loaded from environment variables.
+// Copy .env.example to .env and fill in your values.
+// Never commit real credentials to source control.
 // ──────────────────────────────────────────────
 const firebaseConfig = {
-  apiKey: "AIzaSyCydVkLgeVgj9FHHYP9Uhnt2pHuFwRdxm4",
-  authDomain: "xyberclan-cms-dc2d5.firebaseapp.com",
-  projectId: "xyberclan-cms-dc2d5",
-  storageBucket: "xyberclan-cms-dc2d5.firebasestorage.app",
-  messagingSenderId: "1097230828912",
-  appId: "1:1097230828912:web:a2dce0feaa0a5ac8233bb5",
-  measurementId: "G-HJXGZWV7PB"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

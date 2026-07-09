@@ -11,7 +11,8 @@ export const translations = {
             portfolio: 'Portfolio',
             contact: 'Contact',
             getStarted: 'Get Started',
-            toggleTheme: 'Toggle Theme'
+            toggleTheme: 'Toggle Theme',
+            logoAlt: 'XyberClan — Professional Digital Agency Logo'
         },
         hero: {
             titlePrefix: 'Your Trusted',
@@ -633,7 +634,9 @@ export const translations = {
             h3_design: "Graphic Design & UI/UX",
             h3_cyber: "Cybersecurity & Protection",
             h3_mobile: "Mobile Applications",
-            paragraph: "XyberClan is your trusted digital partner based in Yaounde, Cameroon, serving clients in France, Belgium, Canada, Switzerland, Nigeria, Ghana, Senegal, the UK, USA and worldwide. We provide professional web development, mobile app creation, graphic design, UI/UX and cybersecurity services at competitive rates. Our team of experts combines technical excellence with creative innovation to deliver world-class digital solutions tailored to your unique needs."
+            paragraph: "XyberClan is your trusted digital partner based in Yaounde, Cameroon, serving clients in France, Belgium, Canada, Switzerland, Nigeria, Ghana, Senegal, the UK, USA and worldwide. We provide professional web development, mobile app creation, graphic design, UI/UX and cybersecurity services at competitive rates. Our team of experts combines technical excellence with creative innovation to deliver world-class digital solutions tailored to your unique needs.",
+            h2_digital: "Digital",
+            h2_excellence: "excellence."
         },
         pricing: {
             title: "Simple, Transparent Pricing",
@@ -748,9 +751,43 @@ export const translations = {
                 }
             ]
         },
+        whoWeAre: {
+            badge: 'Who We Are',
+            title1: 'Digital',
+            title2: 'excellence.',
+            subtitle: 'University-trained engineers delivering enterprise-grade solutions at startup speed. Based in Cameroon, serving the world.',
+            card1Title: 'Engineering-First',
+            card1Desc: 'Computer Science students from the University of Yaoundé I, trained in algorithms, systems design, and modern web architecture.',
+            card2Title: 'Full-Service Agency',
+            card2Desc: 'Web development, mobile apps, graphic design, cybersecurity, hardware services, and tech education — all under one roof.',
+            card3Title: 'Global Standards, Local Roots',
+            card3Desc: 'We apply international best practices while staying deeply connected to our community in Cameroon and across Africa.'
+        },
+        get_started: {
+            badge: 'Integrations',
+            title: 'Get started in simple steps.',
+            subtitle: "Whether you're a small business or a large enterprise, our process enhances productivity and simplifies your workflow.",
+            labels: {
+                design: 'Design',
+                code: 'Code',
+                comm: 'Comm',
+                deploy: 'Deploy',
+                contact: 'Contact',
+                support: 'Support'
+            }
+        },
+        newsletter: {
+            badge: 'Newsletter',
+            title: 'Stay in the loop.',
+            subtitle: 'Get tech tips, updates, and exclusive offers delivered directly to your inbox.',
+            note: 'No spam. Unsubscribe anytime.'
+        },
         cta: {
-            title: "Get started today",
-            subtitle: "Create a free account. No demos or calls with our sales team are required. Upgrade only if you have to."
+            title: "Ready to",
+            titleLine2: "get started?",
+            subtitle: "No demos, no lengthy calls. Tell us what you need — we'll build it.",
+            primaryButton: "Start your project",
+            secondaryButton: "Or contact us →"
         }
     },
     fr: {
@@ -765,7 +802,8 @@ export const translations = {
             portfolio: 'Portfolio',
             contact: 'Contact',
             getStarted: 'Commencer',
-            toggleTheme: 'Changer de thème'
+            toggleTheme: 'Changer de thème',
+            logoAlt: 'XyberClan — Agence Digitale Professionnelle Logo'
         },
         hero: {
             titlePrefix: 'Votre Partenaire de Confiance',
@@ -1391,7 +1429,9 @@ export const translations = {
             h3_design: "Design Graphique & UI/UX",
             h3_cyber: "Cybersécurité & Protection",
             h3_mobile: "Applications Mobiles",
-            paragraph: "XyberClan est votre partenaire digital de confiance basé à Yaoundé, Cameroun, accompagnant des clients en France, Belgique, Canada, Suisse, Côte d'Ivoire, Sénégal, Nigéria, Ghana et partout dans le monde. Nous proposons le développement de sites web professionnels, la création d'applications mobiles, le design graphique, l'UI/UX design et la cybersécurité à des tarifs compétitifs. Notre équipe d'experts combine excellence technique et innovation créative pour livrer des solutions digitales de qualité mondiale adaptées à vos besoins."
+            paragraph: "XyberClan est votre partenaire digital de confiance basé à Yaoundé, Cameroun, accompagnant des clients en France, Belgique, Canada, Suisse, Côte d'Ivoire, Sénégal, Nigéria, Ghana et partout dans le monde. Nous proposons le développement de sites web professionnels, la création d'applications mobiles, le design graphique, l'UI/UX design et la cybersécurité à des tarifs compétitifs. Notre équipe d'experts combine excellence technique et innovation créative pour livrer des solutions digitales de qualité mondiale adaptées à vos besoins.",
+            h2_digital: "Excellence",
+            h2_excellence: "digitale."
         },
         pricing: {
             title: "Tarification Simple et Transparente",
@@ -1506,9 +1546,43 @@ export const translations = {
                 }
             ]
         },
+        whoWeAre: {
+            badge: 'Qui Sommes-Nous',
+            title1: 'Excellence',
+            title2: 'digitale.',
+            subtitle: 'Ingénieurs formés à l\'université, livrant des solutions de niveau entreprise à la vitesse d\'une startup. Basés au Cameroun, au service du monde.',
+            card1Title: 'Ingénierie Avant Tout',
+            card1Desc: 'Étudiants en informatique à l\'Université de Yaoundé I, formés en algorithmique, conception de systèmes et architecture web moderne.',
+            card2Title: 'Agence Complète',
+            card2Desc: 'Développement web, applications mobiles, design graphique, cybersécurité, services hardware et formation tech — tout sous un même toit.',
+            card3Title: 'Standards Internationaux, Racines Locales',
+            card3Desc: 'Nous appliquons les meilleures pratiques internationales tout en restant profondément connectés à notre communauté au Cameroun et en Afrique.'
+        },
+        get_started: {
+            badge: 'Intégrations',
+            title: 'Commencez en quelques étapes simples.',
+            subtitle: 'Que vous soyez une petite entreprise ou une grande organisation, notre processus améliore la productivité et simplifie votre flux de travail.',
+            labels: {
+                design: 'Design',
+                code: 'Code',
+                comm: 'Comm',
+                deploy: 'Déployer',
+                contact: 'Contact',
+                support: 'Support'
+            }
+        },
+        newsletter: {
+            badge: 'Newsletter',
+            title: 'Restez informé.',
+            subtitle: 'Recevez des astuces tech, des mises à jour et des offres exclusives directement dans votre boîte mail.',
+            note: 'Pas de spam. Désabonnement à tout moment.'
+        },
         cta: {
-            title: "Commencez dès aujourd'hui",
-            subtitle: "Commencez votre prochain projet avec nous. Aucune démonstration ou appel requis. Nous construisons, vous grandissez."
+            title: "Prêt à",
+            titleLine2: "commencer ?",
+            subtitle: "Pas de démos, pas de longs appels. Dites-nous ce dont vous avez besoin — nous le construirons.",
+            primaryButton: "Lancer votre projet",
+            secondaryButton: "Ou contactez-nous →"
         }
     }
 };

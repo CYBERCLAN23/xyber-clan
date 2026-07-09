@@ -5,12 +5,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import mountainBg from '../assets/hero-mountain.png';
 import EditableText from './cms/EditableText';
 import { useTheme } from '../context/ThemeContext';
+import { useCMS } from '../context/CMSContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
     const { isDark } = useTheme();
+    const { isEditing, getContent } = useCMS();
     const [mounted, setMounted] = useState(false);
+
+    const transitionText = getContent(`${lang}.hero.transitionText`, lang === 'en' ? 'A premium digital agency focused on driving technological growth' : 'Une agence numérique premium axée sur le développement technologique');
     const sectionRef = useRef(null);
     const line1Ref = useRef(null);
     const line2Ref = useRef(null);
@@ -139,7 +143,7 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
             zoomTrigger.kill();
             textTl.kill();
         };
-    }, [mounted]);
+    }, [mounted, lang, transitionText]);
 
     // ─── Mouse parallax ───────────────────────────────────────────────────────
     useEffect(() => {
@@ -298,21 +302,32 @@ const LiquidGlassHero = ({ lang = 'en', translations: t }) => {
                     <div ref={transTextRef} className="flex flex-col items-center max-w-5xl mx-auto drop-shadow-xl" style={{ textShadow: isDark ? '0 4px 24px rgba(0,0,0,0.8)' : '0 4px 24px rgba(255,255,255,0.8)' }}>
                         <div className="w-1.5 h-1.5 rounded-full bg-red-600 mb-6 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
                         <p className="text-[10px] sm:text-xs tracking-[0.2em] uppercase font-semibold mb-6" style={{ color: isDark ? '#a0a0a0' : '#666' }}>
-                            About XyberClan
+                            <EditableText contentKey={`${lang}.hero.aboutXyberclan`} fallback="About XyberClan" />
                         </p>
                         <h2 
                             ref={transTitleRef}
                             className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold tracking-[-0.03em] leading-[1.1]" 
                             style={{ 
                                 color: text,
-                                fontFamily: "'Inter', 'Helvetica Neue', sans-serif", 
+                                fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
+                                wordBreak: 'normal',
+                                overflowWrap: 'normal',
                             }}
                         >
-                            {"A premium digital agency focused on driving technological growth".split('').map((char, i) => (
-                                char === ' ' 
-                                    ? <span key={`s${i}`}>&nbsp;</span> 
-                                    : <span key={`c${i}`} data-char style={{ display: 'inline-block', opacity: 0, filter: 'blur(8px)', transform: 'translateY(15px)' }}>{char}</span>
-                            ))}
+                            {isEditing ? (
+                                <EditableText contentKey={`${lang}.hero.transitionText`} fallback="A premium digital agency focused on driving technological growth" />
+                            ) : (
+                                transitionText.split(' ').map((word, wi, arr) => (
+                                    <React.Fragment key={`w${wi}`}>
+                                        <span style={{ display: 'inline', whiteSpace: 'nowrap' }}>
+                                            {word.split('').map((char, ci) => (
+                                                <span key={`c${wi}-${ci}`} data-char style={{ display: 'inline-block', opacity: 0, filter: 'blur(8px)', transform: 'translateY(15px)' }}>{char}</span>
+                                            ))}
+                                        </span>
+                                        {wi < arr.length - 1 && ' '}
+                                    </React.Fragment>
+                                ))
+                            )}
                         </h2>
                     </div>
                 </div>

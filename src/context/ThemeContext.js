@@ -4,13 +4,15 @@ const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState(() => {
-        // Check localStorage first, then system preference
+        // Check localStorage first, then fall back to system preference
         if (typeof window !== 'undefined') {
             const stored = localStorage.getItem('xyberclan-theme-v2');
             if (stored) return stored;
-            return 'light';
+            // Respect OS dark/light preference for first-time visitors
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            return prefersDark ? 'dark' : 'light';
         }
-        return 'light';
+        return 'dark'; // Default to dark (pitch-black brand identity)
     });
 
     const isDark = theme === 'dark';

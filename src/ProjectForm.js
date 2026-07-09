@@ -328,8 +328,8 @@ const ProjectForm = () => {
             overflowX: 'hidden'
         }}>
             <Meta
-                title="Start Your Project | Free Quote"
-                description="Ready to build your next big thing? Start your project with XyberClan. Our experts will help you design, develop and secure your digital future."
+                title="Start Your Project | XyberClan Digital Solutions"
+                description="Ready to build your next big thing? Partner with XyberClan, a cybersecurity and tech innovation startup. Our engineers will design, develop, and secure your digital future."
             />
 
             {/* Header */}

@@ -29,12 +29,12 @@ const XyberClanWebsite = () => {
   const t = translations[language];
 
   return (
-    <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-white text-gray-900'} transition-colors duration-300`}>
+    <div className={`min-h-screen ${isDark ? 'bg-black text-white' : 'bg-[#f5f4f2] text-gray-900'} transition-colors duration-300`}>
       {/* ─── First-visit loading animation ─── */}
       <Preloader />
       <Meta
-        title="Digital Agency | Web, Design & Cybersecurity"
-        description="XyberClan is a premium digital agency specializing in web development, cybersecurity, and UI/UX design. Serving global clients from Africa."
+        title="XyberClan | Cybersecurity & Tech Innovation Startup"
+        description="XyberClan is a cybersecurity and tech innovation startup that also provides premium digital solutions including web development and UI/UX design. We engineer secure, scalable, and intelligent software."
       />
 
       <SharedNavbar transparentHero={true} />
@@ -56,10 +56,12 @@ const XyberClanWebsite = () => {
         <StatsCounter />
         <Testimonials />
         <TrustBadges />
+      </div>
 
-      <GetStarted />
-      <FAQSection />
-      <Newsletter />
+      <div className="relative z-10" style={{ backgroundColor: isDark ? '#0a0a0a' : '#f5f4f2' }}>
+        <GetStarted />
+        <FAQSection />
+        <Newsletter />
       </div>
 
       <div className="relative z-10 bg-transparent">

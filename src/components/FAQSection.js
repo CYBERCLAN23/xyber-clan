@@ -3,6 +3,7 @@ import { Plus, Minus } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import EditableText from './cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -44,7 +45,7 @@ const faqs = [
     }
 ];
 
-const FAQItem = ({ faq, index, isOpen, onToggle, onScrollOpen, text, muted, border }) => {
+const FAQItem = ({ faq, index, isOpen, onToggle, onScrollOpen, text, muted, border, lang }) => {
     const itemRef = useRef(null);
     const contentRef = useRef(null);
 
@@ -92,7 +93,7 @@ const FAQItem = ({ faq, index, isOpen, onToggle, onScrollOpen, text, muted, bord
                         className="text-base md:text-lg font-semibold tracking-tight group-hover:text-cyan-500 transition-colors duration-200"
                         style={{ color: text }}
                     >
-                        <EditableText contentKey={`en.faq.items.${index}.question`} tag="span" fallback={faq.question} />
+                        <EditableText contentKey={`${lang}.faq.items.${index}.question`} tag="span" fallback={faq.question} />
                     </span>
                 </div>
                 <div
@@ -118,7 +119,7 @@ const FAQItem = ({ faq, index, isOpen, onToggle, onScrollOpen, text, muted, bord
                     className="pb-8 pl-10 md:pl-[4.5rem] pr-14 text-[14.5px] leading-[1.8]"
                     style={{ color: muted, fontWeight: 300 }}
                 >
-                    <EditableText contentKey={`en.faq.items.${index}.answer`} tag="span" fallback={faq.answer} />
+                    <EditableText contentKey={`${lang}.faq.items.${index}.answer`} tag="span" fallback={faq.answer} />
                 </div>
             </div>
         </div>
@@ -127,6 +128,7 @@ const FAQItem = ({ faq, index, isOpen, onToggle, onScrollOpen, text, muted, bord
 
 const FAQSection = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
     const [openIndex, setOpenIndex] = useState(0);
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
@@ -182,14 +184,14 @@ const FAQSection = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.faq.badge" tag="span" fallback="FAQ" />
+                            <EditableText contentKey={`${lang}.faq.badge`} tag="span" fallback="FAQ" />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.faq.title" tag="span" fallback={<>Questions?<br />Answers.</>} />
+                            <EditableText contentKey={`${lang}.faq.title`} tag="span" fallback={<>Questions?<br />Answers.</>} />
                         </h2>
                     </div>
                     <div className="flex items-end">
@@ -198,7 +200,7 @@ const FAQSection = () => {
                             style={{ color: muted, fontWeight: 300 }}
                         >
                             <EditableText
-                                contentKey="en.faq.subtitle"
+                                contentKey={`${lang}.faq.subtitle`}
                                 tag="span"
                                 fallback="Everything you need to know about our services, pricing, process, and how we work with you."
                             />
@@ -223,6 +225,7 @@ const FAQSection = () => {
                             text={text}
                             muted={muted}
                             border={border}
+                            lang={lang}
                         />
                     ))}
                 </div>
@@ -234,7 +237,7 @@ const FAQSection = () => {
                     style={{ borderTop: `1px solid ${border}`, opacity: 0 }}
                 >
                     <p className="text-sm" style={{ color: muted, fontWeight: 300 }}>
-                        <EditableText contentKey="en.faq.ctaText" tag="span" fallback="Still have questions? We're happy to help." />
+                        <EditableText contentKey={`${lang}.faq.ctaText`} tag="span" fallback="Still have questions? We're happy to help." />
                     </p>
                     <a
                         href="https://wa.me/237654269488?text=Hi%20XyberClan!%20I%20have%20a%20question..."
@@ -243,7 +246,7 @@ const FAQSection = () => {
                         className="group flex items-center gap-3 text-sm font-semibold tracking-wide border-b pb-0.5 transition-colors duration-200 hover:text-cyan-500 hover:border-cyan-500"
                         style={{ color: text, borderColor: text }}
                     >
-                        <EditableText contentKey="en.faq.ctaButton" tag="span" fallback="Chat with us" />
+                        <EditableText contentKey={`${lang}.faq.ctaButton`} tag="span" fallback="Chat with us" />
                         <span className="transition-transform group-hover:translate-x-1">→</span>
                     </a>
                 </div>

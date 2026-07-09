@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import EditableText from './cms/EditableText';
 import { ArrowRight } from 'lucide-react';
 
@@ -12,6 +13,7 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const CTASection = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
     const sectionRef = useRef(null);
     const line1Ref = useRef(null);
     const line2Ref = useRef(null);
@@ -53,10 +55,10 @@ const CTASection = () => {
                         style={{ fontWeight: 900, fontSize: 'clamp(3.2rem, 7vw, 7rem)' }}
                     >
                         <span ref={line1Ref} className="block" style={{ opacity: 0 }}>
-                            <EditableText contentKey="en.cta.title" fallback="Ready to" />
+                            <EditableText contentKey={`${lang}.cta.title`} fallback="Ready to" />
                         </span>
                         <span ref={line2Ref} className="block pl-[0.1em]" style={{ opacity: 0 }}>
-                            get started?
+                            <EditableText contentKey={`${lang}.cta.titleLine2`} fallback="get started?" />
                         </span>
                     </h2>
 
@@ -66,7 +68,7 @@ const CTASection = () => {
                         style={{ color: muted, fontWeight: 300, opacity: 0 }}
                     >
                         <EditableText
-                            contentKey="en.cta.subtitle"
+                            contentKey={`${lang}.cta.subtitle`}
                             fallback="No demos, no lengthy calls. Tell us what you need — we'll build it."
                         />
                     </p>
@@ -78,7 +80,7 @@ const CTASection = () => {
                             className="group flex items-center gap-3 px-8 py-4 font-bold text-sm tracking-wide text-white transition-all duration-200 hover:gap-4"
                             style={{ background: '#06b6d4', borderRadius: 0 }}
                         >
-                            <EditableText contentKey="en.cta.primaryButton" fallback="Start your project" />
+                            <EditableText contentKey={`${lang}.cta.primaryButton`} fallback="Start your project" />
                             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                         </Link>
                         <a
@@ -86,7 +88,7 @@ const CTASection = () => {
                             className="text-sm font-semibold border-b pb-0.5 transition-colors duration-200 hover:text-cyan-500 hover:border-cyan-500"
                             style={{ color: text, borderColor: text }}
                         >
-                            <EditableText contentKey="en.cta.secondaryButton" fallback="Or contact us →" />
+                            <EditableText contentKey={`${lang}.cta.secondaryButton`} fallback="Or contact us →" />
                         </a>
                     </div>
                 </div>

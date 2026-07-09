@@ -3,6 +3,7 @@ import { ArrowRight, Check } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import EditableText from './cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,6 +12,7 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const Newsletter = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState('idle'); // idle, loading, success
     const sectionRef = useRef(null);
@@ -78,14 +80,14 @@ const Newsletter = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.newsletter.badge" tag="span" fallback="Newsletter" />
+                            <EditableText contentKey={`${lang}.newsletter.badge`} tag="span" fallback="Newsletter" />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em] mb-6"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.newsletter.title" tag="span" fallback={<>Stay in the<br />loop.</>} />
+                            <EditableText contentKey={`${lang}.newsletter.title`} tag="span" fallback={<>Stay in the<br />loop.</>} />
                         </h2>
                         <p
                             ref={subRef}
@@ -93,7 +95,7 @@ const Newsletter = () => {
                             style={{ color: muted, fontWeight: 300, opacity: 0 }}
                         >
                             <EditableText 
-                                contentKey="en.newsletter.subtitle" 
+                                contentKey={`${lang}.newsletter.subtitle`} 
                                 tag="span" 
                                 fallback="Get tech tips, updates, and exclusive offers delivered directly to your inbox." 
                             />
@@ -143,7 +145,7 @@ const Newsletter = () => {
                         <div className="mt-4 flex items-center gap-2">
                             <span className="block w-2 h-2 rounded-full" style={{ backgroundColor: '#06b6d4' }} />
                             <p className="text-[11px] uppercase tracking-wider" style={{ color: muted }}>
-                                <EditableText contentKey="en.newsletter.note" tag="span" fallback="No spam. Unsubscribe anytime." />
+                                <EditableText contentKey={`${lang}.newsletter.note`} tag="span" fallback="No spam. Unsubscribe anytime." />
                             </p>
                         </div>
                     </div>

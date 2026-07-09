@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
 
@@ -10,20 +11,21 @@ gsap.registerPlugin(ScrollTrigger);
 const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 
 const teamMembers = [
-    { key: 'cedrik', name: 'Cedrik Darel Yepmo', role: 'CEO & Co-Founder', image: '/team/ceo-member.jpg' },
-    { key: 'josias', name: 'Akana Signing Josias Aaron', role: 'CTO & AI Security Architect', image: '/team/cto-redteamer.jpg' },
-    { key: 'onana', name: 'Onana Gregoire Legrand', role: 'Co-Founder & Strategist', image: '/team/communications-manager.jpg' },
-    { key: 'ange', name: 'Ange Demanou', role: 'Digital Generalist', image: '/team/ange-demanou.png' },
+    { key: 'cedrik', name: 'Cedrik Darel Yepmo', role: 'Co-Founder, CEO & Cybersecurity Analyst', image: '/team/ceo-member.jpg' },
+    { key: 'josias', name: 'Akana Signing Josias Aaron', role: 'Co-Founder & CTO / AI Security Architect', image: '/team/cto-redteamer.jpg' },
+    { key: 'onana', name: 'Onana Gregoire Legrand', role: 'COO, IT & Cybersecurity Eng.', image: '/team/communications-manager.jpeg' },
+    { key: 'ange', name: 'Ange Demanou', role: 'Data Analyst & UI/UX Designer', image: '/team/ange-demanou.png' },
     { key: 'william', name: 'William Chandler', role: 'Visual Content Designer', image: '/team/william-chandler.png' },
     { key: 'yann', name: 'Wandji Tchaleu Yann Félix', role: 'Network Eng & Python', image: '/team/yann-felix-wandji.png' },
-    { key: 'yvana', name: 'Yvana Emilia Lalane Larcier', role: 'Frontend Developer', image: '/team/dev-member.jpg' },
-    { key: 'zealda', name: 'ADJIA MVOA DJI GABRIEL MONFILS', role: 'Web Dev & Network', image: '/team/frontend-designer.png' },
-    { key: 'lembou', name: 'Lembou Pharel', role: 'Cybersecurity & Systems', image: '/team/cybersecurity-chief.jpg' },
-    { key: 'theresa', name: 'Theresa Tcheme', role: 'Media & Comm Manager', image: '/team/theresa-tcheme.jpg' }
+
+    { key: 'zealda', name: 'ADJIA MVOA NDJI GABRIEL MONFILS', role: 'Fullstack Dev & Systems Eng.', image: '/team/frontend-designer.png' },
+    { key: 'lembou', name: 'Lembou Pharel', role: 'Cybersecurity, DevOps & AI', image: '/team/cybersecurity-chief.jpg' },
+    { key: 'theresa', name: 'Theresa Tcheme', role: 'CEO of Greenfarmers · GDG Yaoundé Volunteer · Hult Prize Organiser', image: '/team/theresa-tcheme.jpg' }
 ];
 
 const TeamMinimal = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
     const headRef = useRef(null);
@@ -78,14 +80,14 @@ const TeamMinimal = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.team_minimal.badge" fallback="The XyberClan" />
+                            <EditableText contentKey={`${lang}.team_minimal.badge`} fallback="The XyberClan" />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey="en.team_minimal.title" fallback={<>The people<br />behind the code.</>} />
+                            <EditableText contentKey={`${lang}.team_minimal.title`} fallback={<>The people<br />behind the code.</>} />
                         </h2>
                     </div>
                     <p
@@ -93,7 +95,7 @@ const TeamMinimal = () => {
                         style={{ color: muted, fontWeight: 300 }}
                     >
                         <EditableText
-                            contentKey="en.team_minimal.subtitle"
+                            contentKey={`${lang}.team_minimal.subtitle`}
                             fallback="A collective of engineers, designers, and security specialists dedicated to building what matters."
                         />
                     </p>

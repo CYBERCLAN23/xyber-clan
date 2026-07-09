@@ -266,8 +266,8 @@ const CareerForm = () => {
             </div>
 
             <Meta
-                title="Apply: Community Manager | XyberClan Careers"
-                description="Join XyberClan as our Community Manager. Apply now to help shape our digital community."
+                title="Careers: Community Manager | XyberClan"
+                description="Join XyberClan, a fast-growing cybersecurity and tech innovation startup. Apply for the Community Manager role and help shape our secure digital solutions ecosystem."
             />
 
             {/* Nav */}

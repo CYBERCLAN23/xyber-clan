@@ -14,7 +14,7 @@ const PrivacyPage = () => {
 
   return (
     <div style={{ background: bg, color: text, fontFamily: FONT }} className="min-h-screen">
-      <Meta title="Privacy Policy" description="XyberClan Privacy Policy. Learn how we collect, use, and protect your personal information." />
+      <Meta title="Privacy Policy | XyberClan" description="Privacy Policy for XyberClan, a cybersecurity and tech innovation startup. Learn how we collect, use, and protect your data across our digital solutions." />
       <SharedNavbar transparentHero={false} />
       <div className="max-w-3xl mx-auto px-6 py-32">
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-8">Privacy Policy</h1>
@@ -51,7 +51,7 @@ const TermsPage = () => {
 
   return (
     <div style={{ background: bg, color: text, fontFamily: FONT }} className="min-h-screen">
-      <Meta title="Terms of Service" description="XyberClan Terms of Service. Understand the terms governing the use of our website and services." />
+      <Meta title="Terms of Service | XyberClan" description="Terms of Service for XyberClan, a cybersecurity and tech innovation startup. Understand the terms governing the use of our digital solutions and services." />
       <SharedNavbar transparentHero={false} />
       <div className="max-w-3xl mx-auto px-6 py-32">
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-8">Terms of Service</h1>

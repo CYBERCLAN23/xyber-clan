@@ -223,7 +223,7 @@ const SharedNavbar = ({ transparentHero = false }) => {
                         >
                             <img
                                 src={getLogo()}
-                                alt="XyberClan — Professional Digital Agency Logo"
+                                alt={t.nav.logoAlt || "XyberClan — Professional Digital Agency Logo"}
                                 fetchpriority="high"
                                 decoding="async"
                                 className="w-[50px] h-[50px] object-contain transition-transform duration-300 group-hover:scale-105"

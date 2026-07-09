@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { X, ArrowRight, Gift, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import EditableText from './cms/EditableText';
 
 const ExitPopup = () => {
     const { isDark } = useTheme();
+    const { language: lang } = useLanguage();
     const [isVisible, setIsVisible] = useState(false);
     const [hasShown, setHasShown] = useState(false);
 
@@ -68,10 +70,10 @@ const ExitPopup = () => {
                             <Gift className="w-8 h-8 text-white" />
                         </div>
                         <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
-                            <EditableText contentKey="en.exitPopup.title" tag="span" fallback="Wait! Before You Go..." />
+                            <EditableText contentKey={`${lang}.exitPopup.title`} tag="span" fallback="Wait! Before You Go..." />
                         </h3>
                         <p className="text-white/80">
-                            <EditableText contentKey="en.exitPopup.subtitle" tag="span" fallback="Get a special offer just for you" />
+                            <EditableText contentKey={`${lang}.exitPopup.subtitle`} tag="span" fallback="Get a special offer just for you" />
                         </p>
                     </div>
 
@@ -80,16 +82,16 @@ const ExitPopup = () => {
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full mb-4">
                             <Sparkles className="w-4 h-4 text-green-500" />
                             <span className="text-sm font-bold text-green-500">
-                                <EditableText contentKey="en.exitPopup.badge" tag="span" fallback="Limited Time Offer" />
+                                <EditableText contentKey={`${lang}.exitPopup.badge`} tag="span" fallback="Limited Time Offer" />
                             </span>
                         </div>
 
                         <h4 className={`text - xl font - bold mb - 4 ${isDark ? 'text-white' : 'text-gray-900'} `}>
-                            <EditableText contentKey="en.exitPopup.offerTitle" tag="span" fallback="Get 10% OFF Your First Project!" />
+                            <EditableText contentKey={`${lang}.exitPopup.offerTitle`} tag="span" fallback="Get 10% OFF Your First Project!" />
                         </h4>
 
                         <p className={`mb - 6 ${isDark ? 'text-gray-400' : 'text-gray-600'} `}>
-                            <EditableText contentKey="en.exitPopup.offerBody" tag="span" fallback="Start your project with us today and get an exclusive 10% discount. Just mention this offer when you contact us!" />
+                            <EditableText contentKey={`${lang}.exitPopup.offerBody`} tag="span" fallback="Start your project with us today and get an exclusive 10% discount. Just mention this offer when you contact us!" />
                         </p>
 
                         <div className="space-y-3">
@@ -99,7 +101,7 @@ const ExitPopup = () => {
                                 className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-4 px-6 rounded-xl font-bold text-lg hover:scale-[1.02] transition-transform shadow-lg shadow-cyan-500/30"
                             >
                                 <Gift className="w-5 h-5" />
-                                <EditableText contentKey="en.exitPopup.ctaButton" tag="span" fallback="Claim Your Discount" />
+                                <EditableText contentKey={`${lang}.exitPopup.ctaButton`} tag="span" fallback="Claim Your Discount" />
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
 
@@ -107,7 +109,7 @@ const ExitPopup = () => {
                                 onClick={handleClose}
                                 className={`w - full py - 3 px - 6 rounded - xl font - medium transition - colors ${isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-700'} `}
                             >
-                                <EditableText contentKey="en.exitPopup.dismiss" tag="span" fallback="No thanks, maybe later" />
+                                <EditableText contentKey={`${lang}.exitPopup.dismiss`} tag="span" fallback="No thanks, maybe later" />
                             </button>
                         </div>
                     </div>

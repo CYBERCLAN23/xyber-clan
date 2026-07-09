@@ -321,12 +321,22 @@ const PageHero = ({
                         <h2
                             ref={transTitleRef}
                             className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-semibold tracking-[-0.03em] leading-[1.1]"
-                            style={{ color: text, fontFamily: FONT }}
+                            style={{
+                                color: text,
+                                fontFamily: FONT,
+                                wordBreak: 'normal',
+                                overflowWrap: 'normal',
+                            }}
                         >
-                            {transitionText.split('').map((char, i) => (
-                                char === ' '
-                                    ? <span key={`s${i}`}>&nbsp;</span>
-                                    : <span key={`c${i}`} data-char style={{ display: 'inline-block', opacity: 0, filter: 'blur(8px)', transform: 'translateY(15px)' }}>{char}</span>
+                            {transitionText.split(' ').map((word, wi, arr) => (
+                                <React.Fragment key={`w${wi}`}>
+                                    <span style={{ display: 'inline', whiteSpace: 'nowrap' }}>
+                                        {word.split('').map((char, ci) => (
+                                            <span key={`c${wi}-${ci}`} data-char style={{ display: 'inline-block', opacity: 0, filter: 'blur(8px)', transform: 'translateY(15px)' }}>{char}</span>
+                                        ))}
+                                    </span>
+                                    {wi < arr.length - 1 && ' '}
+                                </React.Fragment>
                             ))}
                         </h2>
                     </div>

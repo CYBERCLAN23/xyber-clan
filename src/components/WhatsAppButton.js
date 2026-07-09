@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { isHolidaySeason } from '../utils/festive';
+import { useLanguage } from '../context/LanguageContext';
 import EditableText from './cms/EditableText';
 
 const WhatsAppButton = () => {
+    const { language: lang } = useLanguage();
     const phoneNumbers = [
         { label: "Contact 1", number: "237654269488" },
         { label: "Contact 2", number: "237696814391" }
@@ -37,10 +39,10 @@ const WhatsAppButton = () => {
                         aria-label={`Chat on WhatsApp with ${contact.label}`}
                     >
                         <span>
-                            <EditableText contentKey={`en.whatsapp.contacts.${index}.label`} tag="span" fallback={contact.label} />
+                            <EditableText contentKey={`${lang}.whatsapp.contacts.${index}.label`} tag="span" fallback={contact.label} />
                         </span>
                         <span className="text-gray-500 text-xs">
-                            <EditableText contentKey={`en.whatsapp.contacts.${index}.number`} tag="span" fallback={contact.number.replace('237', '+237 ')} />
+                            <EditableText contentKey={`${lang}.whatsapp.contacts.${index}.number`} tag="span" fallback={contact.number.replace('237', '+237 ')} />
                         </span>
                     </a>
                 ))}
@@ -52,7 +54,7 @@ const WhatsAppButton = () => {
                 <div
                     className={`bg-white text-gray-900 px-4 py-2 rounded-[var(--radius-lg)] shadow-2xl font-bold text-sm transform transition-all duration-500 origin-right ${isHovered ? 'scale-90 opacity-0 translate-x-4 pointer-events-none' : 'scale-100 opacity-100 translate-x-0'}`}
                 >
-                    <EditableText contentKey="en.whatsapp.tooltip" tag="span" fallback={isHolidaySeason() ? "Merry Christmas! 🎄 Chat with us!" : "Chat with us! 👋"} />
+                    <EditableText contentKey={`${lang}.whatsapp.tooltip`} tag="span" fallback={isHolidaySeason() ? "Merry Christmas! 🎄 Chat with us!" : "Chat with us! 👋"} />
                 </div>
 
                 <div className="relative group/btn">

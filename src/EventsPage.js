@@ -411,8 +411,8 @@ const EventsPage = () => {
     return (
         <div style={{ background: bg, color: text, fontFamily: FONT }} className="min-h-screen transition-colors duration-300">
             <Meta
-                title="Events & Blog | Stay Connected"
-                description="Follow XyberClan's latest news, event participations, and technical insights. Stay updated with the African tech ecosystem."
+                title="Events & Insights | XyberClan Tech & Cybersecurity News"
+                description="Follow XyberClan's latest news, cybersecurity insights, and tech innovations. Stay updated with our events and contributions to the global digital solutions ecosystem."
             />
             <SharedNavbar transparentHero={true} />
 
