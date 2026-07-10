@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { X, ArrowUpRight, Globe, Twitter } from 'lucide-react';
+import { X, Globe, Twitter } from 'lucide-react';
 import { FaLinkedinIn, FaGithub, FaYoutube, FaInstagram } from 'react-icons/fa';
 import { gsap } from 'gsap';
 import { translations } from './translations';
