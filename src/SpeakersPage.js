@@ -357,35 +357,6 @@ const SpeakerGridCell = ({ speaker, onOpen, setHoverSpeaker, isDark }) => {
                 }}>
                     {speaker.name}
                 </span>
-                <span style={{
-                    fontFamily: FONT, fontWeight: 400, fontSize: '0.6rem',
-                    letterSpacing: '0.14em', textTransform: 'uppercase',
-                    color: hovered ? 'rgba(255,255,255,0.7)' : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.25)'),
-                    transition: 'color 0.3s',
-                }}>
-                    {speaker.role}
-                </span>
-                {speaker.logo && (
-                    <img
-                        src={speaker.logo}
-                        alt={speaker.enterprise}
-                        style={{
-                            height: 18, opacity: hovered ? 0.8 : 0.3,
-                            transition: 'opacity 0.3s', marginTop: 4,
-                        }}
-                    />
-                )}
-                {speaker.link && (
-                    <span style={{
-                        fontSize: '0.55rem', fontWeight: 400,
-                        letterSpacing: '0.05em', color: hovered
-                            ? 'rgba(255,255,255,0.6)'
-                            : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'),
-                        transition: 'color 0.3s',
-                    }}>
-                        {speaker.link}
-                    </span>
-                )}
             </div>
         </div>
     );
