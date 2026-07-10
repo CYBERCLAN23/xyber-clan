@@ -508,34 +508,24 @@ export const translations = {
             connect: 'Connect with',
             speakers: {
                 '1': {
-                    name: 'Cedrik Darel Yepmo',
-                    role: 'AI & Cybersecurity Expert',
-                    description: 'Co-Founder and CEO of XyberClan. Cedrik delivers deep-dive sessions on AI-powered cybersecurity, fullstack development strategies, and building resilient digital infrastructures for the African market.'
+                    name: 'Vanessa Manessong',
+                    role: 'Investigative Data Analyst & OSINT Specialist',
+                    description: 'Data analyst specialised in information ecosystem analysis, online disinformation, and OSINT investigations. Founder of Gehmit, an organisation dedicated to guiding and training youth in digital professions. Passionate about data, AI, and the social impact of technology.'
                 },
                 '2': {
-                    name: 'AKANA SIGNING JOSIAS AARON',
-                    role: 'Red Teaming & AI Security',
-                    description: 'CTO of XyberClan and elite Red Teamer. Josias shares practical knowledge on offensive security, LLM security architecture, and building breach-resilient systems.'
+                    name: 'Cabrel Donfang',
+                    role: 'Serial Event Organiser & Tech Evangelist',
+                    description: 'Serial Event Organiser, Solution Provider and Tech Evangelist. Passionate about building communities, connecting innovators, and driving technology adoption across Africa.'
                 },
                 '3': {
-                    name: 'ONANA GREGOIRE LEGRAND',
-                    role: 'Business Strategy & Cybersecurity',
-                    description: 'COO of XyberClan. Onana presents on business-driven cybersecurity strategies, operational excellence, and scaling tech startups in emerging markets.'
+                    name: 'Tamkwa Kamga Brandon',
+                    role: 'Fullstack AI Developer & DevOps',
+                    description: 'Founder and Mentor at LesCrack. Fullstack AI Developer and DevOps at Gehmit. Passionate about building scalable AI-powered solutions and mentoring the next generation of developers.'
                 },
                 '4': {
-                    name: 'Lembou Pharel',
-                    role: 'DevOps & AI Systems',
-                    description: 'Cybersecurity engineer and DevOps practitioner at XyberClan. Lembou leads workshops on CI/CD automation, penetration testing, and AI-driven system hardening.'
-                },
-                '5': {
-                    name: 'ADJIA MVOA NDJI GABRIEL MONFILS',
-                    role: 'Fullstack & Systems Engineering',
-                    description: 'Multidisciplinary engineer at XyberClan. Gabriel covers fullstack development, Linux systems, AI workflow orchestration with n8n, and cybersecurity operations.'
-                },
-                '6': {
-                    name: 'Wandji Tchaleu Yann Félix',
-                    role: 'Network Engineering & Python',
-                    description: 'CCNA-certified network engineer at XyberClan. Yann Félix provides insights on network infrastructure design, Python automation, and the intersection of networking with cybersecurity.'
+                    name: 'Ndjana Mengue Jerry',
+                    role: 'Community Builder & Tech Leader',
+                    description: 'Co-Founder & COO at Hinkaku, GDG Yaoundé Organizer, AWS Student Builder Group Leader. Dedicated to building thriving tech communities and empowering students with cloud computing and leadership skills.'
                 }
             }
         },
@@ -1509,34 +1499,24 @@ export const translations = {
             connect: 'Connectez-vous avec',
             speakers: {
                 '1': {
-                    name: 'Cedrik Darel Yepmo',
-                    role: 'Expert en IA & Cybersécurité',
-                    description: 'Co-Fondateur et CEO de XyberClan. Cedrik propose des sessions approfondies sur la cybersécurité alimentée par l\'IA, les stratégies de développement fullstack et la construction d\'infrastructures numériques résilientes pour le marché africain.'
+                    name: 'Vanessa Manessong',
+                    role: 'Analyste de Données d\'Investigation & OSINT',
+                    description: 'Analyste de données spécialisée dans l\'analyse des écosystèmes informationnels, la désinformation en ligne et les enquêtes OSINT. Fondatrice de Gehmit, une organisation engagée dans l\'orientation et la formation des jeunes aux métiers du numérique. Passionnée par la data, l\'IA et l\'impact social des technologies.'
                 },
                 '2': {
-                    name: 'AKANA SIGNING JOSIAS AARON',
-                    role: 'Red Teaming & Sécurité IA',
-                    description: 'CTO de XyberClan et Red Teamer d\'élite. Josias partage des connaissances pratiques sur la sécurité offensive, l\'architecture de sécurité LLM et la construction de systèmes résistants aux brèches.'
+                    name: 'Cabrel Donfang',
+                    role: 'Organisateur d\'Événements & Tech Evangelist',
+                    description: 'Organisateur d\'événements en série, fournisseur de solutions et évangéliste technologique. Passionné par la construction de communautés, la connexion des innovateurs et l\'adoption de la technologie à travers l\'Afrique.'
                 },
                 '3': {
-                    name: 'ONANA GREGOIRE LEGRAND',
-                    role: 'Stratégie d\'Entreprise & Cybersécurité',
-                    description: 'COO de XyberClan. Onana présente des stratégies de cybersécurité axées sur les affaires, l\'excellence opérationnelle et le développement de startups tech sur les marchés émergents.'
+                    name: 'Tamkwa Kamga Brandon',
+                    role: 'Développeur Fullstack IA & DevOps',
+                    description: 'Fondateur et Mentor chez LesCrack. Développeur Fullstack AI et DevOps chez Gehmit. Passionné par la création de solutions alimentées par l\'IA évolutives et le mentorat de la prochaine génération de développeurs.'
                 },
                 '4': {
-                    name: 'Lembou Pharel',
-                    role: 'DevOps & Systèmes IA',
-                    description: 'Ingénieur cybersécurité et praticien DevOps chez XyberClan. Lembou anime des ateliers sur l\'automatisation CI/CD, les tests d\'intrusion et le renforcement des systèmes par l\'IA.'
-                },
-                '5': {
-                    name: 'ADJIA MVOA NDJI GABRIEL MONFILS',
-                    role: 'Fullstack & Ingénierie Systèmes',
-                    description: 'Ingénieur multidisciplinaire chez XyberClan. Gabriel couvre le développement fullstack, les systèmes Linux, l\'orchestration de workflows IA avec n8n et les opérations de cybersécurité.'
-                },
-                '6': {
-                    name: 'Wandji Tchaleu Yann Félix',
-                    role: 'Ingénierie Réseau & Python',
-                    description: 'Ingénieur réseau certifié CCNA chez XyberClan. Yann Félix partage des insights sur la conception d\'infrastructures réseau, l\'automatisation Python et l\'intersection du réseau avec la cybersécurité.'
+                    name: 'Ndjana Mengue Jerry',
+                    role: 'Bâtisseur de Communauté & Leader Tech',
+                    description: 'Co-Fondateur & COO chez Hinkaku, Organisateur GDG Yaoundé, Leader AWS Student Builder Group. Dévoué à la construction de communautés tech florissantes et à l\'autonomisation des étudiants en cloud computing et leadership.'
                 }
             }
         },

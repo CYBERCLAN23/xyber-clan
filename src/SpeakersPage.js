@@ -16,67 +16,41 @@ const speakers = [
     {
         id: 1,
         image: '/team/ceo-member.jpg',
-        name: 'Cedrik Darel Yepmo',
-        role: 'AI & Cybersecurity Expert',
-        description: 'Co-Founder and CEO of XyberClan. Cedrik delivers deep-dive sessions on AI-powered cybersecurity, fullstack development strategies, and building resilient digital infrastructures for the African market.',
+        name: 'Vanessa Manessong',
+        role: 'Investigative Data Analyst & OSINT Specialist',
+        description: 'Data analyst specialised in information ecosystem analysis, online disinformation, and OSINT investigations. Founder of Gehmit, an organisation dedicated to guiding and training youth in digital professions. Passionate about data, AI, and the social impact of technology.',
         socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/cedrik-darel-yepmo-b0544034a/' },
-            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/cedarroyal21' }
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 2,
-        image: '/team/cto-redteamer.jpg',
-        name: 'AKANA SIGNING JOSIAS AARON',
-        role: 'Red Teaming & AI Security',
-        description: 'CTO of XyberClan and elite Red Teamer. Josias shares practical knowledge on offensive security, LLM security architecture, and building breach-resilient systems.',
+        image: '/team/ceo-member.jpg',
+        name: 'Cabrel Donfang',
+        role: 'Serial Event Organiser & Tech Evangelist',
+        description: 'Serial Event Organiser, Solution Provider and Tech Evangelist. Passionate about building communities, connecting innovators, and driving technology adoption across Africa.',
         socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/akana-signing-josias-aaron/' },
-            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/Josiasange37' }
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 3,
-        image: '/team/communications-manager.jpeg?v=2',
-        name: 'ONANA GREGOIRE LEGRAND',
-        role: 'Business Strategy & Cybersecurity',
-        description: 'COO of XyberClan. Onana presents on business-driven cybersecurity strategies, operational excellence, and scaling tech startups in emerging markets.',
+        image: '/team/ceo-member.jpg',
+        name: 'Tamkwa Kamga Brandon',
+        role: 'Fullstack AI Developer & DevOps',
+        description: 'Founder and Mentor at LesCrack. Fullstack AI Developer and DevOps at Gehmit. Passionate about building scalable AI-powered solutions and mentoring the next generation of developers.',
         socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/onana-gregoire-legrand-a18529282/' },
-            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/psycho237-prog' }
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 4,
-        image: '/team/cybersecurity-chief.jpg',
-        name: 'Lembou Pharel',
-        role: 'DevOps & AI Systems',
-        description: 'Cybersecurity engineer and DevOps practitioner at XyberClan. Lembou leads workshops on CI/CD automation, penetration testing, and AI-driven system hardening.',
+        image: '/team/ceo-member.jpg',
+        name: 'Ndjana Mengue Jerry',
+        role: 'Community Builder & Tech Leader',
+        description: 'Co-Founder & COO at Hinkaku, GDG Yaoundé Organizer, AWS Student Builder Group Leader. Dedicated to building thriving tech communities and empowering students with cloud computing and leadership skills.',
         socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/lembou-pharel/' },
-            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/lemboupharel' }
-        ]
-    },
-    {
-        id: 5,
-        image: '/team/frontend-designer.png',
-        name: 'ADJIA MVOA NDJI GABRIEL MONFILS',
-        role: 'Fullstack & Systems Engineering',
-        description: 'Multidisciplinary engineer at XyberClan. Gabriel covers fullstack development, Linux systems, AI workflow orchestration with n8n, and cybersecurity operations.',
-        socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: 'https://www.linkedin.com/in/zealda-junior-9352b1277/' },
-            { name: 'GitHub', icon: <FaGithub size={16} />, url: 'https://github.com/zealdajunior' }
-        ]
-    },
-    {
-        id: 6,
-        image: '/team/yann-felix-wandji.png',
-        name: 'Wandji Tchaleu Yann Félix',
-        role: 'Network Engineering & Python',
-        description: 'CCNA-certified network engineer at XyberClan. Yann Félix provides insights on network infrastructure design, Python automation, and the intersection of networking with cybersecurity.',
-        socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' },
-            { name: 'GitHub', icon: <FaGithub size={16} />, url: '#' }
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     }
 ];
