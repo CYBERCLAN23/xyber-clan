@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -29,6 +30,7 @@ const AnimatedNumber = ({ value, suffix, trigger }) => {
 const StatsCounter = () => {
     const { isDark } = useTheme();
     const { language: lang } = useLanguage();
+    const t = translations[lang];
     const [triggered, setTriggered] = useState(false);
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
@@ -96,14 +98,14 @@ const StatsCounter = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.stats.badge`} fallback="Impact" />
+                            <EditableText contentKey={`${lang}.stats.badge`} fallback={t.stats.badge} />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.stats.title`} fallback={<>Numbers that<br />tell the story.</>} />
+                            <EditableText contentKey={`${lang}.stats.title`} fallback={t.stats.title} />
                         </h2>
                     </div>
                     <p
@@ -112,7 +114,7 @@ const StatsCounter = () => {
                     >
                         <EditableText
                             contentKey={`${lang}.stats.subtitle`}
-                            fallback="Real results, real clients, real growth."
+                            fallback={t.stats.subtitle}
                         />
                     </p>
                 </div>

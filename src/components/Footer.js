@@ -139,17 +139,17 @@ const Footer = ({ translations: t }) => {
                     </p>
                     <div className="flex items-center gap-8">
                         <Link to="/privacy" className="text-[11px] font-bold tracking-widest hover:text-cyan-500 transition-colors uppercase" style={{ color: muted }}>
-                            Privacy Policy
+                            <EditableText contentKey={`${lang}.footer.bottomLinks.privacy`} tag="span" fallback={t.footer.bottomLinks.privacy} />
                         </Link>
                         <Link to="/terms" className="text-[11px] font-bold tracking-widest hover:text-cyan-500 transition-colors uppercase" style={{ color: muted }}>
-                            Terms of Service
+                            <EditableText contentKey={`${lang}.footer.bottomLinks.terms`} tag="span" fallback={t.footer.bottomLinks.terms} />
                         </Link>
                     </div>
                 </div>
             </div>
 
             <div className="mt-12 text-center text-[10px] flex items-center justify-center gap-1" style={{ color: isDark ? '#4b5563' : '#d1d5db' }}>
-                <EditableText contentKey={`${lang}.footer.madeWith`} tag="span" fallback="Made with" /> <Heart className="w-3 h-3 text-red-500 fill-red-500" /> <EditableText contentKey={`${lang}.footer.madeBy`} tag="span" fallback="by XyberClan" />
+                <EditableText contentKey={`${lang}.footer.madeWith`} tag="span" fallback={t.footer.madeWith} /> <Heart className="w-3 h-3 text-red-500 fill-red-500" /> <EditableText contentKey={`${lang}.footer.madeBy`} tag="span" fallback={t.footer.madeBy} />
             </div>
         </footer>
     );

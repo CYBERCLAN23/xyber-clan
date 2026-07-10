@@ -3,11 +3,13 @@ import { Check, ArrowRight, Zap, Gem, Building } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 
 const Pricing = () => {
     const { isDark } = useTheme();
     const { language } = useLanguage();
+    const t = translations[language];
 
     const plans = [
         {
@@ -90,12 +92,10 @@ const Pricing = () => {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
-                        <EditableText contentKey={`${language}.pricing.title`} tag="span" fallback={
-                          <>Simple, Transparent <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Pricing</span></>
-                        } />
+                        <EditableText contentKey={`${language}.pricing.title`} tag="span" fallback={t.pricing.title} />
                     </h2>
                     <p className={`text-lg max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        <EditableText contentKey={`${language}.pricing.subtitle`} tag="span" fallback="Choose a plan that fits your needs. All plans include our quality guarantee." />
+                        <EditableText contentKey={`${language}.pricing.subtitle`} tag="span" fallback={t.pricing.subtitle} />
                     </p>
                 </div>
 
@@ -112,7 +112,7 @@ const Pricing = () => {
                                 {plan.popular && (
                                     <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                                         <span className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-bold px-4 py-1 rounded-full">
-                                            Most Popular
+                                            <EditableText contentKey={`${lang}.pricing.popularBadge`} tag="span" fallback={t.pricing.popularBadge} />
                                         </span>
                                     </div>
                                 )}
@@ -124,19 +124,19 @@ const Pricing = () => {
 
                                 {/* Name & Description */}
                                 <h3 className="text-2xl font-black mb-2">
-                                  <EditableText contentKey={`${language}.pricing.plans.${index}.name`} tag="span" fallback={plan.name} />
+                                  <EditableText contentKey={`${language}.pricing.plans.${index}.name`} tag="span" fallback={t.pricing.plans[index].name} />
                                 </h3>
                                 <p className={`text-sm mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                  <EditableText contentKey={`${language}.pricing.plans.${index}.description`} tag="span" fallback={plan.description} />
+                                  <EditableText contentKey={`${language}.pricing.plans.${index}.description`} tag="span" fallback={t.pricing.plans[index].description} />
                                 </p>
 
                                 {/* Price */}
                                 <div className="mb-8">
                                     <span className="text-5xl font-black">
-                                      <EditableText contentKey={`${language}.pricing.plans.${index}.price`} tag="span" fallback={plan.price} />
+                                      <EditableText contentKey={`${language}.pricing.plans.${index}.price`} tag="span" fallback={t.pricing.plans[index].price} />
                                     </span>
                                     <span className={`text-lg ml-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                                      <EditableText contentKey={`${language}.pricing.plans.${index}.currency`} tag="span" fallback={plan.currency} />
+                                      <EditableText contentKey={`${language}.pricing.plans.${index}.currency`} tag="span" fallback={t.pricing.plans[index].currency} />
                                     </span>
                                 </div>
 
@@ -146,7 +146,7 @@ const Pricing = () => {
                                         <li key={i} className="flex items-start gap-3">
                                             <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${plan.popular ? 'text-cyan-500' : 'text-green-500'}`} />
                                             <span className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                                              <EditableText contentKey={`${language}.pricing.plans.${index}.features.${i}`} tag="span" fallback={feature} />
+                                              <EditableText contentKey={`${language}.pricing.plans.${index}.features.${i}`} tag="span" fallback={t.pricing.plans[index].features[i]} />
                                             </span>
                                         </li>
                                     ))}
@@ -157,7 +157,7 @@ const Pricing = () => {
                                     to="/start-project"
                                     className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all hover:scale-105 ${colors.button}`}
                                 >
-                                    <EditableText contentKey={`${language}.pricing.plans.${index}.cta`} tag="span" fallback={plan.cta} />
+                                    <EditableText contentKey={`${language}.pricing.plans.${index}.cta`} tag="span" fallback={t.pricing.plans[index].cta} />
                                     <ArrowRight className="w-5 h-5" />
                                 </Link>
                             </div>
@@ -167,7 +167,7 @@ const Pricing = () => {
 
                 {/* Note */}
                 <p className={`text-center mt-12 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                    <EditableText contentKey={`${language}.pricing.note`} tag="span" fallback="All prices are starting points. Final quote depends on specific requirements." />
+                    <EditableText contentKey={`${language}.pricing.note`} tag="span" fallback={t.pricing.note} />
                 </p>
             </div>
         </section>

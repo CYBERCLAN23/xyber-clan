@@ -95,14 +95,14 @@ const FeaturesGrid = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.features.badge`} fallback="Services" />
+                            <EditableText contentKey={`${lang}.features.badge`} fallback={t.features.badge} />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.features.title`} fallback={<>What we<br />build for you.</>} />
+                            <EditableText contentKey={`${lang}.features.title`} fallback={t.features.title} />
                         </h2>
                     </div>
                     <p
@@ -111,7 +111,7 @@ const FeaturesGrid = () => {
                     >
                         <EditableText
                             contentKey={`${lang}.features.subtitle`}
-                            fallback="Four core disciplines. One unified team. Infinite possibilities."
+                            fallback={t.features.subtitle}
                         />
                     </p>
                 </div>
@@ -149,13 +149,13 @@ const FeaturesGrid = () => {
                                     className="text-xl font-bold tracking-tight leading-tight group-hover:text-cyan-500 transition-colors duration-200"
                                     style={{ color: text }}
                                 >
-                                    <EditableText contentKey={`${lang}.features.items.${i}.title`} fallback={s.title} />
+                                    <EditableText contentKey={`${lang}.features.items.${i}.title`} fallback={t.features.items[i].title} />
                                 </h3>
                                 <p
                                     className="text-[13px] leading-relaxed"
                                     style={{ color: muted, fontWeight: 300 }}
                                 >
-                                    <EditableText contentKey={`${lang}.features.items.${i}.description`} fallback={s.body} />
+                                    <EditableText contentKey={`${lang}.features.items.${i}.description`} fallback={t.features.items[i].description} />
                                 </p>
                             </div>
 
@@ -164,8 +164,8 @@ const FeaturesGrid = () => {
                                 className="text-[10px] font-semibold tracking-[0.18em] uppercase"
                                 style={{ color: muted }}
                             >
-                                {s.tag}
-                            </span>
+                            <EditableText contentKey={`${lang}.features.items.${i}.tag`} tag="span" fallback={t.features.items[i].tag} />
+                        </span>
 
                             {/* Hover cyan bottom line */}
                             <div

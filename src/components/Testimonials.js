@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
 
@@ -20,6 +21,7 @@ const testimonials = [
 const Testimonials = () => {
     const { isDark } = useTheme();
     const { language: lang } = useLanguage();
+    const tr = translations[lang];
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
     const headRef = useRef(null);
@@ -62,18 +64,18 @@ const Testimonials = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.testimonials.badge`} fallback="Testimonials" />
+                            <EditableText contentKey={`${lang}.testimonials.badge`} fallback={tr.testimonials.badge} />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.testimonials.title`} fallback={<>What our<br />clients say.</>} />
+                            <EditableText contentKey={`${lang}.testimonials.title`} fallback={tr.testimonials.title} />
                         </h2>
                     </div>
                     <p className="text-sm leading-relaxed max-w-xs" style={{ color: muted, fontWeight: 300 }}>
-                        <EditableText contentKey={`${lang}.testimonials.subtitle`} fallback="Real words from real clients who've shipped with us." />
+                        <EditableText contentKey={`${lang}.testimonials.subtitle`} fallback={tr.testimonials.subtitle} />
                     </p>
                 </div>
             </div>
@@ -103,7 +105,7 @@ const Testimonials = () => {
                                     style={{ background: cardBg, border: `1px solid ${border}` }}
                                 >
                                     <p className="text-[15px] leading-relaxed font-light" style={{ color: muted }}>
-                                        "<EditableText contentKey={`${lang}.testimonials.list.${idx}.quote`} fallback={t.quote} />"
+                                        "<EditableText contentKey={`${lang}.testimonials.list.${idx}.quote`} fallback={tr.testimonials.list[idx].quote} />"
                                     </p>
                                     <div className="flex items-center gap-3 pt-4" style={{ borderTop: `1px solid ${border}` }}>
                                         <div className="w-9 h-9 rounded-full overflow-hidden shrink-0">
@@ -116,14 +118,14 @@ const Testimonials = () => {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className="text-[13px] font-bold truncate" style={{ color: text }}>
-                                                <EditableText contentKey={`${lang}.testimonials.list.${idx}.author`} fallback={t.author} />
+                                                <EditableText contentKey={`${lang}.testimonials.list.${idx}.author`} fallback={tr.testimonials.list[idx].author} />
                                             </p>
                                             <p className="text-[11px] truncate" style={{ color: muted }}>
-                                                <EditableText contentKey={`${lang}.testimonials.list.${idx}.role`} fallback={t.role} />
+                                                <EditableText contentKey={`${lang}.testimonials.list.${idx}.role`} fallback={tr.testimonials.list[idx].role} />
                                             </p>
                                         </div>
                                         <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: '#06b6d4' }}>
-                                            <EditableText contentKey={`${lang}.testimonials.list.${idx}.company`} fallback={t.company} />
+                                            <EditableText contentKey={`${lang}.testimonials.list.${idx}.company`} fallback={tr.testimonials.list[idx].company} />
                                         </span>
                                     </div>
                                 </div>

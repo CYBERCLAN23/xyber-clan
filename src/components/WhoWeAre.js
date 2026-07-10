@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Leaf } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,6 +14,7 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 const WhoWeAre = () => {
     const { isDark } = useTheme();
     const { language: lang } = useLanguage();
+    const t = translations[lang];
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
     const line1Ref = useRef(null);
@@ -101,7 +103,7 @@ const WhoWeAre = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-8"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.whoWeAre.badge`} fallback="Who We Are" />
+                            <EditableText contentKey={`${lang}.whoWeAre.badge`} fallback={t.whoWeAre.badge} />
                         </p>
 
                         <h2
@@ -109,10 +111,10 @@ const WhoWeAre = () => {
                             style={{ fontWeight: 900, fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}
                         >
                             <span ref={line1Ref} className="block" style={{ opacity: 0 }}>
-                                <EditableText contentKey={`${lang}.whoWeAre.title1`} fallback="Digital" />
+                                <EditableText contentKey={`${lang}.whoWeAre.title1`} fallback={t.whoWeAre.title1} />
                             </span>
                             <span ref={line2Ref} className="block pl-[0.12em]" style={{ opacity: 0 }}>
-                                <EditableText contentKey={`${lang}.whoWeAre.title2`} fallback="excellence." />
+                                <EditableText contentKey={`${lang}.whoWeAre.title2`} fallback={t.whoWeAre.title2} />
                             </span>
                         </h2>
 
@@ -123,7 +125,7 @@ const WhoWeAre = () => {
                         >
                             <EditableText
                                 contentKey={`${lang}.whoWeAre.subtitle`}
-                                fallback="University-trained engineers delivering enterprise-grade solutions at startup speed. Based in Cameroon, serving the world."
+                                fallback={t.whoWeAre.subtitle}
                             />
                         </p>
                     </div>
@@ -153,10 +155,10 @@ const WhoWeAre = () => {
                                         className="text-xl font-bold tracking-tight mb-3 group-hover:text-cyan-500 transition-colors duration-200"
                                         style={{ color: text }}
                                     >
-                                        <EditableText contentKey={`${lang}.whoWeAre.card${i+1}Title`} fallback={p.title} />
+                                        <EditableText contentKey={`${lang}.whoWeAre.card${i+1}Title`} fallback={t.whoWeAre[`card${i+1}Title`]} />
                                     </h3>
                                     <p className="text-[14.5px] leading-relaxed" style={{ color: muted, fontWeight: 300 }}>
-                                        <EditableText contentKey={`${lang}.whoWeAre.card${i+1}Desc`} fallback={p.body} />
+                                        <EditableText contentKey={`${lang}.whoWeAre.card${i+1}Desc`} fallback={t.whoWeAre[`card${i+1}Desc`]} />
                                     </p>
                                 </div>
                             </div>

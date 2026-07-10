@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 import EditableText from './cms/EditableText';
 import EditableImage from './cms/EditableImage';
 
@@ -49,6 +50,7 @@ const teamMembers = [
 const TeamMinimal = () => {
     const { isDark } = useTheme();
     const { language: lang } = useLanguage();
+    const t = translations[lang];
     const sectionRef = useRef(null);
     const labelRef = useRef(null);
     const headRef = useRef(null);
@@ -103,14 +105,14 @@ const TeamMinimal = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.team_minimal.badge`} fallback="The XyberClan" />
+                            <EditableText contentKey={`${lang}.team_minimal.badge`} fallback={t.team_minimal.badge} />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.team_minimal.title`} fallback={<>The people<br />behind the code.</>} />
+                            <EditableText contentKey={`${lang}.team_minimal.title`} fallback={t.team_minimal.title} />
                         </h2>
                     </div>
                     <p
@@ -119,7 +121,7 @@ const TeamMinimal = () => {
                     >
                         <EditableText
                             contentKey={`${lang}.team_minimal.subtitle`}
-                            fallback="A collective of engineers, designers, and security specialists dedicated to building what matters."
+                            fallback={t.team_minimal.subtitle}
                         />
                     </p>
                 </div>

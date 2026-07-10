@@ -133,14 +133,14 @@ const GetStarted = () => {
                             className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-6"
                             style={{ color: '#06b6d4', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.get_started.badge`} tag="span" fallback="Integrations" />
+                            <EditableText contentKey={`${lang}.get_started.badge`} tag="span" fallback={t.get_started.badge} />
                         </p>
                         <h2
                             ref={headRef}
                             className="leading-[0.9] tracking-[-0.03em]"
                             style={{ fontWeight: 900, fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', opacity: 0 }}
                         >
-                            <EditableText contentKey={`${lang}.get_started.title`} tag="span" fallback={<>Get started in<br />simple steps.</>} />
+                            <EditableText contentKey={`${lang}.get_started.title`} tag="span" fallback={t.get_started.title} />
                         </h2>
                     </div>
                     <p
@@ -151,7 +151,7 @@ const GetStarted = () => {
                         <EditableText
                             contentKey={`${lang}.get_started.subtitle`}
                             tag="span"
-                            fallback="Whether you're a small business or a large enterprise, our process enhances productivity and simplifies your workflow."
+                            fallback={t.get_started.subtitle}
                         />
                     </p>
                 </div>

@@ -70,15 +70,14 @@ export const translations = {
             ]
         },
         services: {
-            title: 'Our',
-            subtitle: 'Comprehensive technology solutions across 6 core domains — from development to deployment, design to security.',
+            badge: 'Our Expertise',
+            title: 'What We Do',
+            subtitle: 'We don\'t just write code. We engineer digital assets that drive real business growth.',
             items: [
-                { title: 'Web & App Development', desc: 'Modern websites and mobile apps. From concept to launch, fast.' },
-                { title: 'Graphic Design & Branding', desc: 'Logos, branding, marketing materials. Make your business stand out.' },
-                { title: 'Cybersecurity Solutions', desc: 'Security audits, penetration testing, threat protection. Keep your data safe.' },
-                { title: 'Hardware & Computer Services', desc: 'Computer repair, upgrades, troubleshooting. Fast, reliable technical support.' },
-                { title: 'Network Infrastructure', desc: 'Network setup, WiFi deployment, ongoing maintenance. Stay connected.' },
-                { title: 'Tech Education & Training', desc: 'Training in programming, cybersecurity, networking. Learn from the pros.' }
+                { title: 'Web & App Development', desc: 'Scalable platforms built with React, Node, and Python. We engineer speed and reliability.', tags: ['React', 'Next.js', 'Mobile Native'] },
+                { title: 'Cybersecurity & Audits', desc: 'Bank-grade security protocols. We break your system before hackers do.', tags: ['Pen Testing', 'SecOps', 'Compliance'] },
+                { title: 'Product Design (UI/UX)', desc: 'Interfaces that feel inevitable. User-centric design systems that scale.', tags: ['Figma', 'Prototyping', 'Design Systems'] },
+                { title: 'Digital Strategy', desc: 'Data-driven roadmaps for digital transformation and market dominance.', tags: ['Growth', 'Analytics', 'Consulting'] }
             ]
         },
         techStack: {
@@ -484,7 +483,9 @@ export const translations = {
             bottomLinks: {
                 privacy: 'PRIVACY',
                 terms: 'TERMS'
-            }
+            },
+            madeWith: 'Made with',
+            madeBy: 'by XyberClan'
         },
         form: {
             step: 'Step',
@@ -650,6 +651,7 @@ export const translations = {
         pricing: {
             title: "Simple, Transparent Pricing",
             subtitle: "Choose a plan that fits your needs. All plans include our quality guarantee.",
+            popularBadge: 'Most Popular',
             plans: [
                 {
                     name: "Starter",
@@ -703,6 +705,11 @@ export const translations = {
             ],
             note: "All prices are starting points. Final quote depends on specific requirements."
         },
+        stats: {
+            badge: 'Impact',
+            title: 'Numbers that tell the story.',
+            subtitle: 'Real results, real clients, real growth.'
+        },
         team_minimal: {
             badge: "The XyberClan",
             title: "Meet Our Expert Team",
@@ -722,10 +729,23 @@ export const translations = {
                 }
             ]
         },
+        features: {
+            badge: 'Services',
+            title: 'What we build for you.',
+            subtitle: 'Four core disciplines. One unified team. Infinite possibilities.',
+            items: [
+                { title: 'Web & App Development', description: 'Performant, scalable web applications built with modern frameworks. Clean code, clean architecture.', tag: 'Web & Apps' },
+                { title: 'Cybersecurity', description: 'Enterprise-grade security audits, pen testing, and hardening. Your data, defended.', tag: 'Security' },
+                { title: 'Mobile Development', description: 'Cross-platform mobile experiences that feel native on iOS and Android.', tag: 'Mobile' },
+                { title: 'UI/UX Design', description: 'Interfaces that convert. Pixel-perfect, accessibility-first, and human-centered.', tag: 'Design' }
+            ]
+        },
         faq: {
             badge: "Got Questions?",
             title: "Frequently Asked Questions",
             subtitle: "Everything you need to know about our services",
+            ctaText: "Still have questions? We're happy to help.",
+            ctaButton: "Chat with us",
             items: [
                 {
                     question: "How much does a website cost?",
@@ -766,12 +786,21 @@ export const translations = {
             title1: 'Digital',
             title2: 'excellence.',
             subtitle: 'University-trained engineers delivering enterprise-grade solutions at startup speed. Based in Cameroon, serving the world.',
-            card1Title: 'Engineering-First',
-            card1Desc: 'Computer Science students from the University of Yaoundé I, trained in algorithms, systems design, and modern web architecture.',
-            card2Title: 'Full-Service Agency',
-            card2Desc: 'Web development, mobile apps, graphic design, cybersecurity, hardware services, and tech education — all under one roof.',
-            card3Title: 'Global Standards, Local Roots',
-            card3Desc: 'We apply international best practices while staying deeply connected to our community in Cameroon and across Africa.'
+            card1Title: 'Rapid Innovation',
+            card1Desc: 'Concept to deployed product in days, not months. We engineer speed without cutting corners.',
+            card2Title: 'Scalable Architecture',
+            card2Desc: 'Systems built to handle millions of users from day one, designed for the long game.',
+            card3Title: 'Revenue Enablement',
+            card3Desc: 'Every line of code and pixel is intentional — built to convert, retain, and grow.'
+        },
+        exitPopup: {
+            title: 'Wait! Before You Go...',
+            subtitle: 'Get a special offer just for you',
+            badge: 'Limited Time Offer',
+            offerTitle: 'Get 10% OFF Your First Project!',
+            offerBody: 'Start your project with us today and get an exclusive 10% discount. Just mention this offer when you contact us!',
+            ctaButton: 'Claim Your Discount',
+            dismiss: 'No thanks, maybe later'
         },
         get_started: {
             badge: 'Integrations',
@@ -913,15 +942,14 @@ export const translations = {
             ]
         },
         services: {
-            title: 'Nos',
-            subtitle: 'Solutions technologiques complètes dans 6 domaines clés — du développement au déploiement, du design à la sécurité.',
+            badge: 'Notre Expertise',
+            title: 'Notre Savoir-Faire',
+            subtitle: 'Nous ne faisons pas qu\'écrire du code. Nous concevons des actifs numériques qui génèrent une réelle croissance commerciale.',
             items: [
-                { title: 'Dév Web & App', desc: 'Sites web modernes et applications mobiles. Du concept au lancement, rapidement.' },
-                { title: 'Design Graphique & Branding', desc: 'Logos, image de marque, supports marketing. Démarquez votre entreprise.' },
-                { title: 'Solutions de Cybersécurité', desc: 'Audits de sécurité, tests d\'intrusion, protection contre les menaces. Sécurisez vos données.' },
-                { title: 'Services Matériel & Informatique', desc: 'Réparation d\'ordinateurs, mises à niveau, dépannage. Support technique rapide et fiable.' },
-                { title: 'Infrastructure Réseau', desc: 'Installation réseau, déploiement WiFi, maintenance continue. Restez connecté.' },
-                { title: 'Éducation & Formation Tech', desc: 'Formation en programmation, cybersécurité, réseaux. Apprenez des pros.' }
+                { title: 'Développement Web & App', desc: 'Plateformes évolutives construites avec React, Node et Python. Nous concevons la rapidité et la fiabilité.', tags: ['React', 'Next.js', 'Natif Mobile'] },
+                { title: 'Cybersécurité & Audits', desc: 'Protocoles de sécurité de niveau bancaire. Nous cassons votre système avant les pirates.', tags: ["Tests d'Intrusion", 'SecOps', 'Conformité'] },
+                { title: 'Design Produit (UI/UX)', desc: 'Des interfaces qui semblent naturelles. Des systèmes de design centrés sur l\'utilisateur qui évoluent.', tags: ['Figma', 'Prototypage', 'Systèmes de Design'] },
+                { title: 'Stratégie Digitale', desc: 'Feuilles de route basées sur les données pour la transformation numérique et la domination du marché.', tags: ['Croissance', 'Analytique', 'Conseil'] }
             ]
         },
         techStack: {
@@ -1334,7 +1362,9 @@ export const translations = {
             bottomLinks: {
                 privacy: 'CONFIDENTIALITÉ',
                 terms: 'CONDITIONS'
-            }
+            },
+            madeWith: 'Fait avec',
+            madeBy: 'par XyberClan'
         },
         form: {
             step: 'Étape',
@@ -1497,6 +1527,7 @@ export const translations = {
         pricing: {
             title: "Tarification Simple et Transparente",
             subtitle: "Choisissez un plan qui répond à vos besoins. Tous les plans incluent notre garantie de qualité.",
+            popularBadge: 'Le Plus Populaire',
             plans: [
                 {
                     name: "Starter",
@@ -1550,6 +1581,11 @@ export const translations = {
             ],
             note: "Tous les prix sont des points de départ. Le devis final dépend des exigences spécifiques."
         },
+        stats: {
+            badge: 'Impact',
+            title: 'Des chiffres qui racontent l\'histoire.',
+            subtitle: 'Des résultats réels, des clients réels, une croissance réelle.'
+        },
         team_minimal: {
             badge: "Le XyberClan",
             title: "Rencontrez Notre Équipe d'Experts",
@@ -1569,10 +1605,23 @@ export const translations = {
                 }
             ]
         },
+        features: {
+            badge: 'Services',
+            title: 'Ce que nous construisons pour vous.',
+            subtitle: 'Quatre disciplines principales. Une équipe unifiée. Des possibilités infinies.',
+            items: [
+                { title: 'Développement Web & App', description: 'Des applications web performantes et évolutives construites avec des frameworks modernes. Code propre, architecture propre.', tag: 'Web & Apps' },
+                { title: 'Cybersécurité', description: 'Audits de sécurité de niveau entreprise, tests d\'intrusion et durcissement. Vos données, défendues.', tag: 'Sécurité' },
+                { title: 'Développement Mobile', description: 'Des expériences mobiles multiplateformes qui semblent natives sur iOS et Android.', tag: 'Mobile' },
+                { title: 'Design UI/UX', description: 'Des interfaces qui convertissent. Parfait au pixel près, axé sur l\'accessibilité et centré sur l\'humain.', tag: 'Design' }
+            ]
+        },
         faq: {
             badge: "Des Questions ?",
             title: "Foire Aux Questions",
             subtitle: "Tout ce que vous devez savoir sur nos services",
+            ctaText: "Encore des questions ? Nous sommes là pour vous aider.",
+            ctaButton: "Discutez avec nous",
             items: [
                 {
                     question: "Combien coûte un site web ?",
@@ -1613,12 +1662,21 @@ export const translations = {
             title1: 'Excellence',
             title2: 'digitale.',
             subtitle: 'Ingénieurs formés à l\'université, livrant des solutions de niveau entreprise à la vitesse d\'une startup. Basés au Cameroun, au service du monde.',
-            card1Title: 'Ingénierie Avant Tout',
-            card1Desc: 'Étudiants en informatique à l\'Université de Yaoundé I, formés en algorithmique, conception de systèmes et architecture web moderne.',
-            card2Title: 'Agence Complète',
-            card2Desc: 'Développement web, applications mobiles, design graphique, cybersécurité, services hardware et formation tech — tout sous un même toit.',
-            card3Title: 'Standards Internationaux, Racines Locales',
-            card3Desc: 'Nous appliquons les meilleures pratiques internationales tout en restant profondément connectés à notre communauté au Cameroun et en Afrique.'
+            card1Title: 'Innovation Rapide',
+            card1Desc: 'Du concept au déploiement en quelques jours, pas en mois. Nous concevons la rapidité sans sacrifier la qualité.',
+            card2Title: 'Architecture Évolutive',
+            card2Desc: 'Des systèmes conçus pour gérer des millions d\'utilisateurs dès le premier jour, bâtis pour le long terme.',
+            card3Title: 'Génération de Revenus',
+            card3Desc: 'Chaque ligne de code et chaque pixel est intentionnel — conçu pour convertir, fidéliser et développer.'
+        },
+        exitPopup: {
+            title: 'Attendez ! Avant de partir...',
+            subtitle: 'Une offre spéciale rien que pour vous',
+            badge: 'Offre à Durée Limitée',
+            offerTitle: 'Obtenez 10% DE RÉDUCTION sur Votre Premier Projet !',
+            offerBody: 'Lancez votre projet avec nous dès aujourd\'hui et obtenez une réduction exclusive de 10%. Mentionnez simplement cette offre lorsque vous nous contactez !',
+            ctaButton: 'Réclamez Votre Réduction',
+            dismiss: 'Non merci, peut-être plus tard'
         },
         get_started: {
             badge: 'Intégrations',
