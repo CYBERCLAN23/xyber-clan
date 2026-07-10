@@ -15,40 +15,48 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 const speakers = [
     {
         id: 1,
-        image: '/team/ceo-member.jpg',
+        image: '/images/speakers/speaker-1.svg',
         name: 'Vanessa Manessong',
-        role: 'Investigative Data Analyst & OSINT Specialist',
-        description: 'Data analyst specialised in information ecosystem analysis, online disinformation, and OSINT investigations. Founder of Gehmit, an organisation dedicated to guiding and training youth in digital professions. Passionate about data, AI, and the social impact of technology.',
+        role: 'Analyste de Données d\'Investigation & OSINT',
+        description: 'Analyste de données spécialisée dans l\'analyse des écosystèmes informationnels, la désinformation en ligne et les enquêtes OSINT. Fondatrice de Gehmit, une organisation engagée dans l\'orientation et la formation des jeunes aux métiers du numérique. Passionnée par la data, l\'IA et l\'impact social des technologies.',
+        enterprise: 'Gehmit',
+        logo: '/images/speakers/logo-gehmit.svg',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 2,
-        image: '/team/ceo-member.jpg',
+        image: '/images/speakers/speaker-2.svg',
         name: 'Cabrel Donfang',
         role: 'Serial Event Organiser & Tech Evangelist',
-        description: 'Serial Event Organiser, Solution Provider and Tech Evangelist. Passionate about building communities, connecting innovators, and driving technology adoption across Africa.',
+        description: 'Organisateur d\'événements en série, fournisseur de solutions et évangéliste technologique. Passionné par la construction de communautés, la connexion des innovateurs et l\'adoption de la technologie à travers l\'Afrique.',
+        enterprise: 'Tech Evangelist',
+        logo: '/images/speakers/logo-cabrel.svg',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 3,
-        image: '/team/ceo-member.jpg',
+        image: '/images/speakers/speaker-3.svg',
         name: 'Tamkwa Kamga Brandon',
-        role: 'Fullstack AI Developer & DevOps',
-        description: 'Founder and Mentor at LesCrack. Fullstack AI Developer and DevOps at Gehmit. Passionate about building scalable AI-powered solutions and mentoring the next generation of developers.',
+        role: 'Développeur Fullstack IA & DevOps',
+        description: 'Fondateur et Mentor chez LesCrack. Développeur Fullstack AI et DevOps chez Gehmit. Passionné par la création de solutions alimentées par l\'IA évolutives et le mentorat de la prochaine génération de développeurs.',
+        enterprise: 'LesCrack',
+        logo: '/images/speakers/logo-lescrack.svg',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 4,
-        image: '/team/ceo-member.jpg',
+        image: '/images/speakers/speaker-4.svg',
         name: 'Ndjana Mengue Jerry',
         role: 'Community Builder & Tech Leader',
-        description: 'Co-Founder & COO at Hinkaku, GDG Yaoundé Organizer, AWS Student Builder Group Leader. Dedicated to building thriving tech communities and empowering students with cloud computing and leadership skills.',
+        description: 'Co-Fondateur & COO chez Hinkaku, Organisateur GDG Yaoundé, Leader AWS Student Builder Group. Dévoué à la construction de communautés tech florissantes et à l\'autonomisation des étudiants en cloud computing et leadership.',
+        enterprise: 'Hinkaku',
+        logo: '/images/speakers/logo-hinkaku.svg',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
@@ -183,10 +191,19 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                 {/* Role */}
                 <p style={{
                     fontSize: '0.85rem', fontWeight: 500, letterSpacing: '0.06em',
-                    textTransform: 'uppercase', color: '#06b6d4', marginBottom: 28,
+                    textTransform: 'uppercase', color: '#06b6d4', marginBottom: 12,
                 }}>
                     <EditableText contentKey={`${language}.speakersPage.speakers.${speaker.id}.role`} fallback={speaker.role} />
                 </p>
+
+                {/* Enterprise logo */}
+                {speaker.logo && (
+                    <img
+                        src={speaker.logo}
+                        alt={speaker.enterprise}
+                        style={{ height: 24, marginBottom: 28, opacity: 0.7 }}
+                    />
+                )}
 
                 {/* Description */}
                 <p style={{
@@ -329,6 +346,16 @@ const SpeakerGridCell = ({ speaker, onOpen, setHoverSpeaker, isDark }) => {
                 }}>
                     {speaker.role}
                 </span>
+                {speaker.logo && (
+                    <img
+                        src={speaker.logo}
+                        alt={speaker.enterprise}
+                        style={{
+                            height: 18, opacity: hovered ? 0.8 : 0.3,
+                            transition: 'opacity 0.3s', marginTop: 4,
+                        }}
+                    />
+                )}
             </div>
         </div>
     );

@@ -510,22 +510,22 @@ export const translations = {
                 '1': {
                     name: 'Vanessa Manessong',
                     role: 'Investigative Data Analyst & OSINT Specialist',
-                    description: 'Data analyst specialised in information ecosystem analysis, online disinformation, and OSINT investigations. Founder of Gehmit, an organisation dedicated to guiding and training youth in digital professions. Passionate about data, AI, and the social impact of technology.'
+                    description: 'Analyste de données spécialisée dans l\'analyse des écosystèmes informationnels, la désinformation en ligne et les enquêtes OSINT. Fondatrice de Gehmit, une organisation engagée dans l\'orientation et la formation des jeunes aux métiers du numérique. Passionnée par la data, l\'IA et l\'impact social des technologies.'
                 },
                 '2': {
                     name: 'Cabrel Donfang',
                     role: 'Serial Event Organiser & Tech Evangelist',
-                    description: 'Serial Event Organiser, Solution Provider and Tech Evangelist. Passionate about building communities, connecting innovators, and driving technology adoption across Africa.'
+                    description: 'Organisateur d\'événements en série, fournisseur de solutions et évangéliste technologique. Passionné par la construction de communautés, la connexion des innovateurs et l\'adoption de la technologie à travers l\'Afrique.'
                 },
                 '3': {
                     name: 'Tamkwa Kamga Brandon',
                     role: 'Fullstack AI Developer & DevOps',
-                    description: 'Founder and Mentor at LesCrack. Fullstack AI Developer and DevOps at Gehmit. Passionate about building scalable AI-powered solutions and mentoring the next generation of developers.'
+                    description: 'Fondateur et Mentor chez LesCrack. Développeur Fullstack AI et DevOps chez Gehmit. Passionné par la création de solutions alimentées par l\'IA évolutives et le mentorat de la prochaine génération de développeurs.'
                 },
                 '4': {
                     name: 'Ndjana Mengue Jerry',
                     role: 'Community Builder & Tech Leader',
-                    description: 'Co-Founder & COO at Hinkaku, GDG Yaoundé Organizer, AWS Student Builder Group Leader. Dedicated to building thriving tech communities and empowering students with cloud computing and leadership skills.'
+                    description: 'Co-Fondateur & COO chez Hinkaku, Organisateur GDG Yaoundé, Leader AWS Student Builder Group. Dévoué à la construction de communautés tech florissantes et à l\'autonomisation des étudiants en cloud computing et leadership.'
                 }
             }
         },
@@ -1505,7 +1505,7 @@ export const translations = {
                 },
                 '2': {
                     name: 'Cabrel Donfang',
-                    role: 'Organisateur d\'Événements & Tech Evangelist',
+                    role: 'Serial Event Organiser & Tech Evangelist',
                     description: 'Organisateur d\'événements en série, fournisseur de solutions et évangéliste technologique. Passionné par la construction de communautés, la connexion des innovateurs et l\'adoption de la technologie à travers l\'Afrique.'
                 },
                 '3': {
@@ -1515,7 +1515,7 @@ export const translations = {
                 },
                 '4': {
                     name: 'Ndjana Mengue Jerry',
-                    role: 'Bâtisseur de Communauté & Leader Tech',
+                    role: 'Community Builder & Tech Leader',
                     description: 'Co-Fondateur & COO chez Hinkaku, Organisateur GDG Yaoundé, Leader AWS Student Builder Group. Dévoué à la construction de communautés tech florissantes et à l\'autonomisation des étudiants en cloud computing et leadership.'
                 }
             }
