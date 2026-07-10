@@ -15,48 +15,52 @@ const FONT = "'Inter', 'Helvetica Neue', sans-serif";
 const speakers = [
     {
         id: 1,
-        image: '/images/speakers/speaker-1.svg',
+        image: '/images/speakers/speaker-1.jpeg',
         name: 'Vanessa Manessong',
         role: 'Analyste de Données d\'Investigation & OSINT',
         description: 'Analyste de données spécialisée dans l\'analyse des écosystèmes informationnels, la désinformation en ligne et les enquêtes OSINT. Fondatrice de Gehmit, une organisation engagée dans l\'orientation et la formation des jeunes aux métiers du numérique. Passionnée par la data, l\'IA et l\'impact social des technologies.',
         enterprise: 'Gehmit',
-        logo: '/images/speakers/logo-gehmit.svg',
+        logo: '/images/speakers/logo-gehmit.jpg',
+        link: 'gehmit.com',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 2,
-        image: '/images/speakers/speaker-2.svg',
+        image: '/images/speakers/speaker-2.jpeg',
         name: 'Cabrel Donfang',
         role: 'Serial Event Organiser & Tech Evangelist',
         description: 'Organisateur d\'événements en série, fournisseur de solutions et évangéliste technologique. Passionné par la construction de communautés, la connexion des innovateurs et l\'adoption de la technologie à travers l\'Afrique.',
         enterprise: 'Tech Evangelist',
         logo: '/images/speakers/logo-cabrel.svg',
+        link: 'cabrel.tech',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 3,
-        image: '/images/speakers/speaker-3.svg',
+        image: '/images/speakers/speaker-3.jpeg',
         name: 'Tamkwa Kamga Brandon',
         role: 'Développeur Fullstack IA & DevOps',
         description: 'Fondateur et Mentor chez LesCrack. Développeur Fullstack AI et DevOps chez Gehmit. Passionné par la création de solutions alimentées par l\'IA évolutives et le mentorat de la prochaine génération de développeurs.',
         enterprise: 'LesCrack',
         logo: '/images/speakers/logo-lescrack.svg',
+        link: 'lescrack.dev',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
     },
     {
         id: 4,
-        image: '/images/speakers/speaker-4.svg',
+        image: '/images/speakers/speaker-4.jpeg',
         name: 'Ndjana Mengue Jerry',
         role: 'Community Builder & Tech Leader',
         description: 'Co-Fondateur & COO chez Hinkaku, Organisateur GDG Yaoundé, Leader AWS Student Builder Group. Dévoué à la construction de communautés tech florissantes et à l\'autonomisation des étudiants en cloud computing et leadership.',
         enterprise: 'Hinkaku',
         logo: '/images/speakers/logo-hinkaku.svg',
+        link: 'hinkaku.cm',
         socials: [
             { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
         ]
@@ -133,13 +137,28 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                 }}
             >
                 {!isMobile && (
-                    <div style={{ padding: '28px 32px' }}>
+                    <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                         <span style={{
                             fontWeight: 800, fontSize: '0.75rem',
                             letterSpacing: '0.18em', textTransform: 'uppercase', color: '#555',
                         }}>
                             <EditableText contentKey={`${language}.speakersPage.label`} tag="span" fallback={t.speakersPage.label} />
                         </span>
+                        {speaker.logo && (
+                            <img
+                                src={speaker.logo}
+                                alt={speaker.enterprise}
+                                style={{ height: 20, opacity: 0.6, alignSelf: 'flex-start' }}
+                            />
+                        )}
+                        {speaker.link && (
+                            <span style={{
+                                fontSize: '0.65rem', fontWeight: 500,
+                                letterSpacing: '0.05em', color: '#888',
+                            }}>
+                                {speaker.link}
+                            </span>
+                        )}
                     </div>
                 )}
                 <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
@@ -196,13 +215,21 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                     <EditableText contentKey={`${language}.speakersPage.speakers.${speaker.id}.role`} fallback={speaker.role} />
                 </p>
 
-                {/* Enterprise logo */}
+                {/* Enterprise logo + link */}
                 {speaker.logo && (
                     <img
                         src={speaker.logo}
                         alt={speaker.enterprise}
-                        style={{ height: 24, marginBottom: 28, opacity: 0.7 }}
+                        style={{ height: 24, marginBottom: 4, opacity: 0.7 }}
                     />
+                )}
+                {speaker.link && (
+                    <p style={{
+                        fontSize: '0.75rem', fontWeight: 400, marginBottom: 28,
+                        color: isDark ? '#666' : '#999', letterSpacing: '0.02em',
+                    }}>
+                        {speaker.link}
+                    </p>
                 )}
 
                 {/* Description */}
@@ -355,6 +382,17 @@ const SpeakerGridCell = ({ speaker, onOpen, setHoverSpeaker, isDark }) => {
                             transition: 'opacity 0.3s', marginTop: 4,
                         }}
                     />
+                )}
+                {speaker.link && (
+                    <span style={{
+                        fontSize: '0.55rem', fontWeight: 400,
+                        letterSpacing: '0.05em', color: hovered
+                            ? 'rgba(255,255,255,0.6)'
+                            : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'),
+                        transition: 'color 0.3s',
+                    }}>
+                        {speaker.link}
+                    </span>
                 )}
             </div>
         </div>
