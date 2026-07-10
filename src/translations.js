@@ -415,7 +415,88 @@ export const translations = {
         teamPage: {
             title: 'Meet Our',
             titleBold: 'Specialists',
-            subtitle: 'A premium collective of engineers, designers, and strategists working together to build exceptional technologies.'
+            subtitle: 'A premium collective of engineers, designers, and strategists working together to build exceptional technologies.',
+            teamLabel: 'XyberClan Team',
+            metaRole: 'Role',
+            metaGeography: 'Geography',
+            metaIndustry: 'Industry',
+            metaExpertise: 'Key Expertise',
+            visitPortfolio: 'Visit Portfolio',
+            clickForMore: 'Click for more',
+            members: {
+                '1': {
+                    name: 'Cedrik Darel Yepmo',
+                    role: 'Co-Founder, CEO & Cybersecurity Analyst',
+                    geography: 'Cameroon',
+                    industry: 'Cybersecurity & AI Engineering',
+                    expertise: 'Fullstack AI Web Development, Data Annotation, Cybersecurity Analysis',
+                    description: "Founder and lead technologist of XyberClan. Cedrik architects and ships AI-powered fullstack web products while conducting cybersecurity analysis and maintaining high-quality data annotation pipelines — uniting executive vision with hands-on engineering."
+                },
+                '2': {
+                    name: 'AKANA SIGNING JOSIAS AARON',
+                    role: 'Co-Founder & CTO / AI Security Architect',
+                    geography: 'Cameroon',
+                    industry: 'Cybersecurity & Engineering',
+                    expertise: 'Red Teaming, LLM Architect, Mobile Dev (Flutter)',
+                    description: 'Chief Technology Officer and elite Red Teamer at XyberClan. Josias designs AI security architectures, leads offensive security engagements, and engineers cross-platform mobile applications (Flutter) — ensuring every system XyberClan delivers is robust, intelligent, and breach-resilient.'
+                },
+                '4': {
+                    name: 'Ange Demanou',
+                    role: 'Data Analyst & UI/UX Designer',
+                    geography: 'Cameroon',
+                    industry: 'UI/UX Design & Data Analytics',
+                    expertise: 'UI/UX Design, Web Development, Data Analysis',
+                    description: 'UI/UX designer, web developer, and data professional at XyberClan. Ange designs intuitive user experiences, builds web interfaces, conducts data and junior business analysis, and manages social media strategy with a data-driven approach — all while actively advancing her expertise in machine learning research.'
+                },
+                '5': {
+                    name: 'ONANA GREGOIRE LEGRAND',
+                    role: 'Co-Founder, COO, IT & Cybersecurity Engineer',
+                    geography: 'Cameroon',
+                    industry: 'Business Intelligence',
+                    expertise: 'Business Strategy, IT Engineering, Cybersecurity',
+                    description: "Co-Founder and operational backbone of XyberClan. Onana drives high-level business strategy, manages IT infrastructure, and applies cybersecurity engineering to protect systems and data — combining Python-driven data analysis with operational leadership to scale every project to a globally competitive standard."
+                },
+                '6': {
+                    name: 'William Chandler',
+                    role: 'Visual Content & Canva Designer',
+                    geography: 'Cameroon',
+                    industry: 'Branding & Design',
+                    expertise: 'Canva Pro Design, Visual Storytelling, Social Media Branding',
+                    description: 'Visual content specialist and brand designer at XyberClan. William produces high-impact graphics and branded assets that communicate complex ideas clearly — maintaining a consistent, premium visual identity across all platforms and campaigns.'
+                },
+                '7': {
+                    name: 'Theresa Tcheme',
+                    role: 'Media Manager & UI/UX Designer',
+                    geography: 'Cameroon',
+                    industry: 'Communications & Media',
+                    expertise: 'Entrepreneurship, UI/UX Design, Community Leadership',
+                    description: '2nd-year Computer Science student at Université de Yaoundé I. Co-Founder & CEO of Greenfarmers. GDG Yaoundé Volunteer and Organiser of the Hult Prize OnCampus programme at the University of Yaoundé I — driving entrepreneurship, sustainability, and technology on campus.'
+                },
+                '8': {
+                    name: 'ADJIA MVOA NDJI GABRIEL MONFILS',
+                    role: 'Fullstack Dev & Systems Engineer',
+                    geography: 'Cameroon',
+                    industry: 'Software Engineering & Cybersecurity',
+                    expertise: 'Fullstack Development, C & Assembly, Linux Sysadmin',
+                    description: 'Computer science student at Université de Yaoundé I and a multidisciplinary engineer at XyberClan. Gabriel designs and builds fullstack web applications, writes low-level code in C and Assembly, administers Linux systems, develops games with Godot, conducts offensive and defensive cybersecurity operations, architects networks, orchestrates AI workflows via n8n, and applies financial market analysis — combining academic rigour with real-world engineering delivery.'
+                },
+                '9': {
+                    name: 'Lembou Pharel',
+                    role: 'Cybersecurity, DevOps & AI Systems Engineer',
+                    geography: 'Cameroon',
+                    industry: 'Cybersecurity & AI',
+                    expertise: 'Penetration Testing, DevOps & CI/CD, Systems Engineering',
+                    description: 'Cybersecurity engineer, DevOps practitioner, and systems architect at XyberClan. Lembou conducts penetration testing, automates and manages CI/CD infrastructure, builds secure web and mobile applications (Flutter), and applies AI to harden systems — delivering solutions that are intelligent, resilient, and production-ready.'
+                },
+                '10': {
+                    name: 'Wandji Tchaleu Yann Félix',
+                    role: 'Network Engineer, Python Dev & Designer',
+                    geography: 'Cameroon',
+                    industry: 'Networks & Development',
+                    expertise: 'Réseau & CCNA, Python Development, Graphic Design',
+                    description: 'Network engineer and Python developer at XyberClan. CCNA-certified, Yann Félix designs and maintains robust network infrastructures, develops automation and data tooling in Python, and contributes graphic design expertise — bridging technical depth with clear visual communication.'
+                }
+            }
         },
         portfolioPage: {
             title: 'Our Portfolio',
@@ -1294,7 +1375,88 @@ export const translations = {
         teamPage: {
             title: 'Rencontrez Nos',
             titleBold: 'Spécialistes',
-            subtitle: 'Un collectif haut de gamme d\'ingénieurs, designers et stratèges travaillant ensemble pour bâtir des technologies exceptionnelles.'
+            subtitle: 'Un collectif haut de gamme d\'ingénieurs, designers et stratèges travaillant ensemble pour bâtir des technologies exceptionnelles.',
+            teamLabel: 'Équipe XyberClan',
+            metaRole: 'Rôle',
+            metaGeography: 'Localisation',
+            metaIndustry: 'Secteur',
+            metaExpertise: 'Expertises Clés',
+            visitPortfolio: 'Voir le Portfolio',
+            clickForMore: 'Cliquez pour en savoir plus',
+            members: {
+                '1': {
+                    name: 'Cedrik Darel Yepmo',
+                    role: 'Co-Fondateur, CEO & Analyste Cybersécurité',
+                    geography: 'Cameroun',
+                    industry: 'Cybersécurité & Ingénierie IA',
+                    expertise: 'Développement Web Fullstack IA, Annotation de Données, Analyse Cybersécurité',
+                    description: 'Fondateur et technologue principal de XyberClan. Cedrik conçoit et déploie des produits web fullstack alimentés par l\'IA tout en menant des analyses de cybersécurité et en maintenant des pipelines d\'annotation de données de haute qualité — unissant vision exécutive et ingénierie pratique.'
+                },
+                '2': {
+                    name: 'AKANA SIGNING JOSIAS AARON',
+                    role: 'Co-Fondateur & CTO / Architecte Sécurité IA',
+                    geography: 'Cameroun',
+                    industry: 'Cybersécurité & Ingénierie',
+                    expertise: 'Red Teaming, Architecte LLM, Développement Mobile (Flutter)',
+                    description: 'Directeur Technologique et Red Teamer d\'élite chez XyberClan. Josias conçoit des architectures de sécurité IA, mène des engagements offensifs de sécurité et développe des applications mobiles multiplateformes (Flutter) — garantissant que chaque système livré par XyberClan est robuste, intelligent et résistant aux brèches.'
+                },
+                '4': {
+                    name: 'Ange Demanou',
+                    role: 'Analyste de Données & Designer UI/UX',
+                    geography: 'Cameroun',
+                    industry: 'Design UI/UX & Analyse de Données',
+                    expertise: 'Design UI/UX, Développement Web, Analyse de Données',
+                    description: 'Designer UI/UX, développeuse web et professionnelle des données chez XyberClan. Ange conçoit des expériences utilisateur intuitives, construit des interfaces web, effectue des analyses de données et d\'analyse commerciale junior, et gère la stratégie des médias sociaux avec une approche basée sur les données — tout en avançant activement son expertise en recherche en apprentissage automatique.'
+                },
+                '5': {
+                    name: 'ONANA GREGOIRE LEGRAND',
+                    role: 'Co-Fondateur, COO, Ingénieur IT & Cybersécurité',
+                    geography: 'Cameroun',
+                    industry: 'Intelligence d\'Affaires',
+                    expertise: 'Stratégie d\'Entreprise, Ingénierie IT, Cybersécurité',
+                    description: 'Co-Fondateur et pilier opérationnel de XyberClan. Onana dirige la stratégie commerciale de haut niveau, gère l\'infrastructure informatique et applique l\'ingénierie de cybersécurité pour protéger les systèmes et les données — combinant l\'analyse de données Python avec le leadership opérationnel pour élever chaque projet à un standard compétitif mondial.'
+                },
+                '6': {
+                    name: 'William Chandler',
+                    role: 'Designer de Contenu Visuel & Canva',
+                    geography: 'Cameroun',
+                    industry: 'Image de Marque & Design',
+                    expertise: 'Design Canva Pro, Narration Visuelle, Branding Réseaux Sociaux',
+                    description: 'Spécialiste du contenu visuel et designer de marque chez XyberClan. William produit des graphiques à fort impact et des actifs de marque qui communiquent clairement des idées complexes — maintenant une identité visuelle cohérente et premium sur toutes les plateformes et campagnes.'
+                },
+                '7': {
+                    name: 'Theresa Tcheme',
+                    role: 'Gestionnaire Média & Designer UI/UX',
+                    geography: 'Cameroun',
+                    industry: 'Communications & Médias',
+                    expertise: 'Entrepreneuriat, Design UI/UX, Leadership Communautaire',
+                    description: 'Étudiante en 2ème année d\'Informatique à l\'Université de Yaoundé I. Co-Fondatrice & CEO de Greenfarmers. Bénévole GDG Yaoundé et Organisatrice du programme Hult Prize OnCampus à l\'Université de Yaoundé I — impulsant l\'entrepreneuriat, la durabilité et la technologie sur le campus.'
+                },
+                '8': {
+                    name: 'ADJIA MVOA NDJI GABRIEL MONFILS',
+                    role: 'Développeur Fullstack & Ingénieur Systèmes',
+                    geography: 'Cameroun',
+                    industry: 'Génie Logiciel & Cybersécurité',
+                    expertise: 'Développement Fullstack, C & Assembly, Administration Linux',
+                    description: 'Étudiant en informatique à l\'Université de Yaoundé I et ingénieur multidisciplinaire chez XyberClan. Gabriel conçoit et construit des applications web fullstack, écrit du code bas niveau en C et Assembly, administre des systèmes Linux, développe des jeux avec Godot, mène des opérations de cybersécurité offensives et défensives, architecture des réseaux, orchestre des workflows IA via n8n et applique l\'analyse des marchés financiers — alliant rigueur académique et livraison d\'ingénierie concrète.'
+                },
+                '9': {
+                    name: 'Lembou Pharel',
+                    role: 'Ingénieur Cybersécurité, DevOps & IA',
+                    geography: 'Cameroun',
+                    industry: 'Cybersécurité & IA',
+                    expertise: 'Tests d\'Intrusion, DevOps & CI/CD, Ingénierie Systèmes',
+                    description: 'Ingénieur cybersécurité, praticien DevOps et architecte systèmes chez XyberClan. Lembou effectue des tests d\'intrusion, automatise et gère l\'infrastructure CI/CD, construit des applications web et mobiles sécurisées (Flutter), et applique l\'IA pour renforcer les systèmes — livrant des solutions intelligentes, résilientes et prêtes pour la production.'
+                },
+                '10': {
+                    name: 'Wandji Tchaleu Yann Félix',
+                    role: 'Ingénieur Réseau, Développeur Python & Designer',
+                    geography: 'Cameroun',
+                    industry: 'Réseaux & Développement',
+                    expertise: 'Réseau & CCNA, Développement Python, Design Graphique',
+                    description: 'Ingénieur réseau et développeur Python chez XyberClan. Certifié CCNA, Yann Félix conçoit et maintient des infrastructures réseau robustes, développe des outils d\'automatisation et de données en Python, et contribue son expertise en design graphique — faisant le pont entre la profondeur technique et la communication visuelle claire.'
+                }
+            }
         },
         portfolioPage: {
             title: 'Notre Portfolio',

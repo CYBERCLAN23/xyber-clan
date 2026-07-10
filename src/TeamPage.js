@@ -213,6 +213,7 @@ const FloatingPreview = ({ src, visible }) => {
 /* ─── Detail Panel ────────────────────────────────────────────────── */
 const TeamDetailPanel = ({ member, onClose, isDark }) => {
     const { language } = useLanguage();
+    const t = translations[language];
     const panelRef = useRef(null);
     const contentRef = useRef(null);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -252,10 +253,10 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
     }, [handleClose]);
 
     const metaRows = [
-        { label: 'Role', key: 'role', value: member.role },
-        { label: 'Geography', key: 'geography', value: member.geography },
-        { label: 'Industry', key: 'industry', value: member.industry },
-        { label: 'Key Expertise', key: 'expertise', value: member.expertise.slice(0, 3).join(', ') },
+        { label: t.teamPage.metaRole, key: 'role', value: member.role },
+        { label: t.teamPage.metaGeography, key: 'geography', value: member.geography },
+        { label: t.teamPage.metaIndustry, key: 'industry', value: member.industry },
+        { label: t.teamPage.metaExpertise, key: 'expertise', value: member.expertise.slice(0, 3).join(', ') },
     ];
 
     return (
@@ -294,7 +295,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
                             textTransform: 'uppercase',
                             color: '#555',
                         }}>
-                            XyberClan Team
+                            <EditableText contentKey={`${language}.teamPage.teamLabel`} tag="span" fallback={t.teamPage.teamLabel} />
                         </span>
                     </div>
                 )}
@@ -388,7 +389,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
                                 textTransform: 'uppercase',
                                 color: isDark ? '#444' : '#aaa',
                             }}>
-                                {label}
+                                <EditableText contentKey={`${language}.teamPage.metaLabels.${key}`} tag="span" fallback={label} />
                             </span>
                             <span style={{
                                 fontSize: '0.82rem',
@@ -471,7 +472,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
                             onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
                             onMouseLeave={e => e.currentTarget.style.opacity = '1'}
                         >
-                            Visit Portfolio
+                            <EditableText contentKey={`${language}.teamPage.visitPortfolio`} tag="span" fallback={t.teamPage.visitPortfolio} />
                             <ArrowUpRight size={14} />
                         </a>
                     )}
@@ -496,6 +497,7 @@ const TeamDetailPanel = ({ member, onClose, isDark }) => {
 /* ─── Grid Cell ──────────────────────────────────────────────── */
 const GridCell = ({ member, onOpen, setHoverMember, isDark }) => {
     const { language } = useLanguage();
+    const t = translations[language];
     const [hovered, setHovered] = useState(false);
     const cellRef = useRef(null);
     const imgRef = useRef(null);
@@ -620,7 +622,7 @@ const GridCell = ({ member, onOpen, setHoverMember, isDark }) => {
                     marginTop: 4,
                     opacity: hovered ? 1 : 0,
                 }}>
-                    Click for more
+                    <EditableText contentKey={`${language}.teamPage.clickForMore`} tag="span" fallback={t.teamPage.clickForMore} />
                 </span>
             </div>
         </div>
