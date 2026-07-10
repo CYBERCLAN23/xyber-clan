@@ -20,8 +20,8 @@ const speakers = [
         role: 'Analyste de Données d\'Investigation & OSINT',
         description: 'Analyste de données spécialisée dans l\'analyse des écosystèmes informationnels, la désinformation en ligne et les enquêtes OSINT. Fondatrice de Gehmit, une organisation engagée dans l\'orientation et la formation des jeunes aux métiers du numérique. Passionnée par la data, l\'IA et l\'impact social des technologies.',
         enterprise: 'Gehmit',
-        logo: '/images/speakers/logo-gehmit.jpg',
-        link: 'gehmit.com',
+        logo: '/images/speakers/logo-gehmit.svg',
+        link: 'gehmit.org',
         socials: [
             { name: 'linkedin.com/in/vanessa-manessong', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/vanessa-manessong' }
         ]
@@ -32,9 +32,8 @@ const speakers = [
         name: 'Cabrel Donfang',
         role: 'Serial Event Organiser & Tech Evangelist',
         description: 'Organisateur d\'événements en série, fournisseur de solutions et évangéliste technologique. Passionné par la construction de communautés, la connexion des innovateurs et l\'adoption de la technologie à travers l\'Afrique.',
-        enterprise: 'Tech Evangelist',
+        enterprise: 'Cabrel Donfang',
         logo: '/images/speakers/logo-cabrel.svg',
-        link: 'cabrel.tech',
         socials: [
             { name: 'linkedin.com/in/cabrellesage', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/cabrellesage' }
         ]
@@ -47,7 +46,6 @@ const speakers = [
         description: 'Fondateur et Mentor chez LesCrack. Développeur Fullstack AI et DevOps chez Gehmit. Passionné par la création de solutions alimentées par l\'IA évolutives et le mentorat de la prochaine génération de développeurs.',
         enterprise: 'LesCrack',
         logo: '/images/speakers/logo-lescrack.svg',
-        link: 'lescrack.dev',
         socials: [
             { name: 'linkedin.com/in/brandon-duclerc-tamwa-kamga', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/brandon-duclerc-tamwa-kamga' }
         ]
@@ -60,7 +58,7 @@ const speakers = [
         description: 'Co-Fondateur & COO chez Hinkaku, Organisateur GDG Yaoundé, Leader AWS Student Builder Group. Dévoué à la construction de communautés tech florissantes et à l\'autonomisation des étudiants en cloud computing et leadership.',
         enterprise: 'Hinkaku',
         logo: '/images/speakers/logo-hinkaku.svg',
-        link: 'hinkaku.cm',
+        link: 'hinkaku.tech',
         socials: [
             { name: 'linkedin.com/in/jerry-davis-ndjana-mengue-89229627a', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/jerry-davis-ndjana-mengue-89229627a' }
         ]
@@ -137,28 +135,13 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                 }}
             >
                 {!isMobile && (
-                    <div style={{ padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    <div style={{ padding: '28px 32px' }}>
                         <span style={{
                             fontWeight: 800, fontSize: '0.75rem',
                             letterSpacing: '0.18em', textTransform: 'uppercase', color: '#555',
                         }}>
                             <EditableText contentKey={`${language}.speakersPage.label`} tag="span" fallback={t.speakersPage.label} />
                         </span>
-                        {speaker.logo && (
-                            <img
-                                src={speaker.logo}
-                                alt={speaker.enterprise}
-                                style={{ height: 20, opacity: 0.6, alignSelf: 'flex-start' }}
-                            />
-                        )}
-                        {speaker.link && (
-                            <span style={{
-                                fontSize: '0.65rem', fontWeight: 500,
-                                letterSpacing: '0.05em', color: '#888',
-                            }}>
-                                {speaker.link}
-                            </span>
-                        )}
                     </div>
                 )}
                 <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
