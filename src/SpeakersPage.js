@@ -62,6 +62,18 @@ const speakers = [
         socials: [
             { name: 'linkedin.com/in/jerry-davis-ndjana-mengue-89229627a', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/jerry-davis-ndjana-mengue-89229627a' }
         ]
+    },
+    {
+        id: 5,
+        image: '/images/speakers/speaker-5.svg',
+        name: 'Theresa Tcheme',
+        role: 'Médiatrice & UI/UX Designer',
+        description: '2ème année en Informatique à l\'Université de Yaoundé I. Co-Fondatrice & CEO de Greenfarmers. Volontaire GDG Yaoundé et Organisatrice du programme Hult Prize OnCampus à l\'Université de Yaoundé I.',
+        enterprise: 'Greenfarmers',
+        link: '',
+        socials: [
+            { name: 'LinkedIn', icon: <FaLinkedinIn size={14} />, url: '#' }
+        ]
     }
 ];
 

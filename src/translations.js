@@ -526,6 +526,11 @@ export const translations = {
                     name: 'Ndjana Mengue Jerry',
                     role: 'Community Builder & Tech Leader',
                     description: 'Co-Fondateur & COO chez Hinkaku, Organisateur GDG Yaoundé, Leader AWS Student Builder Group. Dévoué à la construction de communautés tech florissantes et à l\'autonomisation des étudiants en cloud computing et leadership.'
+                },
+                '5': {
+                    name: 'Theresa Tcheme',
+                    role: 'Mediator & UI/UX Designer',
+                    description: '2nd-year Computer Science student at Université de Yaoundé I. Co-Founder & CEO of Greenfarmers. GDG Yaoundé Volunteer and Organiser of the Hult Prize OnCampus programme at the University of Yaoundé I.'
                 }
             }
         },
@@ -1517,6 +1522,11 @@ export const translations = {
                     name: 'Ndjana Mengue Jerry',
                     role: 'Community Builder & Tech Leader',
                     description: 'Co-Fondateur & COO chez Hinkaku, Organisateur GDG Yaoundé, Leader AWS Student Builder Group. Dévoué à la construction de communautés tech florissantes et à l\'autonomisation des étudiants en cloud computing et leadership.'
+                },
+                '5': {
+                    name: 'Theresa Tcheme',
+                    role: 'Médiatrice & UI/UX Designer',
+                    description: '2ème année en Informatique à l\'Université de Yaoundé I. Co-Fondatrice & CEO de Greenfarmers. Volontaire GDG Yaoundé et Organisatrice du programme Hult Prize OnCampus à l\'Université de Yaoundé I.'
                 }
             }
         },
