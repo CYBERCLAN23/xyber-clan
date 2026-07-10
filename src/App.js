@@ -18,6 +18,7 @@ const CareerForm = lazy(() => import('./CareerForm'));
 const JourneyPage = lazy(() => import('./JourneyPage'));
 const EventsPage = lazy(() => import('./EventsPage'));
 const PortfolioPage = lazy(() => import('./PortfolioPage'));
+const SpeakersPage = lazy(() => import('./SpeakersPage'));
 const PrivacyPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.PrivacyPage })));
 const TermsPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.TermsPage })));
 const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/careers/community-manager" element={<PageTransition><CareerForm /></PageTransition>} />
                 <Route path="/privacy" element={<PageTransition><PrivacyPage /></PageTransition>} />
                 <Route path="/terms" element={<PageTransition><TermsPage /></PageTransition>} />
+                <Route path="/speakers" element={<PageTransition><SpeakersPage /></PageTransition>} />
 
                 {/* ═══ CMS Admin Routes (secret hash URL) ═══ */}
                 <Route path={ADMIN_BASE} element={<AdminLayout />}>

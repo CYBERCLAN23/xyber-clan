@@ -498,6 +498,47 @@ export const translations = {
                 }
             }
         },
+        speakersPage: {
+            metaTitle: 'Our Speakers | XyberClan Webinar Experts',
+            metaDesc: 'Meet our lineup of expert speakers delivering insights on cybersecurity, AI, fullstack development, and digital innovation.',
+            label: 'XyberClan Speakers',
+            title: 'Our',
+            titleBold: 'Speakers.',
+            subtitle: 'Industry experts and thought leaders sharing actionable insights on cybersecurity, AI, development, and digital transformation.',
+            connect: 'Connect with',
+            speakers: {
+                '1': {
+                    name: 'Cedrik Darel Yepmo',
+                    role: 'AI & Cybersecurity Expert',
+                    description: 'Co-Founder and CEO of XyberClan. Cedrik delivers deep-dive sessions on AI-powered cybersecurity, fullstack development strategies, and building resilient digital infrastructures for the African market.'
+                },
+                '2': {
+                    name: 'AKANA SIGNING JOSIAS AARON',
+                    role: 'Red Teaming & AI Security',
+                    description: 'CTO of XyberClan and elite Red Teamer. Josias shares practical knowledge on offensive security, LLM security architecture, and building breach-resilient systems.'
+                },
+                '3': {
+                    name: 'ONANA GREGOIRE LEGRAND',
+                    role: 'Business Strategy & Cybersecurity',
+                    description: 'COO of XyberClan. Onana presents on business-driven cybersecurity strategies, operational excellence, and scaling tech startups in emerging markets.'
+                },
+                '4': {
+                    name: 'Lembou Pharel',
+                    role: 'DevOps & AI Systems',
+                    description: 'Cybersecurity engineer and DevOps practitioner at XyberClan. Lembou leads workshops on CI/CD automation, penetration testing, and AI-driven system hardening.'
+                },
+                '5': {
+                    name: 'ADJIA MVOA NDJI GABRIEL MONFILS',
+                    role: 'Fullstack & Systems Engineering',
+                    description: 'Multidisciplinary engineer at XyberClan. Gabriel covers fullstack development, Linux systems, AI workflow orchestration with n8n, and cybersecurity operations.'
+                },
+                '6': {
+                    name: 'Wandji Tchaleu Yann Félix',
+                    role: 'Network Engineering & Python',
+                    description: 'CCNA-certified network engineer at XyberClan. Yann Félix provides insights on network infrastructure design, Python automation, and the intersection of networking with cybersecurity.'
+                }
+            }
+        },
         portfolioPage: {
             title: 'Our Portfolio',
             subtitle: 'A showcase of projects we have built, designed, and delivered with passion.',
@@ -1455,6 +1496,47 @@ export const translations = {
                     industry: 'Réseaux & Développement',
                     expertise: 'Réseau & CCNA, Développement Python, Design Graphique',
                     description: 'Ingénieur réseau et développeur Python chez XyberClan. Certifié CCNA, Yann Félix conçoit et maintient des infrastructures réseau robustes, développe des outils d\'automatisation et de données en Python, et contribue son expertise en design graphique — faisant le pont entre la profondeur technique et la communication visuelle claire.'
+                }
+            }
+        },
+        speakersPage: {
+            metaTitle: 'Nos Intervenants | Experts Webinaires XyberClan',
+            metaDesc: 'Découvrez notre sélection d\'intervenants experts partageant leurs connaissances en cybersécurité, IA, développement fullstack et innovation numérique.',
+            label: 'Intervenants XyberClan',
+            title: 'Nos',
+            titleBold: 'Intervenants.',
+            subtitle: 'Experts du secteur et leaders d\'opinion partageant des informations actionnables sur la cybersécurité, l\'IA, le développement et la transformation numérique.',
+            connect: 'Connectez-vous avec',
+            speakers: {
+                '1': {
+                    name: 'Cedrik Darel Yepmo',
+                    role: 'Expert en IA & Cybersécurité',
+                    description: 'Co-Fondateur et CEO de XyberClan. Cedrik propose des sessions approfondies sur la cybersécurité alimentée par l\'IA, les stratégies de développement fullstack et la construction d\'infrastructures numériques résilientes pour le marché africain.'
+                },
+                '2': {
+                    name: 'AKANA SIGNING JOSIAS AARON',
+                    role: 'Red Teaming & Sécurité IA',
+                    description: 'CTO de XyberClan et Red Teamer d\'élite. Josias partage des connaissances pratiques sur la sécurité offensive, l\'architecture de sécurité LLM et la construction de systèmes résistants aux brèches.'
+                },
+                '3': {
+                    name: 'ONANA GREGOIRE LEGRAND',
+                    role: 'Stratégie d\'Entreprise & Cybersécurité',
+                    description: 'COO de XyberClan. Onana présente des stratégies de cybersécurité axées sur les affaires, l\'excellence opérationnelle et le développement de startups tech sur les marchés émergents.'
+                },
+                '4': {
+                    name: 'Lembou Pharel',
+                    role: 'DevOps & Systèmes IA',
+                    description: 'Ingénieur cybersécurité et praticien DevOps chez XyberClan. Lembou anime des ateliers sur l\'automatisation CI/CD, les tests d\'intrusion et le renforcement des systèmes par l\'IA.'
+                },
+                '5': {
+                    name: 'ADJIA MVOA NDJI GABRIEL MONFILS',
+                    role: 'Fullstack & Ingénierie Systèmes',
+                    description: 'Ingénieur multidisciplinaire chez XyberClan. Gabriel couvre le développement fullstack, les systèmes Linux, l\'orchestration de workflows IA avec n8n et les opérations de cybersécurité.'
+                },
+                '6': {
+                    name: 'Wandji Tchaleu Yann Félix',
+                    role: 'Ingénierie Réseau & Python',
+                    description: 'Ingénieur réseau certifié CCNA chez XyberClan. Yann Félix partage des insights sur la conception d\'infrastructures réseau, l\'automatisation Python et l\'intersection du réseau avec la cybersécurité.'
                 }
             }
         },
