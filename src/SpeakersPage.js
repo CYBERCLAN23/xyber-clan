@@ -23,7 +23,7 @@ const speakers = [
         logo: '/images/speakers/logo-gehmit.jpg',
         link: 'gehmit.com',
         socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
+            { name: 'linkedin.com/in/vanessa-manessong', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/vanessa-manessong' }
         ]
     },
     {
@@ -36,7 +36,7 @@ const speakers = [
         logo: '/images/speakers/logo-cabrel.svg',
         link: 'cabrel.tech',
         socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
+            { name: 'linkedin.com/in/cabrel-donfang', icon: <FaLinkedinIn size={14} />, url: 'https://linkedin.com/in/cabrel-donfang' }
         ]
     },
     {
@@ -49,7 +49,7 @@ const speakers = [
         logo: '/images/speakers/logo-lescrack.svg',
         link: 'lescrack.dev',
         socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
+            { name: 'linkedin.com/in/tamkwa-brandon', icon: <FaLinkedinIn size={14} />, url: 'https://linkedin.com/in/tamkwa-brandon' }
         ]
     },
     {
@@ -62,7 +62,7 @@ const speakers = [
         logo: '/images/speakers/logo-hinkaku.svg',
         link: 'hinkaku.cm',
         socials: [
-            { name: 'LinkedIn', icon: <FaLinkedinIn size={16} />, url: '#' }
+            { name: 'linkedin.com/in/jerry-davis-ndjana-mengue-89229627a', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/jerry-davis-ndjana-mengue-89229627a' }
         ]
     }
 ];
@@ -215,23 +215,6 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                     <EditableText contentKey={`${language}.speakersPage.speakers.${speaker.id}.role`} fallback={speaker.role} />
                 </p>
 
-                {/* Enterprise logo + link */}
-                {speaker.logo && (
-                    <img
-                        src={speaker.logo}
-                        alt={speaker.enterprise}
-                        style={{ height: 24, marginBottom: 4, opacity: 0.7 }}
-                    />
-                )}
-                {speaker.link && (
-                    <p style={{
-                        fontSize: '0.75rem', fontWeight: 400, marginBottom: 28,
-                        color: isDark ? '#666' : '#999', letterSpacing: '0.02em',
-                    }}>
-                        {speaker.link}
-                    </p>
-                )}
-
                 {/* Description */}
                 <p style={{
                     fontSize: '0.95rem', fontWeight: 300, lineHeight: 1.75,
@@ -240,16 +223,28 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                     <EditableText contentKey={`${language}.speakersPage.speakers.${speaker.id}.description`} fallback={speaker.description} multiline />
                 </p>
 
-                {/* Socials */}
+                {/* Contact */}
                 <div style={{ marginTop: 'auto' }}>
                     <p style={{
                         fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.18em',
                         textTransform: 'uppercase', color: isDark ? '#444' : '#aaa',
-                        marginBottom: 12,
+                        marginBottom: 16,
                     }}>
                         <EditableText contentKey={`${language}.speakersPage.connect`} tag="span" fallback={t.speakersPage.connect} />
                     </p>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+
+                    {/* Enterprise logo — right aligned */}
+                    {speaker.logo && (
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 16 }}>
+                            <img
+                                src={speaker.logo}
+                                alt={speaker.enterprise}
+                                style={{ height: 28, opacity: 0.4 }}
+                            />
+                        </div>
+                    )}
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                         {speaker.socials.map((social, i) => (
                             social.url && social.url !== '#' && (
                                 <a
@@ -258,27 +253,41 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{
-                                        display: 'inline-flex', alignItems: 'center', gap: 8,
-                                        padding: '8px 16px', borderRadius: 9999,
-                                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'}`,
-                                        color: isDark ? '#ccc' : '#555',
-                                        fontSize: '0.8rem', fontWeight: 500,
-                                        textDecoration: 'none', transition: 'all 0.2s',
+                                        display: 'flex', alignItems: 'center', gap: 10,
+                                        color: isDark ? '#888' : '#777',
+                                        fontSize: '0.75rem', fontWeight: 400,
+                                        textDecoration: 'none', transition: 'color 0.2s',
                                     }}
-                                    onMouseEnter={e => {
-                                        e.currentTarget.style.borderColor = '#06b6d4';
-                                        e.currentTarget.style.color = '#06b6d4';
-                                    }}
-                                    onMouseLeave={e => {
-                                        e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)';
-                                        e.currentTarget.style.color = isDark ? '#ccc' : '#555';
-                                    }}
+                                    onMouseEnter={e => e.currentTarget.style.color = '#06b6d4'}
+                                    onMouseLeave={e => e.currentTarget.style.color = isDark ? '#888' : '#777'}
                                 >
-                                    {social.icon || socialIconMap[social.name] || <Globe size={16} />}
-                                    {social.name}
+                                    {social.icon || socialIconMap[social.name] || <Globe size={14} />}
+                                    <span style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'}`, paddingBottom: 1 }}>
+                                        {social.name}
+                                    </span>
                                 </a>
                             )
                         ))}
+                        {speaker.link && (
+                            <a
+                                href={`https://${speaker.link}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: 10,
+                                    color: isDark ? '#888' : '#777',
+                                    fontSize: '0.75rem', fontWeight: 400,
+                                    textDecoration: 'none', transition: 'color 0.2s',
+                                }}
+                                onMouseEnter={e => e.currentTarget.style.color = '#06b6d4'}
+                                onMouseLeave={e => e.currentTarget.style.color = isDark ? '#888' : '#777'}
+                            >
+                                <Globe size={14} />
+                                <span style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'}`, paddingBottom: 1 }}>
+                                    {speaker.link}
+                                </span>
+                            </a>
+                        )}
                     </div>
                 </div>
 
