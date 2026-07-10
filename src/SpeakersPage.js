@@ -36,7 +36,7 @@ const speakers = [
         logo: '/images/speakers/logo-cabrel.svg',
         link: 'cabrel.tech',
         socials: [
-            { name: 'linkedin.com/in/cabrel-donfang', icon: <FaLinkedinIn size={14} />, url: 'https://linkedin.com/in/cabrel-donfang' }
+            { name: 'linkedin.com/in/cabrellesage', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/cabrellesage' }
         ]
     },
     {
@@ -49,7 +49,7 @@ const speakers = [
         logo: '/images/speakers/logo-lescrack.svg',
         link: 'lescrack.dev',
         socials: [
-            { name: 'linkedin.com/in/tamkwa-brandon', icon: <FaLinkedinIn size={14} />, url: 'https://linkedin.com/in/tamkwa-brandon' }
+            { name: 'linkedin.com/in/brandon-duclerc-tamwa-kamga', icon: <FaLinkedinIn size={14} />, url: 'https://cm.linkedin.com/in/brandon-duclerc-tamwa-kamga' }
         ]
     },
     {
