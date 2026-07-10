@@ -228,6 +228,26 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                     )}
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        {speaker.link && (
+                            <a
+                                href={`https://${speaker.link}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: 10,
+                                    color: isDark ? '#888' : '#777',
+                                    fontSize: '0.75rem', fontWeight: 400,
+                                    textDecoration: 'none', transition: 'color 0.2s',
+                                }}
+                                onMouseEnter={e => e.currentTarget.style.color = '#06b6d4'}
+                                onMouseLeave={e => e.currentTarget.style.color = isDark ? '#888' : '#777'}
+                            >
+                                <Globe size={14} />
+                                <span style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'}`, paddingBottom: 1 }}>
+                                    {speaker.link}
+                                </span>
+                            </a>
+                        )}
                         {speaker.socials.map((social, i) => (
                             social.url && social.url !== '#' && (
                                 <a
@@ -251,26 +271,6 @@ const SpeakerDetailPanel = ({ speaker, onClose, isDark }) => {
                                 </a>
                             )
                         ))}
-                        {speaker.link && (
-                            <a
-                                href={`https://${speaker.link}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    display: 'flex', alignItems: 'center', gap: 10,
-                                    color: isDark ? '#888' : '#777',
-                                    fontSize: '0.75rem', fontWeight: 400,
-                                    textDecoration: 'none', transition: 'color 0.2s',
-                                }}
-                                onMouseEnter={e => e.currentTarget.style.color = '#06b6d4'}
-                                onMouseLeave={e => e.currentTarget.style.color = isDark ? '#888' : '#777'}
-                            >
-                                <Globe size={14} />
-                                <span style={{ borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'}`, paddingBottom: 1 }}>
-                                    {speaker.link}
-                                </span>
-                            </a>
-                        )}
                     </div>
                 </div>
 
