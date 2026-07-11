@@ -229,6 +229,15 @@ export const translations = {
             readMore: 'Read More',
             articles: [
                 {
+                    id: 12,
+                    type: 'Webinar',
+                    date: 'July 10, 2026',
+                    title: 'Our Very First Webinar — A Resounding Success!',
+                    description: "On July 10, 2026, XyberClan proudly organised our very first webinar. It was an incredible success! The session explored the theme 'How I Started in Tech and Entrepreneurship' and featured inspiring speakers: Vanessa Manessong, Jerry Davis, Cabrel Donfang, and Brandon Kamga. Their passion and insights made it a truly unforgettable experience. We are grateful to everyone who joined and made this milestone so special.",
+                    image: '/images/webinar-group.svg',
+                    objectPosition: 'center 30%'
+                },
+                {
                     id: 11,
                     type: 'Hackathon',
                     date: 'June 2026',
@@ -1217,6 +1226,15 @@ export const translations = {
             badge: 'Dernières Mises à Jour',
             readMore: 'Lire la Suite',
             articles: [
+                {
+                    id: 12,
+                    type: 'Webinaire',
+                    date: '10 Juillet 2026',
+                    title: 'Notre Tout Premier Webinaire — Un Vrai Succès !',
+                    description: "Le 10 juillet 2026, XyberClan a fièrement organisé son tout premier webinaire. Ce fut un succès retentissant ! La session a exploré le thème 'Comment j'ai commencé dans la Tech et l'Entrepreneuriat' et a réuni des intervenants inspirants : Vanessa Manessong, Jerry Davis, Cabrel Donfang et Brandon Kamga. Leur passion et leurs idées ont rendu cette expérience vraiment inoubliable. Nous sommes reconnaissants envers tous ceux qui se sont joints à nous pour faire de cette étape un moment si spécial.",
+                    image: '/images/webinar-group.svg',
+                    objectPosition: 'center 30%'
+                },
                 {
                     id: 11,
                     type: 'Hackathon',

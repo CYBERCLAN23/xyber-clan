@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a1a2e"/><stop offset="100%" stop-color="#16213e"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text x="600" y="280" font-family="Inter,sans-serif" font-size="48" font-weight="800" fill="#06b6d4" text-anchor="middle">XYBERCLAN WEBINAR</text>
+  <text x="600" y="340" font-family="Inter,sans-serif" font-size="24" font-weight="400" fill="#888" text-anchor="middle">July 10, 2026</text>
+  <rect x="400" y="380" width="400" height="4" fill="#dc2626" rx="2"/>
+</svg>
