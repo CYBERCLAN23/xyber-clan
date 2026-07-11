@@ -234,7 +234,7 @@ export const translations = {
                     date: 'July 10, 2026',
                     title: 'Our Very First Webinar — A Resounding Success!',
                     description: "On July 10, 2026, XyberClan proudly organised our very first webinar. It was an incredible success! The session explored the theme 'How I Started in Tech and Entrepreneurship' and featured inspiring speakers: Vanessa Manessong, Jerry Davis, Cabrel Donfang, and Brandon Kamga. Their passion and insights made it a truly unforgettable experience. We are grateful to everyone who joined and made this milestone so special.",
-                    image: '/images/webinar-group.svg',
+                    image: '/images/events/webinair.jpeg',
                     objectPosition: 'center 30%'
                 },
                 {
@@ -424,7 +424,7 @@ export const translations = {
                     tag: 'Webinar',
                     title: 'Our Very First Webinar — A Resounding Success!',
                     description: "XyberClan proudly organised our very first webinar exploring the theme 'How I Started in Tech and Entrepreneurship'. Featuring Vanessa Manessong, Jerry Davis, Cabrel Donfang, and Brandon Kamga, the session was an incredible success and a milestone moment for our community.",
-                    image: '/images/webinar-group.svg',
+                    image: '/images/events/webinair.jpeg',
                     objectPosition: 'center 30%'
                 }
             ]
@@ -1240,7 +1240,7 @@ export const translations = {
                     date: '10 Juillet 2026',
                     title: 'Notre Tout Premier Webinaire — Un Vrai Succès !',
                     description: "Le 10 juillet 2026, XyberClan a fièrement organisé son tout premier webinaire. Ce fut un succès retentissant ! La session a exploré le thème 'Comment j'ai commencé dans la Tech et l'Entrepreneuriat' et a réuni des intervenants inspirants : Vanessa Manessong, Jerry Davis, Cabrel Donfang et Brandon Kamga. Leur passion et leurs idées ont rendu cette expérience vraiment inoubliable. Nous sommes reconnaissants envers tous ceux qui se sont joints à nous pour faire de cette étape un moment si spécial.",
-                    image: '/images/webinar-group.svg',
+                    image: '/images/events/webinair.jpeg',
                     objectPosition: 'center 30%'
                 },
                 {
@@ -1437,7 +1437,7 @@ export const translations = {
                     tag: 'Webinaire',
                     title: 'Notre Tout Premier Webinaire — Un Vrai Succès !',
                     description: "XyberClan a fièrement organisé son tout premier webinaire sur le thème 'Comment j'ai commencé dans la Tech et l'Entrepreneuriat'. Avec Vanessa Manessong, Jerry Davis, Cabrel Donfang et Brandon Kamga, la session a été un succès retentissant et un moment marquant pour notre communauté.",
-                    image: '/images/webinar-group.svg',
+                    image: '/images/events/webinair.jpeg',
                     objectPosition: 'center 30%'
                 }
             ]
