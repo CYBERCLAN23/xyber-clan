@@ -72,12 +72,10 @@ const JourneyPage = () => {
                 }
             });
 
-            // Initial state layout
-            // All cards are in their layout positions (y: -220 or y: 220), small, slightly faded, and blurred
-            cards.forEach((card, idx) => {
-                const initialY = idx % 2 === 0 ? -200 : 200;
+            // Initial state layout — all cards centered
+            cards.forEach((card) => {
                 gsap.set(card, { 
-                    y: initialY, 
+                    y: 0,
                     scale: 0.8, 
                     opacity: 0.15, 
                     filter: 'blur(8px)',
@@ -86,141 +84,87 @@ const JourneyPage = () => {
             });
             gsap.set(nodes, { scale: 0.8, backgroundColor: isDark ? '#222' : '#ddd', borderColor: border });
             
-            // Center the first card horizontally on start (align its center with 50vw center)
-            gsap.set(track, { x: -350 });
+            // Center track
+            gsap.set(track, { x: 0 });
             gsap.set(cards[0], { scale: 1.0, opacity: 0.8, filter: 'blur(0px)', zIndex: 20 });
 
             // Create step animations for all milestones
             events.forEach((_, idx) => {
                 const card = cards[idx];
                 const node = nodes[idx];
-                const targetY = idx % 2 === 0 ? -200 : 200; // Original graph track offset
-                const trackOffset = -(idx * 850 + 350); // Horizontal spacing offset to center card idx
 
-                // ── STEP A: Slide the track to align the current milestone node in center ──
+                // ── STEP A: Prepare — fade previous, blur current ──
                 if (idx > 0) {
-                    tl.to(track, {
-                        x: trackOffset,
-                        duration: 1.2,
-                        ease: 'power2.inOut',
-                    }, `slide-${idx}`);
-
-                    // Fade previous card back to graph state and shrink/blur it
                     const prevCard = cards[idx - 1];
-                    const prevTargetY = (idx - 1) % 2 === 0 ? -200 : 200;
                     tl.to(prevCard, {
-                        y: prevTargetY,
-                        scale: 0.8,
-                        opacity: 0.1,
-                        filter: 'blur(6px)',
-                        zIndex: 10,
-                        duration: 0.8,
-                        ease: 'power2.out',
+                        y: 0, scale: 0.8, opacity: 0.1,
+                        filter: 'blur(6px)', zIndex: 10,
+                        duration: 0.8, ease: 'power2.out',
                     }, `slide-${idx}`);
 
                     tl.to(nodes[idx - 1], {
-                        scale: 0.8,
-                        backgroundColor: isDark ? '#222' : '#ddd',
-                        borderColor: border,
-                        duration: 0.8,
+                        scale: 0.8, backgroundColor: isDark ? '#222' : '#ddd',
+                        borderColor: border, duration: 0.8,
                     }, `slide-${idx}`);
 
-                    // Prepare current card as it moves into the screen
                     tl.to(card, {
-                        opacity: 0.6,
-                        scale: 0.9,
-                        filter: 'blur(3px)',
-                        duration: 0.8,
-                        ease: 'power2.out',
+                        opacity: 0.6, scale: 0.9,
+                        filter: 'blur(3px)', duration: 0.8, ease: 'power2.out',
                     }, `slide-${idx}`);
 
-                    // Move axis progress fill line
                     const progressPercent = (idx / (N - 1)) * 100;
                     tl.to(progressLine, {
                         width: `${progressPercent}%`,
-                        duration: 1.2,
-                        ease: 'power2.inOut',
+                        duration: 1.2, ease: 'power2.inOut',
                     }, `slide-${idx}`);
                 }
 
-                // ── STEP B: Zoom INTO the card (Full View / Detail Panel take over) ──
-                // We move the card to Y: 0 (center of line), scale it up to 1.45,
-                // and hide the axis line, nodes, and dim everything else.
+                // ── STEP B: Zoom INTO the card (centered) ──
                 tl.to(card, {
-                    y: 0,
-                    scale: 1.4,
-                    opacity: 1,
-                    filter: 'blur(0px)',
-                    zIndex: 100,
-                    duration: 1.5,
-                    ease: 'power3.inOut',
+                    y: 0, scale: 1.4, opacity: 1,
+                    filter: 'blur(0px)', zIndex: 100,
+                    duration: 1.5, ease: 'power3.inOut',
                 }, `zoom-${idx}`);
 
                 tl.to(node, {
-                    scale: 1.8,
-                    backgroundColor: '#06b6d4',
-                    borderColor: '#06b6d4',
-                    duration: 1.0,
-                    ease: 'power2.out',
+                    scale: 1.8, backgroundColor: '#06b6d4',
+                    borderColor: '#06b6d4', duration: 1.0,
                 }, `zoom-${idx}`);
 
-                // Hide graph axis lines and other nodes during the full screen card detail view
                 tl.to([baseLine, progressLine], {
-                    opacity: 0.05,
-                    duration: 1.0,
-                    ease: 'power2.out',
+                    opacity: 0.05, duration: 1.0, ease: 'power2.out',
                 }, `zoom-${idx}`);
 
-                // Hide other nodes during zoom
                 const otherNodes = nodes.filter((_, nIdx) => nIdx !== idx);
                 if (otherNodes.length) {
-                    tl.to(otherNodes, {
-                        opacity: 0,
-                        duration: 1.0,
-                    }, `zoom-${idx}`);
+                    tl.to(otherNodes, { opacity: 0, duration: 1.0 }, `zoom-${idx}`);
                 }
 
-                // ── STEP C: Hold detail screen state so user can read ──
+                // ── STEP C: Hold detail screen state ──
                 tl.to({}, { duration: 2.0 });
 
-                // ── STEP D: Zoom BACK OUT to the graph track ──
-                // Restore card coordinates, bring back the axis, nodes, and progress line
+                // ── STEP D: Zoom BACK OUT ──
                 if (idx < N - 1) {
                     tl.to(card, {
-                        y: targetY,
-                        scale: 0.9,
-                        opacity: 0.5,
-                        filter: 'blur(3px)',
-                        zIndex: 20,
-                        duration: 1.5,
-                        ease: 'power3.inOut',
+                        y: 0, scale: 0.9, opacity: 0.5,
+                        filter: 'blur(3px)', zIndex: 20,
+                        duration: 1.5, ease: 'power3.inOut',
                     }, `unzoom-${idx}`);
 
                     tl.to(node, {
-                        scale: 1.0,
-                        backgroundColor: '#06b6d4',
-                        borderColor: '#06b6d4',
-                        duration: 1.0,
+                        scale: 1.0, backgroundColor: '#06b6d4',
+                        borderColor: '#06b6d4', duration: 1.0,
                     }, `unzoom-${idx}`);
 
                     tl.to([baseLine, progressLine], {
-                        opacity: 1.0,
-                        duration: 1.0,
-                        ease: 'power2.inOut',
+                        opacity: 1.0, duration: 1.0, ease: 'power2.inOut',
                     }, `unzoom-${idx}`);
 
                     if (otherNodes.length) {
-                        tl.to(otherNodes, {
-                            opacity: 1.0,
-                            duration: 1.0,
-                        }, `unzoom-${idx}`);
+                        tl.to(otherNodes, { opacity: 1.0, duration: 1.0 }, `unzoom-${idx}`);
                     }
                 } else {
-                    // For the last card, let it stay zoomed or scale down slightly at the very end of scroll
-                    tl.to(card, {
-                        scale: 1.35,
-                        duration: 1.0,
-                    });
+                    tl.to(card, { scale: 1.35, duration: 1.0 });
                 }
             });
 
