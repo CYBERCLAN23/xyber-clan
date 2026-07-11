@@ -418,6 +418,14 @@ export const translations = {
                     description: 'Our vision for digital security was spotlighted in a major national publication, cementing our reputation as a trusted protector of the digital ecosystem.',
                     image: '/images/journey/media.jpeg',
                     objectPosition: 'center 30%'
+                },
+                {
+                    date: 'July 10, 2026',
+                    tag: 'Webinar',
+                    title: 'Our Very First Webinar — A Resounding Success!',
+                    description: "XyberClan proudly organised our very first webinar exploring the theme 'How I Started in Tech and Entrepreneurship'. Featuring Vanessa Manessong, Jerry Davis, Cabrel Donfang, and Brandon Kamga, the session was an incredible success and a milestone moment for our community.",
+                    image: '/images/webinar-group.svg',
+                    objectPosition: 'center 30%'
                 }
             ]
         },
@@ -1422,6 +1430,14 @@ export const translations = {
                     title: 'PawaPay Builders Cameroun — 1ère Édition',
                     description: 'Nous avons fièrement participé à la 1ère édition de PawaPay Builders Cameroun, organisée par Mountain Hub et PawaPay. Un événement fintech exceptionnel qui a réuni les meilleurs talents tech du Cameroun. L\'un de nos membres a décroché la 3ème place, démontrant la capacité d\'XyberClan à innover dans l\'écosystème fintech africain en pleine expansion.',
                     image: '/images/events/pawapay.jpg',
+                    objectPosition: 'center 30%'
+                },
+                {
+                    date: '10 Juillet 2026',
+                    tag: 'Webinaire',
+                    title: 'Notre Tout Premier Webinaire — Un Vrai Succès !',
+                    description: "XyberClan a fièrement organisé son tout premier webinaire sur le thème 'Comment j'ai commencé dans la Tech et l'Entrepreneuriat'. Avec Vanessa Manessong, Jerry Davis, Cabrel Donfang et Brandon Kamga, la session a été un succès retentissant et un moment marquant pour notre communauté.",
+                    image: '/images/webinar-group.svg',
                     objectPosition: 'center 30%'
                 }
             ]
