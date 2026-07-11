@@ -459,7 +459,7 @@ export const translations = {
                 },
                 '4': {
                     name: 'Ange Demanou',
-                    role: 'Data Analyst & UI/UX Designer',
+                    role: 'UI/UX Lead Designer & Event Organiser',
                     geography: 'Cameroon',
                     industry: 'UI/UX Design & Data Analytics',
                     expertise: 'UI/UX Design, Web Development, Data Analysis',
@@ -483,7 +483,7 @@ export const translations = {
                 },
                 '7': {
                     name: 'Theresa Tcheme',
-                    role: 'Media Manager & UI/UX Designer',
+                    role: 'Event Organiser & Media Manager',
                     geography: 'Cameroon',
                     industry: 'Communications & Media',
                     expertise: 'Entrepreneurship, UI/UX Design, Community Leadership',
@@ -507,7 +507,7 @@ export const translations = {
                 },
                 '10': {
                     name: 'Wandji Tchaleu Yann Félix',
-                    role: 'Network Engineer, Python Dev & Designer',
+                    role: 'Network Engineer, UI/UX Designer & Python Dev',
                     geography: 'Cameroon',
                     industry: 'Networks & Development',
                     expertise: 'Réseau & CCNA, Python Development, Graphic Design',
@@ -546,7 +546,7 @@ export const translations = {
                 },
                 '5': {
                     name: 'Theresa Tcheme',
-                    role: 'Mediator & UI/UX Designer',
+                    role: 'Event Organiser & Mediator',
                     description: '2nd-year Computer Science student at Université de Yaoundé I. Co-Founder & CEO of Greenfarmers. GDG Yaoundé Volunteer and Organiser of the Hult Prize OnCampus programme at the University of Yaoundé I.'
                 }
             }
@@ -1472,7 +1472,7 @@ export const translations = {
                 },
                 '4': {
                     name: 'Ange Demanou',
-                    role: 'Analyste de Données & Designer UI/UX',
+                    role: 'Designer UI/UX Lead & Organisatrice d\'Événements',
                     geography: 'Cameroun',
                     industry: 'Design UI/UX & Analyse de Données',
                     expertise: 'Design UI/UX, Développement Web, Analyse de Données',
@@ -1496,7 +1496,7 @@ export const translations = {
                 },
                 '7': {
                     name: 'Theresa Tcheme',
-                    role: 'Gestionnaire Média & Designer UI/UX',
+                    role: 'Organisatrice d\'Événements & Gestionnaire Média',
                     geography: 'Cameroun',
                     industry: 'Communications & Médias',
                     expertise: 'Entrepreneuriat, Design UI/UX, Leadership Communautaire',
@@ -1520,7 +1520,7 @@ export const translations = {
                 },
                 '10': {
                     name: 'Wandji Tchaleu Yann Félix',
-                    role: 'Ingénieur Réseau, Développeur Python & Designer',
+                    role: 'Ingénieur Réseau, Designer UI/UX & Développeur Python',
                     geography: 'Cameroun',
                     industry: 'Réseaux & Développement',
                     expertise: 'Réseau & CCNA, Développement Python, Design Graphique',
@@ -1559,7 +1559,7 @@ export const translations = {
                 },
                 '5': {
                     name: 'Theresa Tcheme',
-                    role: 'Médiatrice & UI/UX Designer',
+                    role: 'Organisatrice d\'Événements & Médiatrice',
                     description: '2ème année en Informatique à l\'Université de Yaoundé I. Co-Fondatrice & CEO de Greenfarmers. Volontaire GDG Yaoundé et Organisatrice du programme Hult Prize OnCampus à l\'Université de Yaoundé I.'
                 }
             }

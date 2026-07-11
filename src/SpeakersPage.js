@@ -67,7 +67,7 @@ const speakers = [
         id: 5,
         image: '/images/speakers/speaker-5.svg',
         name: 'Theresa Tcheme',
-        role: 'Médiatrice & UI/UX Designer',
+        role: 'Organisatrice d\'Événements & Médiatrice',
         description: '2ème année en Informatique à l\'Université de Yaoundé I. Co-Fondatrice & CEO de Greenfarmers. Volontaire GDG Yaoundé et Organisatrice du programme Hult Prize OnCampus à l\'Université de Yaoundé I.',
         enterprise: 'Greenfarmers',
         link: '',
