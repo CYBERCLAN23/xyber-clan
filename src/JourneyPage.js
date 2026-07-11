@@ -72,7 +72,7 @@ const JourneyPage = () => {
                 }
             });
 
-            // Initial state layout — all cards centered
+            // Initial state layout — cards centered, no alternation
             cards.forEach((card) => {
                 gsap.set(card, { 
                     y: 0,
@@ -84,17 +84,24 @@ const JourneyPage = () => {
             });
             gsap.set(nodes, { scale: 0.8, backgroundColor: isDark ? '#222' : '#ddd', borderColor: border });
             
-            // Center track
-            gsap.set(track, { x: 0 });
+            // Center first card in viewport
+            gsap.set(track, { x: -350 });
             gsap.set(cards[0], { scale: 1.0, opacity: 0.8, filter: 'blur(0px)', zIndex: 20 });
 
             // Create step animations for all milestones
             events.forEach((_, idx) => {
                 const card = cards[idx];
                 const node = nodes[idx];
+                // Correct spacing: 700px card + 100px gap = 800 per step
+                const trackOffset = -(idx * 800 + 350);
 
-                // ── STEP A: Prepare — fade previous, blur current ──
+                // ── STEP A: Slide track to center current card ──
                 if (idx > 0) {
+                    tl.to(track, {
+                        x: trackOffset,
+                        duration: 1.2, ease: 'power2.inOut',
+                    }, `slide-${idx}`);
+
                     const prevCard = cards[idx - 1];
                     tl.to(prevCard, {
                         y: 0, scale: 0.8, opacity: 0.1,
@@ -119,7 +126,7 @@ const JourneyPage = () => {
                     }, `slide-${idx}`);
                 }
 
-                // ── STEP B: Zoom INTO the card (centered) ──
+                // ── STEP B: Zoom IN ──
                 tl.to(card, {
                     y: 0, scale: 1.4, opacity: 1,
                     filter: 'blur(0px)', zIndex: 100,
@@ -140,10 +147,10 @@ const JourneyPage = () => {
                     tl.to(otherNodes, { opacity: 0, duration: 1.0 }, `zoom-${idx}`);
                 }
 
-                // ── STEP C: Hold detail screen state ──
+                // ── STEP C: Hold ──
                 tl.to({}, { duration: 2.0 });
 
-                // ── STEP D: Zoom BACK OUT ──
+                // ── STEP D: Zoom OUT ──
                 if (idx < N - 1) {
                     tl.to(card, {
                         y: 0, scale: 0.9, opacity: 0.5,
