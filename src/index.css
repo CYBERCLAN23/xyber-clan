@@ -1,196 +1,216 @@
 @import "tailwindcss";
+@import "@fontsource-variable/geist";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ─────────────────────────────────────────────────────────────
+   XyberClan design tokens
+   One ground, one ink, the brand's cyan + blue as whole fields.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --brand-cyan: #22c4d2;
+  --brand-blue: #2785b7;
+  --brand-ink: #1e1e1e;
+
+  --paper: #ffffff;
+  --paper-2: #f3f6f7;
+  --paper-3: #e6ecee;
+  --ink: #141516;
+  --ink-2: #474d51;
+  --ink-3: #697176;
+  --accent-text: #0a7680;      /* cyan that reads as text on paper (AA) */
+  --on-cyan: #0d1a1c;          /* text on a cyan field */
+  --on-blue: #ffffff;          /* large text on a blue field */
+  --blue-deep: #1c6690;        /* blue field that carries small white text */
+
+  --mark-ink: #1e1e1e;
+  --mark-ring: #ffffff;
+  --focus: #22c4d2;
+
+  --margin: clamp(20px, 4.2vw, 72px);
+  --gap: clamp(16px, 2vw, 32px);
+  --section: clamp(112px, 14vw, 224px);
+  --r-media: clamp(20px, 2.4vw, 36px);
+  --r-card: clamp(18px, 1.8vw, 28px);
+  --nav-h: 72px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  color-scheme: light;
+}
+
+.dark {
+  --paper: #0b0c0d;
+  --paper-2: #131516;
+  --paper-3: #1b1e20;
+  --ink: #f2f4f5;
+  --ink-2: #b2babf;
+  --ink-3: #8a9398;
+  --accent-text: #4fd3df;
+  --mark-ink: #f2f4f5;
+  --mark-ring: #0b0c0d;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-cyan: var(--brand-cyan);
+  --color-blue: var(--brand-blue);
+  --color-blue-deep: var(--blue-deep);
+  --color-accent: var(--accent-text);
+  --color-on-cyan: var(--on-cyan);
+
+  --radius-media: var(--r-media);
+  --radius-card: var(--r-card);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
 @layer base {
-  :root {
-    /* Premium Spacing Tokens */
-    --space-xs: 0.5rem;
-    --space-sm: 1rem;
-    --space-md: 1.5rem;
-    --space-lg: 2rem;
-    --space-xl: 3rem;
-    --space-2xl: 4rem;
-
-    /* Premium Radius Tokens */
-    --radius-sm: 0.75rem;
-    --radius-md: 1rem;
-    --radius-lg: 1.5rem;
-    --radius-xl: 2rem;
-    --radius-2xl: 2.5rem;
-    --radius-pill: 9999px;
-
-    /* Depth / Glass Tokens */
-    --glass-blur: 16px;
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-bg: rgba(0, 0, 0, 0.7);
-  }
-}
-
-/* Prevent horizontal overflow from scroll animations */
-html,
-body {
-  overflow-x: hidden;
-  -webkit-text-size-adjust: 100%;
-}
-
-/* Improve touch targets on mobile */
-@media (max-width: 640px) {
-  button, a, input, textarea, select {
-    cursor: default;
-  }
-  input, textarea, select {
-    font-size: 16px !important;
-  }
-}
-
-@layer base {
-
   html {
-    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--paper);
   }
-
-  :root {
-    /* ULTRA Light Theme (Primary) */
-    --bg-primary: #FAFAFA;
-    --bg-secondary: #FFFFFF;
-    --text-primary: #111827;
-    --text-secondary: #4B5563;
-    --border-color: #E5E7EB;
-    --border-highlight: #06b6d4;
-    --grid-color: rgba(0, 0, 0, 0.05);
-    --card-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  }
-
-  .dark {
-    /* ULTRA Dark Theme */
-    --bg-primary: #050505;
-    --bg-secondary: #0A0A0A;
-    --text-primary: #F9FAFB;
-    --text-secondary: #9CA3AF;
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-highlight: #06b6d4;
-    --grid-color: rgba(255, 255, 255, 0.03);
-    --card-shadow: none;
-  }
-
   body {
-    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300;
-    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    background-image:
-      linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-    background-size: 40px 40px;
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.55;
+    overflow-x: clip;
+    transition: background-color 0.5s var(--ease-out), color 0.5s var(--ease-out);
   }
+  ::selection {
+    background: var(--brand-cyan);
+    color: #0d1a1c;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  img, video, svg { display: block; max-width: 100%; }
+  img { height: auto; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  input, textarea, select { font: inherit; color: inherit; }
+  h1, h2, h3, h4 { font-weight: 600; text-wrap: balance; margin: 0; }
+  p { text-wrap: pretty; margin: 0; }
+  a { color: inherit; text-decoration: none; }
 }
 
+/* ── Type scale (fluid). Two or three sizes do the work per screen. */
 @layer components {
-
-  /* The Core "Ultra" Bento Box */
-  .bento-card {
-    @apply bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl relative overflow-hidden transition-all duration-300;
-    box-shadow: var(--card-shadow);
+  .t-mega {
+    font-size: clamp(3.6rem, 12.5vw, 13.5rem);
+    line-height: 0.86;
+    letter-spacing: -0.055em;
+    font-weight: 600;
   }
-
-  .bento-card:hover {
-    @apply border-cyan-500/30;
-    box-shadow: 0 4px 20px -2px rgba(6, 182, 212, 0.1);
+  .t-display {
+    font-size: clamp(2.75rem, 7.4vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    font-weight: 600;
   }
-
-  /* Sharp/Tech Typography */
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600;
-    @apply dark:from-cyan-400 dark:to-blue-500;
+  .t-headline {
+    font-size: clamp(2rem, 4.4vw, 4.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: 600;
   }
-
-  /* Navigation Island - Glass */
-  .nav-island {
-    @apply backdrop-blur-2xl border rounded-2xl shadow-lg;
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.08);
+  .t-title {
+    font-size: clamp(1.375rem, 2vw, 1.875rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 560;
   }
+  .t-lead {
+    font-size: clamp(1.125rem, 1.45vw, 1.4rem);
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    font-weight: 420;
+  }
+  .t-body { font-size: 1.0625rem; line-height: 1.6; }
+  .t-small { font-size: 0.9375rem; line-height: 1.5; letter-spacing: -0.003em; }
 
-  .dark .nav-island {
-    background: rgba(0, 0, 0, 0.7);
+  .shell {
+    width: 100%;
+    max-width: 1760px;
+    margin-inline: auto;
+    padding-inline: var(--margin);
+  }
+  .section { padding-block: var(--section); }
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+  }
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  .skip-link {
+    position: fixed;
+    left: 16px;
+    top: -60px;
+    z-index: 100000;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    transition: top 0.2s var(--ease-out);
+  }
+  .skip-link:focus { top: 16px; }
+}
+
+/* ── Smooth scroll (Lenis) ───────────────────────────────── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* ── Reduced motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-@layer utilities {
-  .text-glow {
-    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-}
-
-.nav-island {
-  @apply backdrop-blur-2xl border border-white/10 shadow-2xl;
-  background: rgba(10, 10, 10, 0.75);
-  border-radius: var(--radius-2xl);
-}
-
-.dark .nav-island {
-  background: rgba(0, 0, 0, 0.7);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.bento-card {
-  @apply relative overflow-hidden transition-all duration-500;
-  border-radius: var(--radius-2xl);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.bento-card:hover {
-  @apply scale-[1.02] -translate-y-1;
-  border-color: rgba(6, 182, 212, 0.3);
-  box-shadow: 0 20px 40px -20px rgba(6, 182, 212, 0.2);
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-@keyframes heroFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Premium Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400/20 rounded-full hover:bg-gray-400/30 transition-colors;
+  background: color-mix(in oklab, var(--ink) 18%, transparent);
+  border-radius: 999px;
+  border: 3px solid var(--paper);
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 hover:bg-white/20;
-}
+.notranslate { transform: none; }
 
-/* Prevent Google Translate */
-.notranslate {
-  transform: none;
+/* ── Page + theme transitions (View Transitions API) ─────── */
+@keyframes xc-page-out { to { transform: translateY(-6%) scale(0.97); opacity: 0.35; } }
+@keyframes xc-page-in {
+  from { clip-path: inset(100% 0% 0% 0% round 56px 56px 0 0); transform: translateY(8%); }
+  to { clip-path: inset(0% 0% 0% 0% round 0 0 0 0); transform: none; }
+}
+html[data-vt="page"]::view-transition-old(root) { animation: xc-page-out 0.9s var(--ease-in-out) both; }
+html[data-vt="page"]::view-transition-new(root) { animation: xc-page-in 0.95s var(--ease-out) both; }
+html[data-vt="theme"]::view-transition-old(root),
+html[data-vt="theme"]::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html[data-vt="theme"]::view-transition-old(root) { z-index: 1; }
+html[data-vt="theme"]::view-transition-new(root) { z-index: 2; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }
