@@ -1,12 +1,54 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // An admin is a signed-in account listed in /admins/{uid}.
+    // Signing in alone is not enough: anyone can create a Firebase account.
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Admin list: readable by its own member only; managed from the Firebase console.
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
     // CMS content — anyone can read, only authenticated admins can write
     match /cms/{document} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
     
+    // Leads from the public flows (start a project, careers, partnership).
+    // Anyone may create one, with a strict shape; only admins may read,
+    // change its status, or delete it.
+    match /leads/{leadId} {
+      function str(d, key, max) {
+        return !(key in d) || (d[key] is string && d[key].size() <= max);
+      }
+      function validLead(d) {
+        return d.keys().hasOnly(['flow', 'type', 'name', 'email', 'phone', 'company', 'channel',
+                                 'title', 'services', 'budget', 'timeline', 'details',
+                                 'lang', 'page', 'status', 'createdAt'])
+          && d.keys().hasAll(['flow', 'details', 'status', 'createdAt'])
+          && d.flow in ['project', 'career', 'partnership']
+          && d.status == 'new'
+          && d.createdAt == request.time
+          && d.details is string && d.details.size() <= 12000
+          && str(d, 'type', 40) && str(d, 'name', 120) && str(d, 'email', 160)
+          && str(d, 'phone', 40) && str(d, 'company', 160) && str(d, 'channel', 20)
+          && str(d, 'title', 200) && str(d, 'services', 300) && str(d, 'budget', 80)
+          && str(d, 'timeline', 80) && str(d, 'lang', 5) && str(d, 'page', 300);
+      }
+      allow create: if validLead(request.resource.data);
+      allow read: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in ['new', 'contacted', 'won', 'lost'];
+      allow delete: if isAdmin();
+    }
+
     // Default deny all other documents
     match /{document=**} {
       allow read, write: if false;

@@ -55,7 +55,7 @@ const EditableImage = ({
         loading="lazy"
         decoding="async"
         className={`${className} ${imageClassName}`}
-        style={{ ...style, objectPosition }}
+        style={{ ...style, ...(objectPosition ? { objectPosition } : {}) }}
         {...rest}
       />
     );
@@ -124,7 +124,7 @@ const EditableImage = ({
         src={currentSrc}
         alt={alt}
         className={`${className} ${imageClassName}`}
-        style={{ ...style, objectPosition }}
+        style={{ ...style, ...(objectPosition ? { objectPosition } : {}) }}
         {...rest}
       />
 

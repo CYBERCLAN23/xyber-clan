@@ -16,7 +16,8 @@ export const SOCIALS = [
   { label: 'WhatsApp', url: 'https://whatsapp.com/channel/0029VbBLsii2P59lAGA3wO1O' },
 ];
 
-export default function SiteFooter() {
+/** compact: keep contacts and the index but drop the big invitation (for pages that already close with one). */
+export default function SiteFooter({ compact = false }) {
   const { t, tr } = useT();
   const { isEditing } = useCMS();
   const root = useRef(null);
@@ -28,7 +29,7 @@ export default function SiteFooter() {
     if (isEditing || reducedMotion()) return;
     const mark = root.current.querySelector('[data-footer-mark]');
     gsap.from(mark, {
-      yPercent: 60,
+      yPercent: 28,
       duration: 1.4,
       ease: EASE.out,
       scrollTrigger: { trigger: mark, start: 'top 98%', end: 'bottom bottom', scrub: 1 },
@@ -47,21 +48,27 @@ export default function SiteFooter() {
         {/* The close: one big invitation, the ways to reach us beside it. */}
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-[var(--gap)]">
           <div className="lg:col-span-7">
-            <T k="footer.cta.title" as="h2" className="t-display max-w-[11ch]" />
-            <T k="footer.cta.subtitle" as="p" className="t-lead mt-6 max-w-[34ch] text-ink-2" />
-            <div className="mt-10">
-              <Button to="/start-project" size="lg">{t.cta.primaryButton}</Button>
-            </div>
+            {compact ? (
+              <T k="footer.tagline" as="p" className="t-headline max-w-[14ch]" />
+            ) : (
+              <>
+                <T k="footer.cta.title" as="h2" className="t-display max-w-[11ch]" />
+                <T k="footer.cta.subtitle" as="p" className="t-lead mt-6 max-w-[34ch] text-ink-2" />
+                <div className="mt-10">
+                  <Button to="/start-project" size="lg">{t.cta.primaryButton}</Button>
+                </div>
+              </>
+            )}
           </div>
           <div className="flex flex-col gap-8 lg:col-span-5 lg:pt-4">
             <div>
-              <T k="footer.cta.emailLabel" as="p" className="t-small text-ink-3" />
+              <T k="footer.cta.emailLabel" as="p" className="t-small text-ink-3 lowercase first-letter:uppercase" />
               <a href={`mailto:${email}`} className="t-title mt-2 inline-block break-all underline decoration-[1.5px] decoration-transparent underline-offset-[6px] transition-[text-decoration-color] duration-300 hover:decoration-current">
                 <T k="footer.cta.email" />
               </a>
             </div>
             <div>
-              <T k="footer.cta.phoneLabel" as="p" className="t-small text-ink-3" />
+              <T k="footer.cta.phoneLabel" as="p" className="t-small text-ink-3 lowercase first-letter:uppercase" />
               <div className="mt-2 flex flex-col gap-1">
                 {(isEditing ? [null] : phones).map((p, i) =>
                   p === null ? (
@@ -78,11 +85,11 @@ export default function SiteFooter() {
         {/* Index */}
         <div className="mt-[clamp(80px,9vw,140px)] grid grid-cols-2 gap-x-[var(--gap)] gap-y-12 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
-            <T k="footer.tagline" as="p" className="t-title max-w-[16ch]" />
+            {!compact && <T k="footer.tagline" as="p" className="t-title max-w-[16ch]" />}
           </div>
           {Object.entries(f.columns).map(([key, col]) => (
             <nav key={key} aria-label={col.title}>
-              <T k={`footer.columns.${key}.title`} as="p" className="t-small text-ink-3 normal-case first-letter:uppercase" />
+              <T k={`footer.columns.${key}.title`} as="p" className="t-small text-ink-3 lowercase first-letter:uppercase" />
               <ul className="mt-4 flex flex-col gap-2.5">
                 {col.items.map((item, idx) => (
                   <li key={idx}>
@@ -116,7 +123,7 @@ export default function SiteFooter() {
           alt=""
           aria-hidden="true"
           loading="lazy"
-          className="pointer-events-none absolute bottom-[42%] right-[calc(var(--margin)+2%)] z-[1] w-[clamp(72px,11vw,190px)]"
+          className="pointer-events-none absolute bottom-[66%] right-[calc(var(--margin)+1%)] z-[1] w-[clamp(64px,9vw,160px)]"
         />
         <div data-footer-mark className="relative">
           <Logo variant="wordmark" title="xyberclan" className="w-full h-auto" />
@@ -124,10 +131,10 @@ export default function SiteFooter() {
       </div>
 
       <div className="shell flex flex-col gap-3 py-8 t-small text-ink-3 md:flex-row md:items-center md:justify-between">
-        <T k="footer.copyright" as="p" className="normal-case" />
+        <T k="footer.copyright" as="p" className="lowercase first-letter:uppercase" />
         <div className="flex items-center gap-5">
-          <Link to="/privacy" className="hover:text-ink"><T k="footer.bottomLinks.privacy" /></Link>
-          <Link to="/terms" className="hover:text-ink"><T k="footer.bottomLinks.terms" /></Link>
+          <Link to="/privacy" className="hover:text-ink"><T k="footer.bottomLinks.privacy" className="inline-block lowercase first-letter:uppercase" /></Link>
+          <Link to="/terms" className="hover:text-ink"><T k="footer.bottomLinks.terms" className="inline-block lowercase first-letter:uppercase" /></Link>
           <span>
             <T k="footer.madeWith" /> ♥ <T k="footer.madeBy" />
           </span>

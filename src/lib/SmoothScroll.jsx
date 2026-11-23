@@ -25,6 +25,22 @@ export function SmoothScroll({ children }) {
     };
   }, []);
 
+  // Re-measure every trigger when the page height changes (late images, fonts, CMS content).
+  useEffect(() => {
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    let last = document.body.scrollHeight;
+    let t;
+    const ro = new ResizeObserver(() => {
+      const h = document.body.scrollHeight;
+      if (Math.abs(h - last) < 2) return;
+      last = h;
+      clearTimeout(t);
+      t = setTimeout(() => ScrollTrigger.refresh(), 200);
+    });
+    ro.observe(document.body);
+    return () => { ro.disconnect(); clearTimeout(t); };
+  }, []);
+
   // New route: start at the top (or at the anchor), then let triggers re-measure.
   useLayoutEffect(() => {
     const go = () => {

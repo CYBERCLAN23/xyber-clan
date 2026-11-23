@@ -17,7 +17,7 @@ import ExitOffer from './ExitOffer';
 export default function HomePage() {
   const { tr } = useT();
   return (
-    <Page overHero title={tr('hero.slogan').replace(/\.$/, '')} description={tr('hero.subtitle')}>
+    <Page overHero compactFooter title={tr('hero.slogan').replace(/\.$/, '')} description={tr('hero.subtitle')}>
       <Hero />
       <Statement />
       <About />

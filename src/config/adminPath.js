@@ -25,6 +25,7 @@ export const ADMIN_PAGES = [
   { path: `${ADMIN_BASE}/journey`,        label: 'Journey' },
   { path: `${ADMIN_BASE}/events`,         label: 'Events' },
   { path: `${ADMIN_BASE}/start-project`,  label: 'Start Project' },
+  { path: `${ADMIN_BASE}/leads`,          label: 'Leads' },
 ];
 
 export default ADMIN_BASE;

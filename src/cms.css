@@ -1,45 +1,33 @@
-/* CMS Editing Overrides */
+/* CMS editing overrides (body.cms-editing while an admin edits in place) */
 .cms-editing * {
   animation: none !important;
   transition: none !important;
 }
 
-/* Enhancing interaction blocks in Edit Mode */
-.cms-editing .cms-editable {
-  outline: 1px dashed rgba(6, 182, 212, 0.5) !important;
-  outline-offset: 2px;
-}
-.cms-editing .cms-editable:hover {
-  outline: 2px solid rgba(6, 182, 212, 0.9) !important;
-  background: rgba(6, 182, 212, 0.1);
-}
-
+/* Editable blocks: a quiet dashed cyan outline, solid on hover. */
+.cms-editing .cms-editable,
 .cms-editing .cms-editable-link {
-  outline: 1px dashed rgba(6, 182, 212, 0.5) !important;
-  outline-offset: 2px;
+  outline: 1px dashed rgba(34, 196, 210, 0.55) !important;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
+.cms-editing .cms-editable:hover,
 .cms-editing .cms-editable-link:hover {
-  outline: 2px solid rgba(6, 182, 212, 0.9) !important;
-  background: rgba(6, 182, 212, 0.1);
+  outline: 2px solid #22c4d2 !important;
+  background: rgba(34, 196, 210, 0.08);
 }
 
-.cms-editing .cms-editable-image {
-  outline: 1px dashed rgba(6, 182, 212, 0.5) !important;
-  outline-offset: -2px; /* inside the image */
-}
-.cms-editing .cms-editable-image:hover {
-  outline: 2px solid rgba(6, 182, 212, 0.9) !important;
-}
-
+.cms-editing .cms-editable-image,
 .cms-editing .cms-editable-video {
-  outline: 1px dashed rgba(6, 182, 212, 0.5) !important;
-  outline-offset: -2px;
+  outline: 1px dashed rgba(34, 196, 210, 0.6) !important;
+  outline-offset: -3px; /* inside the media */
 }
+.cms-editing .cms-editable-image:hover,
 .cms-editing .cms-editable-video:hover {
-  outline: 2px solid rgba(6, 182, 212, 0.9) !important;
+  outline: 3px solid #22c4d2 !important;
 }
 
-/* Custom CMS Tooltips */
+/* Tooltips: a small ink pill above the element. */
 .cms-editing [data-cms-tooltip] {
   position: relative;
 }
@@ -47,35 +35,40 @@
 .cms-editing [data-cms-tooltip]:hover::before {
   content: attr(data-cms-tooltip);
   position: absolute;
-  top: -32px;
+  bottom: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(15, 23, 42, 0.9);
-  color: #cffafe;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 11px;
+  background: #141516;
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
   white-space: nowrap;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(6, 182, 212, 0.4);
   z-index: 100000;
   pointer-events: none;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  font-family: 'Inter', sans-serif;
-  text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 28px -10px rgba(0, 0, 0, 0.45);
 }
 
 .cms-editing [data-cms-tooltip]:hover::after {
   content: '';
   position: absolute;
-  top: -6px;
+  bottom: calc(100% + 2px);
   left: 50%;
   transform: translateX(-50%);
-  border-width: 5px;
+  border-width: 4px;
   border-style: solid;
-  border-color: rgba(15, 23, 42, 0.9) transparent transparent transparent;
+  border-color: #141516 transparent transparent transparent;
   z-index: 100000;
   pointer-events: none;
+}
+
+/* The tooltip keeps its own type even inside large headings. */
+.cms-editing [data-cms-tooltip]:hover::before,
+.cms-editing [data-cms-tooltip]:hover::after {
+  font-style: normal;
 }

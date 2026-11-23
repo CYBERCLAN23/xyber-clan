@@ -3,6 +3,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useCMS } from '../context/CMSContext';
 import CMSToolbar from '../components/cms/CMSToolbar';
 import { Loader2 } from 'lucide-react';
+import Logo from '../brand/Logo';
 import { ADMIN_BASE, adminPath } from '../config/adminPath';
 
 /**
@@ -21,10 +22,13 @@ const AdminLayout = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 size={32} className="text-cyan-400 animate-spin" />
-          <p className="text-sm text-gray-500 font-medium">Verifying access...</p>
+      <div className="flex min-h-screen items-center justify-center bg-paper" role="status" aria-live="polite">
+        <div className="flex flex-col items-center gap-5">
+          <Logo variant="symbol" decorative className="h-12 w-auto animate-pulse" />
+          <p className="t-small flex items-center gap-2 text-ink-3">
+            <Loader2 size={16} className="animate-spin" aria-hidden="true" />
+            Verifying access...
+          </p>
         </div>
       </div>
     );

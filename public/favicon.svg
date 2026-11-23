@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="944 374.5 760 760"><style>.x{fill:#1e1e1e}@media (prefers-color-scheme:dark){.x{fill:#f2f4f5}}</style>
+<defs><linearGradient id="s" x1="127.25" y1="31.7171" x2="0" y2="31.7171" gradientUnits="userSpaceOnUse"><stop stop-color="#22C4D2"/><stop offset="1" stop-color="#22C4D2" stop-opacity="0"/></linearGradient>
+<mask id="m" maskUnits="userSpaceOnUse" x="1500" y="500" width="600" height="500"><rect x="1500" y="500" width="600" height="500" fill="#fff"/><path d="M1998.38 680.272C2004.57 740.985 1955.92 795.676 1889.71 802.429C1823.51 809.183 1764.82 765.44 1758.62 704.727C1752.43 644.015 1801.08 589.323 1867.29 582.57C1933.49 575.817 1992.19 619.56 1998.38 680.272Z" fill="#000" stroke="#000" stroke-width="48"/></mask></defs>
+
+<g class="x"><rect width="369.462" height="51.0736" rx="25.5368" transform="matrix(0.646801 0.762659 0.794323 -0.607496 977.144 633.246)"/><rect width="209.784" height="77.4692" rx="38.7346" transform="matrix(0.751913 -0.659262 -0.697094 -0.71698 1018.0 927.0)"/></g>
+<rect width="127.25" height="63.4342" rx="31.7171" transform="matrix(0.64499 -0.764191 -0.79573 -0.605652 1225.08 717.662)" fill="url(#s)"/>
+<g transform="translate(-314 0)"><path d="M1688.37 663.745C1728.64 595.097 1827.79 594.815 1868.45 663.232L1949.01 798.783C1995.18 876.474 1896.15 958.18 1827.25 899.695C1798.01 874.871 1754.89 874.863 1725.79 899.864C1658.99 957.27 1563.13 877.226 1607.7 801.251L1688.37 663.745Z" fill="#22C4D2" mask="url(#m)"/><ellipse cx="1878.5" cy="692.5" rx="120.5" ry="110.5" transform="rotate(-5.8241 1878.5 692.5)" fill="#2785B7"/></g>
+</svg>

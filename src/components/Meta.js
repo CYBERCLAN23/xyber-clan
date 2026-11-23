@@ -3,14 +3,14 @@ import { useLanguage } from '../context/LanguageContext';
 
 const FALLBACKS = {
     en: {
-        title: "XyberClan — Digital Agency | Web, Design & Cybersecurity",
-        description: "XyberClan, African digital agency serving clients worldwide. Web development, design, cybersecurity.",
-        keywords: "XyberClan, web development, digital agency Africa, cybersecurity"
+        title: "XyberClan — Build digital dreams | Websites, Apps, Design & Security",
+        description: "We design, build and secure websites, apps and digital products for ambitious businesses, from Yaoundé to the world. Start your project with XyberClan.",
+        keywords: "XyberClan, web development, mobile app development, UI UX design, cybersecurity, digital agency Cameroon, Yaoundé"
     },
     fr: {
-        title: "XyberClan — Agence Digitale | Web, Design & Cybersécurité",
-        description: "XyberClan, agence digitale africaine au service des clients du monde entier. Développement web, design, cybersécurité.",
-        keywords: "XyberClan, développement web, agence digitale Afrique, cybersécurité"
+        title: "XyberClan — Construire les rêves numériques | Sites, apps, design et sécurité",
+        description: "Nous concevons, développons et sécurisons des sites, des applications et des produits numériques pour les entreprises ambitieuses, de Yaoundé au monde entier. Lancez votre projet avec XyberClan.",
+        keywords: "XyberClan, développement web, applications mobiles, design UI UX, cybersécurité, agence digitale Cameroun, Yaoundé"
     }
 };
 

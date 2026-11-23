@@ -938,7 +938,7 @@ export const translations = {
             dismiss: 'No thanks, maybe later'
         },
         get_started: {
-            badge: 'Integrations',
+            badge: 'How we work',
             title: 'Get started in simple steps.',
             subtitle: "Whether you're a small business or a large enterprise, our process enhances productivity and simplifies your workflow.",
             labels: {
@@ -984,7 +984,7 @@ export const translations = {
             ]
         },
         whatsapp: {
-            tooltip: 'Chat with us! 👋',
+            tooltip: 'Chat with us',
             contacts: [
                 { label: 'Contact 1', number: '+237 654 269 488' },
                 { label: 'Contact 2', number: '+237 696 814 391' }
@@ -1949,7 +1949,7 @@ export const translations = {
             dismiss: 'Non merci, peut-être plus tard'
         },
         get_started: {
-            badge: 'Intégrations',
+            badge: 'Comment nous travaillons',
             title: 'Commencez en quelques étapes simples.',
             subtitle: 'Que vous soyez une petite entreprise ou une grande organisation, notre processus améliore la productivité et simplifie votre flux de travail.',
             labels: {
@@ -1995,7 +1995,7 @@ export const translations = {
             ]
         },
         whatsapp: {
-            tooltip: 'Parlez avec nous ! 👋',
+            tooltip: 'Parlez avec nous',
             contacts: [
                 { label: 'Contact 1', number: '+237 654 269 488' },
                 { label: 'Contact 2', number: '+237 696 814 391' }

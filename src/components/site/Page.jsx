@@ -9,7 +9,7 @@ import { T } from '../../lib/content';
  * Shared page frame: head tags, navigation, main landmark, footer, contact dock.
  *   <Page title="Team" description="…" overHero>…sections…</Page>
  */
-export default function Page({ title, description, keywords, overHero = false, footer = true, dock = true, children, className = '' }) {
+export default function Page({ title, description, keywords, overHero = false, footer = true, compactFooter = false, dock = true, children, className = '' }) {
   return (
     <>
       <Meta title={title} description={description} keywords={keywords} />
@@ -17,7 +17,7 @@ export default function Page({ title, description, keywords, overHero = false, f
       <main id="main" tabIndex={-1} className={`outline-none ${className}`}>
         {children}
       </main>
-      {footer && <SiteFooter />}
+      {footer && <SiteFooter compact={compactFooter} />}
       {dock && <ContactDock />}
     </>
   );
