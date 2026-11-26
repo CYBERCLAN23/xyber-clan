@@ -1,137 +1,219 @@
-/* Maintenance page: Moshi's building site. */
+/*
+ * Maintenance page (Frame 64). Self-contained: this file is inlined into the
+ * pre-rendered index.html, so the page paints correctly before the main
+ * stylesheet or any JavaScript has arrived.
+ */
+body { margin: 0; }
+html.dark { background: #0b0c0d; }
 
 .mt {
-  --hazard: #ffb627;
-  --hazard-deep: #e39a0c;
-  --hazard-ink: #1e1e1e;
-  --wood: #c98a4b;
-  --wood-deep: #a96b33;
-}
+  --mt-bg: #ffffff;
+  --mt-ink: #141516;
+  --mt-soft: #777477;
+  --mt-ghost: #e7e7e8;
+  --mt-ghost-hover: #dbdbdd;
+  --mt-blue: #2785b7;
+  --mt-blue-hover: #1f6f99;
+  --mark-ink: #1e1e1e;
+  --mark-ring: #ffffff;
+  --mt-margin: clamp(20px, 4.4vw, 84px);
 
-/* ── Caution tape ─────────────────────────────────────────── */
-.mt-tapes {
-  position: relative;
-  height: clamp(120px, 14vw, 170px);
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--mt-bg);
+  color: var(--mt-ink);
+  font-family: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.mt-tape {
-  position: absolute;
-  left: -5%;
-  width: 110%;
-  top: 50%;
+.dark .mt {
+  --mt-bg: #0b0c0d;
+  --mt-ink: #f2f4f5;
+  --mt-soft: #8a9398;
+  --mt-ghost: #1b1e20;
+  --mt-ghost-hover: #262a2d;
+  --mark-ink: #f2f4f5;
+  --mark-ring: #0b0c0d;
+}
+.mt *, .mt *::before, .mt *::after { box-sizing: border-box; }
+.mt ::selection { background: #22c4d2; color: #0d1a1c; }
+
+/* Language: both are in the markup, show the one on <html lang>. */
+html[lang="fr"] .mt [data-l="en"],
+html:not([lang="fr"]) .mt [data-l="fr"] { display: none; }
+
+/* ── Top bar ─────────────────────────────────────────────── */
+.mt-top {
   display: flex;
   align-items: center;
-  height: clamp(46px, 4.6vw, 62px);
-  background: var(--hazard);
-  color: var(--hazard-ink);
-  overflow: hidden;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(20px, 3vw, 44px) var(--mt-margin) 0;
 }
-.mt-tape::before,
-.mt-tape::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 9px;
-  background: repeating-linear-gradient(-45deg, var(--hazard-ink) 0 12px, var(--hazard) 12px 24px);
+.mt-logo { display: block; width: clamp(128px, 10.5vw, 184px); color: inherit; }
+.mt-logo svg { display: block; width: 100%; height: auto; }
+.mt-lang {
+  appearance: none;
+  margin: 0;
+  height: 40px;
+  min-width: 48px;
+  padding: 0 14px;
+  border: 1px solid color-mix(in srgb, var(--mt-ink) 18%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
 }
-.mt-tape::before { top: 0; }
-.mt-tape::after { bottom: 0; }
-.mt-tape--a { transform: translateY(-62%) rotate(-3deg); z-index: 2; }
-.mt-tape--b { transform: translateY(-38%) rotate(2.4deg); background: var(--hazard-deep); }
-.mt-tape--b::before,
-.mt-tape--b::after { background: repeating-linear-gradient(45deg, var(--hazard-ink) 0 12px, var(--hazard-deep) 12px 24px); }
+.mt-lang:hover { background: var(--mt-ghost); border-color: transparent; }
 
-.mt-track {
-  display: flex;
-  flex: none;
-  white-space: nowrap;
-  animation: mt-marquee 26s linear infinite;
-  will-change: transform;
+/* ── Hero ────────────────────────────────────────────────── */
+.mt-hero {
+  flex: 1;
+  display: grid;
+  align-items: center;
+  gap: clamp(32px, 4vw, 72px);
+  padding: clamp(28px, 5vh, 72px) var(--mt-margin) clamp(12px, 3vh, 40px);
 }
-.mt-tape--b .mt-track { animation-direction: reverse; animation-duration: 32s; }
-.mt-track span {
+@media (min-width: 960px) {
+  .mt-hero { grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); }
+}
+
+.mt-title {
+  margin: 0;
+  font-size: clamp(2.6rem, 5.4vw, 7rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  font-weight: 640;
+}
+.mt-title-a, .mt-title-b { display: block; }
+.mt-title-b { margin-top: 0.04em; font-weight: 280; letter-spacing: -0.015em; color: var(--mt-soft); }
+
+.mt-lead {
+  margin: clamp(20px, 3.2vh, 40px) 0 0;
+  max-width: 38ch;
+  font-size: clamp(1.0625rem, 1.35vw, 1.5rem);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.mt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(12px, 1.2vw, 18px);
+  margin-top: clamp(28px, 5vh, 64px);
+}
+.mt-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.9em;
-  padding-right: 0.9em;
-  font-size: clamp(1.05rem, 1.6vw, 1.5rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-}
-.mt-track svg { width: 0.7em; height: 0.7em; flex: none; }
-
-@keyframes mt-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ── Status ticker ────────────────────────────────────────── */
-.mt-ticker-word {
-  display: inline-block;
-  animation: mt-tick 0.55s var(--ease-out) both;
-}
-@keyframes mt-tick {
-  from { transform: translateY(0.6em) rotate(2deg); opacity: 0; }
-  to { transform: none; opacity: 1; }
-}
-.mt-live {
-  position: relative;
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: var(--hazard);
-  flex: none;
-}
-.mt-live::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: var(--hazard);
-  animation: mt-ping 1.6s var(--ease-out) infinite;
-}
-@keyframes mt-ping {
-  from { transform: scale(1); opacity: 0.7; }
-  to { transform: scale(2.8); opacity: 0; }
-}
-
-/* ── Poke target + speech bubble ──────────────────────────── */
-.mt-poke {
-  position: absolute;
-  left: 23%;
-  top: 31%;
-  width: 25%;
-  height: 63%;
-  border-radius: 40% 40% 24% 24%;
-  background: transparent;
-  cursor: pointer;
+  justify-content: center;
+  gap: 0.4em;
+  min-height: clamp(54px, 4.2vw, 68px);
+  padding: 0 clamp(24px, 2.1vw, 36px);
+  border-radius: clamp(10px, 0.9vw, 14px);
+  font-size: clamp(1.1875rem, 1.3vw, 1.4rem);
+  line-height: 1;
+  text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.mt-poke:focus-visible { outline: 3px solid var(--brand-cyan); outline-offset: 4px; }
+.mt-btn:active { transform: scale(0.97); }
+.mt-btn:focus-visible, .mt-lang:focus-visible { outline: 2px solid var(--mt-blue); outline-offset: 3px; }
+.mt-btn svg { width: 1em; height: 1em; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.mt-btn-primary { background: var(--mt-blue); color: #fff; font-weight: 650; }
+.mt-btn-primary:hover { background: var(--mt-blue-hover); }
+.mt-btn-primary:hover svg { transform: translateX(3px); }
+.mt-btn-ghost { background: var(--mt-ghost); color: var(--mt-ink); font-weight: 450; }
+.mt-btn-ghost:hover { background: var(--mt-ghost-hover); }
+
+/* ── Scene: crane, swinging sign, Moshi at work ──────────── */
+.mt-scene { position: relative; width: 100%; max-width: 900px; justify-self: center; aspect-ratio: 1290 / 770; }
+.mt-scene > * { position: absolute; margin: 0; }
+.mt-scene picture, .mt-scene img { display: block; width: 100%; height: 100%; }
+.mt-scene img { object-fit: contain; user-select: none; -webkit-user-drag: none; }
+
+.mt-sign { transform-origin: 50.9% 0; animation: mt-swing 3.4s ease-in-out -1.7s infinite alternate; }
+
+.mt-moshi {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform-origin: 50% 97%;
+  -webkit-tap-highlight-color: transparent;
+  animation: mt-work 1.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.mt-moshi:focus-visible { outline: 2px dashed var(--mt-blue); outline-offset: 6px; border-radius: 24px; }
+.mt-moshi.is-poked { animation: mt-poke 0.7s cubic-bezier(0.3, 0, 0.3, 1); }
 
 .mt-bubble {
-  position: absolute;
-  left: 37%;
-  top: 4%;
-  max-width: min(17rem, 46%);
-  padding: 0.8rem 1.1rem;
-  border-radius: 20px 20px 20px 6px;
-  background: var(--ink);
-  color: var(--paper);
-  font-size: clamp(0.92rem, 1.15vw, 1.05rem);
-  font-weight: 520;
-  line-height: 1.3;
-  transform-origin: 12% 100%;
-  transform: scale(0.6) translateY(12px);
-  opacity: 0;
-  transition: transform 0.45s var(--ease-spring), opacity 0.25s var(--ease-out);
+  z-index: 2;
+  padding: 0.55em 0.9em;
+  border-radius: 12px;
+  background: var(--mt-ink);
+  color: var(--mt-bg);
+  font-size: clamp(0.8125rem, 0.95vw, 1rem);
+  font-weight: 600;
+  white-space: nowrap;
   pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -100%);
+  transition: opacity 0.2s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.mt-bubble[data-show="true"] { transform: none; opacity: 1; }
+.mt-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  background: inherit;
+  transform: rotate(45deg);
+}
+.mt-bubble.is-on { opacity: 1; transform: translate(-50%, calc(-100% - 6px)); }
+/* Moshi sits near the left edge on small screens: hang the bubble from its left side. */
+@media (max-width: 959px) {
+  .mt-bubble { transform: translate(-18%, -100%); }
+  .mt-bubble.is-on { transform: translate(-18%, calc(-100% - 6px)); }
+  .mt-bubble::after { left: 18%; }
+}
+
+/* ── Caution tapes along the bottom ──────────────────────── */
+.mt-tapes { position: relative; flex: none; overflow: hidden; pointer-events: none; }
+.mt-tapes-in { position: relative; left: 50%; width: max(100%, 1000px); aspect-ratio: 2428 / 336; transform: translateX(-50%); }
+.mt-tape { position: absolute; display: block; }
+.mt-tape img { display: block; width: 100%; height: 100%; }
+.mt-tape-1 { left: -11.74%; top: 7.9%; width: 76.6%; height: 153.8%; animation: mt-flutter 5s ease-in-out infinite alternate; }
+.mt-tape-2 { left: 57.07%; top: 1.6%; width: 73.7%; height: 147.8%; animation: mt-flutter 6s ease-in-out -2s infinite alternate-reverse; }
+/* Both tapes are straight cuts of one photo: feather the cut ends so they blend. */
+.mt-tape-1 { -webkit-mask-image: linear-gradient(to left, transparent 0, #000 5%); mask-image: linear-gradient(to left, transparent 0, #000 5%); }
+.mt-tape-2 { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%); mask-image: linear-gradient(to right, transparent 0, #000 5%); }
+
+@keyframes mt-work {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  35% { transform: rotate(-2.5deg) translateY(-1.5%); }
+  55% { transform: rotate(1.2deg) translateY(0) scale(1.01, 0.985); }
+  70% { transform: rotate(0deg) scale(1); }
+}
+@keyframes mt-poke {
+  0% { transform: none; }
+  15% { transform: scale(1.06, 0.9); }
+  45% { transform: translateY(-14%) rotate(-6deg); }
+  75% { transform: translateY(0) scale(1.04, 0.95); }
+  100% { transform: none; }
+}
+@keyframes mt-swing { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+@keyframes mt-flutter { from { transform: translateY(0) rotate(-0.13deg); } to { transform: translateY(-2%) rotate(0.2deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .mt-track { animation: none; }
-  .mt-live::after { animation: none; }
+  .mt-moshi, .mt-moshi.is-poked, .mt-sign, .mt-tape { animation: none; }
 }

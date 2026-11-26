@@ -11,6 +11,7 @@ import Cursor from './components/site/Cursor';
 import HomePage from './pages/home/HomePage';
 import { ADMIN_BASE } from './config/adminPath';
 import { MAINTENANCE_MODE } from './config/maintenance';
+import { PUBLIC_PATHS } from './config/routes';
 import MaintenancePage from './pages/maintenance/MaintenancePage';
 
 // Routes load on demand.
@@ -30,21 +31,21 @@ const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const LeadsInbox = lazy(() => import('./pages/admin/LeadsInbox'));
 
-// Every public address. Anything else is a 404.
-const PUBLIC_ROUTES = [
-  ['/', HomePage],
-  ['/team', TeamPage],
-  ['/partners', PartnersPage],
-  ['/partners/apply', PartnershipFlow],
-  ['/journey', JourneyPage],
-  ['/events', EventsPage],
-  ['/portfolio', PortfolioPage],
-  ['/speakers', SpeakersPage],
-  ['/start-project', ProjectFlow],
-  ['/careers/community-manager', CareerFlow],
-  ['/privacy', PrivacyPage],
-  ['/terms', TermsPage],
-];
+// The page component for each public address (the list itself lives in config/routes).
+const PAGES = {
+  '/': HomePage,
+  '/team': TeamPage,
+  '/partners': PartnersPage,
+  '/partners/apply': PartnershipFlow,
+  '/journey': JourneyPage,
+  '/events': EventsPage,
+  '/portfolio': PortfolioPage,
+  '/speakers': SpeakersPage,
+  '/start-project': ProjectFlow,
+  '/careers/community-manager': CareerFlow,
+  '/privacy': PrivacyPage,
+  '/terms': TermsPage,
+};
 
 const PAGE_LOADER = <div className="min-h-screen bg-paper" aria-busy="true" />;
 
@@ -62,9 +63,10 @@ export default function App() {
                 <Routes>
                   {/* Public pages. While MAINTENANCE_MODE is on, each real page shows the
                       maintenance page instead; any address that is not a page shows the 404. */}
-                  {PUBLIC_ROUTES.map(([path, Page]) => (
-                    <Route key={path} path={path} element={MAINTENANCE_MODE ? <MaintenancePage /> : <Page />} />
-                  ))}
+                  {PUBLIC_PATHS.map((path) => {
+                    const Page = PAGES[path];
+                    return <Route key={path} path={path} element={MAINTENANCE_MODE ? <MaintenancePage /> : <Page />} />;
+                  })}
                   <Route path="*" element={<NotFound />} />
 
                   {/* CMS admin (secret path) */}

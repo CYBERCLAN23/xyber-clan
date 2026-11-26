@@ -9,6 +9,7 @@ export default defineConfig({
     outDir: 'build',
     sourcemap: false,
     chunkSizeWarningLimit: 900,
+    manifest: true, // read by scripts/prerender-maintenance.mjs, then deleted
   },
   server: { port: 3000 },
   test: { environment: 'node', include: ['src/**/*.test.{js,jsx}'] },

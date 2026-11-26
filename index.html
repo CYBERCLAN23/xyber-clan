@@ -7,6 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+  <!-- Theme + language before first paint (no flash of the wrong theme or language) -->
+  <script>
+    (function () {
+      try {
+        var d = document.documentElement;
+        var t = localStorage.getItem('xyberclan-theme-v2');
+        if (t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches) d.classList.add('dark');
+        var l = localStorage.getItem('xyber_lang');
+        if (l === 'fr' || l === 'en') d.lang = l;
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- Resource Hints (fonts are self-hosted; only Firebase is remote) -->
   <link rel="dns-prefetch" href="//firestore.googleapis.com">
   <link rel="dns-prefetch" href="//identitytoolkit.googleapis.com">
