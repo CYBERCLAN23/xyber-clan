@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Logo from '../../brand/Logo';
+// Layer boxes + pivots cut by scripts/maintenance-rig.py from the Frame 64 renders.
+import rig from './rig.json';
 import './maintenance.css';
 
 /*
@@ -9,7 +11,8 @@ import './maintenance.css';
  * build time (scripts/prerender-maintenance.mjs), so it paints from the first
  * HTML response with no JavaScript, no loader and no entrance effect. Both
  * languages are in the markup and CSS shows the one on <html lang>, so a French
- * visitor never sees English first. Idle motion is pure CSS.
+ * visitor never sees English first. All motion is pure CSS on the rig's layers:
+ * Moshi hammers and blinks, the sign swings, the page in the window rearranges.
  */
 
 const EMAIL = 'xyberclandev@gmail.com';
@@ -65,20 +68,23 @@ const L = ({ k }) => (
   </>
 );
 
-const srcSet = (name, widths, ext) => widths.map((w) => `${IMG}/${name}-v1-${w}.${ext} ${w}w`).join(', ');
+const V = rig.version;
+const LAYERS = rig.layers;
+const srcSet = (name, ext) => LAYERS[name].widths.map((w) => `${IMG}/${name}-${V}-${w}.${ext} ${w}w`).join(', ');
 
-/** AVIF with a WebP fallback, sized per viewport so phones fetch small files. */
-function Art({ name, widths, sizes, size, alt = '', priority = false, className, style }) {
+/** One rig layer: AVIF with a WebP fallback, sized per viewport so phones fetch small files. */
+function Art({ name, sizes, priority = false, className, style }) {
+  const { widths, box } = LAYERS[name];
   return (
     <picture className={className} style={style}>
-      <source type="image/avif" srcSet={srcSet(name, widths, 'avif')} sizes={sizes} />
+      <source type="image/avif" srcSet={srcSet(name, 'avif')} sizes={sizes} />
       <img
-        src={`${IMG}/${name}-v1-${widths[widths.length - 1]}.webp`}
-        srcSet={srcSet(name, widths, 'webp')}
+        src={`${IMG}/${name}-${V}-${widths[widths.length - 1]}.webp`}
+        srcSet={srcSet(name, 'webp')}
         sizes={sizes}
-        width={size[0]}
-        height={size[1]}
-        alt={alt}
+        width={box[2]}
+        height={box[3]}
+        alt=""
         decoding="async"
         fetchpriority={priority ? 'high' : undefined}
         draggable="false"
@@ -87,19 +93,59 @@ function Art({ name, widths, sizes, size, alt = '', priority = false, className,
   );
 }
 
-// Scene layout in the design frame's coordinates (Frame 64), as percentages of
-// the scene box, so it scales as one piece.
+// ── Geometry, all from the rig ────────────────────────────────────────
+// Each render maps onto the design frame (Frame 64); the scene is a window on
+// that frame, so the whole thing scales as one piece.
 const SCENE = { x: 1060, y: 70, w: 1290, h: 770 };
 const pct = (v) => `${(v * 100).toFixed(3)}%`;
-const box = (b) => ({
-  left: pct((b.x - SCENE.x) / SCENE.w),
-  top: pct((b.y - SCENE.y) / SCENE.h),
-  width: pct(b.w / SCENE.w),
-  height: pct(b.h / SCENE.h),
-});
-const MOSHI = box({ x: 1075.4, y: 225.5, w: 485.7, h: 554.7 });
-const CRANE = box({ x: 1628.8, y: 81.4, w: 697.6, h: 746.5 });
-const SIGN = box({ x: 1874.6, y: 221.3, w: 175.2, h: 183.8 });
+const toFrame = (name) => {
+  const { group, box: [x, y, w, h] } = LAYERS[name];
+  const P = rig.placement[group];
+  return { x: P.x + x * P.sx, y: P.y + y * P.sy, w: w * P.sx, h: h * P.sy };
+};
+const inScene = (name) => {
+  const b = toFrame(name);
+  return { left: pct((b.x - SCENE.x) / SCENE.w), top: pct((b.y - SCENE.y) / SCENE.h), width: pct(b.w / SCENE.w), height: pct(b.h / SCENE.h) };
+};
+/** A layer placed inside another layer of the same render (Moshi's parts inside his body box). */
+const inLayer = (name, parent) => {
+  const [x, y, w, h] = LAYERS[name].box;
+  const [px, py, pw, ph] = LAYERS[parent].box;
+  return { left: pct((x - px) / pw), top: pct((y - py) / ph), width: pct(w / pw), height: pct(h / ph) };
+};
+const pivot = (name) => {
+  const { box: [x, y, w, h], pivot: [vx, vy] } = LAYERS[name];
+  return `${pct((vx - x) / w)} ${pct((vy - y) / h)}`;
+};
+const withPivot = (style, name) => ({ ...style, transformOrigin: pivot(name) });
+
+// Where the hammer's face lands at the bottom of the strike (−12° at the shoulder).
+const STRIKE = -12;
+const FACE = [185, 163];
+const SPARK = (() => {
+  const [ox, oy] = LAYERS['moshi-arm'].pivot;
+  const t = (STRIKE * Math.PI) / 180;
+  const dx = FACE[0] - ox;
+  const dy = FACE[1] - oy;
+  const x = ox + dx * Math.cos(t) - dy * Math.sin(t);
+  const y = oy + dx * Math.sin(t) + dy * Math.cos(t);
+  const [bx, by, bw, bh] = LAYERS['moshi-body'].box;
+  return { left: pct((x - bx) / bw), top: pct((y - by) / bh) };
+})();
+
+/** `sizes` for a layer: its share of the scene, which is ≈55vw wide on desktop and ≈90vw on phones. */
+const sizesFor = (name) => {
+  const share = toFrame(name).w / SCENE.w;
+  return `(min-width: 960px) ${(55 * share).toFixed(1)}vw, ${(90 * share).toFixed(1)}vw`;
+};
+
+const MOSHI = inScene('moshi-body');
+const ARM = withPivot(inLayer('moshi-arm', 'moshi-body'), 'moshi-arm');
+const EYE_L = withPivot(inLayer('moshi-eye-l', 'moshi-body'), 'moshi-eye-l');
+const EYE_R = withPivot(inLayer('moshi-eye-r', 'moshi-body'), 'moshi-eye-r');
+const CRANE = inScene('crane');
+const SIGN = withPivot(inScene('crane-sign'), 'crane-sign');
+const PAGE_BLOCKS = ['hero', 'sun', 'bar1', 'bar2', 'card1', 'card2', 'card3', 'button', 'small'];
 const BUBBLE = { left: pct((1290 - SCENE.x) / SCENE.w), top: pct((215 - SCENE.y) / SCENE.h) };
 
 export default function MaintenancePage() {
@@ -169,10 +215,21 @@ export default function MaintenancePage() {
         </div>
 
         <div className="mt-scene">
-          <Art name="crane" widths={[420, 700, 1127]} size={[1127, 1206]} sizes="(min-width: 960px) 30vw, 58vw" className="mt-crane" style={CRANE} />
-          <Art name="crane-sign" widths={[283]} size={[283, 297]} sizes="160px" className="mt-sign" style={SIGN} />
-          <button ref={moshiRef} type="button" className="mt-moshi" style={MOSHI} onClick={poke} onAnimationEnd={(e) => e.currentTarget.classList.remove('is-poked')} aria-label={c.moshi}>
-            <Art name="moshi-builder" widths={[360, 560, 800, 1036]} size={[1036, 1182]} sizes="(min-width: 960px) 22vw, 40vw" priority />
+          <Art name="crane" sizes={sizesFor('crane')} className="mt-crane" style={CRANE} />
+          {PAGE_BLOCKS.map((k) => (
+            <Art key={k} name={`win-${k}`} sizes={sizesFor(`win-${k}`)} className={`mt-win mt-win-${k}`} style={inScene(`win-${k}`)} />
+          ))}
+          <Art name="crane-sign" sizes={sizesFor('crane-sign')} className="mt-sign" style={SIGN} />
+          <button ref={moshiRef} type="button" className="mt-moshi" style={MOSHI} onClick={poke} onAnimationEnd={(e) => { if (e.target === e.currentTarget) e.currentTarget.classList.remove('is-poked'); }} aria-label={c.moshi}>
+            <span className="mt-rig">
+              <Art name="moshi-body" sizes={sizesFor('moshi-body')} priority className="mt-body" />
+              <Art name="moshi-eye-l" sizes={sizesFor('moshi-eye-l')} className="mt-eye" style={EYE_L} />
+              <Art name="moshi-eye-r" sizes={sizesFor('moshi-eye-r')} className="mt-eye" style={EYE_R} />
+              <Art name="moshi-arm" sizes={sizesFor('moshi-arm')} className="mt-arm" style={ARM} />
+              <svg className="mt-spark" style={SPARK} viewBox="-40 -40 80 80" aria-hidden="true">
+                <path d="M-12 0H-34M-9-9-25-23M-9 9-25 23M0-12V-30M0 12V30" />
+              </svg>
+            </span>
           </button>
           <p className={`mt-bubble${bubble.on ? ' is-on' : ''}`} style={BUBBLE} aria-live="polite">
             {bubble.on ? c.lines[bubble.i] : ''}
@@ -182,8 +239,8 @@ export default function MaintenancePage() {
 
       <div className="mt-tapes" aria-hidden="true">
         <div className="mt-tapes-in">
-          <Art name="tape" widths={[900, 1400, 1774]} size={[1774, 493]} sizes="(min-width: 1300px) 77vw, 1000px" className="mt-tape mt-tape-1" />
-          <Art name="tape" widths={[900, 1400, 1774]} size={[1774, 493]} sizes="(min-width: 1300px) 77vw, 1000px" className="mt-tape mt-tape-2" />
+          <Art name="tape" sizes="(min-width: 1300px) 77vw, 1000px" className="mt-tape mt-tape-1" />
+          <Art name="tape" sizes="(min-width: 1300px) 77vw, 1000px" className="mt-tape mt-tape-2" />
         </div>
       </div>
     </div>
