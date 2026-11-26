@@ -30,6 +30,22 @@ const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const LeadsInbox = lazy(() => import('./pages/admin/LeadsInbox'));
 
+// Every public address. Anything else is a 404.
+const PUBLIC_ROUTES = [
+  ['/', HomePage],
+  ['/team', TeamPage],
+  ['/partners', PartnersPage],
+  ['/partners/apply', PartnershipFlow],
+  ['/journey', JourneyPage],
+  ['/events', EventsPage],
+  ['/portfolio', PortfolioPage],
+  ['/speakers', SpeakersPage],
+  ['/start-project', ProjectFlow],
+  ['/careers/community-manager', CareerFlow],
+  ['/privacy', PrivacyPage],
+  ['/terms', TermsPage],
+];
+
 const PAGE_LOADER = <div className="min-h-screen bg-paper" aria-busy="true" />;
 
 export default function App() {
@@ -44,26 +60,12 @@ export default function App() {
               <Snowfall />
               <Suspense fallback={PAGE_LOADER}>
                 <Routes>
-                  {/* Public (replaced by the maintenance page while MAINTENANCE_MODE is on) */}
-                  {MAINTENANCE_MODE ? (
-                    <Route path="*" element={<MaintenancePage />} />
-                  ) : (
-                    <>
-                      <Route path="/" element={<HomePage />} />
-                      <Route path="/team" element={<TeamPage />} />
-                      <Route path="/partners" element={<PartnersPage />} />
-                      <Route path="/partners/apply" element={<PartnershipFlow />} />
-                      <Route path="/journey" element={<JourneyPage />} />
-                      <Route path="/events" element={<EventsPage />} />
-                      <Route path="/portfolio" element={<PortfolioPage />} />
-                      <Route path="/speakers" element={<SpeakersPage />} />
-                      <Route path="/start-project" element={<ProjectFlow />} />
-                      <Route path="/careers/community-manager" element={<CareerFlow />} />
-                      <Route path="/privacy" element={<PrivacyPage />} />
-                      <Route path="/terms" element={<TermsPage />} />
-                      <Route path="*" element={<NotFound />} />
-                    </>
-                  )}
+                  {/* Public pages. While MAINTENANCE_MODE is on, each real page shows the
+                      maintenance page instead; any address that is not a page shows the 404. */}
+                  {PUBLIC_ROUTES.map(([path, Page]) => (
+                    <Route key={path} path={path} element={MAINTENANCE_MODE ? <MaintenancePage /> : <Page />} />
+                  ))}
+                  <Route path="*" element={<NotFound />} />
 
                   {/* CMS admin (secret path) */}
                   <Route path={ADMIN_BASE} element={<AdminLayout />}>
