@@ -129,14 +129,18 @@ export default function NotFound() {
         id="main"
         ref={root}
         tabIndex={-1}
-        className="flex min-h-[100svh] flex-col items-center overflow-hidden px-4 pb-6 pt-[clamp(20px,5vh,72px)] text-center outline-none"
+        className="flex min-h-[100svh] flex-col items-center overflow-hidden px-4 pb-[clamp(24px,5vh,56px)] pt-[clamp(20px,5vh,56px)] text-center outline-none"
       >
-        <div className="flex flex-1 flex-col items-center justify-center">
+        <Link to="/" data-nf="fade" aria-label="XyberClan home" className="nf-logo">
+          <Logo variant="lockup" decorative className="h-auto w-full" />
+        </Link>
+
+        <div className="flex flex-1 flex-col items-center justify-center pt-[clamp(20px,5vh,64px)]">
         <svg
           viewBox={VIEW}
           role="img"
           aria-label="404"
-          className="nf-scene h-auto w-[min(760px,94vw,calc((100svh-430px)*1.45))] min-w-[280px] overflow-visible"
+          className="nf-scene h-auto w-[min(760px,94vw,calc((100svh-480px)*1.45))] min-w-[280px] overflow-visible"
         >
           <path data-nf="digit" d={DIGITS.four} fill="var(--ink)" fillOpacity="0.81" />
           <path data-nf="digit" d={DIGITS.zero} fill="var(--ink)" fillOpacity="0.81" />
@@ -151,22 +155,18 @@ export default function NotFound() {
           </g>
         </svg>
 
-        <h1 data-nf="fade" className="nf-title mt-[clamp(8px,2.5vh,32px)]">
+        <T data-nf="fade" k="notFound.quip" fb={c.quip} as="p" className="nf-quip mt-[clamp(14px,3vh,40px)]" />
+        <h1 data-nf="fade" className="nf-title mt-[clamp(10px,2.4vh,30px)]">
           <T k="notFound.titleA" fb={c.titleA} />{' '}
           <T k="notFound.titleB" fb={c.titleB} className="text-[#56C1EE]" />
         </h1>
-        <T data-nf="fade" k="notFound.quip" fb={c.quip} as="p" className="nf-quip mt-[clamp(10px,2vh,22px)] text-ink-2" />
 
-        <div data-nf="fade" className="mt-[clamp(24px,4.5vh,48px)]">
+        <div data-nf="fade" className="mt-[clamp(24px,4.5vh,52px)]">
           <Link to="/" className="nf-home">
             <T k="notFound.home" fb={c.home} />
           </Link>
         </div>
         </div>
-
-        <Link to="/" data-nf="fade" aria-label="XyberClan home" className="pt-[clamp(28px,5vh,56px)]">
-          <Logo variant="lockup" decorative className="h-auto w-[clamp(120px,12vw,168px)]" />
-        </Link>
       </main>
     </>
   );
