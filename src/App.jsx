@@ -10,6 +10,8 @@ import Preloader from './components/site/Preloader';
 import Cursor from './components/site/Cursor';
 import HomePage from './pages/home/HomePage';
 import { ADMIN_BASE } from './config/adminPath';
+import { MAINTENANCE_MODE } from './config/maintenance';
+import MaintenancePage from './pages/maintenance/MaintenancePage';
 
 // Routes load on demand.
 const TeamPage = lazy(() => import('./pages/team/TeamPage'));
@@ -37,24 +39,31 @@ export default function App() {
         <CMSProvider>
           <Router>
             <SmoothScroll>
-              <Preloader />
+              {!MAINTENANCE_MODE && <Preloader />}
               <Cursor />
               <Snowfall />
               <Suspense fallback={PAGE_LOADER}>
                 <Routes>
-                  {/* Public */}
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/team" element={<TeamPage />} />
-                  <Route path="/partners" element={<PartnersPage />} />
-                  <Route path="/partners/apply" element={<PartnershipFlow />} />
-                  <Route path="/journey" element={<JourneyPage />} />
-                  <Route path="/events" element={<EventsPage />} />
-                  <Route path="/portfolio" element={<PortfolioPage />} />
-                  <Route path="/speakers" element={<SpeakersPage />} />
-                  <Route path="/start-project" element={<ProjectFlow />} />
-                  <Route path="/careers/community-manager" element={<CareerFlow />} />
-                  <Route path="/privacy" element={<PrivacyPage />} />
-                  <Route path="/terms" element={<TermsPage />} />
+                  {/* Public (replaced by the maintenance page while MAINTENANCE_MODE is on) */}
+                  {MAINTENANCE_MODE ? (
+                    <Route path="*" element={<MaintenancePage />} />
+                  ) : (
+                    <>
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="/team" element={<TeamPage />} />
+                      <Route path="/partners" element={<PartnersPage />} />
+                      <Route path="/partners/apply" element={<PartnershipFlow />} />
+                      <Route path="/journey" element={<JourneyPage />} />
+                      <Route path="/events" element={<EventsPage />} />
+                      <Route path="/portfolio" element={<PortfolioPage />} />
+                      <Route path="/speakers" element={<SpeakersPage />} />
+                      <Route path="/start-project" element={<ProjectFlow />} />
+                      <Route path="/careers/community-manager" element={<CareerFlow />} />
+                      <Route path="/privacy" element={<PrivacyPage />} />
+                      <Route path="/terms" element={<TermsPage />} />
+                      <Route path="*" element={<NotFound />} />
+                    </>
+                  )}
 
                   {/* CMS admin (secret path) */}
                   <Route path={ADMIN_BASE} element={<AdminLayout />}>
@@ -68,8 +77,6 @@ export default function App() {
                     <Route path="start-project" element={<ProjectFlow />} />
                     <Route path="leads" element={<LeadsInbox />} />
                   </Route>
-
-                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </SmoothScroll>

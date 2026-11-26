@@ -1,0 +1,137 @@
+/* Maintenance page: Moshi's building site. */
+
+.mt {
+  --hazard: #ffb627;
+  --hazard-deep: #e39a0c;
+  --hazard-ink: #1e1e1e;
+  --wood: #c98a4b;
+  --wood-deep: #a96b33;
+}
+
+/* ── Caution tape ─────────────────────────────────────────── */
+.mt-tapes {
+  position: relative;
+  height: clamp(120px, 14vw, 170px);
+  pointer-events: none;
+}
+.mt-tape {
+  position: absolute;
+  left: -5%;
+  width: 110%;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  height: clamp(46px, 4.6vw, 62px);
+  background: var(--hazard);
+  color: var(--hazard-ink);
+  overflow: hidden;
+}
+.mt-tape::before,
+.mt-tape::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 9px;
+  background: repeating-linear-gradient(-45deg, var(--hazard-ink) 0 12px, var(--hazard) 12px 24px);
+}
+.mt-tape::before { top: 0; }
+.mt-tape::after { bottom: 0; }
+.mt-tape--a { transform: translateY(-62%) rotate(-3deg); z-index: 2; }
+.mt-tape--b { transform: translateY(-38%) rotate(2.4deg); background: var(--hazard-deep); }
+.mt-tape--b::before,
+.mt-tape--b::after { background: repeating-linear-gradient(45deg, var(--hazard-ink) 0 12px, var(--hazard-deep) 12px 24px); }
+
+.mt-track {
+  display: flex;
+  flex: none;
+  white-space: nowrap;
+  animation: mt-marquee 26s linear infinite;
+  will-change: transform;
+}
+.mt-tape--b .mt-track { animation-direction: reverse; animation-duration: 32s; }
+.mt-track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
+  padding-right: 0.9em;
+  font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.mt-track svg { width: 0.7em; height: 0.7em; flex: none; }
+
+@keyframes mt-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── Status ticker ────────────────────────────────────────── */
+.mt-ticker-word {
+  display: inline-block;
+  animation: mt-tick 0.55s var(--ease-out) both;
+}
+@keyframes mt-tick {
+  from { transform: translateY(0.6em) rotate(2deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.mt-live {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hazard);
+  flex: none;
+}
+.mt-live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--hazard);
+  animation: mt-ping 1.6s var(--ease-out) infinite;
+}
+@keyframes mt-ping {
+  from { transform: scale(1); opacity: 0.7; }
+  to { transform: scale(2.8); opacity: 0; }
+}
+
+/* ── Poke target + speech bubble ──────────────────────────── */
+.mt-poke {
+  position: absolute;
+  left: 23%;
+  top: 31%;
+  width: 25%;
+  height: 63%;
+  border-radius: 40% 40% 24% 24%;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mt-poke:focus-visible { outline: 3px solid var(--brand-cyan); outline-offset: 4px; }
+
+.mt-bubble {
+  position: absolute;
+  left: 37%;
+  top: 4%;
+  max-width: min(17rem, 46%);
+  padding: 0.8rem 1.1rem;
+  border-radius: 20px 20px 20px 6px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: clamp(0.92rem, 1.15vw, 1.05rem);
+  font-weight: 520;
+  line-height: 1.3;
+  transform-origin: 12% 100%;
+  transform: scale(0.6) translateY(12px);
+  opacity: 0;
+  transition: transform 0.45s var(--ease-spring), opacity 0.25s var(--ease-out);
+  pointer-events: none;
+}
+.mt-bubble[data-show="true"] { transform: none; opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mt-track { animation: none; }
+  .mt-live::after { animation: none; }
+}
